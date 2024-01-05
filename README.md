@@ -86,12 +86,5 @@
 ㅤ
 ## Credits:
 
-Kaitp1016 - Auto Refill Ender Pearls
-
-Odtheking - M7 Dragon Box & Dragon Spawn Timer, I HATE DIORITE
-
-Pazz - Arrows Alert, Watcher Alert
-
-Bloom - I HATE CARPETS
-
-HypixelUtilities - for some code
+thanks Kaitp1016, Odtheking, Pazz, Bloom, HypixelUtilities:
+for some refraence code
