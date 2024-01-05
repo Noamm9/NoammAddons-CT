@@ -28,7 +28,7 @@
 
 
 ## commands
-    - `/na`: Opens the settings' menu.
+    - /na : Opens the settings' menu.
     - other aliases:
 		/noamm, /noam, /noammaddons, /noamaddons 
 
