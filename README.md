@@ -1,9 +1,9 @@
 
 ## Table of Contents
 
-- [Setup](#setup)
-- [Commands](#commands)
-- [Features](#features)
+- [Setup](#Setup)
+- [Commands](#Commands)
+- [Features](#Features)
 </br>
 
 ## Setup
@@ -27,7 +27,7 @@
 </br>
 
 
-## Settings command
+## commands
     - `/na`: Opens the settings' menu.
     - other aliases:
 		/noamm, /noam, /noammaddons, /noamaddons 
