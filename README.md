@@ -41,7 +41,7 @@
 
 **M7 Dragon Spawn Timer** - Draws a "Accurate" Dragon Spawn Timer for M7-P5
 
-**Auto Refill Ender Pearls** - Automatically &erefill &3Ender Pearls&r from sack at the start of a dungeon run
+**Auto Refill Ender Pearls** - Automatically refill &3Ender Pearls from sack at the start of a dungeon run
 
 **Custom FOV** - Allows to set Custom Minecraft FOV (Field of View)
 
