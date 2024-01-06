@@ -11,7 +11,7 @@
 ### <u>Before Installation:</u>
 1. **Install Forge:** Ensure that you have [Forge](https://files.minecraftforge.net/net/minecraftforge/forge/index_1.8.9.html) installed to enable mod compatibility.
 
-2. **Install ChatTriggers:** You'll need [ChatTriggers](https://www.chattriggers.com) installed to run JS modules.
+2. **Install ChatTriggers:** You'll need [ChatTriggers](https://www.chattriggers.com) installed to run this CT module.
 
 ### <u>Manual Installation:</u>
 1. **Download:** Get the zip file from github
