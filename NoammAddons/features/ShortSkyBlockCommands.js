@@ -75,9 +75,9 @@ register("command", () => {
 	if (!Settings.ShortSkyBlockCommands) return
 	new Thread(() => {
 		ChatLib.command("l");
-		Thread.sleep(750);
+		Thread.sleep(1000);
 		ChatLib.command("play skyblock");
-		Thread.sleep(750);
+		Thread.sleep(1000);
 		ChatLib.command("warp dungeon_hub");
 	}).start();
 }).setName("ldung");
@@ -86,9 +86,9 @@ register("command", () => {
 	if (!Settings.ShortSkyBlockCommands) return
 	new Thread(() => {
 		ChatLib.command("l");
-		Thread.sleep(750)
+		Thread.sleep(1000)
 		ChatLib.command("play skyblock");
-		Thread.sleep(750)
+		Thread.sleep(1000)
 		ChatLib.command("warp end");
 }).start();
 }).setName("lend");
@@ -97,9 +97,9 @@ register("command", () => {
 	if (!Settings.ShortSkyBlockCommands) return
 	new Thread(() => {
 		ChatLib.command("l");
-		Thread.sleep(750);
+		Thread.sleep(1000);
 		ChatLib.command("play skyblock");
-		Thread.sleep(750);
+		Thread.sleep(1000);
 		ChatLib.command("warp deep");
 	}).start();
 }).setName("ldeep");
@@ -108,9 +108,9 @@ register("command", () => {
 	if (!Settings.ShortSkyBlockCommands) return
 	new Thread(() => {
 		ChatLib.command("l");
-		Thread.sleep(750);
+		Thread.sleep(1000);
 		ChatLib.command("play skyblock");
-		Thread.sleep(750);
+		Thread.sleep(1000);
 		ChatLib.command("warp park");
 	}).start();
 }).setName("lpark");
@@ -119,9 +119,9 @@ register("command", () => {
 	if (!Settings.ShortSkyBlockCommands) return
 	new Thread(() => {
 		ChatLib.command("l");
-		Thread.sleep(750);
+		Thread.sleep(1000);
 		ChatLib.command("play skyblock");
-		Thread.sleep(750);
+		Thread.sleep(1000);
 		ChatLib.command("warp nether");
 	}).start();;
 }).setName("lnether");
@@ -130,9 +130,9 @@ register("command", () => {
 	if (!Settings.ShortSkyBlockCommands) return
 	new Thread(() => {
 		ChatLib.command("l");
-		Thread.sleep(750);
+		Thread.sleep(1000);
 		ChatLib.command("play skyblock");
-		Thread.sleep(750);
+		Thread.sleep(1000);
 		ChatLib.command("warp desert");
 	}).start();
 }).setName("ldesert");
@@ -141,9 +141,9 @@ register("command", () => {
 	if (!Settings.ShortSkyBlockCommands) return
 	new Thread(() => {
 		ChatLib.command("l");
-		Thread.sleep(750);
+		Thread.sleep(1000);
 		ChatLib.command("play skyblock");
-		Thread.sleep(750);
+		Thread.sleep(1000);
 		ChatLib.command("warp spider");
 	}).start();
 }).setName("lspider");
@@ -152,9 +152,9 @@ register("command", () => {
 	if (!Settings.ShortSkyBlockCommands) return
 	new Thread(() => {
 		ChatLib.command("l");
-		Thread.sleep(750);
+		Thread.sleep(1000);
 		ChatLib.command("play skyblock");
-		Thread.sleep(750);
+		Thread.sleep(1000);
 		ChatLib.command("warp barn");
 	}).start();
 }).setName("lbarn");
@@ -183,7 +183,7 @@ register("command", () => {
 	ChatLib.chat("§b/pt      (alias for '/party transfer'");
 	ChatLib.chat("§b/pd      ( alias for '/party disband'");
 	ChatLib.chat("§e Note: if you will add the latter 'L'"); 
-	ChatLib.chat("before all of the warp commands if will");
-	ChatLib.chat("force the warp teleport even if you are in combat for exsample");
+	ChatLib.chat("§ebefore all of the warp commands it will");
+	ChatLib.chat("§eforce the warp teleport even if you are in combat for exsample");
 	ChatLib.chat("§e §l--------------------------");
 }).setName("ssbc");
