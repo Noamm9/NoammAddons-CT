@@ -178,7 +178,6 @@ register("command", () => {
 	ChatLib.chat("§b/skills     (Opens the Skill menu)");
 	ChatLib.chat("§b/sb     (Joins SkyBlock [can work from anyplace]");
 	ChatLib.chat("§b/deep     (Warp you to Deep Caverns)");
-	ChatLib.chat("§b/ping     (Check your ping)");
 	ChatLib.chat("§b/pk      (alias for '/party kick')");
 	ChatLib.chat("§b/pt      (alias for '/party transfer'");
 	ChatLib.chat("§b/pd      ( alias for '/party disband'");
