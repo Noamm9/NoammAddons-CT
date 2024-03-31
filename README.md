@@ -83,8 +83,3 @@
 
 
 
-ㅤ
-## Credits:
-
-thanks Kaitp1016, Odtheking, Pazz, Bloom, HypixelUtilities:
-for some refraence code
