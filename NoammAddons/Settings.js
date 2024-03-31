@@ -10,13 +10,13 @@ const PropertyType = Java.type("gg.essential.vigilance.data.PropertyType");
     guiTitle = "§dNoamm§bAddons"
 )
 class Settings {
-    @SwitchProperty({
+/*    @SwitchProperty({
         name: "&l&cI HATE CARPETS",
         description: "Replace all Carpet blocks in a radius of 3 block from the Player to AirBlocks to avoid useless LagBacks",
         category: "Toggle",
         subcategory: ""
     })
-    IHateCarpets = false;
+    IHateCarpets = false; */
     
     @SwitchProperty({
         name: "&l&cI HATE DIORITE",
