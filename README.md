@@ -41,7 +41,7 @@
 
 **M7 Dragon Spawn Timer** - Draws a "Accurate" Dragon Spawn Timer for M7-P5
 
-**Auto Refill Ender Pearls** - Automatically refill &3Ender Pearls from sack at the start of a dungeon run
+**Auto Refill Ender Pearls** - Automatically refill Ender Pearls from sack at the start of a dungeon run
 
 **Custom FOV** - Allows to set Custom Minecraft FOV (Field of View)
 
@@ -63,13 +63,13 @@
 
 **Phonix Pet Timer** - Draws a very accurate Display that shows the cooldown of the Phonix Pet "Rekindle" Ability
 
-**Short SkyBlock Commands** - Enables a list of useful short version of skyblock's commands (type /ssbc for help)
+**Short SkyBlock Commands** - Enables a list of useful short version of skyblock's commands
 
 **Watcher Alerts** - Shows on screen when the Watcher has finish spawning mobs and when blood is done
 
 **M7 Ragnarock Axe Alert** - Shows on screen when to use Ragnarock Axe before p5 starts
 
-**M6 Gyro Alerts** - Shows on screen when to Gyro at Terracotta phase (still need some more work tbh)
+**M6 Gyro Alerts** - Shows on screen when to Gyro at Terracotta phase
 
 **Lock Chest Alert** - Shows on screen when the chest you tried to open is locked
 
