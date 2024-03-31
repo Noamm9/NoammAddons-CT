@@ -31,7 +31,7 @@ ChatLib.chat("§e----------------------");
 console.log("----------------------");
 console.log(" NoammAddons Loaded");
 console.log("----------------------");
-/*
+
 register('chat', (event) => {
     let formattedMessage = ChatLib.getChatMessage(event, true)
     if (formattedMessage.includes("Noamm")) {
@@ -40,7 +40,7 @@ register('chat', (event) => {
         ChatLib.chat(formattedMessage)
     }    
 })
-*/
+
 
 
 
