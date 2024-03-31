@@ -195,7 +195,7 @@ class Settings {
 
     @ButtonProperty({
         name: "§eMove&r &fSpirit Mask&r &eTimer&r",
-        description: "&f9Edit the Spirit Mask&r &eTimer&r &fPosition and Scale &l(Drag the text to move it, Scroll with the mouse wheel to change the scale of the text) &r&dMake sure that the Toggle is enable before you try to use this option else it wont work",
+        description: "&fEdit the Spirit Mask&r &eTimer&r &fPosition and Scale &l(Drag the text to move it, Scroll with the mouse wheel to change the scale of the text) &r&dMake sure that the Toggle is enable before you try to use this option else it wont work",
         category: "Edit GUI",
         subcategory: "",
         placeholder: "MOVE"
