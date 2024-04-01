@@ -47,8 +47,6 @@
 
 **Pink DMs** - Changes the Color of the Private massage in Hypixel from Gray to Pink
 
-**I HATE CARPETS** - Replace all Carpet blocks in a radius of 3 block from the Player to AirBlocks to avoid useless LagBacks
-
 **I HATE DIORITE** - Replace the Diorite blocks at the F7/M7 P2 to Glass blocks (Alternative to trying to see Storm's name tag through blocks)
 
 **Legit Ghost Pickaxe** - This is meant for people that lock all of their the inventory slots and are too lazy to unlock them every time they want to create a ghost pickaxe
