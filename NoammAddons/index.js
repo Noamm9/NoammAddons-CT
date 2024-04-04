@@ -36,7 +36,7 @@ register('chat', (event) => {
     let formattedMessage = ChatLib.getChatMessage(event, true)
     if (formattedMessage.includes("Noamm")) {
         cancel(event)
-        formattedMessage = formattedMessage.replace("Noamm", "&l&dN&b&lo&d&la&b&lm&d&lm&r");
+        formattedMessage = formattedMessage.replace("Noamm9", "&l&dN&b&lo&d&la&b&lm&d&lmb&l9&r");
         ChatLib.chat(formattedMessage)
     }    
 })
