@@ -43,6 +43,8 @@
 
 **Auto Refill Ender Pearls** - Automatically refill Ender Pearls from sack at the start of a dungeon run
 
+**Better Ender Pearls** - Disable's Hypixel's stupid Ender Pearls throw block when you are too close to a wall/floor/ceiling
+
 **Custom FOV** - Allows to set Custom Minecraft FOV (Field of View)
 
 **Pink DMs** - Changes the Color of the Private massage in Hypixel from Gray to Pink
