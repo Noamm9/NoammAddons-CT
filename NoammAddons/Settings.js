@@ -26,6 +26,14 @@ class Settings {
     })
     IHateDiorite = false
     
+    @SwitchProperty({
+        name: "&eBetter &3Ender Pearls",
+        description: "Disable's Hypixel's stupid Ender Pearls throw block when you are too close to a wall/floor/ceiling",
+        category: "Toggle",
+        subcategory: ""
+    })
+    BetterEnderPearls = false
+
 	@SwitchProperty({
         name: "&bLegit Ghost Pickaxe",
         description: "&fThis is meant for people that lock all of their the inventory slots and are too lazy to unlock them every time they want to create a ghost pickaxe &l(Controlled by a keybind within Options/Controls)",

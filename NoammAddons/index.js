@@ -23,6 +23,7 @@ import "./features/ShortSkyBlockCommands"
 import "./features/WatcherAlert"
 import "./features/RandomAlerts"
 import "./features/LowArrowsAlert"
+import "./features/BetterEnderPearls"
 
 ChatLib.chat("§e----------------------");
 ChatLib.chat("§bNoamm&dAddons &aLoaded");
@@ -34,9 +35,9 @@ console.log("----------------------");
 
 register('chat', (event) => {
     let formattedMessage = ChatLib.getChatMessage(event, true)
-    if (formattedMessage.includes("Noamm")) {
+    if (formattedMessage.includes("Noamm9")) {
         cancel(event)
-        formattedMessage = formattedMessage.replace("Noamm9", "&l&dN&b&lo&d&la&b&lm&d&lmb&l9&r");
+        formattedMessage = formattedMessage.replace("Noamm9", "&l&dN&b&lo&d&la&b&lm&d&lm&b&l9&r");
         ChatLib.chat(formattedMessage)
     }    
 })
