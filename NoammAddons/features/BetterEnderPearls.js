@@ -3,10 +3,11 @@
 
 import Settings from "../Settings";
 
+const item = [ "Ender Pearl"]
+
 register("playerInteract", (action, pos, event) => {
     if (!Settings.BetterEnderPearls) return
     if (action.toString() !== "RIGHT_CLICK_BLOCK") return
-    if (Player.getHeldItem()?.getName() == "Ender Pearl") {
-        cancel(event)
-    }
+    if (!Player.getHeldItem()?.getName() || !item.some(a => Player.getHeldItem()?.getName().includes(a))) return
+    cancel(event)
 })
