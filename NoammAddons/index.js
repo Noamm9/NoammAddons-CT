@@ -2,7 +2,6 @@
 /// <reference lib="es2015" />
 
 
-import RenderLib from "../RenderLib"
 import Settings from "./Settings";
 register("command", () => Settings.openGUI()).setName("noamm").setAliases("noam", "noamaddons", "noammaddons", "na")
 
@@ -12,7 +11,7 @@ import "./features/BonzoMaskTimer"
 import "./features/SpiritMaskTimer"
 import "./features/PhonixPetTimer"
 import "./features/CustomFOV"
-// import "./features/IHATECARPETS"
+// import "./features/IHATECARPETS" // thx hypixel for fix it ):
 import "./features/IHATEDIORITE" 
 import "./features/NoSwordBlock"
 import "./features/M7DragBox"
@@ -24,6 +23,8 @@ import "./features/WatcherAlert"
 import "./features/RandomAlerts"
 import "./features/LowArrowsAlert"
 import "./features/BetterEnderPearls"
+import "./features/DungeonMobESP"
+import "./features/DungeonAutoExtraStats"
 
 ChatLib.chat("§e----------------------");
 ChatLib.chat("§bNoamm&dAddons &aLoaded");
@@ -41,9 +42,6 @@ register('chat', (event) => {
         ChatLib.chat(formattedMessage)
     }    
 })
-
-
-
 
 
 

@@ -2,7 +2,7 @@
 /// <reference lib="es2015" />
 
 
-import { @Vigilant, @TextProperty, @ColorProperty, @ButtonProperty, @SwitchProperty, @SliderProperty, Color } from 'Vigilance';
+import { @Vigilant, @TextProperty, @ColorProperty, @ButtonProperty, @SwitchProperty, @SliderProperty, @SelectorProperty, Color } from 'Vigilance';
 const PropertyType = Java.type("gg.essential.vigilance.data.PropertyType");
 
 @Vigilant(
@@ -93,7 +93,6 @@ class Settings {
     })
 	M7DragTimer = false
 
-
     @SwitchProperty({
         name: "Auto &eRefill &3Ender Pearls",
         description: 'Automatically &erefill &3Ender Pearls&r from sack at the start of a dungeon run (does not work properly if you have spirit leaps in inventory)',
@@ -101,6 +100,14 @@ class Settings {
         subcategory: ""
     })
 	AutoRefillEnderPearls = false
+
+    @SwitchProperty({
+        name: "Dungeon Auto Extra Stats",
+        description: "Automatically types the command to show extra the extra dungeon stats at the end of the run",
+        category: "Toggle",
+        subcategory: ""
+    })
+    DungeonAutoExtraStats = false
 
 	@SwitchProperty({
         name: "&fCustom FOV",
@@ -119,6 +126,33 @@ class Settings {
         max: 179
     })
     FOV = Client.settings.getFOV();
+
+    @SwitchProperty({
+        name: "&fDungeon Mob ESP",
+        description: "&fDraw a see through wall box around stared dungeon mobs",
+        category: "Toggle",
+        subcategory: ""
+    })
+	DungeonMobESP = false
+
+    @SelectorProperty({
+        name: '&dC&bo&dl&bo&dr',
+        description: 'Select an option for the Dungeon Mob ESP box color',
+        category: 'Toggle',
+        subcategory: '',
+        options: 
+        [
+            "WHITE", //0
+            "RED",
+            "GREEN",
+            "BLUE",
+            "AQUA",
+            "YELLOW",
+            "BLACK",
+            "MAGENTA",
+        ],
+    })
+    mycolorOptions = 0; 
 
 	@SwitchProperty({
         name: "&dPink&r DMs",
