@@ -60,7 +60,7 @@ class Settings {
         name: "&aRemove Sword Block",
         description: "&fEnables Minecraft 1.9 RightClick animation to the following swords: All Wither blades, Rogue Sword, wither cloak, Aspect of the end, All Jerry Swords, All VoidGloom Katanas, Aspect of the Dragons",
         category: "General",
-        subcategory: "test"
+        subcategory: ""
     })
     NoSwordBlock = false
     @SwitchProperty({
