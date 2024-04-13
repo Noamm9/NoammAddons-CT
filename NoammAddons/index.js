@@ -9,7 +9,7 @@ import "./features/RemoveSelfieCam"
 import "./features/AutoRefillEnderPearls"
 import "./features/BonzoMaskTimer"
 import "./features/SpiritMaskTimer"
-import "./features/PhonixPetTimer"
+import "./features/PhoenixPetTimer"
 import "./features/CustomFOV"
 // import "./features/IHATECARPETS" // thx hypixel for fix it ):
 import "./features/IHATEDIORITE" 

@@ -39,7 +39,7 @@ register("chat", () => {
 }).setCriteria("Second Wind Activated! Your Spirit Mask saved your life!")
 
 register("chat", () => {
-	if (Settings.PhonixPetAlert) {
-		Client.showTitle("&5Phonix Pet used!", "", 0, 40, 10)
+	if (Settings.PhoenixPetAlert) {
+		Client.showTitle("&5Phoenix Pet used!", "", 0, 40, 10)
 	}
 }).setCriteria("Your Phoenix Pet saved you from certain death!").setParameter("contains")

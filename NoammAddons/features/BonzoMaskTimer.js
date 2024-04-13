@@ -3,61 +3,90 @@
 
 
 import Settings from "../Settings";
-import { makeObjectDraggable } from "../../Draggable";
+import PogObject from "../../PogData";
 
 var BonzoTimer = null;
 const BonzoMaskGUI = new Gui();
-const BonzoMaskXYS = { x: 10, y: 10, s: Settings.SpiritScale };
-makeObjectDraggable("BonzoMT", BonzoMaskXYS, () => BonzoMaskGUI.isOpen(), "DELTA");
+let md = false
+
+const BonzoMaskGUIdata = new PogObject("Noammaddons", {
+	x: 10,
+	y: 90,
+	s: 100,
+}, "BonzoMask.json");
+
+BonzoMaskGUI.addButton(1, Renderer.screen.getWidth() / 2 -50, Renderer.screen.getHeight() - Renderer.screen.getHeight() / 4, 100, 20, "Reset Element");
+BonzoMaskGUI.registerActionPerformed(() => {
+	BonzoMaskGUIdata.x = 10
+	BonzoMaskGUIdata.y = 10
+	BonzoMaskGUIdata.s = 100
+})
+
+BonzoMaskGUI.registerClicked(() => {
+	if (BonzoMaskGUI.isOpen()) {
+		md = true
+	}
+})
+
+
+register("dragged", (dx, dy) => {
+if (md) {
+	BonzoMaskGUIdata.x += dx
+	BonzoMaskGUIdata.y += dy
+}
+})
+
+
+BonzoMaskGUI.registerMouseReleased(() => {
+    md = false
+    BonzoMaskGUIdata.save();
+})
+
 register("scrolled", (x, y, direction) => {
 	if (BonzoMaskGUI.isOpen()) {
 		if (direction == -1) {
-			BonzoMaskXYS.s = BonzoMaskXYS.s + 1
+			BonzoMaskGUIdata.s = BonzoMaskGUIdata.s + 1
 		} else if (direction == 1) {
-			BonzoMaskXYS.s = BonzoMaskXYS.s - 1
+			BonzoMaskGUIdata.s = BonzoMaskGUIdata.s - 1
 		}
-		if (BonzoMaskXYS.s < 60) {
-			BonzoMaskXYS.s = 60
+		if (BonzoMaskGUIdata.s < 60) {
+			BonzoMaskGUIdata.s = 60
 		}
 	}
 })
 
+
+BonzoMaskGUI.registerClosed(() => {
+	BonzoMaskGUIdata.save()
+})
 
 register("command", () => {
+	BonzoMaskGUIdata.save();
 	BonzoMaskGUI.open();
-	BonzoMaskXYS.x = 20
-	BonzoMaskXYS.y = 20
-	BonzoMaskXYS.s = 100
 	ChatLib.command("ct simulate &cTEST! &rYour Bonzo's Mask saved your life! &cTEST!", true)
-}).setName("bonzomaskgui");
-
-register("tick", () => {
-	if (BonzoMaskGUI.isOpen()) {
-		BonzoTimer = 0
-	}
-})
+	setTimeout(() => { BonzoTimer = 0 }, 200);
+}).setName("BonzoMaskGUI");
 
 
-register("chat", () => { //BoNZO
+register("chat", (event) => { 
 	if (!Settings.BonzoMaskTimer) return
-	///console.log("Bonzo mask working")
 	BonzoTimer = 180
 	register("renderOverlay", () => {
-	if (BonzoTimer > 0) {
-		new Text("&9Bonzo Mask: &a" + BonzoTimer, 
-		BonzoMaskXYS.x, BonzoMaskXYS.y)
-		.setShadow(true).setFormatted(true).setScale(BonzoMaskXYS.s / 100).draw();
+	if (BonzoTimer > 0) {							
+		new Text("&9Bonzo Mask: &a" + BonzoTimer,
+		BonzoMaskGUIdata.x, BonzoMaskGUIdata.y)
+		.setShadow(true).setFormatted(true).setScale(BonzoMaskGUIdata.s / 100).draw();
 	} else if (BonzoTimer === 0){
 		new Text("&9Bonzo Mask: &aREADY", 
-		BonzoMaskXYS.x, BonzoMaskXYS.y)
-		.setShadow(true).setFormatted(true).setScale(BonzoMaskXYS.s / 100).draw();
+		BonzoMaskGUIdata.x, BonzoMaskGUIdata.y)
+		.setShadow(true).setFormatted(true).setScale(BonzoMaskGUIdata.s / 100).draw();
 	}
-	})
-}).setCriteria("Your Bonzo's Mask saved your life!").setParameter("contains")
-	
+})
+}).setChatCriteria("Your Bonzo's Mask saved your life!").setContains()
 
-register("step", () => { //timer for Bonzo
+register("step", () => { 
 	if (BonzoTimer > 0) {
 		BonzoTimer -= 1
 	}
 }).setDelay(1)
+

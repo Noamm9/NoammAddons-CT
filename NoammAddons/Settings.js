@@ -4,16 +4,14 @@
 
 import { @Vigilant, @TextProperty, @ColorProperty, @ButtonProperty, @SwitchProperty, @SliderProperty, @SelectorProperty, Color } from 'Vigilance';
 const PropertyType = Java.type("gg.essential.vigilance.data.PropertyType");
+@Vigilant("NoammAddons", "§d§l§nNoamm§b§l§nAddons", {})
 
-@Vigilant(
-    "NoammAddons",
-    guiTitle = "§dNoamm§bAddons"
-)
+
 class Settings {
 /*    @SwitchProperty({
         name: "&l&cI HATE CARPETS",
         description: "Replace all Carpet blocks in a radius of 3 block from the Player to AirBlocks to avoid useless LagBacks",
-        category: "Toggle",
+        category: "General",
         subcategory: ""
     })
     IHateCarpets = false; */
@@ -21,7 +19,7 @@ class Settings {
     @SwitchProperty({
         name: "&l&cI HATE DIORITE",
         description: "Replace the Diorite blocks at the F7/M7 P2 to Glass blocks in older to see Storm get Crushed better (Alternative to trying to see his name tag through the blocks)",
-        category: "Toggle",
+        category: "General",
         subcategory: ""
     })
     IHateDiorite = false
@@ -29,7 +27,7 @@ class Settings {
     @SwitchProperty({
         name: "&eBetter &3Ender Pearls",
         description: "Disable's Hypixel's stupid Ender Pearls throw block when you are too close to a wall/floor/ceiling",
-        category: "Toggle",
+        category: "General",
         subcategory: ""
     })
     BetterEnderPearls = false
@@ -37,7 +35,7 @@ class Settings {
 	@SwitchProperty({
         name: "&bLegit Ghost Pickaxe",
         description: "&fThis is meant for people that lock all of their the inventory slots and are too lazy to unlock them every time they want to create a ghost pickaxe &l(Controlled by a keybind within Options/Controls)",
-        category: "Toggle",
+        category: "General",
         subcategory: ""
     })
 	LegitGhostPickaxe = false
@@ -45,7 +43,7 @@ class Settings {
     @ButtonProperty({
         name: "§eMove&r &bLegit Ghost Pickaxe",
         description: "&fEdit the &bLegit Ghost Pickaxe&r &fPosition and Scale &l(Drag the text to move it, Scroll with the mouse wheel to change the scale of the text) &r&dMake sure that the Toggle is enable before you try to use this option else it wont work",
-        category: "Edit GUI",
+        category: "Hud",
         subcategory: "",
         placeholder: "MOVE"
     })
@@ -61,26 +59,14 @@ class Settings {
     @SwitchProperty({
         name: "&aRemove Sword Block",
         description: "&fEnables Minecraft 1.9 RightClick animation to the following swords: All Wither blades, Rogue Sword, wither cloak, Aspect of the end, All Jerry Swords, All VoidGloom Katanas, Aspect of the Dragons",
-        category: "Toggle",
-        subcategory: ""
+        category: "General",
+        subcategory: "test"
     })
     NoSwordBlock = false
-    
-	@SliderProperty({
-        name: "Scale",
-		description: "Legit Ghost Pickaxe - Scale",
-    	category: "Toggle",
-    	subcategory: "Gray Zone",
-        min: 30,
-    	max: 1000,
-        hidden: true
-    })
-    PickScale = 500;
-
     @SwitchProperty({
         name: "&cM7 &0Dragon&r Box",
         description: "Draws a very accurate &0Dragon&r Kill Box for &cM7&r-&fP5",
-        category: "Toggle",
+        category: "General",
         subcategory: ""
     })
 	M7DragBox = false
@@ -88,7 +74,7 @@ class Settings {
     @SwitchProperty({
         name: "&cM7 &0Dragon&f Spawn &eTimer",
         description: 'Draws a "Accurate" &0Dragon&r Spawn &eTimer&r for &cM7&r-&fP5',
-        category: "Toggle",
+        category: "General",
         subcategory: ""
     })
 	M7DragTimer = false
@@ -96,7 +82,7 @@ class Settings {
     @SwitchProperty({
         name: "Auto &eRefill &3Ender Pearls",
         description: 'Automatically &erefill &3Ender Pearls&r from sack at the start of a dungeon run (does not work properly if you have spirit leaps in inventory)',
-        category: "Toggle",
+        category: "General",
         subcategory: ""
     })
 	AutoRefillEnderPearls = false
@@ -104,7 +90,7 @@ class Settings {
     @SwitchProperty({
         name: "Dungeon Auto Extra Stats",
         description: "Automatically types the command to show extra the extra dungeon stats at the end of the run",
-        category: "Toggle",
+        category: "General",
         subcategory: ""
     })
     DungeonAutoExtraStats = false
@@ -112,7 +98,7 @@ class Settings {
 	@SwitchProperty({
         name: "&fCustom FOV",
         description: "&fAllows to set Custom Minecraft FOV (Field of View)",
-        category: "Toggle",
+        category: "General",
         subcategory: ""
     })
 	CustomFOV = false
@@ -120,7 +106,7 @@ class Settings {
     @SliderProperty({
         name: "&fFOV",
         description: "",
-        category: "Toggle",
+        category: "General",
         subcategory: "",
         min: 30,
         max: 179
@@ -130,7 +116,7 @@ class Settings {
     @SwitchProperty({
         name: "&fDungeon Mob ESP",
         description: "&fDraw a see through wall box around stared dungeon mobs",
-        category: "Toggle",
+        category: "General",
         subcategory: ""
     })
 	DungeonMobESP = false
@@ -138,7 +124,7 @@ class Settings {
     @SelectorProperty({
         name: '&dC&bo&dl&bo&dr',
         description: 'Select an option for the Dungeon Mob ESP box color',
-        category: 'Toggle',
+        category: 'General',
         subcategory: '',
         options: 
         [
@@ -157,7 +143,7 @@ class Settings {
 	@SwitchProperty({
         name: "&dPink&r DMs",
         description: "&fChanges the Color of the Private massage in Hypixel from &7Gray &fto &dPink",
-        category: "Toggle",
+        category: "General",
         subcategory: ""
     })
 	PinkDMs = false
@@ -165,7 +151,7 @@ class Settings {
 	@SwitchProperty({
         name: "&cRemove&r &aSelfie&f Camera",
         description: "&cRemoves&r The &aSelfie&r Mode From F5",
-        category: "Toggle",
+        category: "General",
         subcategory: ""
     })
 	RemoveSelfieCamera = false
@@ -173,7 +159,7 @@ class Settings {
 	@SwitchProperty({
         name: "&cBonzo Mask&r &eTimer&r",
         description: 'Draws a very accurate Display that shows the cooldown of the &cBonzo &cMask&r "Clownin Around" &eAbility&r',
-        category: "Toggle",
+        category: "General",
         subcategory: ""
     })
 	BonzoMaskTimer = false
@@ -181,7 +167,7 @@ class Settings {
     @ButtonProperty({
         name: "§eMove&r &cBonzo Mask&r &eTimer&r",
         description: "&fEdit the &9Bonzo Mask&r &eTimer&r &fPosition and Scale &l(Drag the text to move it, Scroll with the mouse wheel to change the scale of the text) &r&dMake sure that the Toggle is enable before you try to use this option else it wont work",
-        category: "Edit GUI",
+        category: "Hud",
         subcategory: "",
         placeholder: "MOVE"
     })
@@ -193,44 +179,11 @@ class Settings {
             }, 100)
         }
     }
-
-	@SliderProperty({
-		name: "Scale",
-		description: "&9Bonzo Mask&r &eTimer&r - Scale",
-    	category: "Toggle",
-    	subcategory: "",
-   		min: 30,
-    	max: 1000,
-        hidden: true
-    })
-    BonzoScale = 200;
-
-	@SliderProperty({
-        name: "X",
-        description: "&9Bonzo Mask&r &eTimer&r - X",
-        category: "Toggle",
-        subcategory: "",
-        min: 0,
-        max: 1000,
-        hidden: true
-    })
-    BonzoX = 650;
-
-	@SliderProperty({
-        name: "Y",
-        description: "&9Bonzo Mask&r &eTimer&r - Y",
-        category: "Toggle",
-        subcategory: "",
-        min: 0,
-        max: 1000,
-        hidden: true
-    })
-    BonzoY = 10;
 	
 	@SwitchProperty({
         name: "&fSpirit Mask&r &eTimer&r",
         description: 'Draws a very accurate Display that shows the cooldown of the &fSpirit Mask&r "Second Wind" &eAbility&r',
-        category: "Toggle",
+        category: "General",
         subcategory: ""
     })
 	SpiritMaskTimer = false
@@ -238,7 +191,7 @@ class Settings {
     @ButtonProperty({
         name: "§eMove&r &fSpirit Mask&r &eTimer&r",
         description: "&fEdit the Spirit Mask&r &eTimer&r &fPosition and Scale &l(Drag the text to move it, Scroll with the mouse wheel to change the scale of the text) &r&dMake sure that the Toggle is enable before you try to use this option else it wont work",
-        category: "Edit GUI",
+        category: "Hud",
         subcategory: "",
         placeholder: "MOVE"
     })
@@ -251,164 +204,98 @@ class Settings {
         }
     }
 
-	@SliderProperty({
-		name: "Scale",
-		description: "&fSpirit Mask&r &eTimer&r - Scale",
-    	category: "Toggle",
-    	subcategory: "",
-   		min: 30,
-    	max: 1000,
-        hidden: true
-    })
-    SpiritScale = 200;
-
-	@SliderProperty({
-        name: "X",
-        description: "&fSpirit Mask&r &eTimer&r - X",
-        category: "Toggle",
-        subcategory: "",
-        min: 0,
-        max: 1000,
-        hidden: true
-    })
-    SpiritX = 650;
-
-	@SliderProperty({
-        name: "Y",
-        description: "&fSpirit Mask&r &eTimer&r - Y",
-        category: "Toggle",
-        subcategory: "",
-        min: 0,
-        max: 1000,
-        hidden: true
-    })
-    SpiritY = 30;
-
 	@SwitchProperty({
-        name: "&5Phonix Pet&r &eTimer&r",
-        description: 'Draws a very accurate Display that shows the cooldown of the &5Phonix Pet&r "Rekindle" &eAbility&r',
-        category: "Toggle",
+        name: "&5Phoenix Pet&r &eTimer&r",
+        description: 'Draws a very accurate Display that shows the cooldown of the &5Phoenix Pet&r "Rekindle" &eAbility&r',
+        category: "General",
         subcategory: ""
     })
-	PhonixPetTimer = false
+	PhoenixPetTimer = false
 
     @ButtonProperty({
-        name: "§eMove&r &5Phonix Pet&r &eTimer&r",
-        description: "&fEdit the &5Phonix Pet&r &eTimer&r &fPosition and Scale &l(Drag the text to move it, Scroll with the mouse wheel to change the scale of the text) &r&dMake sure that the Toggle is enable before you try to use this option else it wont work",
-        category: "Edit GUI",
+        name: "§eMove&r &5Phoenix Pet&r &eTimer&r",
+        description: "&fEdit the &5Phoenix Pet&r &eTimer&r &fPosition and Scale &l(Drag the text to move it, Scroll with the mouse wheel to change the scale of the text) &r&dMake sure that the Toggle is enable before you try to use this option else it wont work",
+        category: "Hud",
         subcategory: "",
         placeholder: "MOVE"
     })
     PTTButtonAction() {
-        if (this.PhonixPetTimer) {
+        if (this.PhoenixPetTimer) {
             Client.currentGui.close()
             setTimeout(() => {
-                ChatLib.command("phonixpetgui", true) 
+                ChatLib.command("Phoenixpetgui", true) 
             }, 100)
         }
     }
 
-	@SliderProperty({
-		name: "Scale",
-		description: "&5Phonix Pet&r &eTimer&r - Scale",
-    	category: "Toggle",
-    	subcategory: "",
-   		min: 30,
-    	max: 1000,
-        hidden: true
-    })
-    PhonixScale = 200;
-
-	@SliderProperty({
-        name: "X",
-        description: "&5Phonix Pet&r &eTimer&r - X",
-        category: "Toggle",
-        subcategory: "",
-        min: 0,
-        max: 1000,
-        hidden: true
-    })
-    PhonixX = 650;
-
-	@SliderProperty({
-        name: "Y",
-        description: "&5Phonix Pet&r &eTimer&r - Y",
-        category: "Toggle",
-        subcategory: "",
-        min: 0,
-        max: 1000,
-        hidden: true
-    })
-    PhonixY = 50;
-
 	@SwitchProperty({ 
 		name: "&dShort &bSky&dBlock &bCommands",
 		description: "Enables a list of useful &dshort&r version of &bsky&dblock's &bcommands&r (type /ssbc for help)",
-        category: "Toggle",
+        category: "General",
         subcategory: ""
     })
 	ShortSkyBlockCommands = false
 
 	@SwitchProperty({ 
-		name: "&cWatcher&r Alerts",
+		name: "&cWatcher&r Titles",
 		description: "Shows on screen when the &cWatcher&r has finish spawning mobs and when blood is done",
-        category: "Alerts",
+        category: "Titles",
         subcategory: ""
     })
 	WatcherAlerts = false
 
 	@SwitchProperty({ 
-		name: "M7 &6Ragnarock Axe&r Alert",
+		name: "M7 &6Ragnarock Axe&r Title",
 		description: "Shows on screen when to use &6Ragnarock Axe&r before p5 starts",
-        category: "Alerts",
+        category: "Titles",
         subcategory: ""
     })
 	M7Rangarock = false
 
 	@SwitchProperty({ 
-		name: "&cM6 &dGyro&r Alerts",
+		name: "&cM6 &dGyro&r Titles",
 		description: "Shows on screen when to &dGyro at Terracotta phase &l(Still need some more work tbh)",
-        category: "Alerts",
+        category: "Titles",
         subcategory: ""
     })
 	M6Gyro = false
 
 	@SwitchProperty({ 
-		name: "&dLock &bChest &fAlert",
+		name: "&dLock &bChest &fTitle",
 		description: "Shows on screen when the chest you tried to open is locked",
-        category: "Alerts",
+        category: "Titles",
         subcategory: ""
     })
 	LockChestAlert = false
 
 	@SwitchProperty({ 
-		name: "&cBonzo Mask&r Alert",
+		name: "&cBonzo Mask&r Title",
 		description: "Shows on screen when the &cBonzo &cMask&r &eAbility&r has been used",
-        category: "Alerts",
+        category: "Titles",
         subcategory: ""
     })
 	BonzoMaskAlert = false
 
 	@SwitchProperty({ 
-		name: "&fSpirit Mask&r Alert",
+		name: "&fSpirit Mask&r Title",
 		description: "Shows on screen when the &fSpirit &fMask&r &eAbility&r has been used",
-        category: "Alerts",
+        category: "Titles",
         subcategory: ""
     })
 	SpiritMaskAlert = false
 
 	@SwitchProperty({ 
-		name: "&5Phonix Pet&r Alert",
-		description: "Shows on screen when the &5Phonix &5Pet&r &eAbility&r has been used",
-        category: "Alerts",
+		name: "&5Phoenix Pet&r Title",
+		description: "Shows on screen when the &5Phoenix &5Pet&r &eAbility&r has been used",
+        category: "Titles",
         subcategory: ""
     })
-	PhonixPetAlert = false
+	PhoenixPetAlert = false
 
 	@SwitchProperty({ 
-		name: "&cArrows&r Alert",
+		name: "&cArrows&r Title",
 		description: "Shows on screen when you need to get more &cArrows&r",
-        category: "Alerts",
+        category: "Titles",
         subcategory: ""
     })
 	ArrowsAlert = false
@@ -417,9 +304,17 @@ class Settings {
 
     constructor() {
         this.initialize(this);
-        this.setCategoryDescription("Toggle", "&6Toggle &aOn&f/&cOff&f features within the mod")
-		this.setCategoryDescription("Alerts", "&6Toggle &aOn&f/&cOff&f Alerts within this mod")
-        this.setSubcategoryDescription("Toggle", "Gray Zone", "&fList of features that are &c&l&nUSE AT YOUR OWN RISK!")
+        this.setCategoryDescription("General", "&6Toggle &aOn&f/&cOff&f features within the mod");
+		this.setCategoryDescription("Titles", "&6Toggle &aOn&f/&cOff&f Titles within this mod");
+        this.setSubcategoryDescription("Toggle", "Gray Zone", "&fList of features that are &c&l&nUSE AT YOUR OWN RISK!");
+    
+        this.addDependency('§eMove&r &bLegit Ghost Pickaxe', '&bLegit Ghost Pickaxe');
+        this.addDependency('&fFOV', '&fCustom FOV');
+        this.addDependency('&dC&bo&dl&bo&dr', '&fDungeon Mob ESP');
+        this.addDependency('§eMove&r &cBonzo Mask&r &eTimer&r', '&cBonzo Mask&r &eTimer&r');
+        this.addDependency('§eMove&r &fSpirit Mask&r &eTimer&r', '&fSpirit Mask&r &eTimer&r');
+        this.addDependency('§eMove&r &5Phoenix Pet&r &eTimer&r', '&5Phoenix Pet&r &eTimer&r');
+        
     }
 }
 
