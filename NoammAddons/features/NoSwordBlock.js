@@ -23,11 +23,12 @@ let enabledSwords = [
     "Aspect of the end",
 	"Jerry",
 	"Katana",
-	"Aspect of the Dragons"
+	"Aspect of the Dragons",
+    "Zombie Sword"
 ]
 
 register("playerInteract", (action, vector3d, event) => { 
-    if (action.toString() !== "RIGHT_CLICK_EMPTY" || !Settings.NoSwordBlock) { return; }
+    if (action.toString() !== "RIGHT_CLICK_EMPTY" || !Settings.NoSwordBlock) return
     let item = Player?.getHeldItem()
    // console.log(item?.getName().removeFormatting())
     let isEnabledSword = false
