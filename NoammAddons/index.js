@@ -11,7 +11,7 @@ import "./features/BonzoMaskTimer"
 import "./features/SpiritMaskTimer"
 import "./features/PhoenixPetTimer"
 import "./features/CustomFOV"
-// import "./features/IHATECARPETS" // thx hypixel for fix it ):
+// import "./features/IHATECARPETS" // thx hypixel for fixing it ):
 import "./features/IHATEDIORITE" 
 import "./features/NoSwordBlock"
 import "./features/M7DragBox"
@@ -34,6 +34,7 @@ console.log("----------------------");
 console.log(" NoammAddons Loaded");
 console.log("----------------------");
 
+/*
 register('chat', (event) => {
     let formattedMessage = ChatLib.getChatMessage(event, true)
     if (formattedMessage.includes("Noamm9")) {
@@ -42,7 +43,7 @@ register('chat', (event) => {
         ChatLib.chat(formattedMessage)
     }    
 })
-
+*/
 
 
 
