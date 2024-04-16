@@ -20,6 +20,7 @@ SpiritMaskGUI.registerActionPerformed(() => {
 	SpiritMaskGUIdata.x = 10
 	SpiritMaskGUIdata.y = 10
 	SpiritMaskGUIdata.s = 100
+	World.playSound('gui.button.press', 1, 1)
 })
 
 SpiritMaskGUI.registerClicked(() => {

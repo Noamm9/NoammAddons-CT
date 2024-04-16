@@ -20,6 +20,7 @@ LegitGhostPickGUI.registerActionPerformed(() => {
 	LegitGhostPickGUIdata.x = 10
 	LegitGhostPickGUIdata.y = 10
 	LegitGhostPickGUIdata.s = 100
+	World.playSound('gui.button.press', 1, 1)
 })
 
 LegitGhostPickGUI.registerClicked(() => {

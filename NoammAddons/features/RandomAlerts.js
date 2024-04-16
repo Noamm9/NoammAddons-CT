@@ -43,3 +43,9 @@ register("chat", () => {
 		Client.showTitle("&5Phoenix Pet used!", "", 0, 40, 10)
 	}
 }).setCriteria("Your Phoenix Pet saved you from certain death!").setParameter("contains")
+
+register("chat", () => {
+	if (Settings.FullThunderBottleAlert) {	
+		Client.showTitle(`&9&lTHUNDER BOTTLE FULL`, "", 0, 100, 10)
+	}
+}).setCriteria("> Your bottle of thunder has fully charged!");

@@ -10,74 +10,6 @@ export const BossStatus = Java.type("net.minecraft.entity.boss.BossStatus")
 export const player = Client.getMinecraft().field_71439_g
 
 
-/***
- *  Sends a client-side message with the prefix
- * 
- *  @param {string} message the message to be sent after the prefix
- */
-export function modMessage(message) {
-  ChatLib.chat("§6[§dNoamm§bAddons§6] §r" + message)
-}
-
-/***
- *  Sends a message in party chat
- * 
- *  @param {string} message the message to be sent in party chat
- */
-export function partyMessage(message) {
-  ChatLib.command("pc " + message)
-}
-
-/***
- *  Sends a message to the latest player who messaged you
- * 
- *  @param {string} message the message to be sent in in messages chat
- */
-export function privateMessage(message) {
-  ChatLib.command("r " + message)
-}
-
-/***
- *  Sends a message in guild chat
- * 
- *  @param {string} message the message to be sent in guild chat
- */
-export function guildMessage(message) {
-  ChatLib.command("gc " + message)
-}
-
-/**
-  * Makes the player right click
-*/
-export function rightClick() {
-  rightClickMethod.invoke(Client.getMinecraft())
-}
-
-/**
-  * Makes the player left click
-*/
-export function leftClick() {
-  leftClickMethod.invoke(Client.getMinecraft())
-}
-
-
-/**
-  * Makes the player drop their items (for dungeon ultimate)
-*/
-export function Dropitem() {
-  Player.getPlayer()?.func_71040_bB(false)
-}
-
-
-/**
-  * Gets text and displays it on the screen and plays a pling
-  * @param {string} string to be displayed
-*/
-export function alert(title) {
-  World.playSound("note.pling", 100, 1)
-  Client.showTitle(title, "", 10, 100, 10);
-}
-
 
 export function isCoordinateInsideBox(coord, corner1, corner2) {
   const min = {
@@ -124,13 +56,6 @@ export function getPhase() {
 
   return inBoss ? inPhase : false;
 }
-
-
-/**
-  * Plays a gui clicking sound 
-*/
-export function makePressSound() { World.playSound('gui.button.press', 1, 1) }
-
 
 
 /**

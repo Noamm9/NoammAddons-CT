@@ -54,8 +54,7 @@ register('chat', (event) => {
 
 
 /*
-let scoreboardInfoData = Scoreboard.getLines()
-    let scoreboardInfo = scoreboardInfoData.join()
+    let scoreboardInfo = Scoreboard.getLines().join()
     if (scoreboardInfo.includes("(F1)")) ChatLib.command(`joindungeon catacombs 1`)
     if (scoreboardInfo.includes("(F2)")) ChatLib.command(`joindungeon catacombs 2`)
     if (scoreboardInfo.includes("(F3)")) ChatLib.command(`joindungeon catacombs 3`)

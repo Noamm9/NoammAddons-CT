@@ -148,6 +148,14 @@ class Settings {
     })
 	PinkDMs = false
 
+    @SwitchProperty({
+        name: "Hide Falling Blocks",
+        description: "Hides Falling Blocks in order to improve fps",
+        category: "General",
+        subcategory: ""
+    })
+    HideFallingBlocks = false
+
 	@SwitchProperty({
         name: "&cRemove&r &aSelfie&f Camera",
         description: "&cRemoves&r The &aSelfie&r Mode From F5",
@@ -300,13 +308,20 @@ class Settings {
     })
 	ArrowsAlert = false
 
-	
+	@SwitchProperty({
+        name: "Full Thunder Bottle Alert",
+        description: "Shows a notification on screen when the Empty Thunder Bottle filled to the end",
+        category: "Titles",
+        subcategory: ""
+    })
+    FullThunderBottleAlert = false
+
+
 
     constructor() {
         this.initialize(this);
         this.setCategoryDescription("General", "&6Toggle &aOn&f/&cOff&f features within the mod");
 		this.setCategoryDescription("Titles", "&6Toggle &aOn&f/&cOff&f Titles within this mod");
-        this.setSubcategoryDescription("Toggle", "Gray Zone", "&fList of features that are &c&l&nUSE AT YOUR OWN RISK!");
     
         this.addDependency('§eMove&r &bLegit Ghost Pickaxe', '&bLegit Ghost Pickaxe');
         this.addDependency('&fFOV', '&fCustom FOV');

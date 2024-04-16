@@ -20,6 +20,7 @@ BonzoMaskGUI.registerActionPerformed(() => {
 	BonzoMaskGUIdata.x = 10
 	BonzoMaskGUIdata.y = 10
 	BonzoMaskGUIdata.s = 100
+	World.playSound('gui.button.press', 1, 1)
 })
 
 BonzoMaskGUI.registerClicked(() => {

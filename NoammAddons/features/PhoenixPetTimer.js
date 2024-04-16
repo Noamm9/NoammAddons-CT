@@ -20,6 +20,7 @@ PhoenixPetGUI.registerActionPerformed(() => {
 	PhoenixPetGUIdata.x = 10
 	PhoenixPetGUIdata.y = 10
 	PhoenixPetGUIdata.s = 100
+	World.playSound('gui.button.press', 1, 1)
 })
 
 PhoenixPetGUI.registerClicked(() => {
