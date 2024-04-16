@@ -309,7 +309,7 @@ class Settings {
 	ArrowsAlert = false
 
 	@SwitchProperty({
-        name: "Full Thunder Bottle Alert",
+        name: "Full Thunder Bottle Title",
         description: "Shows a notification on screen when the Empty Thunder Bottle filled to the end",
         category: "Titles",
         subcategory: ""
