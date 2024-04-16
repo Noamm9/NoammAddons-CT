@@ -25,6 +25,8 @@ import "./features/LowArrowsAlert"
 import "./features/BetterEnderPearls"
 import "./features/DungeonMobESP"
 import "./features/DungeonAutoExtraStats"
+import "./features/HideFallingBlocks"
+
 
 ChatLib.chat("§e----------------------");
 ChatLib.chat("§bNoamm&dAddons &aLoaded");
