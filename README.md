@@ -14,9 +14,9 @@
 2. **Install ChatTriggers:** You'll need [ChatTriggers](https://www.chattriggers.com) installed to run this CT module.
 
 ### <u>Manual Installation:</u>
-1. **Download:** Get the zip file from github
+1. **Download:** Click on the green button named "<> Code" and download the zip file from github
 
-2. **Unzip:** Extract the downloaded zip file. You should now see a folder named "NoammAddons".
+2. **Unzip:** Extract the downloaded zip file. You should now see a folder named "NoammAddons" inside the NoamAddons-master.
 
 3. **Accessing ChatTriggers:** Launch Minecraft and enter the command `/ct files`
 
@@ -51,11 +51,17 @@
 
 **I HATE DIORITE** - Replace the Diorite blocks at the F7/M7 P2 to Glass blocks (Alternative to trying to see Storm's name tag through blocks)
 
+**Dungeon Mob ESP** - Draws a see through wall box around stared dungeon mobs with customizable colors
+
 **Legit Ghost Pickaxe** - This is meant for people that lock all of their the inventory slots and are too lazy to unlock them every time they want to create a ghost pickaxe
 
 **Remove Sword Block** - Enables Minecraft 1.9 RightClick on swords
 
+**Dungeon Auto Extra Stats** - Automatically types the command to show extra the extra dungeon stats at the end of the run
+
 **Remove Selfie Camera** - Removes The Selfie Mode From F5
+
+**Hide Falling Blocks** - Hides Falling Blocks in order to improve fps
 
 **Bonzo Mask Timer** - Draws a very accurate Display that shows the cooldown of the Bonzo Mask "Clownin Around" Ability
 
@@ -65,21 +71,23 @@
 
 **Short SkyBlock Commands** - Enables a list of useful short version of skyblock's commands
 
-**Watcher Alerts** - Shows on screen when the Watcher has finish spawning mobs and when blood is done
+**Watcher Titles** - Shows on screen when the Watcher has finish spawning mobs and when blood is done
 
-**M7 Ragnarock Axe Alert** - Shows on screen when to use Ragnarock Axe before p5 starts
+**M7 Ragnarock Axe Title** - Shows on screen when to use Ragnarock Axe before p5 starts
 
-**M6 Gyro Alerts** - Shows on screen when to Gyro at Terracotta phase
+**M6 Gyro Titles** - Shows on screen when to Gyro at Terracotta phase
 
-**Lock Chest Alert** - Shows on screen when the chest you tried to open is locked
+**Lock Chest Title** - Shows on screen when the chest you tried to open is locked
 
-**Bonzo Mask Alert** - Shows on screen when the Bonzo Mask Ability has been used
+**Bonzo Mask Title** - Shows on screen when the Bonzo Mask Ability has been used
 
-**Spirit Mask Alert** - Shows on screen when the Spirit Mask Ability has been used
+**Spirit Mask Title** - Shows on screen when the Spirit Mask Ability has been used
 
-**Phonix Pet Alert** - Shows on screen when the Phonix Pet Ability has been used
+**Phonix Pet Title** - Shows on screen when the Phonix Pet Ability has been used
 
-**Arrows Alert** - Shows on screen when you need to get more Arrows
+**Arrows Title** - Shows on screen when you need to get more Arrows
+
+**Full Thunder Bottle Title** - Shows a notification on screen when the Empty Thunder Bottle filled to the end
 
 
 

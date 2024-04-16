@@ -4,9 +4,9 @@
 import Settings from "../Settings";
 
 
-register("RenderEntity", (entity) => {
+register("RenderEntity", (entity, pos, ticks, event) => {
     if (!Settings.HideFallingBlocks) return
     if(entity.getName() === "Falling Block") {
-        entity.getEntity().func_70106_y
+        cancel(event)
     }
 })
