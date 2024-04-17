@@ -16,7 +16,7 @@
 ### <u>Manual Installation:</u>
 1. **Download:** Click on the green button named "<> Code" and download the zip file from github
 
-2. **Unzip:** Extract the downloaded zip file. You should now see a folder named "NoammAddons" inside the NoamAddons-master.
+2. **Unzip:** Extract the downloaded zip file. You should now see a folder named "NoammAddons" inside the NoamAddons-main.
 
 3. **Accessing ChatTriggers:** Launch Minecraft and enter the command `/ct files`
 
