@@ -67,7 +67,7 @@ register("command", () => {
 	SpiritMaskGUI.open();
 	ChatLib.command("ct simulate &cTEST! &rSecond Wind Activated! Your Spirit Mask saved your life! &cTEST!", true)
 	setTimeout(() => { SpiritTimer = 0 }, 200);
-}).setName("SpiritMaskGUI");
+}).setName("spiritmaskgui");
 
 
 register("chat", (event) => { 

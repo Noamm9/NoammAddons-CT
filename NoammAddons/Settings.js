@@ -42,7 +42,7 @@ class Settings {
     
     @ButtonProperty({
         name: "§eMove&r &bLegit Ghost Pickaxe",
-        description: "&fEdit the &bLegit Ghost Pickaxe&r &fPosition and Scale &l(Drag the text to move it, Scroll with the mouse wheel to change the scale of the text) &r&dMake sure that the Toggle is enable before you try to use this option else it wont work",
+        description: "&fEdit the &bLegit Ghost Pickaxe&r's &fPosition and Scale &l(Drag the text to move it, Scroll with the mouse wheel to change the scale of the text) &r&dMake sure that the Toggle is enable before you try to use this option else it wont work",
         category: "Hud",
         subcategory: "",
         placeholder: "MOVE"
@@ -165,16 +165,16 @@ class Settings {
 	RemoveSelfieCamera = false
 
 	@SwitchProperty({
-        name: "&cBonzo Mask&r &eTimer&r",
-        description: 'Draws a very accurate Display that shows the cooldown of the &cBonzo &cMask&r "Clownin Around" &eAbility&r',
+        name: "&9Bonzo Mask&r &eTimer&r",
+        description: 'Draws a very accurate Display that shows the cooldown of the &9bonzo &cMask&r "Clownin Around" &eAbility&r',
         category: "General",
         subcategory: ""
     })
 	BonzoMaskTimer = false
 	
     @ButtonProperty({
-        name: "§eMove&r &cBonzo Mask&r &eTimer&r",
-        description: "&fEdit the &9Bonzo Mask&r &eTimer&r &fPosition and Scale &l(Drag the text to move it, Scroll with the mouse wheel to change the scale of the text) &r&dMake sure that the Toggle is enable before you try to use this option else it wont work",
+        name: "§eMove&r &9bonzo Mask&r &eTimer&r",
+        description: "&fEdit the &9Bonzo Mask&r &eTimer&r's &fPosition and Scale &l(Drag the text to move it, Scroll with the mouse wheel to change the scale of the text) &r&dMake sure that the Toggle is enable before you try to use this option else it wont work",
         category: "Hud",
         subcategory: "",
         placeholder: "MOVE"
@@ -198,7 +198,7 @@ class Settings {
 
     @ButtonProperty({
         name: "§eMove&r &fSpirit Mask&r &eTimer&r",
-        description: "&fEdit the Spirit Mask&r &eTimer&r &fPosition and Scale &l(Drag the text to move it, Scroll with the mouse wheel to change the scale of the text) &r&dMake sure that the Toggle is enable before you try to use this option else it wont work",
+        description: "&fEdit the Spirit Mask&r &eTimer&r's &fPosition and Scale &l(Drag the text to move it, Scroll with the mouse wheel to change the scale of the text) &r&dMake sure that the Toggle is enable before you try to use this option else it wont work",
         category: "Hud",
         subcategory: "",
         placeholder: "MOVE"
@@ -222,7 +222,7 @@ class Settings {
 
     @ButtonProperty({
         name: "§eMove&r &5Phoenix Pet&r &eTimer&r",
-        description: "&fEdit the &5Phoenix Pet&r &eTimer&r &fPosition and Scale &l(Drag the text to move it, Scroll with the mouse wheel to change the scale of the text) &r&dMake sure that the Toggle is enable before you try to use this option else it wont work",
+        description: "&fEdit the &5Phoenix Pet&r &eTimer&r's &fPosition and Scale &l(Drag the text to move it, Scroll with the mouse wheel to change the scale of the text) &r&dMake sure that the Toggle is enable before you try to use this option else it wont work",
         category: "Hud",
         subcategory: "",
         placeholder: "MOVE"
@@ -231,7 +231,7 @@ class Settings {
         if (this.PhoenixPetTimer) {
             Client.currentGui.close()
             setTimeout(() => {
-                ChatLib.command("Phoenixpetgui", true) 
+                ChatLib.command("phoenixpetgui", true) 
             }, 100)
         }
     }
@@ -277,8 +277,8 @@ class Settings {
 	LockChestAlert = false
 
 	@SwitchProperty({ 
-		name: "&cBonzo Mask&r Title",
-		description: "Shows on screen when the &cBonzo &cMask&r &eAbility&r has been used",
+		name: "&9bonzo Mask&r Title",
+		description: "Shows on screen when the &9bonzo &cMask&r &eAbility&r has been used",
         category: "Titles",
         subcategory: ""
     })
@@ -316,19 +316,42 @@ class Settings {
     })
     FullThunderBottleAlert = false
 
+    @SwitchProperty({
+        name: "&cNecron Dropping &eTimer",
+        description: "Shows a Timer on screen when Necron will drop you to the Lava at F7/M7 P4",
+        category: "General",
+        subcategory: ""
+    })
+    NecronDroppingTimer = false
 
+    @ButtonProperty({
+        name: "§eMove&r &cNecron Dropping&r &eTimer&r",
+        description: "&fEdit the &cNecron Dropping&r &eTimer&r's &fPosition and Scale &l(Drag the text to move it, Scroll with the mouse wheel to change the scale of the text) &r&dMake sure that the Toggle is enable before you try to use this option else it wont work",
+        category: "Hud",
+        subcategory: "",
+        placeholder: "MOVE"
+    })
+    NDTButtonAction() {
+        if (this.NecronDroppingTimer) {
+            Client.currentGui.close()
+            setTimeout(() => {
+                ChatLib.command("necrondroptimer", true) 
+            }, 100)
+        }
+    }
 
     constructor() {
         this.initialize(this);
         this.setCategoryDescription("General", "&6Toggle &aOn&f/&cOff&f features within the mod");
 		this.setCategoryDescription("Titles", "&6Toggle &aOn&f/&cOff&f Titles within this mod");
     
-        this.addDependency('§eMove&r &bLegit Ghost Pickaxe', '&bLegit Ghost Pickaxe');
         this.addDependency('&fFOV', '&fCustom FOV');
         this.addDependency('&dC&bo&dl&bo&dr', '&fDungeon Mob ESP');
-        this.addDependency('§eMove&r &cBonzo Mask&r &eTimer&r', '&cBonzo Mask&r &eTimer&r');
+        this.addDependency('§eMove&r &bLegit Ghost Pickaxe', '&bLegit Ghost Pickaxe');
+        this.addDependency('§eMove&r &9bonzo Mask&r &eTimer&r', '&9Bonzo Mask&r &eTimer&r');
         this.addDependency('§eMove&r &fSpirit Mask&r &eTimer&r', '&fSpirit Mask&r &eTimer&r');
         this.addDependency('§eMove&r &5Phoenix Pet&r &eTimer&r', '&5Phoenix Pet&r &eTimer&r');
+        this.addDependency('§eMove&r &cNecron Dropping&r &eTimer&r', '&cNecron Dropping &eTimer');
         
     }
 }

@@ -61,7 +61,7 @@ register("command", () => {
 	LegitGhostPickGUIdata.save();
 	LegitGhostPickGUI.open();
 	LegitGhostPick = true
-}).setName("LegitGhostPickGUI");
+}).setName("legitghostpickgui");
 
 LegitGhostPickGUI.registerClosed(() => {
 	LegitGhostPick = false

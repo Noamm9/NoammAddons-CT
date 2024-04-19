@@ -66,7 +66,7 @@ register("command", () => {
 	PhoenixPetGUI.open();
 	ChatLib.command("ct simulate &cTEST! &rYour Phoenix Pet saved you from certain death! &cTEST!", true)
 	setTimeout(() => { PhoenixTimer = 0 }, 200);
-}).setName("Phoenixpetgui");
+}).setName("phoenixpetgui");
 
 
 register("chat", (event) => {

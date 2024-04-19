@@ -42,10 +42,17 @@ register("chat", () => {
 	if (Settings.PhoenixPetAlert) {
 		Client.showTitle("&5Phoenix Pet used!", "", 0, 40, 10)
 	}
-}).setCriteria("Your Phoenix Pet saved you from certain death!").setParameter("contains")
+}).setCriteria("Your Phoenix Pet saved you from certain death!")
 
 register("chat", () => {
 	if (Settings.FullThunderBottleAlert) {	
 		Client.showTitle(`&9&lTHUNDER BOTTLE FULL`, "", 0, 100, 10)
+		World.playSound("random.orb", 100, 1)
+		setTimeout(() => {World.playSound("random.orb", 100, 1)}, 800);
+		setTimeout(() => {World.playSound("random.orb", 100, 1)}, 1600);
+		setTimeout(() => {World.playSound("random.orb", 100, 1)}, 800*3);
+		setTimeout(() => {World.playSound("random.orb", 100, 1)}, 800*4);
+		setTimeout(() => {World.playSound("random.orb", 100, 1)}, 800*5);
 	}
 }).setCriteria("> Your bottle of thunder has fully charged!");
+

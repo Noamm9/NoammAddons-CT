@@ -66,7 +66,7 @@ register("command", () => {
 	BonzoMaskGUI.open();
 	ChatLib.command("ct simulate &cTEST! &rYour Bonzo's Mask saved your life! &cTEST!", true)
 	setTimeout(() => { BonzoTimer = 0 }, 200);
-}).setName("BonzoMaskGUI");
+}).setName("bonzomaskgui");
 
 
 register("chat", (event) => { 
