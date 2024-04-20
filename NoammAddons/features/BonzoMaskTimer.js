@@ -71,7 +71,7 @@ register("command", () => {
 
 register("chat", (event) => { 
 	if (!Settings.BonzoMaskTimer) return
-	BonzoTimer = 180
+	BonzoTimer = 240
 	register("renderOverlay", () => {
 	if (BonzoTimer > 0) {							
 		new Text("&9Bonzo Mask: &a" + BonzoTimer,
