@@ -1,7 +1,7 @@
 import PogObject from "../../PogData"
 import Settings from "../Settings"
 
-const NecronDropTimerms = 6000 // 6s
+const NecronDropTimerms = 4000 // 4s
 let startingTime = null
 const NecronDropTimer = new Gui();
 let md = false

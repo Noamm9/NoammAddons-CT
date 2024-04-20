@@ -10,3 +10,4 @@ NoammAddons/NecronDropTimer.json
 NoammAddons/test.txt
 CopyToGithubFolder.bat
 CopyToModules.bat
+*.json
