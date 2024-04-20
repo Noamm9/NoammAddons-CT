@@ -71,23 +71,23 @@
 
 **Short SkyBlock Commands** - Enables a list of useful short version of skyblock's commands
 
-**Watcher Titles** - Shows on screen when the Watcher has finish spawning mobs and when blood is done
+**Watcher Alerts** - Shows on screen when the Watcher has finish spawning mobs and when blood is done
 
-**M7 Ragnarock Axe Title** - Shows on screen when to use Ragnarock Axe before p5 starts
+**M7 Ragnarock Axe Alert** - Shows on screen when to use Ragnarock Axe before p5 starts
 
-**M6 Gyro Titles** - Shows on screen when to Gyro at Terracotta phase
+**M6 Gyro Alerts** - Shows on screen when to Gyro at Terracotta phase
 
-**Lock Chest Title** - Shows on screen when the chest you tried to open is locked
+**Lock Chest Alert** - Shows on screen when the chest you tried to open is locked
 
-**Bonzo Mask Title** - Shows on screen when the Bonzo Mask Ability has been used
+**Bonzo Mask Alert** - Shows on screen when the Bonzo Mask Ability has been used
 
-**Spirit Mask Title** - Shows on screen when the Spirit Mask Ability has been used
+**Spirit Mask Alert** - Shows on screen when the Spirit Mask Ability has been used
 
-**Phonix Pet Title** - Shows on screen when the Phonix Pet Ability has been used
+**Phonix Pet Alert** - Shows on screen when the Phonix Pet Ability has been used
 
-**Arrows Title** - Shows on screen when you need to get more Arrows
+**Arrows Alert** - Shows on screen when you need to get more Arrows
 
-**Full Thunder Bottle Title** - Shows a notification on screen when the Empty Thunder Bottle filled to the end
+**Full Thunder Bottle Alert** - Shows a notification on screen when the Empty Thunder Bottle filled to the end
 
 
 

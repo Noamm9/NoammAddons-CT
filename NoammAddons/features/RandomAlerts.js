@@ -3,14 +3,15 @@
 
 
 import Settings from "../Settings"
+import { WorldState } from "../../Atomx/skyblock/World"
 
 register("chat", () => { 
-	if (!Settings.M7Rangarock) return
+	if (!Settings.M7Rangarock || !WorldState.inDungeons()) return
 	setTimeout(() => { Client.showTitle ("&1[&6&kO&r&1] &6USE RAGNAROCK AXE! &1[&6&kO&r&1]", "",0,100,0);World.playSound("random.orb", 100, 4) }, 2000)
 }).setChatCriteria("[BOSS] Wither King: You.. again?")
 
 register("chat", () => { // M6 Gyro timer
-	if (!Settings.M6Gyro) return
+	if (!Settings.M6Gyro || !WorldState.inDungeons()) return
 	setTimeout(() => { Client.showTitle ("&dGYRO NOW!", "&bMage",0,30,0);World.playSound("random.orb", 100, 4) }, 13400)
 	setTimeout(() => { Client.showTitle ("&dGYRO NOW!", "&6Arch",0,30,0);World.playSound("random.orb", 100, 4) }, 17000)
 	setTimeout(() => { Client.showTitle ("&dGYRO NOW!", "&bMage",0,30,0);World.playSound("random.orb", 100, 4) }, 26500)
@@ -21,13 +22,13 @@ register("chat", () => { // M6 Gyro timer
 }).setChatCriteria("[BOSS] Sadan: So you made it all the way here... Now you wish to defy me? Sadan?!")
 
 register("chat", () => {
-	if (!Settings.LockChestAlert) return
+	if (!Settings.LockChestAlert || !WorldState.inDungeons()) return
 	Client.showTitle ("&1[&6&kO&r&1] &dC&bh&de&bs&dt &bL&do&bc&dk&be&dd &1[&6&kO&r&1]", "",5,40,5)
 	World.playSound("random.orb", 100, 4)
 }).setChatCriteria("That chest is locked!")
 
 register("chat", () => {
-	if (Settings.BonzoMaskAlert) {	
+	if (Settings.BonzoMaskAlert || !WorldState.inDungeons()()) {	
 		Client.showTitle("&1Bonzo Mask used!", "", 0, 40, 10)
 	}
 }).setCriteria("Your Bonzo's Mask saved your life!")

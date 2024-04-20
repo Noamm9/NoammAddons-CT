@@ -23,6 +23,7 @@ import "./features/DungeonMobESP"
 import "./features/DungeonAutoExtraStats"
 import "./features/HideFallingBlocks"
 import "./features/NecronDroppingTimer"
+import "./features/SimpleBlockOverlay"
 
 
 ChatLib.chat("§e----------------------");

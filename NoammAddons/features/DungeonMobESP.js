@@ -3,6 +3,7 @@
 
 import RenderLib from "../../RenderLib"
 import Settings from "../Settings";
+import { WorldState } from "../../Atomx/skyblock/World"
 
 var colorMappings = {
     0: { red: 255, green: 255, blue: 255 },    // White
@@ -16,13 +17,13 @@ var colorMappings = {
 };
 
 register("renderEntity", (entity, pos, partialTicks, event) => {
-    if (!Settings.DungeonMobESP) return;
+    if (!Settings.DungeonMobESP|| !WorldState.inDungeons()) return
     var EspColor = colorMappings[Settings.mycolorOptions];
     let name = entity.getName();
     const espBox = (x, y, z, height) => {
         RenderLib.drawEspBox(x, y-height, z, 0.9, height, EspColor.red ,EspColor.green,EspColor.blue, 1, true);
     }
-    if (name.includes("✯") || name.includes("Shadow Assassin") || name.includes("Frozen Adventurer") || name.includes("Lost Adventurer")) {
+    if (name.includes("✯") || name.includes("Shadow Assassin") || name.includes("Frozen Adventurer") || name.includes("Lost Adventurer") || name.includes("bat")) {
         if (name.includes("Fel") || name.includes("Withermancer")) {
             espBox(entity.getX(), entity.getY(), entity.getZ(), 2.8);
             entity.getEntity().func_82142_c(false);

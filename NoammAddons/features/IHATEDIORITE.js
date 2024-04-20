@@ -2,7 +2,6 @@
 /// <reference lib="es2015" />
 
 import Settings from "../Settings"
-import Dungeon from "../../BloomCore/dungeons/Dungeon";
 import { getPhase, Executors, getBlockPosIdAt } from "../utils"
 
 const greenArray = [

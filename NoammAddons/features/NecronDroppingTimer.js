@@ -1,5 +1,6 @@
 import PogObject from "../../PogData"
 import Settings from "../Settings"
+import { WorldState } from "../../Atomx/skyblock/World"
 
 const NecronDropTimerms = 4000 // 4s
 let startingTime = null
@@ -65,7 +66,7 @@ register("command", () => {
 	NecronDropTimer.open();
 	register("renderOverlay", () => {
 		if (!NecronDropTimer.isOpen()) return
-		new Text(`&cNecron is Droping in: 6.0`, 
+		new Text(`&cNecron is Droping in: 5.0`, 
 		NecronDropTimerdata.x ,NecronDropTimerdata.y).setShadow(true).setScale(NecronDropTimerdata.s / 100).draw();
 	})
 }).setName("necrondroptimer");
@@ -74,7 +75,7 @@ register("command", () => {
 
 
 register("chat", () => {
-	if (!Settings.NecronDroppingTimer) return
+	if (!Settings.NecronDroppingTimer || !WorldState.inDungeons()) return
     startingTime = Date.now()
 }).setChatCriteria("[BOSS] Necron: I'm afraid, your journey ends now.")
 

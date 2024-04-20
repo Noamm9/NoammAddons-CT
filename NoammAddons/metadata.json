@@ -8,9 +8,8 @@
     "requires": [
     "BloomCore",
     "RenderLib",
-    "CTAutocomplete",
-	"Elementa",
   	"Vigilance",
-	"PogData"
+	  "PogData",
+    "Atomx"
   ]
 }
