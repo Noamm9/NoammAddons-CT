@@ -24,6 +24,7 @@ import "./features/DungeonAutoExtraStats"
 import "./features/HideFallingBlocks"
 import "./features/NecronDroppingTimer"
 import "./features/SimpleBlockOverlay"
+import "./features/TeamMatesNameTag"
 
 
 ChatLib.chat("§e----------------------");

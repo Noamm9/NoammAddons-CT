@@ -3,16 +3,65 @@ import {  @ButtonProperty, @CheckboxProperty, @ColorProperty, @SelectorProperty,
 
 @Vigilant("NoammAddons", "§d§l§nNoamm§b§l§nAddons", {
     getCategoryComparator: () => (a, b) => {
-        const categories = ["General","Alerts", "HUD", "Cosmetic"];
+        const categories = ["General", 
+        "Alerts", 
+        "HUD", 
+        "Cosmetic"
+    ];
         return categories.indexOf(a.name) - categories.indexOf(b.name);
     },
     getSubcategoryComparator: () => (a, b) => {
-        const subcategories = ["Block Overlay", "visuals", "Dungeons", "Timers"];
+        const subcategories = [
+            "Dungeons", 
+            "Timers",
+            "Block Overlay", 
+            "visuals", 
+        ];
         return subcategories.indexOf(a.getValue()[0].attributesExt.subcategory) -
             subcategories.indexOf(b.getValue()[0].attributesExt.subcategory);
     },
     getPropertyComparator: () => (a, b) => {
-        const names = ["Do action!!!", "password", "text", "Color Picker"];
+        const names = [
+//              Dungeons
+            "&l&cI HATE DIORITE", 
+            "&eBetter &3Ender Pearls", 
+            "Auto &eRefill &3Ender Pearls", 
+            `&aTeammates &6Nametag`,
+            "&bLegit Ghost Pickaxe",
+            "&cM7 &0Dragon&r Box",
+            "&cM7 &0Dragon&f Spawn &eTimer",
+            "&eHide &cFalling &eBlocks",
+            "&fDungeon &eMob &dE&bS&dP",
+            "&dC&bo&dl&bo&dr",
+            "&dDungeon Auto Extra Stats",
+//              Timers
+            "&9Bonzo Mask&r &eTimer&r",
+            "&5Phoenix Pet&r &eTimer&r",
+            "&fSpirit Mask&r &eTimer&r",
+            "&cNecron Dropping &eTimer",
+//              No Catecory
+            "&dShort &bSky&dBlock &bCommands",    
+//              Alerts
+            "&cM6 &dGyro&r Alerts",
+            "M7 &6Ragnarock Axe&r Alert",
+            "&dLock &bChest &fAlert",
+            "&cWatcher&r Alerts",
+            "&9Bonzo Mask&r Alert",
+            "&5Phoenix Pet&r Alert",
+            "&fSpirit Mask&r Alert",
+            "§5Full Thunder Bottle Alert",
+//              Cosmetic
+            "§n&fBlock Overlay",
+            "Block Overlay Type",
+            "Outline Thickness",
+            "Outline Color",
+            "Overlay Color",
+            "&eCustom &dFOV",
+            "&bFOV",
+            "&cRemove &aSword &fBlock",
+            "&cRemove&r &aSelfie&f Camera"
+    
+        ];
         return names.indexOf(a.attributesExt.name) - names.indexOf(b.attributesExt.name);
     }
 })
@@ -92,14 +141,14 @@ class Settings {
 
     @SwitchProperty({
         name: "Auto &eRefill &3Ender Pearls",
-        description: 'Automatically &erefill &3Ender Pearls&r from sack at the start of a dungeon run (does not work properly if you have spirit leaps in inventory)',
+        description: 'Automatically &eRefill &3Ender Pearls&r from sack at the start of a dungeon run (does not work properly if you have spirit leaps in inventory)',
         category: "General",
         subcategory: "Dungeons"
     })
 	AutoRefillEnderPearls = false
 
     @SwitchProperty({
-        name: "Dungeon Auto Extra Stats",
+        name: "&dDungeon Auto Extra Stats",
         description: "Automatically types the command to show extra the extra dungeon stats at the end of the run",
         category: "General",
         subcategory: "Dungeons"
@@ -107,7 +156,7 @@ class Settings {
     DungeonAutoExtraStats = false
 
 	@SwitchProperty({
-        name: "&fCustom FOV",
+        name: "&eCustom &dFOV",
         description: "&fAllows to set Custom Minecraft FOV (Field of View)",
         category: "Cosmetic",
         subcategory: "visuals"
@@ -115,7 +164,7 @@ class Settings {
 	CustomFOV = false
 
     @SliderProperty({
-        name: "&fFOV",
+        name: "&bFOV",
         description: "",
         category: "Cosmetic",
         subcategory: "visuals",
@@ -125,8 +174,8 @@ class Settings {
     FOV = Client.settings.getFOV();
 
     @SwitchProperty({
-        name: "&fDungeon Mob ESP",
-        description: "&fDraw a see through wall box around stared dungeon mobs",
+        name: "&fDungeon &eMob &dE&bS&dP",
+        description: "Draw a see through wall box around stared dungeon mobs",
         category: "General",
         subcategory: "Dungeons"
     })
@@ -160,7 +209,7 @@ class Settings {
 	PinkDMs = false
 
     @SwitchProperty({
-        name: "Hide Falling Blocks",
+        name: "&eHide &cFalling &eBlocks",
         description: "Hides Falling Blocks in order to improve fps",
         category: "General",
         subcategory: "Dungeons"
@@ -177,14 +226,14 @@ class Settings {
 
 	@SwitchProperty({
         name: "&9Bonzo Mask&r &eTimer&r",
-        description: 'Draws a very accurate Display that shows the cooldown of the &9bonzo &cMask&r "Clownin Around" &eAbility&r',
+        description: 'Draws a very accurate Display that shows the cooldown of the &9Bonzo &cMask&r "Clownin Around" &eAbility&r',
         category: "General",
         subcategory: "Timers"
     })
 	BonzoMaskTimer = false
 	
     @ButtonProperty({
-        name: "§eMove&r &9bonzo Mask&r &eTimer&r",
+        name: "§eMove&r &9Bonzo Mask&r &eTimer&r",
         description: "&fEdit the &9Bonzo Mask&r &eTimer&r's &fPosition and Scale &l(Drag the text to move it, Scroll with the mouse wheel to change the scale of the text) &r&dMake sure that the Toggle is enable before you try to use this option else it wont work",
         category: "HUD",
         subcategory: "Timers",
@@ -288,8 +337,8 @@ class Settings {
 	LockChestAlert = false
 
 	@SwitchProperty({ 
-		name: "&9bonzo Mask&r Alert",
-		description: "Shows on screen when the &9bonzo &cMask&r &eAbility&r has been used",
+		name: "&9Bonzo Mask&r Alert",
+		description: "Shows on screen when the &9Bonzo &cMask&r &eAbility&r has been used",
         category: "Alerts",
         subcategory: ""
     })
@@ -320,7 +369,7 @@ class Settings {
 	ArrowsAlert = false
 
 	@SwitchProperty({
-        name: "Full Thunder Bottle Alert",
+        name: "§5Full Thunder Bottle Alert",
         description: "Shows a notification on screen when the Empty Thunder Bottle filled to the end",
         category: "Alerts",
         subcategory: ""
@@ -331,7 +380,7 @@ class Settings {
         name: "&cNecron Dropping &eTimer",
         description: "Shows a Timer on screen when Necron will drop you to the Lava at F7/M7 P4",
         category: "General",
-        subcategory: "Dungeons"
+        subcategory: "Timers"
     })
     NecronDroppingTimer = false
 
@@ -339,7 +388,7 @@ class Settings {
         name: "§eMove&r &cNecron Dropping&r &eTimer&r",
         description: "&fEdit the &cNecron Dropping&r &eTimer&r's &fPosition and Scale &l(Drag the text to move it, Scroll with the mouse wheel to change the scale of the text) &r&dMake sure that the Toggle is enable before you try to use this option else it wont work",
         category: "HUD",
-        subcategory: "Dungeons",
+        subcategory: "Timers",
         placeholder: "MOVE"
     })
     NDTButtonAction() {
@@ -352,10 +401,10 @@ class Settings {
     }
     
     @SwitchProperty({
-        name: "Block Overlay",
+        name: "§n&fBlock Overlay",
         description: "description: No need, Surely you know what this feature does",
         category: "Cosmetic",
-        subcategory: "Block Overlay",
+        subcategory: "Block Overlay"
     })
     BlockOverlay = false
     
@@ -406,7 +455,13 @@ class Settings {
     })*/
     BlockOverlayESP = true;
     
-
+    @SwitchProperty({
+        name: "&aTeammates &6Nametag",
+        description: "draws your TeamMates Name as a big NameTag that you can See through walls",
+        category: "General",
+        subcategory: "Dungeons"
+    })
+    TeammatesNametag = false
 
 
     constructor() {
@@ -414,13 +469,17 @@ class Settings {
         this.setCategoryDescription("General", "&6Toggle &aOn&f/&cOff&f features within the mod");
 		this.setCategoryDescription("Alerts", "&6Toggle &aOn&f/&cOff&f Alerts within this mod");
 
-        this.addDependency('&fFOV', '&fCustom FOV');
-        this.addDependency('&dC&bo&dl&bo&dr', '&fDungeon Mob ESP');
+        this.addDependency('&bFOV', '&eCustom &dFOV');
+        this.addDependency('&dC&bo&dl&bo&dr', '&fDungeon &eMob &dE&bS&dP');
         this.addDependency('§eMove&r &bLegit Ghost Pickaxe', '&bLegit Ghost Pickaxe');
-        this.addDependency('§eMove&r &9bonzo Mask&r &eTimer&r', '&9Bonzo Mask&r &eTimer&r');
+        this.addDependency('§eMove&r &9Bonzo Mask&r &eTimer&r', '&9Bonzo Mask&r &eTimer&r');
         this.addDependency('§eMove&r &fSpirit Mask&r &eTimer&r', '&fSpirit Mask&r &eTimer&r');
         this.addDependency('§eMove&r &5Phoenix Pet&r &eTimer&r', '&5Phoenix Pet&r &eTimer&r');
         this.addDependency('§eMove&r &cNecron Dropping&r &eTimer&r', '&cNecron Dropping &eTimer');
+        this.addDependency("Block Overlay Type", "§n&fBlock Overlay")
+        this.addDependency("Outline Thickness", "§n&fBlock Overlay")
+        this.addDependency("Outline Color", "§n&fBlock Overlay")
+        this.addDependency("Overlay Color", "§n&fBlock Overlay")
         
     }
 }
