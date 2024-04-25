@@ -28,7 +28,7 @@ register("chat", () => {
 }).setChatCriteria("That chest is locked!")
 
 register("chat", () => {
-	if (Settings.BonzoMaskAlert || !WorldState.inDungeons()()) {	
+	if (Settings.BonzoMaskAlert || !WorldState.inDungeons()) {	
 		Client.showTitle("&1Bonzo Mask used!", "", 0, 40, 10)
 	}
 }).setCriteria("Your Bonzo's Mask saved your life!")

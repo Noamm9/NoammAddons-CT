@@ -29,3 +29,8 @@ register('renderWorld', () => {
     RenderHelper.outlineBlock(block, r, b, g, a, Settings.BlockOverlayESP, Settings.BlockOverlayOutlineThickness)
     }
 })
+
+register("drawBlockHighlight", (pos, event) => {
+    if (!Settings.BlockOverlay) return
+    cancel(event)
+})

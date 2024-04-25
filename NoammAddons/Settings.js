@@ -32,7 +32,8 @@ import {  @ButtonProperty, @CheckboxProperty, @ColorProperty, @SelectorProperty,
             "&cM7 &0Dragon&f Spawn &eTimer",
             "&eHide &cFalling &eBlocks",
             "&fDungeon &eMob &dE&bS&dP",
-            "&dC&bo&dl&bo&dr",
+            "&dE&bS&dP &6Mode",
+            "&dE&bS&dP &dC&bo&dl&bo&dr",
             "&dDungeon Auto Extra Stats",
 //              Timers
             "&9Bonzo Mask&r &eTimer&r",
@@ -50,6 +51,7 @@ import {  @ButtonProperty, @CheckboxProperty, @ColorProperty, @SelectorProperty,
             "&5Phoenix Pet&r Alert",
             "&fSpirit Mask&r Alert",
             "§5Full Thunder Bottle Alert",
+            "&cArrows&r Alert",
 //              Cosmetic
             "§n&fBlock Overlay",
             "Block Overlay Type",
@@ -182,23 +184,25 @@ class Settings {
 	DungeonMobESP = false
 
     @SelectorProperty({
-        name: '&dC&bo&dl&bo&dr',
-        description: 'Select an option for the Dungeon Mob ESP box color',
+        name: '&dE&bS&dP &6Mode',
+        description: 'Select an option',
         category: 'General',
         subcategory: 'Dungeons',
-        options: 
-        [
-            "WHITE", //0
-            "RED",
-            "GREEN",
-            "BLUE",
-            "AQUA",
-            "YELLOW",
-            "BLACK",
-            "MAGENTA",
-        ],
+        options: [
+            'Box', 
+            'Overlay',
+            `Box + Overlay`
+        ]
     })
-    mycolorOptions = 0; 
+    MobESPMode = 0;
+
+    @ColorProperty({
+        name: '&dE&bS&dP &dC&bo&dl&bo&dr',
+        description: 'Select an option for the Dungeon Mob ESP box color',
+        category: 'General',
+        subcategory: 'Dungeons'
+    })
+    MobESPColor = new Color(0,1,0,1)
 
 	@SwitchProperty({
         name: "&dPink&r DMs",
@@ -470,7 +474,7 @@ class Settings {
 		this.setCategoryDescription("Alerts", "&6Toggle &aOn&f/&cOff&f Alerts within this mod");
 
         this.addDependency('&bFOV', '&eCustom &dFOV');
-        this.addDependency('&dC&bo&dl&bo&dr', '&fDungeon &eMob &dE&bS&dP');
+        this.addDependency('&dE&bS&dP &dC&bo&dl&bo&dr', '&fDungeon &eMob &dE&bS&dP');
         this.addDependency('§eMove&r &bLegit Ghost Pickaxe', '&bLegit Ghost Pickaxe');
         this.addDependency('§eMove&r &9Bonzo Mask&r &eTimer&r', '&9Bonzo Mask&r &eTimer&r');
         this.addDependency('§eMove&r &fSpirit Mask&r &eTimer&r', '&fSpirit Mask&r &eTimer&r');
@@ -480,6 +484,7 @@ class Settings {
         this.addDependency("Outline Thickness", "§n&fBlock Overlay")
         this.addDependency("Outline Color", "§n&fBlock Overlay")
         this.addDependency("Overlay Color", "§n&fBlock Overlay")
+        this.addDependency("&dE&bS&dP &6Mode", "&fDungeon &eMob &dE&bS&dP")
         
     }
 }

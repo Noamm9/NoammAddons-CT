@@ -1,5 +1,9 @@
+/// <reference types="../../CTAutocomplete" />
+/// <reference lib="es2015" />
+
 import Settings from "../Settings"
 import { WorldState } from "../../Atomx/skyblock/World"
+
 
 let i
 let players
