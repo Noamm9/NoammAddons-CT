@@ -3,10 +3,11 @@ import {  @ButtonProperty, @CheckboxProperty, @ColorProperty, @SelectorProperty,
 
 @Vigilant("NoammAddons", "§d§l§nNoamm§b§l§nAddons", {
     getCategoryComparator: () => (a, b) => {
-        const categories = ["General", 
-        "Alerts", 
-        "HUD", 
-        "Cosmetic"
+        const categories = [
+            "General", 
+            "Alerts", 
+            "HUD", 
+            "Cosmetic"
     ];
         return categories.indexOf(a.name) - categories.indexOf(b.name);
     },
@@ -36,6 +37,7 @@ import {  @ButtonProperty, @CheckboxProperty, @ColorProperty, @SelectorProperty,
             "&dE&bS&dP &dC&bo&dl&bo&dr",
             "&dDungeon Auto Extra Stats",
 //              Timers
+            "&aP3 &fStart &eTimer",
             "&9Bonzo Mask&r &eTimer&r",
             "&5Phoenix Pet&r &eTimer&r",
             "&fSpirit Mask&r &eTimer&r",
@@ -45,6 +47,7 @@ import {  @ButtonProperty, @CheckboxProperty, @ColorProperty, @SelectorProperty,
 //              Alerts
             "&cM6 &dGyro&r Alerts",
             "M7 &6Ragnarock Axe&r Alert",
+            `&5Shadow Assasian &fAlert`,
             "&dLock &bChest &fAlert",
             "&cWatcher&r Alerts",
             "&9Bonzo Mask&r Alert",
@@ -203,6 +206,22 @@ class Settings {
         subcategory: 'Dungeons'
     })
     MobESPColor = new Color(0,1,0,1)
+
+    @SwitchProperty({
+        name: '&5Shadow Assasian &fAlert',
+        description: 'Shows a notification on screen when an invinsable &5Shadow Assasian&r is about to teleport',
+        category: 'Alerts',
+        subcategory: 'Dungeons'
+    })
+    ShadowAssasianAlert = false
+
+    @SwitchProperty({
+        name: '&aP3 &fStart &eTimer',
+        description: 'Shows a Timer on screen when Goldor Phase will start',
+        category: 'General',
+        subcategory: 'Timers'
+    })
+    P3StartTimer = false
 
 	@SwitchProperty({
         name: "&dPink&r DMs",

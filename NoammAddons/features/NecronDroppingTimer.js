@@ -2,7 +2,7 @@ import PogObject from "../../PogData"
 import Settings from "../Settings"
 import { WorldState } from "../../Atomx/skyblock/World"
 
-const NecronDropTimerms = 4000 // 4s
+const NecronDropTimerms = 3000 // 3s
 let startingTime = null
 const NecronDropTimer = new Gui();
 let md = false
