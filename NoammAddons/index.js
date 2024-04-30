@@ -25,7 +25,7 @@ import "./features/HideFallingBlocks"
 import "./features/NecronDroppingTimer"
 import "./features/SimpleBlockOverlay"
 import "./features/TeamMatesNameTag"
-
+import "./features/AnnounceSpiritLeaps"
 
 ChatLib.chat("§e----------------------");
 ChatLib.chat("§bNoamm&dAddons &aLoaded");

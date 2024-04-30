@@ -36,6 +36,7 @@ import {  @ButtonProperty, @CheckboxProperty, @ColorProperty, @SelectorProperty,
             "&dE&bS&dP &6Mode",
             "&dE&bS&dP &dC&bo&dl&bo&dr",
             "&dDungeon Auto Extra Stats",
+            `Announce &fSpirit &bLeaps`,
 //              Timers
             "&aP3 &fStart &eTimer",
             "&9Bonzo Mask&r &eTimer&r",
@@ -97,6 +98,14 @@ class Settings {
     })
     BetterEnderPearls = false
 
+    @SwitchProperty({
+        name: `Announce &fSpirit &bLeaps`,
+        description: "Says in party chat who did you leaped to",
+        category: "General",
+        subcategory: "Dungeons"
+    })
+    AnnounceSpiritLeaps = false
+    
 	@SwitchProperty({
         name: "&bLegit Ghost Pickaxe",
         description: "&fThis is meant for people that lock all of their the inventory slots and are too lazy to unlock them every time they want to create a ghost pickaxe &l(Controlled by a keybind within Options/Controls)",
