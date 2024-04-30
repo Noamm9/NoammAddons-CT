@@ -5,10 +5,16 @@ import RenderLib from "../../RenderLib"
 import Settings from "../Settings";
 import { WorldState } from "../../Atomx/skyblock/World"
 
+let InBoss = false
 
+register(`chat`, () => {
+    if (WorldState.inDungeons()) {
+        InBoss = true
+    }
+}).setCriteria(`[BOSS]`).setContains()
 
 register("renderEntity", (entity, pos, partialTicks, event) => {
-    if (!Settings.DungeonMobESP|| !WorldState.inDungeons()) return
+    if (!Settings.DungeonMobESP|| !WorldState.inDungeons() || InBoss) return
     let name = entity.getName();
     const espBox = (x, y, z, height) => {RenderLib.drawEspBox(x, y-height, z, 0.9, height, Settings.MobESPColor.getRed()/255 ,Settings.MobESPColor.getGreen()/255, Settings.MobESPColor.getBlue()/255, 1, true);}
         const espfilledBox = (x, y, z, height) => {RenderLib.drawInnerEspBox(x, y-height, z, 0.9, height, Settings.MobESPColor.getRed()/255 ,Settings.MobESPColor.getGreen()/255, Settings.MobESPColor.getBlue()/255, Settings.MobESPColor.getAlpha() /255, 1, true);}
