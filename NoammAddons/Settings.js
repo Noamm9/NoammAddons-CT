@@ -489,16 +489,16 @@ class Settings {
 
     constructor() {
         this.initialize(this);
-        this.setCategoryDescription("General", "&6Toggle &aOn&f/&cOff&f features within the mod");
-		this.setCategoryDescription("Alerts", "&6Toggle &aOn&f/&cOff&f Alerts within this mod");
+        this.setCategoryDescription("General", "&6Toggle &aOn&f/&cOff&f features within the mod")
+		this.setCategoryDescription("Alerts", "&6Toggle &aOn&f/&cOff&f Alerts within this mod")
 
         this.addDependency('&bFOV', '&eCustom &dFOV');
-        this.addDependency('&dE&bS&dP &dC&bo&dl&bo&dr', '&fDungeon &eMob &dE&bS&dP');
-        this.addDependency('§eMove&r &bLegit Ghost Pickaxe', '&bLegit Ghost Pickaxe');
-        this.addDependency('§eMove&r &9Bonzo Mask&r &eTimer&r', '&9Bonzo Mask&r &eTimer&r');
-        this.addDependency('§eMove&r &fSpirit Mask&r &eTimer&r', '&fSpirit Mask&r &eTimer&r');
-        this.addDependency('§eMove&r &5Phoenix Pet&r &eTimer&r', '&5Phoenix Pet&r &eTimer&r');
-        this.addDependency('§eMove&r &cNecron Dropping&r &eTimer&r', '&cNecron Dropping &eTimer');
+        this.addDependency('&dE&bS&dP &dC&bo&dl&bo&dr', '&fDungeon &eMob &dE&bS&dP')
+        this.addDependency('§eMove&r &bLegit Ghost Pickaxe', '&bLegit Ghost Pickaxe')
+        this.addDependency('§eMove&r &9Bonzo Mask&r &eTimer&r', '&9Bonzo Mask&r &eTimer&r')
+        this.addDependency('§eMove&r &fSpirit Mask&r &eTimer&r', '&fSpirit Mask&r &eTimer&r')
+        this.addDependency('§eMove&r &5Phoenix Pet&r &eTimer&r', '&5Phoenix Pet&r &eTimer&r')
+        this.addDependency('§eMove&r &cNecron Dropping&r &eTimer&r', '&cNecron Dropping &eTimer')
         this.addDependency("Block Overlay Type", "§n&fBlock Overlay")
         this.addDependency("Outline Thickness", "§n&fBlock Overlay")
         this.addDependency("Outline Color", "§n&fBlock Overlay")
