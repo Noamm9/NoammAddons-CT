@@ -3,21 +3,21 @@
 
 import RenderLib from "../../RenderLib"
 import Settings from "../Settings";
-import { WorldState } from "../../Atomx/skyblock/World"
+import Dungeon from "../../BloomCore/dungeons/Dungeon"
 
 let InBoss = false
 
 register(`chat`, () => {
-    if (WorldState.inDungeons()) {
+    if (Dungeon.inDungeon) {
         InBoss = true
     }
 }).setCriteria(`[BOSS]`).setContains()
 
 register("renderEntity", (entity, pos, partialTicks, event) => {
-    if (!Settings.DungeonMobESP|| !WorldState.inDungeons() || InBoss) return
+    if (!Settings.DungeonMobESP || !Dungeon.inDungeon || InBoss) return
     let name = entity.getName();
     const espBox = (x, y, z, height) => {RenderLib.drawEspBox(x, y-height, z, 0.9, height, Settings.MobESPColor.getRed()/255 ,Settings.MobESPColor.getGreen()/255, Settings.MobESPColor.getBlue()/255, 1, true);}
-        const espfilledBox = (x, y, z, height) => {RenderLib.drawInnerEspBox(x, y-height, z, 0.9, height, Settings.MobESPColor.getRed()/255 ,Settings.MobESPColor.getGreen()/255, Settings.MobESPColor.getBlue()/255, Settings.MobESPColor.getAlpha() /255, 1, true);}
+    const espfilledBox = (x, y, z, height) => {RenderLib.drawInnerEspBox(x, y-height, z, 0.9, height, Settings.MobESPColor.getRed()/255 ,Settings.MobESPColor.getGreen()/255, Settings.MobESPColor.getBlue()/255, Settings.MobESPColor.getAlpha() /255, 1, true);}
 
     if (name.includes("✯") || name.includes("Shadow Assassin") || name.includes("Frozen Adventurer") || name.includes("Lost Adventurer") || name.includes("bat")) {
         if (name.includes("Fel") || name.includes("Withermancer")) {
