@@ -30,14 +30,14 @@ function DrawNames(player, pticks, string) {
             (lastX + (currentX - lastX) * pticks) - 0.031, 
             (lastY + (currentY - lastY) * pticks) + 2.50 - 0.021, 
             (lastZ + (currentZ - lastZ) * pticks), 
-            0, false, 1.25, true)
+            0, false, 1.55, true)
             
             // Real text
             Tessellator.drawString(string, 
             lastX + (currentX - lastX) * pticks, 
             (lastY + (currentY - lastY) * pticks) + 2.5, 
             lastZ + (currentZ - lastZ) * pticks, 
-            0, false, 1.25, true)
+            0, false, 1.55, true)
         } 
     }
 }
