@@ -2,12 +2,12 @@ import Settings from "../Settings";
 import { RenderHelper } from "../../Atomx/helper/Render";
 
 
-register('renderWorld', () => { 
+register("drawBlockHighlight", (pos, event) => {
     if (!Settings.BlockOverlay || Player?.lookingAt()?.toString().includes('minecraft:air') ||
      Player?.lookingAt()?.toString().includes('minecraft:fallingblock') || Player?.lookingAt()?.toString().includes('Entity')) return
+    cancel(event)
+
     let block = Player?.lookingAt()
-
-
     let r = Settings.BlockOverlayOutlineColor.getRed()/255
     let g = Settings.BlockOverlayOutlineColor.getGreen()/255
     let b = Settings.BlockOverlayOutlineColor.getBlue()/255
@@ -30,7 +30,7 @@ register('renderWorld', () => {
     }
 })
 
-register("drawBlockHighlight", (pos, event) => {
-    if (!Settings.BlockOverlay) return
-    cancel(event)
-})
+// register("drawBlockHighlight", (pos, event) => {
+//     if (!Settings.BlockOverlay) return
+//     cancel(event)
+// })
