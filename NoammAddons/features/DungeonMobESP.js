@@ -29,7 +29,7 @@ register(`chat`, (e) => {
 })
 
 register(`worldUnload`, () => {
-    InBoss - false  
+    InBoss = false  
 })
 
 register("renderEntity", (entity, pos, partialTicks, event) => {
