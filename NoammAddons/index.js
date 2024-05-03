@@ -26,6 +26,7 @@ import "./features/NecronDroppingTimer"
 import "./features/SimpleBlockOverlay"
 import "./features/TeamMatesNameTag"
 import "./features/AnnounceSpiritLeaps"
+import "./features/PingCommand"
 
 ChatLib.chat("§e----------------------");
 ChatLib.chat("§bNoamm&dAddons &aLoaded");
@@ -34,4 +35,3 @@ ChatLib.chat("§e----------------------");
 console.log("----------------------");
 console.log(" NoammAddons Loaded");
 console.log("----------------------");
-
