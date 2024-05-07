@@ -2,11 +2,11 @@
 /// <reference lib="es2015" />
 
 import Settings from "../Settings";
-import { WorldState } from "../../Atomx/skyblock/World"
+import Dungeon from "../../BloomCore/dungeons/Dungeon"
 
 
 register("RenderEntity", (entity, pos, ticks, event) => {
-    if (!Settings.HideFallingBlocks || !WorldState.inDungeons()) return
+    if (!Settings.HideFallingBlocks || !Dungeon.inDungeon) return
     if(entity.getName() === "Falling Block") {
         cancel(event)
     }
