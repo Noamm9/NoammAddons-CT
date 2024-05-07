@@ -27,6 +27,7 @@ import "./features/SimpleBlockOverlay"
 import "./features/TeamMatesNameTag"
 import "./features/AnnounceSpiritLeaps"
 import "./features/PingCommand"
+import "./features/CustomSlotHighlight"
 
 ChatLib.chat("§e----------------------");
 ChatLib.chat("§bNoamm&dAddons &aLoaded");

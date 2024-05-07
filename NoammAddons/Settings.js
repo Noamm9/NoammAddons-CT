@@ -65,7 +65,9 @@ import {  @ButtonProperty, @CheckboxProperty, @ColorProperty, @SelectorProperty,
             "&eCustom &dFOV",
             "&bFOV",
             "&cRemove &aSword &fBlock",
-            "&cRemove&r &aSelfie&f Camera"
+            "&cRemove&r &aSelfie&f Camera",
+            "Custom Slot Highlight",
+            `Slot Highlight Color`
     
         ];
         return names.indexOf(a.attributesExt.name) - names.indexOf(b.attributesExt.name);
@@ -495,6 +497,22 @@ class Settings {
     })
     TeammatesNametag = false
 
+    @SwitchProperty({
+        name: "Custom Slot Highlight",
+        description: "Changes the Color and the opacity of Minecraft Vanilla slot highlight ",
+        category: "Cosmetic",
+        subcategory: "visuals"
+    })
+    CustomSlotHighligh = false
+
+    @ColorProperty({
+        name: "Slot Highlight Color",
+        description: "The color of the Overlay",
+        category: "Cosmetic",
+        subcategory: "visuals"
+    })
+    CustomSlotHighlighColor = new Color(0,1,0,1)
+
 
     constructor() {
         this.initialize(this);
@@ -513,6 +531,7 @@ class Settings {
         this.addDependency("Outline Color", "§n&fBlock Overlay")
         this.addDependency("Overlay Color", "§n&fBlock Overlay")
         this.addDependency("&dE&bS&dP &6Mode", "&fDungeon &eMob &dE&bS&dP")
+        this.addDependency("Slot Highlight Color", "Custom Slot Highlight")
         
     }
 }
