@@ -28,6 +28,7 @@ import "./features/TeamMatesNameTag"
 import "./features/AnnounceSpiritLeaps"
 import "./features/PingCommand"
 import "./features/CustomSlotHighlight"
+import "./Features/P3StartTimer"
 
 ChatLib.chat("§e----------------------");
 ChatLib.chat("§bNoamm&dAddons &aLoaded");

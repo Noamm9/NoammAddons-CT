@@ -3,12 +3,11 @@
 
 import Settings from "../Settings";
 
-
-register(`chat`, (e, name) => {
+register(`chat`, (event) => {
     if (!Settings.AnnounceSpiritLeaps) return
-    let messege = ChatLib.getChatMessage(e, false)
-    if (messege.includes(`You have teleported to `)) { //You have teleported to Noamm9!
-        name = messege.replace(`You have teleported to `, "").replace(`!`, "")
-        ChatLib.command(`pc I TP to ${name}`, false)
+    let messege = ChatLib.getChatMessage(event, false)
+    if (messege.startsWith(`You have teleported to `)) { //You have teleported to Noamm9!
+        let name = messege.replace(`You have teleported to `, "").replace(`!`, "")
+        ChatLib.command(`pc ${Settings.AnnouncedLeapMassage.replace("${name}", name)}`, false)
     }
 })

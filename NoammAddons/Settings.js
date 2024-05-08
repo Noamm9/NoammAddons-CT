@@ -1,4 +1,4 @@
-import {  @ButtonProperty, @CheckboxProperty, @ColorProperty, @SelectorProperty, @SwitchProperty, @Vigilant, @SliderProperty, Color } from 'Vigilance';
+import {  @ButtonProperty, @CheckboxProperty, @ColorProperty, @SelectorProperty, @SwitchProperty, @Vigilant, @SliderProperty, @TextProperty, Color } from 'Vigilance';
 
 
 @Vigilant("NoammAddons", "§d§l§nNoamm§b§l§nAddons", {
@@ -37,6 +37,7 @@ import {  @ButtonProperty, @CheckboxProperty, @ColorProperty, @SelectorProperty,
             "&dE&bS&dP &dC&bo&dl&bo&dr",
             "&dDungeon Auto Extra Stats",
             `Announce &fSpirit &bLeaps`,
+            `Announced &6Massage`,
 //              Timers
             "&aP3 &fStart &eTimer",
             "&9Bonzo Mask&r &eTimer&r",
@@ -107,7 +108,16 @@ class Settings {
         subcategory: "Dungeons"
     })
     AnnounceSpiritLeaps = false
-    
+
+    @TextProperty({
+        name: 'Announced &6Massage',
+        description: "The Message that will be sent every time you leapd to someone.\n You can use ${name} to get the leaped player's name",
+        category: 'General',
+        subcategory: 'Dungeons',
+        placeholder: 'I TP to ${name}',
+    })
+    AnnouncedLeapMassage = 'I TP to ${name}';
+
 	@SwitchProperty({
         name: "&bLegit Ghost Pickaxe",
         description: "&fThis is meant for people that lock all of their the inventory slots and are too lazy to unlock them every time they want to create a ghost pickaxe &l(Controlled by a keybind within Options/Controls)",
@@ -532,6 +542,7 @@ class Settings {
         this.addDependency("Overlay Color", "§n&fBlock Overlay")
         this.addDependency("&dE&bS&dP &6Mode", "&fDungeon &eMob &dE&bS&dP")
         this.addDependency("Slot Highlight Color", "Custom Slot Highlight")
+        this.addDependency("Announced &6Massage", "Announce &fSpirit &bLeaps")
         
     }
 }
