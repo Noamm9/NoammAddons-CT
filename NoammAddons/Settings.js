@@ -8,9 +8,9 @@ import {  @ButtonProperty, @CheckboxProperty, @ColorProperty, @SelectorProperty,
             "Alerts", 
             "HUD", 
             "Cosmetic"
-    ];
+        ];
         return categories.indexOf(a.name) - categories.indexOf(b.name);
-    },
+    }/*,
     getSubcategoryComparator: () => (a, b) => {
         const subcategories = [
             "Dungeons", 
@@ -18,11 +18,12 @@ import {  @ButtonProperty, @CheckboxProperty, @ColorProperty, @SelectorProperty,
             "Block Overlay", 
             "visuals", 
         ];
-        return subcategories.indexOf(a.getValue()[0].attributesExt.subcategory) -
-            subcategories.indexOf(b.getValue()[0].attributesExt.subcategory);
+        return subcategories.indexOf(a.name) - subcategories.indexOf(b.name);
     },
     getPropertyComparator: () => (a, b) => {
         const names = [
+//              No Catecory
+            "&dShort &bSky&dBlock &bCommands",    
 //              Dungeons
             "&l&cI HATE DIORITE", 
             "&eBetter &3Ender Pearls", 
@@ -38,14 +39,16 @@ import {  @ButtonProperty, @CheckboxProperty, @ColorProperty, @SelectorProperty,
             "&dDungeon Auto Extra Stats",
             `Announce &fSpirit &bLeaps`,
             `Announced &6Massage`,
-//              Timers
+//              Timers       
+            "F7/M7 Phase Start Timers",
+            "&aP1 &fStart &eTimer",
+            "&aP2 &fStart &eTimer",
             "&aP3 &fStart &eTimer",
+            "&aP4 &fStart &eTimer",
             "&9Bonzo Mask&r &eTimer&r",
             "&5Phoenix Pet&r &eTimer&r",
             "&fSpirit Mask&r &eTimer&r",
             "&cNecron Dropping &eTimer",
-//              No Catecory
-            "&dShort &bSky&dBlock &bCommands",    
 //              Alerts
             "&cM6 &dGyro&r Alerts",
             "M7 &6Ragnarock Axe&r Alert",
@@ -65,14 +68,13 @@ import {  @ButtonProperty, @CheckboxProperty, @ColorProperty, @SelectorProperty,
             "Overlay Color",
             "&eCustom &dFOV",
             "&bFOV",
+            "Custom Slot Highlight",
+            `Slot Highlight Color`,
             "&cRemove &aSword &fBlock",
             "&cRemove&r &aSelfie&f Camera",
-            "Custom Slot Highlight",
-            `Slot Highlight Color`
-    
         ];
-        return names.indexOf(a.attributesExt.name) - names.indexOf(b.attributesExt.name);
-    }
+        return names.indexOf(a.name) - names.indexOf(b.name);
+    }*/
 })
 
 
@@ -111,12 +113,12 @@ class Settings {
 
     @TextProperty({
         name: 'Announced &6Massage',
-        description: "The Message that will be sent every time you leapd to someone.\n You can use ${name} to get the leaped player's name",
+        description: "The Message that will be sent every time you leapd to someone.\n You can use {name} to get the leaped player's name",
         category: 'General',
         subcategory: 'Dungeons',
-        placeholder: 'I TP to ${name}',
+        placeholder: 'I TP to {name}',
     })
-    AnnouncedLeapMassage = 'I TP to ${name}';
+    AnnouncedLeapMassage = 'I TP to {name}';
 
 	@SwitchProperty({
         name: "&bLegit Ghost Pickaxe",
@@ -237,12 +239,44 @@ class Settings {
     ShadowAssasianAlert = false
 
     @SwitchProperty({
+        name: 'F7/M7 Phase Start Timers',
+        description: 'Global Toggle',
+        category: 'General',
+        subcategory: 'Timers'
+    })
+    F7M7PhaseStartTimers = false
+
+    @SwitchProperty({
+        name: '&aP1 &fStart &eTimer',
+        description: 'Shows a Timer on screen when Maxor Phase will start',
+        category: 'General',
+        subcategory: 'Timers'
+    })
+    P1StartTimer = false
+
+    @SwitchProperty({
+        name: '&aP2 &fStart &eTimer',
+        description: 'Shows a Timer on screen when Storm Phase will start',
+        category: 'General',
+        subcategory: 'Timers'
+    })
+    P2StartTimer = false
+
+    @SwitchProperty({
         name: '&aP3 &fStart &eTimer',
         description: 'Shows a Timer on screen when Goldor Phase will start',
         category: 'General',
         subcategory: 'Timers'
     })
     P3StartTimer = false
+
+    @SwitchProperty({
+        name: '&aP4 &fStart &eTimer',
+        description: 'Shows a Timer on screen when Necron Phase will start',
+        category: 'General',
+        subcategory: 'Timers'
+    })
+    P4StartTimer = false
 
 	@SwitchProperty({
         name: "&dPink&r DMs",
@@ -419,7 +453,7 @@ class Settings {
         subcategory: ""
     })
     FullThunderBottleAlert = false
-
+/*
     @SwitchProperty({
         name: "&cNecron Dropping &eTimer",
         description: "Shows a Timer on screen when Necron will drop you to the Lava at F7/M7 P4",
@@ -443,7 +477,7 @@ class Settings {
             }, 100)
         }
     }
-    
+    */
     @SwitchProperty({
         name: "§n&fBlock Overlay",
         description: "description: No need, Surely you know what this feature does",
@@ -535,7 +569,7 @@ class Settings {
         this.addDependency('§eMove&r &9Bonzo Mask&r &eTimer&r', '&9Bonzo Mask&r &eTimer&r')
         this.addDependency('§eMove&r &fSpirit Mask&r &eTimer&r', '&fSpirit Mask&r &eTimer&r')
         this.addDependency('§eMove&r &5Phoenix Pet&r &eTimer&r', '&5Phoenix Pet&r &eTimer&r')
-        this.addDependency('§eMove&r &cNecron Dropping&r &eTimer&r', '&cNecron Dropping &eTimer')
+        //this.addDependency('§eMove&r &cNecron Dropping&r &eTimer&r', '&cNecron Dropping &eTimer')
         this.addDependency("Block Overlay Type", "§n&fBlock Overlay")
         this.addDependency("Outline Thickness", "§n&fBlock Overlay")
         this.addDependency("Outline Color", "§n&fBlock Overlay")
@@ -543,7 +577,11 @@ class Settings {
         this.addDependency("&dE&bS&dP &6Mode", "&fDungeon &eMob &dE&bS&dP")
         this.addDependency("Slot Highlight Color", "Custom Slot Highlight")
         this.addDependency("Announced &6Massage", "Announce &fSpirit &bLeaps")
-        
+        this.addDependency("&aP1 &fStart &eTimer", "F7/M7 Phase Start Timers")
+        this.addDependency("&aP2 &fStart &eTimer", "F7/M7 Phase Start Timers")
+        this.addDependency("&aP3 &fStart &eTimer", "F7/M7 Phase Start Timers")
+        this.addDependency("&aP4 &fStart &eTimer", "F7/M7 Phase Start Timers")
+
     }
 }
 

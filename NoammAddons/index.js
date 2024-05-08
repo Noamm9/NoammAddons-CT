@@ -1,4 +1,5 @@
-import Settings from "./Settings";
+import Settings from "./Settings"
+
 register("command", () => Settings.openGUI()).setName("noamm").setAliases("noam", "noamaddons", "noammaddons", "na")
 
 import "./features/RemoveSelfieCam"
@@ -22,13 +23,14 @@ import "./features/BetterEnderPearls"
 import "./features/DungeonMobESP"
 import "./features/DungeonAutoExtraStats"
 import "./features/HideFallingBlocks"
-import "./features/NecronDroppingTimer"
+// import "./features/NecronDroppingTimer"   // Moved to F7PhaseStartTimers
 import "./features/SimpleBlockOverlay"
 import "./features/TeamMatesNameTag"
 import "./features/AnnounceSpiritLeaps"
 import "./features/PingCommand"
 import "./features/CustomSlotHighlight"
-import "./Features/P3StartTimer"
+import "./Features/F7PhaseStartTimers"
+
 
 ChatLib.chat("§e----------------------");
 ChatLib.chat("§bNoamm&dAddons &aLoaded");
@@ -37,3 +39,4 @@ ChatLib.chat("§e----------------------");
 console.log("----------------------");
 console.log(" NoammAddons Loaded");
 console.log("----------------------");
+

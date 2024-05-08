@@ -2,34 +2,39 @@
 /// <reference lib="es2015" />
 
 import RenderLib from "../../RenderLib"
-import Settings from "../Settings";
+import Settings from "../Settings"
 import Dungeon from "../../BloomCore/dungeons/Dungeon"
 
 let InBoss = false
 
 let Criteria = [
-    `[BOSS] Maxor: WELL WELL WELL LOOK WHO'S HERE!`, 
-    `[BOSS] Sadan: So you made it all the way here... Now you wish to defy me? Sadan?!`,
-    `[BOSS] Livid: Welcome, you arrive right on time. I am Livid, the Master of Shadows.`,
-    `[BOSS] Thorn: Welcome Adventurers! I am Thorn, the Spirit! And host of the Vegan Trials!`,
-    `[BOSS] The Professor: I was burdened with terrible news recently...`,
-    `[BOSS] Scarf: This is where the journey ends for you, Adventurers.`,
-    `[BOSS] Bonzo: Gratz for making it this far, but I’m basically unbeatable.`
+    `[BOSS] Maxor:`,
+    `[BOSS] Storm`,
+    `[BOSS] Goldor`,
+    `[BOSS] Necron`, 
+    `[BOSS] Sadan:`,
+    `[BOSS] Livid:`,
+    `[BOSS] Thorn:`,
+    `[BOSS] The Professor:`,
+    `[BOSS] Scarf:`,
+    `[BOSS] Bonzo:`
 ]
 
-register(`chat`, (e) => {
-    let ChatMessage = ChatLib.getChatMessage(e,false).toString()
-    if (Dungeon.inDungeon) {
-        for (i=0;i<7;i++) {
-            if (ChatMessage.includes(Criteria[i])) {
-                InBoss = true        
-            }
-        }
-    }
-})
 
 register(`worldUnload`, () => {
-    InBoss = false  
+    InBoss = false
+    const trigger = register(`chat`, (e) => {
+        let ChatMessage = ChatLib.getChatMessage(e,false).toString()
+        if (Dungeon.inDungeon) {
+            for (i=0 ; i < Criteria.length ; i++) {
+                if (ChatMessage.startsWith(Criteria[i])) {
+                    InBoss = true
+                    trigger.unregister()
+                }
+            }
+        }
+    })
+    trigger.register()
 })
 
 register("renderEntity", (entity, pos, partialTicks, event) => {

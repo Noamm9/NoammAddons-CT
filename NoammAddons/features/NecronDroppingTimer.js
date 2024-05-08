@@ -1,6 +1,6 @@
 import PogObject from "../../PogData"
 import Settings from "../Settings"
-import { WorldState } from "../../Atomx/skyblock/World"
+import Dungeon from "../../BloomCore/dungeons/Dungeon"
 
 const NecronDropTimerms = 3000 // 3s
 let startingTime = null
@@ -75,7 +75,7 @@ register("command", () => {
 
 
 register("chat", () => {
-	if (!Settings.NecronDroppingTimer || !WorldState.inDungeons()) return
+	if (!Settings.NecronDroppingTimer || !Dungeon.inDungeon) return
     startingTime = Date.now()
 }).setChatCriteria("[BOSS] Necron: I'm afraid, your journey ends now.")
 

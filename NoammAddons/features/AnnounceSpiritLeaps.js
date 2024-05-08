@@ -8,6 +8,6 @@ register(`chat`, (event) => {
     let messege = ChatLib.getChatMessage(event, false)
     if (messege.startsWith(`You have teleported to `)) { //You have teleported to Noamm9!
         let name = messege.replace(`You have teleported to `, "").replace(`!`, "")
-        ChatLib.command(`pc ${Settings.AnnouncedLeapMassage.replace("${name}", name)}`, false)
+        ChatLib.command(`pc ${Settings.AnnouncedLeapMassage.replace("{name}", name)}`, false)
     }
 })

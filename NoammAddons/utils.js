@@ -1,14 +1,10 @@
+/// <reference types="../CTAutocomplete" />
+/// <reference lib="es2015" />
+
+
 import Dungeon from "../BloomCore/dungeons/Dungeon"
-
 export const Executors = Java.type("java.util.concurrent.Executors")
-export const File = Java.type("java.io.File")
-export const ResourceLocation = Java.type("net.minecraft.util.ResourceLocation")
-export const ItemSkull = Java.type("net.minecraft.item.ItemSkull")
-export const ChatComponentText = Java.type("net.minecraft.util.ChatComponentText");
-export const BossStatus = Java.type("net.minecraft.entity.boss.BossStatus")
-
 export const player = Client.getMinecraft().field_71439_g
-
 
 
 export function isCoordinateInsideBox(coord, corner1, corner2) {
@@ -57,49 +53,79 @@ export function getPhase() {
   return inBoss ? inPhase : false;
 }
 
-
-/**
-  * Makes a beacon with a box at the start and text in the box
-  * @param {string} string the text to be presented 
-  * @param {number} renderx X
-  * @param {number} rendery Y
-  * @param {number} renderz Z
-  * @param {number} r Red
-  * @param {number} g Green
-  * @param {number} b Blue
-*/
-export function renderCustomBeacon(text, renderx, rendery, renderz, r, g, b ) {
-  renderBeaconBeam(renderx - 0.5, rendery, renderz - 0.5, r, g, b, 0.5, false);
-  RenderLib.drawEspBox(renderx, rendery, renderz, 1, 1, r, g, b, 0.5, true)
-  Tessellator.drawString(text, renderx, rendery + 0.7, renderz)
-}
-
-
-export const getPlayerCoords = () => [Player.getX(),Player.getY(),Player.getZ()]
-
-/**
-  * @return {Array} the current coordinates of the player floored
-*/
-export const getFlooredPlayerCoords = () => [Math.floor(Player.getX()),Math.floor(Player.getY()),Math.floor(Player.getZ())]
-
-/**
- * @param {Number} x The X coordinate
- * @param {Number} y The Y coordinate
- * @param {Number} z The Z coordinate
- * @returns {String} The name of the block at the specified coordinates
-*/
-export const getBlockNameAt = (x,y,z) => World.getBlockAt(new BlockPos(x,y,z)).type.name
-
-/**
- * @param {Number} x The X coordinate
- * @param {Number} y The Y coordinate
- * @param {Number} z The Z coordinate
- * @returns {Number} The ID of the block at the specified coordinates
-*/
-export const getBlockIdAt = (x,y,z) => World.getBlockAt(new BlockPos(x,y,z)).type.getID()
-
 /**
  * @param {Object} b The blockpos object
  * @returns {Number} The ID of the block at the specified coordinates
 */
 export const getBlockPosIdAt = (b) => World.getBlockAt(b).type.getID()
+
+/**
+ * @param {String} Formating 
+ * @param {Number} MsTime 
+*/
+export function DrawTimerUnderCursor(Formating, MsTime) {
+  let StartTime = new Date().getTime();
+  let Trigger = register(`renderOverlay`, () => {
+    let TimeLeft = ((MsTime - (new Date().getTime() - StartTime))/1000).toFixed(2)
+    Renderer.translate(Renderer.screen.getWidth()/2, Renderer.screen.getHeight()/2)
+    Renderer.scale(2, 2)
+    Renderer.drawStringWithShadow(`${Formating}${TimeLeft}`, -Renderer.getStringWidth(`${TimeLeft}`)/2, 5)
+    if (TimeLeft <= 0) {
+      Trigger.unregister()
+    }
+  })
+}
+
+
+/**
+ * @param {String} String
+ * @param {Number} MsTime 
+*/
+export function DrawTitleUnderCursor(String, MsTime) {
+  let StartTime = new Date().getTime();
+  let Trigger = register(`renderOverlay`, () => {
+    let TimeLeft = MsTime - (new Date().getTime() - StartTime);
+    Renderer.translate(Renderer.screen.getWidth()/2, Renderer.screen.getHeight()/2)
+    Renderer.scale(2, 2)
+    Renderer.drawStringWithShadow(String, -Renderer.getStringWidth(String.removeFormatting())/2, 5)
+    if (TimeLeft <= 0) {
+      Trigger.unregister()
+    }
+  })
+}
+
+
+export function DistanceBetween2PlayersIn3dWorld(player1, player2) {
+  return Math.round(Math.sqrt((player1.getX() - player2.getX())**2 + (player1.getY() - player2.getY())**2 + (player1.getZ() - player2.getZ())**2)) 
+}
+
+/**
+ * Renders floating lines of text in the 3D world at a specific position.
+ *
+ * @param Text The string array of text to render
+ * @param x X coordinate in the game world
+ * @param y Y coordinate in the game world
+ * @param z Z coordinate in the game world
+ * @param Color the color of the text
+ * @param RenderBlackBox render a pretty black border behind the text
+ * @param Scale the scale of the text
+ * @param Increase whether to scale the text up as the player moves away
+ * 
+ * @param {String} Text
+ * @param {Number} x
+ * @param {Number} y
+ * @param {Number} z
+ * @param {Number} Color
+ * @param {Boolean} RenderBlackBox
+ * @param {Number} Scale
+ * @param {Number} Increase
+ * 
+ */
+export function TessellatorDrawStringWithShadow(Text, x, y, z, Color, RenderBlackBox, Scale, Increase) {
+    
+  //Black text to mimic Shadow
+  Tessellator.drawString(`§0${ChatLib.removeFormatting(Text)}`, x - 0.031, y - 0.021, z, Color, RenderBlackBox, Scale, Increase)
+  // Real text
+  Tessellator.drawString(Text, x, y, z, Color, RenderBlackBox, Scale, Increase)
+
+}
