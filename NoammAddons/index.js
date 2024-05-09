@@ -31,7 +31,7 @@ import "./features/PingCommand"
 import "./features/CustomSlotHighlight"
 import "./Features/F7PhaseStartTimers"
 import "./Features/BloodDialougeSkip"
-
+import "./Features/ChatCoordsWayPoint"
 
 ChatLib.chat("§e----------------------");
 ChatLib.chat("§bNoamm&dAddons &aLoaded");

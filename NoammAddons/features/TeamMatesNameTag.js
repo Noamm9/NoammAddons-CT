@@ -4,7 +4,7 @@
 
 import Settings from "../Settings"
 import Dungeon from "../../BloomCore/dungeons/Dungeon"
-import { DistanceBetween2PlayersIn3dWorld } from "../utils"
+import { MyMath } from "../utils"
 
 
 register(`renderWorld`, () => {
@@ -19,7 +19,7 @@ register(`renderWorld`, () => {
 
 function DrawNames(player, string) {
     if (World.isLoaded() && player != null) {
-        if (DistanceBetween2PlayersIn3dWorld(Player, player) >=9) {
+        if (MyMath.DistanceIn3dWorld(Player.getX(), Player.getY(), Player.getZ(), player.getX(), player.getY(), player.getZ()) >=9) {
             Tessellator.drawString(string, player.getRenderX(), player.getRenderY() + 3.50, player.getRenderZ(), 0, true, 1.55, true)
         } 
     }

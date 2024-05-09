@@ -246,7 +246,7 @@ class Settings {
     })
     F7M7PhaseStartTimers = false
 
-    @SwitchProperty({
+    @CheckboxProperty({
         name: '&aP1 &fStart &eTimer',
         description: 'Shows a Timer on screen when Maxor Phase will start',
         category: 'General',
@@ -254,7 +254,7 @@ class Settings {
     })
     P1StartTimer = false
 
-    @SwitchProperty({
+    @CheckboxProperty({
         name: '&aP2 &fStart &eTimer',
         description: 'Shows a Timer on screen when Storm Phase will start',
         category: 'General',
@@ -262,7 +262,7 @@ class Settings {
     })
     P2StartTimer = false
 
-    @SwitchProperty({
+    @CheckboxProperty({
         name: '&aP3 &fStart &eTimer',
         description: 'Shows a Timer on screen when Goldor Phase will start',
         category: 'General',
@@ -270,7 +270,7 @@ class Settings {
     })
     P3StartTimer = false
 
-    @SwitchProperty({
+    @CheckboxProperty({
         name: '&aP4 &fStart &eTimer',
         description: 'Shows a Timer on screen when Necron Phase will start',
         category: 'General',
@@ -524,14 +524,14 @@ class Settings {
         subcategory: "Block Overlay"
     })
     BlockOverlayOverlayColor = new Color(0,1,0,1)
-    /*
+    
     @CheckboxProperty({
         name: 'Show Through Other Blocks?',
         description: '',
         category: 'Cosmetic',
         subcategory: 'Block Overlay'
-    })*/
-    BlockOverlayESP = true;
+    })
+    BlockOverlayESP = true
     
     @SwitchProperty({
         name: "&aDungeon Teammates &6Nametag",
@@ -559,11 +559,28 @@ class Settings {
 
     @SwitchProperty({
         name: "§cBlood §bDialouge §eSkip",
-        description: "Changes the Color and the opacity of Minecraft Vanilla slot highlight ",
+        description: "Makes a timer for 24 seconds after you open the blood room \n&c&lYou need to be in blood when timer ends",
         category: "General",
         subcategory: "Dungeons"
     })
     BloodDialougeSkip = false
+
+    @SwitchProperty({
+        name: "Chat Coords 2 WayPoint",
+        description: "Creates a waypoint whenever a recieved chat message matches\n\n&bx: 1, y: 1, z: 1",
+        category: "General",
+        subcategory: ""
+    })
+    ChatCoordsWayPoint = false
+
+    @ColorProperty({
+        name: "WayPoint Color",
+        description: "The color of the waypoint",
+        category: "General",
+        subcategory: ""
+    })
+    ChatCoordsWayPointColor = new Color(0, 0, 0, 1)
+
 
 
     constructor() {
@@ -589,6 +606,7 @@ class Settings {
         this.addDependency("&aP2 &fStart &eTimer", "F7/M7 Phase Start Timers")
         this.addDependency("&aP3 &fStart &eTimer", "F7/M7 Phase Start Timers")
         this.addDependency("&aP4 &fStart &eTimer", "F7/M7 Phase Start Timers")
+        this.addDependency("WayPoint Color", "Chat Coords 2 WayPoint")
 
     }
 }

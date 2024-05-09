@@ -1,17 +1,19 @@
 /// <reference types="../../CTAutocomplete" />
 /// <reference lib="es2015" />
 
-let StartTime
+import { ModMessage } from "../utils"
+
 register(`command`, () => {
-    ChatLib.command(`Noamm9 is the best`)
-    StartTime = new Date().getTime()
+	const Chat = register(`chat`, (event) => {
+		cancel(event)
+		const ping = new Date().getTime() - StartTime
+		ModMessage(`§aYour ping is:§r ${ping}ms`)
+	}).setCriteria(`Unknown command. Type "/help" for help. ('Noamm9 is the best')`)
+	const StartTime = new Date().getTime()
+	ChatLib.command(`Noamm9 is the best`)
+	Chat.unregister()
 }).setName(`ping`, true)
 
 
-register(`chat`, (event) => {
-	cancel(event)
-	const ping = new Date().getTime() - StartTime
-	ChatLib.chat(`§6§l[§d§l§nNoamm§b§l§nAddons§6§l]§r §aYour ping is:§r ${ping}ms`)
-}).setCriteria(`Unknown command. Type "/help" for help. ('Noamm9 is the best')`)
 
 

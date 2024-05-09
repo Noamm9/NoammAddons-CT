@@ -1,7 +1,8 @@
 /// <reference types="../CTAutocomplete" />
 /// <reference lib="es2015" />
 
-
+import RenderLib from "../RenderLib"
+import { renderBlockHitbox } from "../BloomCore/RenderUtils"
 import Dungeon from "../BloomCore/dungeons/Dungeon"
 export const Executors = Java.type("java.util.concurrent.Executors")
 export const player = Client.getMinecraft().field_71439_g
@@ -59,76 +60,97 @@ export function getPhase() {
 */
 export const getBlockPosIdAt = (b) => World.getBlockAt(b).type.getID()
 
-/**
- * @param {String} Formating 
- * @param {Number} MsTime 
-*/
-export function DrawTimerUnderCursor(Formating, MsTime) {
-  let StartTime = new Date().getTime();
-  let Trigger = register(`renderOverlay`, () => {
-    let TimeLeft = ((MsTime - (new Date().getTime() - StartTime))/1000).toFixed(2)
-    Renderer.translate(Renderer.screen.getWidth()/2, Renderer.screen.getHeight()/2)
-    Renderer.scale(2, 2)
-    Renderer.drawStringWithShadow(`${Formating}${TimeLeft}`, -Renderer.getStringWidth(`${TimeLeft}`)/2, 5)
-    if (TimeLeft <= 0) {
-      Trigger.unregister()
-    }
-  })
+
+export function ModMessage (string) {
+  ChatLib.chat(`§6§l[§d§lNoamm§b§lAddons§6§l]§r ${string}`)
+}
+ 
+export class MyMath {
+  
+  static DistanceIn3dWorld(x1, y1, z1, x2, y2, z2) {
+    return Math.round(Math.sqrt((x1 - x2)**2 + (y1 - y2)**2 + (z1 - z2)**2)) 
+  }
+
+  static DistanceIn2dWorld(x1, z1, x2, z2) {
+    return Math.round(Math.sqrt((x1 - x2)**2 + (z1 - z2)**2)) 
+  }
+  
+  
 }
 
 
-/**
- * @param {String} String
- * @param {Number} MsTime 
-*/
-export function DrawTitleUnderCursor(String, MsTime) {
-  let StartTime = new Date().getTime();
-  let Trigger = register(`renderOverlay`, () => {
-    let TimeLeft = MsTime - (new Date().getTime() - StartTime);
-    Renderer.translate(Renderer.screen.getWidth()/2, Renderer.screen.getHeight()/2)
-    Renderer.scale(2, 2)
-    Renderer.drawStringWithShadow(String, -Renderer.getStringWidth(String.removeFormatting())/2, 5)
-    if (TimeLeft <= 0) {
-      Trigger.unregister()
-    }
-  })
-}
+export class Render {
 
-
-export function DistanceBetween2PlayersIn3dWorld(player1, player2) {
-  return Math.round(Math.sqrt((player1.getX() - player2.getX())**2 + (player1.getY() - player2.getY())**2 + (player1.getZ() - player2.getZ())**2)) 
-}
-
-
-/*
-/**
- * Renders floating lines of text in the 3D world at a specific position.
- *
- * @param Text The string array of text to render
- * @param x X coordinate in the game world
- * @param y Y coordinate in the game world
- * @param z Z coordinate in the game world
- * @param Color the color of the text
- * @param RenderBlackBox render a pretty black border behind the text
- * @param Scale the scale of the text
- * @param Increase whether to scale the text up as the player moves away
- * 
- * @param {String} Text
- * @param {Number} x
- * @param {Number} y
- * @param {Number} z
- * @param {Number} Color
- * @param {Boolean} RenderBlackBox
- * @param {Number} Scale
- * @param {Number} Increase
- * 
- */
-/*
-export function TessellatorDrawStringWithShadow(Text, x, y, z, Color, RenderBlackBox, Scale, Increase) {
+   /**
+  * Draws the frame of a box
+  * @param {number} x - X Coordinates
+  * @param {number} y - Y Coordinates
+  * @param {number} z - Z Coordinates
+  * @param {number} w - Box Width
+  * @param {number} h - Box Height
+  * @param {number} red - Box Color Red 0-1
+  * @param {number} green - Box Color Green 0-1
+  * @param {number} blue - Box Color Blue 0-1
+  * @param {number} alpha - Box Color Alpha 0-1
+  * @param {boolean} phase - Depth test disabled. True: See through walls
+  */
+  static drawFilledOutLineBox (x, y, z, w, h, red, green, blue, alpha, phase) {
+    RenderLib.drawEspBox(x, y, z, w+0.02, h+0.02, red, green, blue, 255, phase)
+    RenderLib.drawInnerEspBox(x, y, z, w+0.02, h+0.02, red, green, blue, alpha, phase)
     
-  //Black text to mimic Shadow
-  Tessellator.drawString(`§0§${ChatLib.removeFormatting(Text)}`, x + 0.081, y - 0.041, z, Color, RenderBlackBox, Scale, Increase)
-  // Real text
-  Tessellator.drawString(Text, x, y, z, Color, RenderBlackBox, Scale, Increase)
+  }
+  
 
-}*/
+  /**
+ * 
+ * @param {Block} ctBlock - The CT Block to render
+ * @param {Number} r 
+ * @param {Number} g 
+ * @param {Number} b 
+ * @param {Number} a 
+ * @param {Boolean} phase - Render through walls
+ * @param {Number} lineWidth - Line width, only effective if filled=false
+ */
+  static renderFilledOutLineBlockHitbox (ctBlock, r, g, b, a, phase=true, lineWidth=2) {
+    renderBlockHitbox(ctBlock, r, g, b, a, phase, lineWidth, true)
+  }
+  
+  
+  /** 
+   * @param {Text} String - Text to be Displayed
+   * @param {Number} MsTime - Time in Milisecends
+  */
+  static DrawTitleUnderCursor(Text, MsTime) {
+    let StartTime = new Date().getTime();
+    let Trigger = register(`renderOverlay`, () => {
+      let TimeLeft = MsTime - (new Date().getTime() - StartTime);
+      Renderer.translate(Renderer.screen.getWidth()/2, Renderer.screen.getHeight()/2)
+      Renderer.scale(2, 2)
+      Renderer.drawStringWithShadow(Text, -Renderer.getStringWidth(Text.removeFormatting())/2, 5)
+      if (TimeLeft <= 0) {
+        Trigger.unregister()
+      }
+    })
+  }
+
+
+/**
+ * @param {String} Formating - Color format, Example: §a
+ * @param {Number} MsTime - Time in Milisecends
+*/
+  static DrawTimerUnderCursor(Formating, MsTime) {
+    let StartTime = new Date().getTime();
+    let Trigger = register(`renderOverlay`, () => {
+      let TimeLeft = ((MsTime - (new Date().getTime() - StartTime))/1000).toFixed(2)
+      Renderer.translate(Renderer.screen.getWidth()/2, Renderer.screen.getHeight()/2)
+      Renderer.scale(2, 2)
+      Renderer.drawStringWithShadow(`${Formating}${TimeLeft}`, -Renderer.getStringWidth(`${TimeLeft}`)/2, 5)
+      if (TimeLeft <= 0) {
+        Trigger.unregister()
+      }
+    })
+  }
+
+
+
+}

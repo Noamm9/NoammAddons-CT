@@ -1,5 +1,5 @@
 import Settings from "../Settings";
-import { RenderHelper } from "../../Atomx/helper/Render";
+import {renderBlockHitbox} from "../../BloomCore/RenderUtils"
 
 
 register("drawBlockHighlight", (pos, event) => {
@@ -8,29 +8,19 @@ register("drawBlockHighlight", (pos, event) => {
     cancel(event)
 
     let block = Player?.lookingAt()
-    let r = Settings.BlockOverlayOutlineColor.getRed()/255
-    let g = Settings.BlockOverlayOutlineColor.getGreen()/255
-    let b = Settings.BlockOverlayOutlineColor.getBlue()/255
-    let a = Settings.BlockOverlayOutlineColor.getAlpha() /255
-    let r2 = Settings.BlockOverlayOverlayColor.getRed()/255
-    let g2 = Settings.BlockOverlayOverlayColor.getGreen()/255
-    let b2 = Settings.BlockOverlayOverlayColor.getBlue()/255
-    let a2 = Settings.BlockOverlayOverlayColor.getAlpha() /255
+   // const [x, y, z] = [Player?.lookingAt().getX(), Player?.lookingAt().getY(), Player?.lookingAt().getZ()]
+    const [r, g, b, a] = [Settings.BlockOverlayOutlineColor.getRed()/255, Settings.BlockOverlayOutlineColor.getGreen()/255, Settings.BlockOverlayOutlineColor.getBlue()/255, Settings.BlockOverlayOutlineColor.getAlpha() /255]
+    const [r2, g2, b2, a2] = [Settings.BlockOverlayOverlayColor.getRed()/255, Settings.BlockOverlayOverlayColor.getGreen()/255, Settings.BlockOverlayOverlayColor.getBlue()/255, Settings.BlockOverlayOverlayColor.getAlpha() /255]
 
 
     if (Settings.BlockOverlayType == 2) {
-    RenderHelper.outlineBlock(block, r, g, b, a, Settings.BlockOverlayESP, Settings.BlockOverlayOutlineThickness)
-    RenderHelper.filledBlock(block, r2, g2, b2, a2, Settings.BlockOverlayESP)
+        renderBlockHitbox(block, r, g, b, a, Settings.BlockOverlayESP, Settings.BlockOverlayOutlineThickness, false)
+        renderBlockHitbox(block, r2, g2, b2, a2, Settings.BlockOverlayESP, 0, true)
     }
     if (Settings.BlockOverlayType == 1) {
-    RenderHelper.filledBlock(block, r2, g2, b2, a2, Settings.BlockOverlayESP)
+        renderBlockHitbox(block, r2, g2, b2, a2, Settings.BlockOverlayESP, 0, true)
     }
     if (Settings.BlockOverlayType == 0) {
-    RenderHelper.outlineBlock(block, r, b, g, a, Settings.BlockOverlayESP, Settings.BlockOverlayOutlineThickness)
+        renderBlockHitbox(block, r, g, b, a, Settings.BlockOverlayESP, Settings.BlockOverlayOutlineThickness, false)
     }
 })
-
-// register("drawBlockHighlight", (pos, event) => {
-//     if (!Settings.BlockOverlay) return
-//     cancel(event)
-// })
