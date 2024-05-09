@@ -4,10 +4,10 @@
 
 import Settings from "../Settings"
 import Dungeon from "../../BloomCore/dungeons/Dungeon"
-import { DistanceBetween2PlayersIn3dWorld, TessellatorDrawStringWithShadow } from "../utils"
+import { DistanceBetween2PlayersIn3dWorld } from "../utils"
 
 
-register(`renderWorld`, (pticks) => {
+register(`renderWorld`, () => {
     if (!Settings.TeammatesNametag || !Dungeon.inDungeon) return
     let DungeonPlayerClasses = Dungeon.classes
     for (let PlayerName in DungeonPlayerClasses) {
@@ -20,7 +20,7 @@ register(`renderWorld`, (pticks) => {
 function DrawNames(player, string) {
     if (World.isLoaded() && player != null) {
         if (DistanceBetween2PlayersIn3dWorld(Player, player) >=9) {
-            TessellatorDrawStringWithShadow(string, player.getRenderX(), player.getRenderY() + 2.50, player.getRenderZ(), 0, false, 1.55, true)
+            Tessellator.drawString(string, player.getRenderX(), player.getRenderY() + 3.50, player.getRenderZ(), 0, true, 1.55, true)
         } 
     }
 }

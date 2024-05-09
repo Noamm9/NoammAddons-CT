@@ -30,6 +30,7 @@ import "./features/AnnounceSpiritLeaps"
 import "./features/PingCommand"
 import "./features/CustomSlotHighlight"
 import "./Features/F7PhaseStartTimers"
+import "./Features/BloodDialougeSkip"
 
 
 ChatLib.chat("§e----------------------");

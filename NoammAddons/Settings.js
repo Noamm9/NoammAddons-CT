@@ -534,8 +534,8 @@ class Settings {
     BlockOverlayESP = true;
     
     @SwitchProperty({
-        name: "&aTeammates &6Nametag",
-        description: "draws your TeamMates Name as a big NameTag that you can See through walls",
+        name: "&aDungeon Teammates &6Nametag",
+        description: "draws your TeamMates Name and Class as a big NameTag that you can See through walls.\n\n§fExample: §e[§dT§e] §bNoamm9",
         category: "General",
         subcategory: "Dungeons"
     })
@@ -556,6 +556,14 @@ class Settings {
         subcategory: "visuals"
     })
     CustomSlotHighlighColor = new Color(0,1,0,1)
+
+    @SwitchProperty({
+        name: "§cBlood §bDialouge §eSkip",
+        description: "Changes the Color and the opacity of Minecraft Vanilla slot highlight ",
+        category: "General",
+        subcategory: "Dungeons"
+    })
+    BloodDialougeSkip = false
 
 
     constructor() {

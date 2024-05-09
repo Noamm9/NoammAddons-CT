@@ -99,6 +99,8 @@ export function DistanceBetween2PlayersIn3dWorld(player1, player2) {
   return Math.round(Math.sqrt((player1.getX() - player2.getX())**2 + (player1.getY() - player2.getY())**2 + (player1.getZ() - player2.getZ())**2)) 
 }
 
+
+/*
 /**
  * Renders floating lines of text in the 3D world at a specific position.
  *
@@ -121,11 +123,12 @@ export function DistanceBetween2PlayersIn3dWorld(player1, player2) {
  * @param {Number} Increase
  * 
  */
+/*
 export function TessellatorDrawStringWithShadow(Text, x, y, z, Color, RenderBlackBox, Scale, Increase) {
     
   //Black text to mimic Shadow
-  Tessellator.drawString(`§0${ChatLib.removeFormatting(Text)}`, x - 0.031, y - 0.021, z, Color, RenderBlackBox, Scale, Increase)
+  Tessellator.drawString(`§0§${ChatLib.removeFormatting(Text)}`, x + 0.081, y - 0.041, z, Color, RenderBlackBox, Scale, Increase)
   // Real text
   Tessellator.drawString(Text, x, y, z, Color, RenderBlackBox, Scale, Increase)
 
-}
+}*/
