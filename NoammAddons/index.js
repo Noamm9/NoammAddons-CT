@@ -32,6 +32,7 @@ import "./features/CustomSlotHighlight"
 import "./Features/F7PhaseStartTimers"
 import "./Features/BloodDialougeSkip"
 import "./Features/ChatCoordsWayPoint"
+import { ModMessage } from "./utils"
 
 ChatLib.chat("§e----------------------");
 ChatLib.chat("§bNoamm&dAddons &aLoaded");

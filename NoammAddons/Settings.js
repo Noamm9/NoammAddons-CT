@@ -88,7 +88,7 @@ class Settings {
     IHateCarpets = false; */
     
     @SwitchProperty({
-        name: "&l&cI HATE DIORITE",
+        name: "&c&lI HATE DIORITE",
         description: "Replace the Diorite blocks at the F7/M7 P2 to Glass blocks in older to see Storm get Crushed better (Alternative to trying to see his name tag through the blocks)",
         category: "General",
         subcategory: "Dungeons"
@@ -247,36 +247,44 @@ class Settings {
     F7M7PhaseStartTimers = false
 
     @CheckboxProperty({
-        name: '&aP1 &fStart &eTimer',
-        description: 'Shows a Timer on screen when Maxor Phase will start',
+        name: '&5P1 &fStart &eTimer',
+        description: 'Shows a Timer on screen when &5&nMaxor Phase&r will start',
         category: 'General',
         subcategory: 'Timers'
     })
     P1StartTimer = false
 
     @CheckboxProperty({
-        name: '&aP2 &fStart &eTimer',
-        description: 'Shows a Timer on screen when Storm Phase will start',
+        name: '&bP2 &fStart &eTimer',
+        description: 'Shows a Timer on screen when &b&nStorm Phase&r will start',
         category: 'General',
         subcategory: 'Timers'
     })
     P2StartTimer = false
 
     @CheckboxProperty({
-        name: '&aP3 &fStart &eTimer',
-        description: 'Shows a Timer on screen when Goldor Phase will start',
+        name: '&7P3 &fStart &eTimer',
+        description: 'Shows a Timer on screen when &7&nGoldor Phase&r will start',
         category: 'General',
         subcategory: 'Timers'
     })
     P3StartTimer = false
 
     @CheckboxProperty({
-        name: '&aP4 &fStart &eTimer',
-        description: 'Shows a Timer on screen when Necron Phase will start',
+        name: '&cP4 &fStart &eTimer',
+        description: 'Shows a Timer on screen when &4&nNecron Phase&r will start',
         category: 'General',
         subcategory: 'Timers'
     })
     P4StartTimer = false
+/*
+    @CheckboxProperty({
+        name: '&4P5 &fStart &eTimer', //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+        description: 'Shows a Timer on screen when &5&nWither King Phase&r will start', //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+        category: 'General', //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+        subcategory: 'Timers' //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+    })
+    P5StartTimer = false*/
 
 	@SwitchProperty({
         name: "&dPink&r DMs",
@@ -400,7 +408,7 @@ class Settings {
 
 	@SwitchProperty({ 
 		name: "&cM6 &dGyro&r Alerts",
-		description: "Shows on screen when to &dGyro at Terracotta phase &l(Still need some more work tbh)",
+		description: "Shows on screen when to &dGyro at Terracotta phase\n\n &l&bWIP",
         category: "Alerts",
         subcategory: "Dungeons"
     })
@@ -487,7 +495,7 @@ class Settings {
     BlockOverlay = false
     
     @SelectorProperty({
-        name: "Block Overlay Type",
+        name: "Block Overlay &eType",
         description: "How to highlight the block",
         category: "Cosmetic",
         subcategory: "Block Overlay",
@@ -526,7 +534,7 @@ class Settings {
     BlockOverlayOverlayColor = new Color(0,1,0,1)
     
     @CheckboxProperty({
-        name: 'Show Through Other Blocks?',
+        name: '&6Show Through Blocks?',
         description: '',
         category: 'Cosmetic',
         subcategory: 'Block Overlay'
@@ -534,7 +542,7 @@ class Settings {
     BlockOverlayESP = true
     
     @SwitchProperty({
-        name: "&aDungeon Teammates &6Nametag",
+        name: "&aDungeon &6Team&amates &6Nametag",
         description: "draws your TeamMates Name and Class as a big NameTag that you can See through walls.\n\n§fExample: §e[§dT§e] §bNoamm9",
         category: "General",
         subcategory: "Dungeons"
@@ -543,7 +551,7 @@ class Settings {
 
     @SwitchProperty({
         name: "Custom Slot Highlight",
-        description: "Changes the Color and the opacity of Minecraft Vanilla slot highlight ",
+        description: "Changes the Color and the opacity of Minecraft Vanilla slot highlight\n\n&c&lCurrently does not work with sba for some reason ",
         category: "Cosmetic",
         subcategory: "visuals"
     })
@@ -559,14 +567,14 @@ class Settings {
 
     @SwitchProperty({
         name: "§cBlood §bDialouge §eSkip",
-        description: "Makes a timer for 24 seconds after you open the blood room \n&c&lYou need to be in blood when timer ends",
+        description: "&fMakes a timer for &n24 seconds&r&f after you open the &5blood room \n\n&b&lTip: &c&lYou need to be in blood when timer ends",
         category: "General",
         subcategory: "Dungeons"
     })
     BloodDialougeSkip = false
 
     @SwitchProperty({
-        name: "Chat Coords 2 WayPoint",
+        name: "&aChat Coords &d2 WayPoint",
         description: "Creates a waypoint whenever a recieved chat message matches\n\n&bx: 1, y: 1, z: 1",
         category: "General",
         subcategory: ""
@@ -595,20 +603,21 @@ class Settings {
         this.addDependency('§eMove&r &fSpirit Mask&r &eTimer&r', '&fSpirit Mask&r &eTimer&r')
         this.addDependency('§eMove&r &5Phoenix Pet&r &eTimer&r', '&5Phoenix Pet&r &eTimer&r')
         //this.addDependency('§eMove&r &cNecron Dropping&r &eTimer&r', '&cNecron Dropping &eTimer')
-        this.addDependency("Block Overlay Type", "§n&fBlock Overlay")
+        this.addDependency("Block Overlay &eType", "§n&fBlock Overlay")
         this.addDependency("Outline Thickness", "§n&fBlock Overlay")
         this.addDependency("Outline Color", "§n&fBlock Overlay")
         this.addDependency("Overlay Color", "§n&fBlock Overlay")
+        this.addDependency("&6Show Through Blocks?", "§n&fBlock Overlay")
         this.addDependency("&dE&bS&dP &6Mode", "&fDungeon &eMob &dE&bS&dP")
         this.addDependency("Slot Highlight Color", "Custom Slot Highlight")
         this.addDependency("Announced &6Massage", "Announce &fSpirit &bLeaps")
-        this.addDependency("&aP1 &fStart &eTimer", "F7/M7 Phase Start Timers")
-        this.addDependency("&aP2 &fStart &eTimer", "F7/M7 Phase Start Timers")
-        this.addDependency("&aP3 &fStart &eTimer", "F7/M7 Phase Start Timers")
-        this.addDependency("&aP4 &fStart &eTimer", "F7/M7 Phase Start Timers")
-        this.addDependency("WayPoint Color", "Chat Coords 2 WayPoint")
+        this.addDependency("&5P1 &fStart &eTimer", "F7/M7 Phase Start Timers")
+        this.addDependency("&bP2 &fStart &eTimer", "F7/M7 Phase Start Timers")
+        this.addDependency("&7P3 &fStart &eTimer", "F7/M7 Phase Start Timers")
+        this.addDependency("&cP4 &fStart &eTimer", "F7/M7 Phase Start Timers")
+        this.addDependency("WayPoint Color", "&aChat Coords &d2 WayPoint")
 
     }
 }
 
-export default new Settings();
+export default new Settings()
