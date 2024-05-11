@@ -547,7 +547,7 @@ class Settings {
         category: "Cosmetic",
         subcategory: "visuals"
     })
-    CustomSlotHighligh = false
+    CustomSlotHighlight = false
 
     @ColorProperty({
         name: "Slot Highlight Color",
@@ -555,7 +555,7 @@ class Settings {
         category: "Cosmetic",
         subcategory: "visuals"
     })
-    CustomSlotHighlighColor = new Color(0,1,0,1)
+    CustomSlotHighlightColor = new Color(0,1,0,1)
 
     @SwitchProperty({
         name: "§cBlood §bDialouge §eSkip",

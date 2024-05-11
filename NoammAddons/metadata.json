@@ -9,7 +9,6 @@
     "BloomCore",
     "RenderLib",
   	  "Vigilance",
-	   "PogData",
-    "Atomx"
+	   "PogData"
   ]
 }

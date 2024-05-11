@@ -3,7 +3,7 @@
 
 import Settings from "../Settings";
 
-register("step", () => { 
+register("renderOverlay", () => { 
     if(!Settings.RemoveSelfieCamera || Client.settings.getSettings().field_74320_O != 2) return;
     
     Client.settings.getSettings().field_74320_O = 0;

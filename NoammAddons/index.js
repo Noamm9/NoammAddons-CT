@@ -40,4 +40,3 @@ ChatLib.chat("§e----------------------");
 console.log("----------------------");
 console.log(" NoammAddons Loaded");
 console.log("----------------------");
-

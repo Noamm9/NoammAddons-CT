@@ -2,7 +2,8 @@
 /// <reference lib="es2015" />
 
 import RenderLib from "../RenderLib"
-import { renderBlockHitbox } from "../BloomCore/RenderUtils"
+import { getBlockBoundingBox } from "../BloomCore/utils/Utils"
+import { renderBlockHitbox, renderBoxFromCorners } from "../BloomCore/RenderUtils"
 import Dungeon from "../BloomCore/dungeons/Dungeon"
 export const Executors = Java.type("java.util.concurrent.Executors")
 export const player = Client.getMinecraft().field_71439_g
@@ -100,6 +101,11 @@ export class Render {
     
   }
   
+  
+  static renderBlockHitbox = (ctBlock, r, g, b, a, phase=true, lineWidth=2, filled=false) => {
+    const [x0, y0, z0, x1, y1, z1] = getBlockBoundingBox(ctBlock)
+    renderBoxFromCorners(x0-0.003, y0-0.008, z0-0.003, x1+0.003, y1+0.003, z1+0.003, r, g, b, a, phase, lineWidth, filled)
+}
 
   /**
  * 
@@ -115,7 +121,7 @@ export class Render {
     renderBlockHitbox(ctBlock, r, g, b, a, phase, lineWidth, true)
   }
   
-  
+
   /** 
    * @param {Text} String - Text to be Displayed
    * @param {Number} MsTime - Time in Milisecends

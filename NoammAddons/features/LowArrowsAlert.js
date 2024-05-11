@@ -1,31 +1,23 @@
 /// <reference types="../../CTAutocomplete" />
 /// <reference lib="es2015" />
 
+
 import Settings from "../Settings";
 
-register('chat', (event) => {
-	if (Settings.ArrowsAlert) {
-		let formattedMessage = ChatLib.getChatMessage(event, true)
-		if (formattedMessage.includes("&r&cYou only have 50 &r&fFlint Arrow &r&cleft in your Quiver!&r")) {
-			Client.showTitle("&c50 Arrows!", "", 1, 30, 1)
-		}
-	}
-})
+
+const Critaria = [
+	"&r&cYou only have 50 &r&fFlint Arrow &r&cleft in your Quiver!&r",
+	"&r&cYou only have 10 &r&fFlint Arrow &r&cleft in your Quiver!&r",
+	"&r&cYou don't have any more &r&fFlint Arrow &r&cleft in your Quiver!&r"
+]
+
 
 register('chat', (event) => {
-	if (Settings.ArrowsAlert) {
-		let formattedMessage = ChatLib.getChatMessage(event, true)
-		if (formattedMessage.includes("&r&cYou only have 10 &r&fFlint Arrow &r&cleft in your Quiver!&r")) {
-			Client.showTitle("&c10 Arrows!", "", 1, 30, 1)
-		}
-	}
-})
-
-register('chat', (event) => {
-	if (Settings.ArrowsAlert) {
-		let formattedMessage = ChatLib.getChatMessage(event, true)
-		if (formattedMessage.includes("&r&cYou don't have any more &r&fFlint Arrow &r&cleft in your Quiver!&r")) {
-			Client.showTitle("&cNo Arrows!", "", 1, 30, 1)
+	if (Settings.ArrowsAlert) return
+	for (let i = 0; i<Critaria.length; i++) {
+		const formattedMessage = ChatLib.getChatMessage(event, true)
+		if (formattedMessage.startsWith(Critaria[i])) {
+			Client.showTitle("&cRefill Arrows!", "", 1, 30, 1)
 		}
 	}
 })
