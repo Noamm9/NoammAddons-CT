@@ -7,7 +7,8 @@ import { renderBlockHitbox, renderBoxFromCorners } from "../BloomCore/RenderUtil
 import Dungeon from "../BloomCore/dungeons/Dungeon"
 export const Executors = Java.type("java.util.concurrent.Executors")
 export const player = Client.getMinecraft().field_71439_g
-
+export const gc = (text) => ChatLib.getCenteredText(text) // getCentered
+export const cc = (text) => ChatLib.chat(gc(text)) // centerChat
 
 export function isCoordinateInsideBox(coord, corner1, corner2) {
   const min = {

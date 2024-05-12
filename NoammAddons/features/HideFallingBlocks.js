@@ -5,7 +5,7 @@
 import Settings from "../Settings";
 
 
-TriggerRegister.registerRenderEntity((entity, event) => {
+TriggerRegister.registerRenderEntity((entity, pos, ticks, event) => {
     if(Settings.HideFallingBlocks && entity.getName() === "Falling Block")
         cancel(event)
     })

@@ -1,5 +1,5 @@
+import { gc, cc } from "./utils"
 import Settings from "./Settings"
-
 register("command", () => Settings.openGUI()).setName("noamm").setAliases("noam", "noamaddons", "noammaddons", "na")
 
 import "./features/RemoveSelfieCam"
@@ -32,11 +32,10 @@ import "./features/CustomSlotHighlight"
 import "./Features/F7PhaseStartTimers"
 import "./Features/BloodDialougeSkip"
 import "./Features/ChatCoordsWayPoint"
-import { ModMessage } from "./utils"
 
-ChatLib.chat("§e----------------------");
-ChatLib.chat("§bNoamm&dAddons &aLoaded");
-ChatLib.chat("§e----------------------");
+cc("§e--------------------------");
+ChatLib.chat(gc(`NoammAddons Loaded     &r`).replace(`NoammAddons Loaded`, `§b&lNoamm&d&lAddons &a&lLoaded`))
+cc("§e--------------------------");
 
 console.log("----------------------");
 console.log(" NoammAddons Loaded");
