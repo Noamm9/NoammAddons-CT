@@ -46,19 +46,19 @@ register("renderEntity", (entity, pos, partialTicks, event) => {
     if (name.includes("✯") || name.includes("Shadow Assassin") || name.includes("Frozen Adventurer") || name.includes("Lost Adventurer") || name.includes("bat")) {
         if (name.includes("Fel") || name.includes("Withermancer")) {
            // entity.getEntity().func_82142_c(false);
-            if (Settings.MobESPMode == 0) espBox(entity.getX(), entity.getY(), entity.getZ(), 2.8);
-            else if (Settings.MobESPMode == 1) espfilledBox(entity.getX(), entity.getY(), entity.getZ(), 2.8)
+            if (Settings.MobESPMode == 0) espBox(entity.getRenderX(), entity.getRenderY(), entity.getRenderZ(), 2.8);
+            else if (Settings.MobESPMode == 1) espfilledBox(entity.getRenderX(), entity.getRenderY(), entity.getRenderZ(), 2.8)
             else {
-                espBox(entity.getX(), entity.getY(), entity.getZ(), 2.8)
-                espfilledBox(entity.getX(), entity.getY(), entity.getZ(), 2.8)
+                espBox(entity.getRenderX(), entity.getRenderY(), entity.getRenderZ(), 2.8)
+                espfilledBox(entity.getRenderX(), entity.getRenderY(), entity.getRenderZ(), 2.8)
             }
         } else {
            // entity.getEntity().func_82142_c(false);
-            if (Settings.MobESPMode == 1) espfilledBox(entity.getX(), entity.getY(), entity.getZ(), 1.9)
-            else if (Settings.MobESPMode == 0) espBox(entity.getX(), entity.getY(), entity.getZ(), 1.9)
+            if (Settings.MobESPMode == 1) espfilledBox(entity.getRenderX(), entity.getRenderY(), entity.getRenderZ(), 1.9)
+            else if (Settings.MobESPMode == 0) espBox(entity.getRenderX(), entity.getRenderY(), entity.getRenderZ(), 1.9)
             else {
-                espBox(entity.getX(), entity.getY(), entity.getZ(), 1.9)
-                espfilledBox(entity.getX(), entity.getY(), entity.getZ(), 1.9)
+                espBox(entity.getRenderX(), entity.getRenderY(), entity.getRenderZ(), 1.9)
+                espfilledBox(entity.getRenderX(), entity.getRenderRenderY(), entity.getRenderRenderZ(), 1.9)
             }
         }
     }
