@@ -1,5 +1,5 @@
 import PogObject from "../../PogData"
-import Settings from "../Settings"
+import Settings from "../Config/Settings";
 import Dungeon from "../../BloomCore/dungeons/Dungeon"
 
 const NecronDropTimerms = 3000 // 3s
@@ -11,7 +11,7 @@ const NecronDropTimerdata = new PogObject("Noammaddons", {
 	x: 10,
 	y: 90,
 	s: 100,
-}, "NecronDropTimer.json");
+}, "Config/NecronDropTimer.json");
 
 NecronDropTimer.addButton(1, Renderer.screen.getWidth() / 2 -50, Renderer.screen.getHeight() - Renderer.screen.getHeight() / 4, 100, 20, "Reset Element");
 NecronDropTimer.registerActionPerformed(() => {

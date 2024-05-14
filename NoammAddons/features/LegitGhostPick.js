@@ -1,10 +1,10 @@
 /// <reference types="../../CTAutocomplete" />
 /// <reference lib="es2015" />
 
-import Settings from "../Settings";
+import Settings from "../Config/Settings";;
 import PogObject from "../../PogData";
 
-LegitGhostPick = false 
+let LegitGhostPick = false 
 const LegitGhostPickBind = new KeyBind("Legit Ghost Pickaxe", Keyboard.KEY_Z, "NoammAddons")
 const LegitGhostPickGUI = new Gui();
 let md = false
@@ -13,7 +13,7 @@ const LegitGhostPickGUIdata = new PogObject("Noammaddons", {
 	x: 10,
 	y: 90,
 	s: 100,
-}, "LegitGhostPick.json");
+}, "Config/LegitGhostPick.json");
 
 LegitGhostPickGUI.addButton(1, Renderer.screen.getWidth() / 2 -50, Renderer.screen.getHeight() - Renderer.screen.getHeight() / 4, 100, 20, "Reset Element");
 LegitGhostPickGUI.registerActionPerformed(() => {

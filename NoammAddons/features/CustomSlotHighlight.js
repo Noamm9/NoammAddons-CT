@@ -2,7 +2,7 @@
 /// <reference lib="es2015" />
 
 
-import Settings from "../Settings"
+import Settings from "../Config/Settings"
 
 
 register(`renderSlotHighlight`, (mx, my, slot, gui, event) => {

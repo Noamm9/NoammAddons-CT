@@ -1,4 +1,4 @@
-import Settings from "../Settings";
+import Settings from "../Config/Settings";
 import { Render } from "../utils";
 
 

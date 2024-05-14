@@ -1,5 +1,6 @@
 import { gc, cc } from "./utils"
-import Settings from "./Settings"
+import Settings from "./Config/Settings"
+
 register("command", () => Settings.openGUI()).setName("noamm").setAliases("noam", "noamaddons", "noammaddons", "na")
 
 import "./features/RemoveSelfieCam"
@@ -32,6 +33,13 @@ import "./features/CustomSlotHighlight"
 import "./Features/F7PhaseStartTimers"
 import "./Features/BloodDialougeSkip"
 import "./Features/ChatCoordsWayPoint"
+import "./Features/ClientSideSpin"
+import "./Features/PlayerScale"
+import './Features/HebrewToEnglish'
+import "./Features/emojis"
+import "./Features/F7GhostBlocks"
+
+
 
 cc("§e--------------------------");
 ChatLib.chat(gc(`NoammAddons Loaded     &r`).replace(`NoammAddons Loaded`, `§b&lNoamm&d&lAddons &a&lLoaded`))
@@ -40,3 +48,5 @@ cc("§e--------------------------");
 console.log("----------------------");
 console.log(" NoammAddons Loaded");
 console.log("----------------------");
+
+

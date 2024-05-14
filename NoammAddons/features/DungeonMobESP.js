@@ -2,8 +2,9 @@
 /// <reference lib="es2015" />
 
 import RenderLib from "../../RenderLib"
-import Settings from "../Settings"
+import Settings from "../Config/Settings"
 import Dungeon from "../../BloomCore/dungeons/Dungeon"
+import { ModMessage } from "../utils"
 
 let InBoss = false
 
@@ -27,10 +28,9 @@ register(`worldUnload`, () => {
         let ChatMessage = ChatLib.getChatMessage(e,false).toString()
         if (Dungeon.inDungeon) {
             for (i=0 ; i < Criteria.length ; i++) {
-                if (ChatMessage.startsWith(Criteria[i])) {
-                    InBoss = true
-                    trigger.unregister()
-                }
+                if (!ChatMessage.startsWith(Criteria[i]) || ChatMessage.includes(`Watcher`)) return
+                InBoss = true
+                trigger.unregister()
             }
         }
     })
@@ -39,26 +39,33 @@ register(`worldUnload`, () => {
 
 register("renderEntity", (entity, pos, partialTicks, event) => {
     if (!Settings.DungeonMobESP || !Dungeon.inDungeon || InBoss) return
-    let name = entity.getName();
+    let name = ChatLib.removeFormatting(entity.getName())
     const espBox = (x, y, z, height) => {RenderLib.drawEspBox(x, y-height, z, 0.9, height, Settings.MobESPColor.getRed()/255 ,Settings.MobESPColor.getGreen()/255, Settings.MobESPColor.getBlue()/255, 1, true);}
     const espfilledBox = (x, y, z, height) => {RenderLib.drawInnerEspBox(x, y-height, z, 0.9, height, Settings.MobESPColor.getRed()/255 ,Settings.MobESPColor.getGreen()/255, Settings.MobESPColor.getBlue()/255, Settings.MobESPColor.getAlpha() /255, 1, true);}
+    
+    if (entity.getClassName() != `EntityArmorStand`) {
+        if (name.includes("Shadow Assassin") || name.includes("Fel")) entity.getEntity().func_82142_c(false);
 
-    if (name.includes("✯") || name.includes("Shadow Assassin") || name.includes("Frozen Adventurer") || name.includes("Lost Adventurer") || name.includes("bat")) {
+    }
+    
+    if (name.includes("✯") || name.includes("bat")) {
+    //if (CTEntity.getClassName() == `EntityArmorStand`) return
+
         if (name.includes("Fel") || name.includes("Withermancer")) {
-           // entity.getEntity().func_82142_c(false);
             if (Settings.MobESPMode == 0) espBox(entity.getRenderX(), entity.getRenderY(), entity.getRenderZ(), 2.8);
             else if (Settings.MobESPMode == 1) espfilledBox(entity.getRenderX(), entity.getRenderY(), entity.getRenderZ(), 2.8)
             else {
                 espBox(entity.getRenderX(), entity.getRenderY(), entity.getRenderZ(), 2.8)
                 espfilledBox(entity.getRenderX(), entity.getRenderY(), entity.getRenderZ(), 2.8)
             }
-        } else {
+        }
+        else {
            // entity.getEntity().func_82142_c(false);
             if (Settings.MobESPMode == 1) espfilledBox(entity.getRenderX(), entity.getRenderY(), entity.getRenderZ(), 1.9)
             else if (Settings.MobESPMode == 0) espBox(entity.getRenderX(), entity.getRenderY(), entity.getRenderZ(), 1.9)
             else {
                 espBox(entity.getRenderX(), entity.getRenderY(), entity.getRenderZ(), 1.9)
-                espfilledBox(entity.getRenderX(), entity.getRenderRenderY(), entity.getRenderRenderZ(), 1.9)
+                espfilledBox(entity.getRenderX(), entity.getRenderY(), entity.getRenderZ(), 1.9)
             }
         }
     }

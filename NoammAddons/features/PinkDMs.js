@@ -1,7 +1,7 @@
 /// <reference types="../../CTAutocomplete" />
 /// <reference lib="es2015" />
 
-import Settings from "../Settings"
+import Settings from "../Config/Settings"
 
 register("chat", function(name, message, event) {
 	if (!Settings.PinkDMs) return;

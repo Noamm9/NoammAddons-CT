@@ -2,7 +2,7 @@
 /// <reference lib="es2015" />
 
 
-import Settings from "../Settings"
+import Settings from "../Config/Settings"
 import { ModMessage, Render, MyMath } from "../utils"
 
 

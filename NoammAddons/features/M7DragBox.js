@@ -2,7 +2,7 @@
 /// <reference lib="es2015" />
 
 import RenderLib from "../../RenderLib"
-import Settings from "../Settings"
+import Settings from "../Config/Settings"
 
 let inP5 = false
 	

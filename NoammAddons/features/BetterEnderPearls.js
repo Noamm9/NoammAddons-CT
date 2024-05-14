@@ -1,9 +1,9 @@
 /// <reference types="../../CTAutocomplete" />
 /// <reference lib="es2015" />
 
-import Settings from "../Settings";
+import Settings from "../Config/Settings";
 
-const item = [ "Ender Pearl"]
+const item = [ "Ender Pearl"] // maybe i will add more stuff in the future
 
 register("playerInteract", (action, pos, event) => {
     if (!Settings.BetterEnderPearls) return

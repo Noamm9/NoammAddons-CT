@@ -1,7 +1,7 @@
 /// <reference types="../../CTAutocomplete" />
 /// <reference lib="es2015" />
 
-import Settings from "../Settings"
+import Settings from "../Config/Settings"
 import { getPhase, Executors, getBlockPosIdAt } from "../utils"
 
 const greenArray = [
@@ -87,7 +87,6 @@ const yellowArray = [
 const green = new Set(greenArray)
 const yellow = new Set(yellowArray)
 
-const glass = new BlockType("glass").getDefaultState()
 
 var runLoop = Executors.newSingleThreadExecutor();
 

@@ -2,7 +2,7 @@
 /// <reference lib="es2015" />
 
 
-import Settings from "../Settings";
+import Settings from "../Config/Settings";
 
 
 TriggerRegister.registerRenderEntity((entity, pos, ticks, event) => {

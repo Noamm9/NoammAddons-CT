@@ -1,7 +1,7 @@
 /// <reference types="../../CTAutocomplete" />
 /// <reference lib="es2015" />
 
-import Settings from "../Settings";
+import Settings from "../Config/Settings";
 
 register(`chat`, (event) => {
     if (!Settings.AnnounceSpiritLeaps) return
