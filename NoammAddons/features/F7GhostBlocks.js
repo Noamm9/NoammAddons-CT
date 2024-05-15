@@ -65,14 +65,12 @@ const AirCords = [
     new BlockPoss(89, 132, 45),
     new BlockPoss(88, 132, 45),
     new BlockPoss(87, 132, 45),
-
     new BlockPoss(93,115,122),
     new BlockPoss(93,115,123),
     new BlockPoss(93,115,124),
     new BlockPoss(93,115,125),
     new BlockPoss(93,115,126),
     new BlockPoss(93,115,127),
-
     new BlockPoss(93,116,122),
     new BlockPoss(93,116,123),
     new BlockPoss(93,116,124),

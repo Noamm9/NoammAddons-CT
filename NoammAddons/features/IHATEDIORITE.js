@@ -2,7 +2,7 @@
 /// <reference lib="es2015" />
 
 import Settings from "../Config/Settings"
-import { getPhase, Executors, getBlockPosIdAt } from "../utils"
+import { getPhase, getBlockPosIdAt } from "../utils"
 
 const greenArray = [
     new BlockPos(45, 169, 44),
@@ -88,22 +88,21 @@ const green = new Set(greenArray)
 const yellow = new Set(yellowArray)
 const WhiteGlass = new BlockType("stained_glass").getDefaultState()
 
-var runLoop = Executors.newSingleThreadExecutor();
 
-runLoop.execute(() => {
-    register("step", () => {
-        if (!World.isLoaded() || !Settings.IHateDiorite || getPhase() !== "p2") return
-        for (let height = 0; height < 37; height++) {
-            for (let block of green) {
-                if (getBlockPosIdAt(block.add(0, height, 0)) === 1) {
-                    World.getWorld().func_175656_a(block.add(0, height, 0).toMCBlock(), WhiteGlass);
-                }
-            }
-            for (let block of yellow) {
-                if (getBlockPosIdAt(block.add(0, height, 0)) === 1) {
-                    World.getWorld().func_175656_a(block.add(0, height, 0).toMCBlock(), WhiteGlass);
-                } 
+
+register("step", () => {
+    if (!World.isLoaded() || !Settings.IHateDiorite || getPhase() !== "p2") return
+    for (let height = 0; height < 37; height++) {
+        for (let block of green) {
+            if (getBlockPosIdAt(block.add(0, height, 0)) === 1) {
+                World.getWorld().func_175656_a(block.add(0, height, 0).toMCBlock(), WhiteGlass);
             }
         }
-    }).setFps(10)
-});
+        for (let block of yellow) {
+            if (getBlockPosIdAt(block.add(0, height, 0)) === 1) {
+                World.getWorld().func_175656_a(block.add(0, height, 0).toMCBlock(), WhiteGlass);
+            } 
+        }
+    }
+}).setFps(10)
+

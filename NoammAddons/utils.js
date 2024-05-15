@@ -2,10 +2,8 @@
 /// <reference lib="es2015" />
 
 import RenderLib from "../RenderLib"
-import { getBlockBoundingBox } from "../BloomCore/utils/Utils"
 import { renderBlockHitbox, renderBoxFromCorners } from "../BloomCore/RenderUtils"
 import Dungeon from "../BloomCore/dungeons/Dungeon"
-export const Executors = Java.type("java.util.concurrent.Executors")
 export const player = Client.getMinecraft().field_71439_g
 export const gc = (text) => ChatLib.getCenteredText(text) // getCentered
 export const cc = (text) => ChatLib.chat(gc(text)) // centerChat
@@ -79,9 +77,37 @@ export class MyMath {
   
   
 }
+function getBlockBoundingBox(ctBlock) {
+  const mcBlock = ctBlock.type.mcBlock
+
+  if (ctBlock.type.getName().includes("Stair")) return [
+      ctBlock.getX(),
+      ctBlock.getY(),
+      ctBlock.getZ(),
+      ctBlock.getX() + 1,
+      ctBlock.getY() + 1,
+      ctBlock.getZ() + 1
+  ]
+
+  return [
+      ctBlock.getX() + mcBlock.func_149704_x(),
+      ctBlock.getY() + mcBlock.func_149665_z(),
+      ctBlock.getZ() + mcBlock.func_149706_B(),
+      ctBlock.getX() + mcBlock.func_149753_y(),
+      ctBlock.getY() + mcBlock.func_149669_A(),
+      ctBlock.getZ() + mcBlock.func_149693_C()
+    ]
+  }
 
 
 export class Render {
+
+    
+    static renderBlockHitbox = (ctBlock, r, g, b, a, phase=true, lineWidth=2, filled=false) => {
+      const [x0, y0, z0, x1, y1, z1] = getBlockBoundingBox(ctBlock)
+      renderBoxFromCorners(x0-0.003, y0-0.008, z0-0.003, x1+0.003, y1+0.003, z1+0.003, r, g, b, a, phase, lineWidth, filled)
+    }
+    
 
    /**
   * Draws the frame of a box
@@ -100,26 +126,6 @@ export class Render {
     RenderLib.drawEspBox(x, y, z, w+0.02, h+0.02, red, green, blue, 255, phase)
     RenderLib.drawInnerEspBox(x, y, z, w+0.02, h+0.02, red, green, blue, alpha, phase)
     
-  }
-  
-  
-  static renderBlockHitbox = (ctBlock, r, g, b, a, phase=true, lineWidth=2, filled=false) => {
-    const [x0, y0, z0, x1, y1, z1] = getBlockBoundingBox(ctBlock)
-    renderBoxFromCorners(x0-0.003, y0-0.008, z0-0.003, x1+0.003, y1+0.003, z1+0.003, r, g, b, a, phase, lineWidth, filled)
-}
-
-  /**
- * 
- * @param {Block} ctBlock - The CT Block to render
- * @param {Number} r 
- * @param {Number} g 
- * @param {Number} b 
- * @param {Number} a 
- * @param {Boolean} phase - Render through walls
- * @param {Number} lineWidth - Line width, only effective if filled=false
- */
-  static renderFilledOutLineBlockHitbox (ctBlock, r, g, b, a, phase=true, lineWidth=2) {
-    renderBlockHitbox(ctBlock, r, g, b, a, phase, lineWidth, true)
   }
   
 
