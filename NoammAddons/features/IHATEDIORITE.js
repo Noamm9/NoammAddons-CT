@@ -86,7 +86,7 @@ const yellowArray = [
 
 const green = new Set(greenArray)
 const yellow = new Set(yellowArray)
-
+const WhiteGlass = new BlockType("stained_glass").getDefaultState()
 
 var runLoop = Executors.newSingleThreadExecutor();
 
@@ -96,12 +96,12 @@ runLoop.execute(() => {
         for (let height = 0; height < 37; height++) {
             for (let block of green) {
                 if (getBlockPosIdAt(block.add(0, height, 0)) === 1) {
-                    World.getWorld().func_175656_a(block.add(0, height, 0).toMCBlock(), glass);
+                    World.getWorld().func_175656_a(block.add(0, height, 0).toMCBlock(), WhiteGlass);
                 }
             }
             for (let block of yellow) {
                 if (getBlockPosIdAt(block.add(0, height, 0)) === 1) {
-                    World.getWorld().func_175656_a(block.add(0, height, 0).toMCBlock(), glass);
+                    World.getWorld().func_175656_a(block.add(0, height, 0).toMCBlock(), WhiteGlass);
                 } 
             }
         }
