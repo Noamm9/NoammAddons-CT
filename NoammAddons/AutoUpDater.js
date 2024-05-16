@@ -33,11 +33,11 @@ register("command", () => {
         
         setTimeout(() => {
             ChatLib.chat(`NoammAddons Deleted? ${!FileLib.deleteDirectory("config/ChatTriggers/modules/NoammAddons")}`)
-            FileLib.unzip(`config/ChatTriggers/modules/NoammAddonsAutoUpDate`, `config/ChatTriggers/modules`)
+            FileLib.unzip(`config/ChatTriggers/modules/NoammAddonsAutoUpDate.zip`, `config/ChatTriggers/modules`)
         }, 5_000)
 
         setTimeout(() => {
-            ChatLib.chat(`NoammAddons.zip Deleted? ${FileLib.delete("config/ChatTriggers/modules/NoammAddonsAutoUpDate")}`)
+            ChatLib.chat(`NoammAddons.zip Deleted? ${FileLib.delete("config/ChatTriggers/modules/NoammAddonsAutoUpDate.zip")}`)
         }, 10_000)
         
     } catch (Error) {ChatLib.chat(Error)}
