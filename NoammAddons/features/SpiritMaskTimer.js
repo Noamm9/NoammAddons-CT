@@ -1,3 +1,4 @@
+
 /// <reference types="../../CTAutocomplete" />
 /// <reference lib="es2015" />
 
@@ -5,8 +6,9 @@
 import Settings from "../Config/Settings";
 import PogObject from "../../PogData";
 
-var SpiritTimer = -100;
+var SpiritTimer = null;
 const SpiritMaskGUI = new Gui();
+let md = false
 
 const SpiritMaskGUIdata = new PogObject("Noammaddons", {
 	x: 10,
@@ -19,24 +21,39 @@ SpiritMaskGUI.registerActionPerformed(() => {
 	SpiritMaskGUIdata.x = 10
 	SpiritMaskGUIdata.y = 10
 	SpiritMaskGUIdata.s = 100
-	World.playSound('gui.button.press', 100, 1)
+	//World.playSound('gui.button.press', 1, 1)
+})
+
+SpiritMaskGUI.registerClicked(() => {
+	if (SpiritMaskGUI.isOpen()) {
+		md = true
+	}
 })
 
 
-SpiritMaskGUI.registerMouseDragged((dx, dy) => {
+register("dragged", (dx, dy) => {
+if (md) {
 	SpiritMaskGUIdata.x += dx
 	SpiritMaskGUIdata.y += dy
+}
 })
 
 
-SpiritMaskGUI.registerScrolled((x, y, direction) => {
-	if (direction == -1) {
-		SpiritMaskGUIdata.s = SpiritMaskGUIdata.s + 1
-	} else if (direction == 1) {
-		SpiritMaskGUIdata.s = SpiritMaskGUIdata.s - 1
-	}
-	if (SpiritMaskGUIdata.s < 60) {
-		SpiritMaskGUIdata.s = 60
+SpiritMaskGUI.registerMouseReleased(() => {
+    md = false
+    SpiritMaskGUIdata.save();
+})
+
+register("scrolled", (x, y, direction) => {
+	if (SpiritMaskGUI.isOpen()) {
+		if (direction == -1) {
+			SpiritMaskGUIdata.s = SpiritMaskGUIdata.s + 1
+		} else if (direction == 1) {
+			SpiritMaskGUIdata.s = SpiritMaskGUIdata.s - 1
+		}
+		if (SpiritMaskGUIdata.s < 60) {
+			SpiritMaskGUIdata.s = 60
+		}
 	}
 })
 
@@ -47,33 +64,32 @@ SpiritMaskGUI.registerClosed(() => {
 
 
 register("command", () => {
-	SpiritTimer = 0
-	SpiritMaskGUI.open()
+	SpiritMaskGUIdata.save();
+	SpiritMaskGUI.open();
+	ChatLib.command("ct simulate &cTEST! &rSecond Wind Activated! Your Spirit Mask saved your life! &cTEST!", true)
+	setTimeout(() => { SpiritTimer = 0 }, 200);
 }).setName("spiritmaskgui");
 
 
 register("chat", (event) => { 
 	if (!Settings.SpiritMaskTimer) return
 	SpiritTimer = 30
-}).setChatCriteria("Second Wind Activated! Your Spirit Mask saved your life!")
-
-register("renderOverlay", () => {
+	register("renderOverlay", () => {
 	if (SpiritTimer > 0) {							
 		new Text("&fSpirit Mask: &a" + SpiritTimer,
 		SpiritMaskGUIdata.x, SpiritMaskGUIdata.y)
 		.setShadow(true).setFormatted(true).setScale(SpiritMaskGUIdata.s / 100).draw();
-	} else if (SpiritTimer < 0 && SpiritTimer > -30){
+	} else if (SpiritTimer === 0){
 		new Text("&fSpirit Mask: &aREADY", 
 		SpiritMaskGUIdata.x, SpiritMaskGUIdata.y)
 		.setShadow(true).setFormatted(true).setScale(SpiritMaskGUIdata.s / 100).draw();
 	}
-	if (SpiritTimer < -30) {
-		new Text("", SpiritMaskGUIdata.x, SpiritMaskGUIdata.y).setShadow(true).setFormatted(true).setScale(SpiritMaskGUIdata.s / 100).draw()
-	} 
-
 })
+}).setChatCriteria("Second Wind Activated! Your Spirit Mask saved your life!").setContains()
 
 register("step", () => { 
-	SpiritTimer -= 1
+	if (SpiritTimer > 0) {
+		SpiritTimer -= 1
+	}
 }).setDelay(1)
 

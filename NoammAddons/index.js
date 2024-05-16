@@ -8,6 +8,8 @@ import "./features/AutoRefillEnderPearls"
 import "./features/BonzoMaskTimer"
 import "./features/SpiritMaskTimer"
 import "./features/PhoenixPetTimer"
+import "./features/LegitGhostPick"
+// import "./features/NecronDroppingTimer"   // Moved to F7PhaseStartTimers
 import "./features/CustomFOV"
 // import "./features/IHATECARPETS" // thx hypixel for fixing it ):
 import "./features/IHATEDIORITE" 
@@ -15,7 +17,6 @@ import "./features/NoSwordBlock"
 import "./features/M7DragBox"
 import "./features/M7DragTimer"
 import "./features/PinkDMs"
-import "./features/LegitGhostPick"
 import "./features/ShortSkyBlockCommands"
 import "./features/WatcherAlert"
 import "./features/RandomAlerts"
@@ -24,7 +25,6 @@ import "./features/BetterEnderPearls"
 import "./features/DungeonMobESP"
 import "./features/DungeonAutoExtraStats"
 import "./features/HideFallingBlocks"
-// import "./features/NecronDroppingTimer"   // Moved to F7PhaseStartTimers
 import "./features/SimpleBlockOverlay"
 import "./features/TeamMatesNameTag"
 import "./features/AnnounceSpiritLeaps"
@@ -38,7 +38,7 @@ import "./Features/PlayerScale"
 import './Features/HebrewToEnglish'
 import "./Features/emojis"
 import "./Features/F7GhostBlocks"
-
+import "./AutoUpDater"
 
 
 cc("§e--------------------------");

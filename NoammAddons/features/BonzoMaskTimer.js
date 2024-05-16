@@ -2,11 +2,12 @@
 /// <reference lib="es2015" />
 
 
-import Settings from "../Config/Settings";;
+import Settings from "../Config/Settings";
 import PogObject from "../../PogData";
 
-var BonzoTimer = -100;
+var BonzoTimer = null;
 const BonzoMaskGUI = new Gui();
+let md = false
 
 const BonzoMaskGUIdata = new PogObject("Noammaddons", {
 	x: 10,
@@ -19,24 +20,39 @@ BonzoMaskGUI.registerActionPerformed(() => {
 	BonzoMaskGUIdata.x = 10
 	BonzoMaskGUIdata.y = 10
 	BonzoMaskGUIdata.s = 100
-	World.playSound('gui.button.press', 100, 1)
+	//World.playSound('gui.button.press', 1, 1)
+})
+
+BonzoMaskGUI.registerClicked(() => {
+	if (BonzoMaskGUI.isOpen()) {
+		md = true
+	}
 })
 
 
-BonzoMaskGUI.registerMouseDragged((dx, dy) => {
+register("dragged", (dx, dy) => {
+if (md) {
 	BonzoMaskGUIdata.x += dx
 	BonzoMaskGUIdata.y += dy
+}
 })
 
 
-BonzoMaskGUI.registerScrolled((x, y, direction) => {
-	if (direction == -1) {
-		BonzoMaskGUIdata.s = BonzoMaskGUIdata.s + 1
-	} else if (direction == 1) {
-		BonzoMaskGUIdata.s = BonzoMaskGUIdata.s - 1
-	}
-	if (BonzoMaskGUIdata.s < 60) {
-		BonzoMaskGUIdata.s = 60
+BonzoMaskGUI.registerMouseReleased(() => {
+    md = false
+    BonzoMaskGUIdata.save();
+})
+
+register("scrolled", (x, y, direction) => {
+	if (BonzoMaskGUI.isOpen()) {
+		if (direction == -1) {
+			BonzoMaskGUIdata.s = BonzoMaskGUIdata.s + 1
+		} else if (direction == 1) {
+			BonzoMaskGUIdata.s = BonzoMaskGUIdata.s - 1
+		}
+		if (BonzoMaskGUIdata.s < 60) {
+			BonzoMaskGUIdata.s = 60
+		}
 	}
 })
 
@@ -46,9 +62,10 @@ BonzoMaskGUI.registerClosed(() => {
 })
 
 register("command", () => {
-	BonzoMaskGUIdata.save()
-	BonzoMaskGUI.open()
-	BonzoTimer = 0
+	BonzoMaskGUIdata.save();
+	BonzoMaskGUI.open();
+	ChatLib.command("ct simulate &cTEST! &rYour Bonzo's Mask saved your life! &cTEST!", true)
+	setTimeout(() => { BonzoTimer = 0 }, 200);
 }).setName("bonzomaskgui");
 
 
@@ -60,20 +77,16 @@ register("chat", (event) => {
 		new Text("&9Bonzo Mask: &a" + BonzoTimer,
 		BonzoMaskGUIdata.x, BonzoMaskGUIdata.y)
 		.setShadow(true).setFormatted(true).setScale(BonzoMaskGUIdata.s / 100).draw();
-	} else if (BonzoTimer < 0 && BonzoTimer > -30){
+	} else if (BonzoTimer === 0){
 		new Text("&9Bonzo Mask: &aREADY", 
 		BonzoMaskGUIdata.x, BonzoMaskGUIdata.y)
 		.setShadow(true).setFormatted(true).setScale(BonzoMaskGUIdata.s / 100).draw();
 	}
-	if (BonzoTimer < -30) {
-		new Text("", 
-		BonzoMaskGUIdata.x, BonzoMaskGUIdata.y)
-		.setShadow(true).setFormatted(true).setScale(BonzoMaskGUIdata.s / 100).draw();
-	}
 })
-}).setChatCriteria("Your Bonzo's Mask saved your life!")
+}).setChatCriteria("Your Bonzo's Mask saved your life!").setContains()
 
 register("step", () => { 
-	BonzoTimer -= 1
+	if (BonzoTimer > 0) {
+		BonzoTimer -= 1
+	}
 }).setDelay(1)
-
