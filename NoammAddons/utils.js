@@ -7,6 +7,13 @@ import Dungeon from "../BloomCore/dungeons/Dungeon"
 export const player = Client.getMinecraft().field_71439_g
 export const gc = (text) => ChatLib.getCenteredText(text) // getCentered
 export const cc = (text) => ChatLib.chat(gc(text)) // centerChat
+export const prefix = "§6§l[§b§lN§d§lAddons§6§l]§r"
+
+export function ModMessage (string) {
+  ChatLib.chat(`${prefix} ${string}`)
+}
+
+
 
 export function isCoordinateInsideBox(coord, corner1, corner2) {
   const min = {
@@ -61,9 +68,6 @@ export function getPhase() {
 export const getBlockPosIdAt = (b) => World.getBlockAt(b).type.getID()
 
 
-export function ModMessage (string) {
-  ChatLib.chat(`§6§l[§d§lNoamm§b§lAddons§6§l]§r ${string}`)
-}
  
 export class MyMath {
   

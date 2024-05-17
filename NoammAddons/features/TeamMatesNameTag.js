@@ -11,8 +11,20 @@ register(`renderWorld`, () => {
     if (!Settings.TeammatesNametag || !Dungeon.inDungeon) return
     let DungeonPlayerClasses = Dungeon.classes
     for (let PlayerName in DungeonPlayerClasses) {
-        let PlayerClass = DungeonPlayerClasses[PlayerName];  
-        DrawNames(World.getPlayerByName(PlayerName), `§e[§d${PlayerClass.charAt(0)}§e] §b${PlayerName}`)
+        let PlayerClass = DungeonPlayerClasses[PlayerName];
+
+        if (Settings.TeammatesNametagMode == 0) {
+            if (PlayerClass.charAt(0) == `H`) DrawNames(World.getPlayerByName(PlayerName), `§e[§5${PlayerClass.charAt(0)}§e] §5${PlayerName}`)
+            else if (PlayerClass.charAt(0) == `T`) DrawNames(World.getPlayerByName(PlayerName), `§e[§a${PlayerClass.charAt(0)}§e] §a${PlayerName}`)
+            else if (PlayerClass.charAt(0) == `A`) DrawNames(World.getPlayerByName(PlayerName), `§e[§4${PlayerClass.charAt(0)}§e] §4${PlayerName}`)
+            else if (PlayerClass.charAt(0) == `B`) DrawNames(World.getPlayerByName(PlayerName), `§e[§6${PlayerClass.charAt(0)}§e] §6${PlayerName}`)
+            else DrawNames(World.getPlayerByName(PlayerName), `§e[§b${PlayerClass.charAt(0)}§e] §b${PlayerName}`)
+        } else {
+            let FormattedName = TabList.getNames().join().match(`§.${PlayerName}`).join()
+            DrawNames(World.getPlayerByName(PlayerName), `§e[§d${PlayerClass.charAt(0)}§e] ${FormattedName}`)
+        }
+        
+
     }        
 })
 

@@ -1,4 +1,4 @@
-import {  @ButtonProperty, @CheckboxProperty, @ColorProperty, @SelectorProperty, @SwitchProperty, @Vigilant, @SliderProperty, @TextProperty, Color } from 'Vigilance';
+import {  @ButtonProperty, @PercentSliderProperty, @CheckboxProperty, @ColorProperty, @SelectorProperty, @SwitchProperty, @Vigilant, @SliderProperty, @TextProperty, Color } from "../../Vigilance"
 
 
 @Vigilant("NoammAddons", "§d§l§nNoamm§b§l§nAddons", {
@@ -13,67 +13,12 @@ import {  @ButtonProperty, @CheckboxProperty, @ColorProperty, @SelectorProperty,
     }/*,
     getSubcategoryComparator: () => (a, b) => {
         const subcategories = [
-            "Dungeons", 
-            "Timers",
-            `Chat`,
-            "Block Overlay", 
-            "Visuals",
-            "Player"
         ];
         return subcategories.indexOf(a.name) - subcategories.indexOf(b.name);
     },
     getPropertyComparator: () => (a, b) => {
         const names = [
-//              No Catecory
-            "&dShort &bSky&dBlock &bCommands",    
-//              Dungeons
-            "&l&cI HATE DIORITE", 
-            "&eBetter &3Ender Pearls", 
-            "Auto &eRefill &3Ender Pearls", 
-            `&aTeammates &6Nametag`,
-            "&bLegit Ghost Pickaxe",
-            "&cM7 &0Dragon&r Box",
-            "&cM7 &0Dragon&f Spawn &eTimer",
-            "&eHide &cFalling &eBlocks",
-            "&fDungeon &eMob &dE&bS&dP",
-            "&dE&bS&dP &6Mode",
-            "&dE&bS&dP &dC&bo&dl&bo&dr",
-            "&dDungeon Auto Extra Stats",
-            `Announce &fSpirit &bLeaps`,
-            `Announced &6Massage`,
-//              Timers       
-            "F7/M7 Phase Start Timers",
-            "&aP1 &fStart &eTimer",
-            "&aP2 &fStart &eTimer",
-            "&aP3 &fStart &eTimer",
-            "&aP4 &fStart &eTimer",
-            "&9Bonzo Mask&r &eTimer&r",
-            "&5Phoenix Pet&r &eTimer&r",
-            "&fSpirit Mask&r &eTimer&r",
-            "&cNecron Dropping &eTimer",
-//              Alerts
-            "&cM6 &dGyro&r Alerts",
-            "M7 &6Ragnarock Axe&r Alert",
-            `&5Shadow Assasian &fAlert`,
-            "&dLock &bChest &fAlert",
-            "&cWatcher&r Alerts",
-            "&9Bonzo Mask&r Alert",
-            "&5Phoenix Pet&r Alert",
-            "&fSpirit Mask&r Alert",
-            "§5Full Thunder Bottle Alert",
-            "&cArrows&r Alert",
-//              Cosmetic
-            "§n&fBlock Overlay",
-            "Block Overlay Type",
-            "Outline Thickness",
-            "Outline Color",
-            "Overlay Color",
-            "&eCustom &dFOV",
-            "&bFOV",
-            "Custom Slot Highlight",
-            `Slot Highlight Color`,
-            "&cRemove &aSword &fBlock",
-            "&cRemove&r &aSelfie&f Camera",
+
         ];
         return names.indexOf(a.name) - names.indexOf(b.name);
     }*/
@@ -551,6 +496,18 @@ class Settings {
     })
     TeammatesNametag = false
 
+    @SelectorProperty({
+        name: "&aDungeon &6Team&amates &6Nametag &eMode",
+        description: "",
+        category: "General",
+        subcategory: "Dungeons",
+        options: [
+            "Class Color",
+            "Player's Rank"
+        ]
+    })
+    TeammatesNametagMode = 0;
+
     @SwitchProperty({
         name: "Custom Slot Highlight",
         description: "Changes the Color and the opacity of Minecraft Vanilla slot highlight\n\n&c&lCurrently does not work with sba for some reason ",
@@ -629,14 +586,12 @@ class Settings {
     })
     PlayerScale = false
 
-    @SliderProperty({
+    @PercentSliderProperty({
         name: "Custom Scale",
         description: "",
         category: "Cosmetic",
         subcategory: "Player",
-        min: 30,
-        max: 200
-    })
+    })  
     CustomPlayerScale = 100;
 
     @SwitchProperty({
@@ -655,7 +610,124 @@ class Settings {
     })
     ChatEmojis = false
 
+    @SwitchProperty({
+        name: "Time Changer",
+        description: "                &a&l^",
+        category: "Cosmetic",
+        subcategory: "Visuals"
+    })
+    TimeChanger = false
 
+    @SelectorProperty({
+        name: "Time Mode",
+        description: "",
+        category: "Cosmetic",
+        subcategory: "Visuals",
+        options: [
+            "Day",
+            "Night",
+            "Noon",
+            "Midnight",
+            "Sunrise",
+            "Sunset"
+        ]
+    })
+    TimeChangerMode = 0;
+
+    @SwitchProperty({
+        name: `Inventory Search Bar`,
+        description: "                &a&l^\nSame as NEU's one",
+        category: "Cosmetic",
+        subcategory: "Visuals"
+    })
+    InventorySearchBar = false
+
+
+
+
+
+
+    @SwitchProperty({
+        name: "Main Toggle",
+        description: "If this is off all features below will be off.",
+        subcategory: "General",
+        category: "Party Commands"
+    })
+    pcEnabled = false;
+
+
+    @SwitchProperty({ 
+        name: "Whitelist",
+        description: "...",
+        subcategory: "General",
+        category: "Party Commands"
+    })
+    pcWhitelist = false;
+
+    @SwitchProperty({
+        name: "ptme",
+        description: "Transfer the party to you.\n&8Aliases: transfer, pt",
+        subcategory: "Toggle",
+        category: "Party Commands"
+    })
+    pcPtme = false;
+
+    @SwitchProperty({
+        name: "warp",
+        description: "Warp the party.",
+        subcategory: "Toggle",
+        category: "Party Commands"
+    })
+    pcWarp = false;
+
+    @SwitchProperty({
+        name: "allinvite",
+        description: "Enable all invite.\n&8Aliases: allinv",
+        subcategory: "Toggle",
+        category: "Party Commands"
+    })
+    pcAllinv = false;
+
+    @SwitchProperty({
+        name: "f0-7",
+        description: `Join catacombs dungeons.`,
+        subcategory: "Toggle",
+        category: "Party Commands"
+    })
+    pcFloor = false;
+
+    @SwitchProperty({
+        name: "m1-7",
+        description: `Join mastermode catacombs dungeons.`,
+        subcategory: "Toggle",
+        category: "Party Commands"
+    })
+    pcMasterFloor = false;
+    @SwitchProperty({
+        name: "Healer Wish",
+        description: "",
+        category: "Dungeons",
+        subcategory: "Healer Wish",
+    })
+    healerWish = true;
+
+    @TextProperty({
+        name: "Healer Wish Message",
+        description: "",
+        category: "Dungeons",
+        subcategory: "Healer Wish",
+        placeholder: "Wish!"
+    })
+    healerWishMessage = "Wish!";
+
+    @TextProperty({
+        name: "Healer Title Message",
+        description: "",
+        category: "Dungeons",
+        subcategory: "Healer Wish",
+        placeholder: "Wish!"
+    })
+    healerWishTitle = "Wish!";
 
     constructor() {
         this.initialize(this);

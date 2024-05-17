@@ -4,7 +4,6 @@
 import RenderLib from "../../RenderLib"
 import Settings from "../Config/Settings"
 import Dungeon from "../../BloomCore/dungeons/Dungeon"
-import { ModMessage } from "../utils"
 
 let InBoss = false
 

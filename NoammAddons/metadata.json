@@ -8,7 +8,7 @@
     "requires": [
     "BloomCore",
     "RenderLib",
-  	  "Vigilance",
-	   "PogData"
+  	"Vigilance",
+	  "PogData"
   ]
 }

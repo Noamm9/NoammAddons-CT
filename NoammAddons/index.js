@@ -1,7 +1,8 @@
 import { gc, cc } from "./utils"
 import Settings from "./Config/Settings"
 
-register("command", () => Settings.openGUI()).setName("noamm").setAliases("noam", "noamaddons", "noammaddons", "na")
+//register("command", () => Settings.openGUI()).setName("noamm").setAliases("noam", "noamaddons", "noammaddons", "na") // moved to Party Commands
+import "./AutoUpDater"
 
 import "./features/RemoveSelfieCam"
 import "./features/AutoRefillEnderPearls"
@@ -30,15 +31,20 @@ import "./features/TeamMatesNameTag"
 import "./features/AnnounceSpiritLeaps"
 import "./features/PingCommand"
 import "./features/CustomSlotHighlight"
-import "./Features/F7PhaseStartTimers"
-import "./Features/BloodDialougeSkip"
-import "./Features/ChatCoordsWayPoint"
-import "./Features/ClientSideSpin"
-import "./Features/PlayerScale"
-import './Features/HebrewToEnglish'
-import "./Features/emojis"
-import "./Features/F7GhostBlocks"
-import "./AutoUpDater"
+import "./features/F7PhaseStartTimers"
+import "./features/BloodDialougeSkip"
+import "./features/ChatCoordsWayPoint"
+import "./features/ClientSideSpin"
+import "./features/PlayerScale"
+import './features/HebrewToEnglish'
+import "./features/emojis"
+import "./features/F7GhostBlocks"
+import "./features/ClockDisplay"
+import "./features/TimerChanger"
+import "./features/InventorySearchBar"
+//import "./features/RoomEdit" // WIP
+import "./features/HealerWish"
+import "./features/PartyCommands.js"
 
 
 cc("§e--------------------------");
