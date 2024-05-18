@@ -2,8 +2,8 @@
 /// <reference lib="es2015" />
 
 import Settings from "../Config/Settings"
+import { getPhase, BlockPoss } from "../utils"
 
-const BlockPoss = Java.type("net.minecraft.util.BlockPos") 
 const WhiteGlass = new BlockType("stained_glass").getDefaultState()
 const Chest = new BlockType(`chest`).getDefaultState()
 
@@ -115,18 +115,12 @@ const WhiteGlassCords = [
 ]
 
 
-register(`command`, () => {
-    for (let i = 0; i<ChestCords.length;i++) {
-        GhostBlock(ChestCords[i], Chest)
-    }
+register(`step`, () => {
+    if (!World.isLoaded() || !Settings.f7GhostBlocks || !getPhase() == "p3" || !getPhase() == "p2" || !getPhase() == "p1") return
 
-    for (let i = 0; i<AirCords.length;i++) {
-        setAir(AirCords[i])
-    }
-
-    for (let i = 0; i<WhiteGlassCords.length;i++) {
-        GhostBlock(WhiteGlassCords[i], WhiteGlass)
-    }
-
-}).setName(`test123`)
+    for (let i = 0; i<ChestCords.length;i++) GhostBlock(ChestCords[i], Chest)
+    for (let i = 0; i<AirCords.length;i++) setAir(AirCords[i])
+    for (let i = 0; i<WhiteGlassCords.length;i++) GhostBlock(WhiteGlassCords[i], WhiteGlass)
+    
+}).setFps(10)
 

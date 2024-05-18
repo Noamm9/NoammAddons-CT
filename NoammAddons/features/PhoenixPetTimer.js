@@ -16,7 +16,7 @@ const PhoenixPetGUIdata = new PogObject("Noammaddons", {
 	s: 100,
 }, "Config/PhoenixPet.json");
 
-PhoenixPetGUI.addButton(1, Renderer.screen.getWidth() / 2 -50, Renderer.screen.getHeight() - Renderer.screen.getHeight() / 4, 100, 20, "Reset Element");
+register(`worldLoad`, () => PhoenixPetGUI.addButton(1, Renderer.screen.getWidth() / 2 -50, Renderer.screen.getHeight() - Renderer.screen.getHeight() / 4, 100, 20, "Reset Element"))
 PhoenixPetGUI.registerActionPerformed(() => {
 	PhoenixPetGUIdata.x = 10
 	PhoenixPetGUIdata.y = 10

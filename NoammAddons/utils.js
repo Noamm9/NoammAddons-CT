@@ -4,10 +4,11 @@
 import RenderLib from "../RenderLib"
 import { renderBlockHitbox, renderBoxFromCorners } from "../BloomCore/RenderUtils"
 import Dungeon from "../BloomCore/dungeons/Dungeon"
+export const BlockPoss = Java.type("net.minecraft.util.BlockPos")
 export const player = Client.getMinecraft().field_71439_g
 export const gc = (text) => ChatLib.getCenteredText(text) // getCentered
 export const cc = (text) => ChatLib.chat(gc(text)) // centerChat
-export const prefix = "§6§l[§b§lN§d§lAddons§6§l]§r"
+export const prefix = "§6§l[§b§lN§d§lA§6§l]§r"
 
 export function ModMessage (string) {
   ChatLib.chat(`${prefix} ${string}`)
@@ -106,11 +107,53 @@ function getBlockBoundingBox(ctBlock) {
 
 export class Render {
 
+  /**
+       * Draws a line between 2 coordinates
+       * @param {number} x1 - X Coordinates of first position
+       * @param {number} y1 - Y Coordinates of first position
+       * @param {number} z1 - Z Coordinates of first position
+       * @param {number} x2 - X Coordinates of second position
+       * @param {number} y2 - Y Coordinates of second position
+       * @param {number} z2 - Z Coordinates of second position
+       * @param {number} red - Line Color Red 0-1
+       * @param {number} green - Line Color Green 0-1
+       * @param {number} blue - Line Color Blue 0-1
+       * @param {number} alpha - Line Color Alpha 0-1
+       * @param {boolean} phase - Depth test disabled. True: See through walls
+       * @param {number} [lineWidth=2.0] - The line width in float. if this parameter not pass, default is 2.0
+       */
+  static renderLine = (x1, y1, z1, x2, y2, z2, red, green, blue, alpha, phase, lineWidth) => {
+    if (!lineWidth) lineWidth = 2.0;
+    GlStateManager.func_179094_E(); // pushMatrix
+    GL11.glLineWidth(lineWidth);
+    GL11.glDisable(GL11.GL_CULL_FACE); // disableCullFace
+    GL11.glEnable(GL11.GL_BLEND); // enableBlend
+    GL11.glBlendFunc(770, 771); // blendFunc
+    GL11.glDisable(GL11.GL_TEXTURE_2D); // disableTexture2D
+    GL11.glDepthMask(false); // depthMask
+
+    if (phase) GL11.glDisable(GL11.GL_DEPTH_TEST); // disableDepth
+
+    Tessellator.begin(3)
+        .colorize(red, green, blue, alpha)
+        .pos(x1, y1, z1)
+        .pos(x2, y2, z2)
+        .draw()
+
+
+    GL11.glEnable(GL11.GL_CULL_FACE); // enableCull
+    GL11.glDisable(GL11.GL_BLEND); // disableBlend
+    GL11.glDepthMask(true); // depthMask
+    GL11.glEnable(GL11.GL_TEXTURE_2D); // enableTexture2D
+    if (phase) GL11.glEnable(GL11.GL_DEPTH_TEST); // enableDepth
+    GlStateManager.func_179121_F(); // popMatrix
+  }
+
     
-    static renderBlockHitbox = (ctBlock, r, g, b, a, phase=true, lineWidth=2, filled=false) => {
+  static renderBlockHitbox = (ctBlock, r, g, b, a, phase=true, lineWidth=2, filled=false) => {
       const [x0, y0, z0, x1, y1, z1] = getBlockBoundingBox(ctBlock)
       renderBoxFromCorners(x0-0.003, y0-0.008, z0-0.003, x1+0.003, y1+0.003, z1+0.003, r, g, b, a, phase, lineWidth, filled)
-    }
+  }
     
 
    /**

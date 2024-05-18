@@ -4,7 +4,8 @@ import {  @ButtonProperty, @PercentSliderProperty, @CheckboxProperty, @ColorProp
 @Vigilant("NoammAddons", "§d§l§nNoamm§b§l§nAddons", {
     getCategoryComparator: () => (a, b) => {
         const categories = [
-            "General", 
+            "General",
+            "Dungeons", 
             "Alerts", 
             "HUD", 
             "Cosmetic"
@@ -29,7 +30,7 @@ class Settings {
 /*    @SwitchProperty({
         name: "&l&cI HATE CARPETS",
         description: "Replace all Carpet blocks in a radius of 3 block from the Player to AirBlocks to avoid useless LagBacks",
-        category: "General",
+        category: "Dungeons",
         subcategory: "Dungeons"
     })
     IHateCarpets = false; */
@@ -37,32 +38,32 @@ class Settings {
     @SwitchProperty({
         name: "&c&lI HATE DIORITE",
         description: "Replace the Diorite blocks at the F7/M7 P2 to Glass blocks in older to see Storm get Crushed better (Alternative to trying to see his name tag through the blocks)",
-        category: "General",
-        subcategory: "Dungeons"
+        category: "Dungeons",
+        subcategory: "f7"
     })
     IHateDiorite = false
     
     @SwitchProperty({
         name: "&eBetter &3Ender Pearls",
         description: "Disable's Hypixel's stupid Ender Pearls throw block when you are too close to a wall/floor/ceiling",
-        category: "General",
-        subcategory: "Dungeons"
+        category: "Dungeons",
+        subcategory: "Ender Pearls"
     })
     BetterEnderPearls = false
 
     @SwitchProperty({
         name: `Announce &fSpirit &bLeaps`,
         description: "Says in party chat who did you leaped to",
-        category: "General",
-        subcategory: "Dungeons"
+        category: "Dungeons",
+        subcategory: "Spirit Leaps"
     })
     AnnounceSpiritLeaps = false
 
     @TextProperty({
         name: 'Announced &6Massage',
         description: "The Message that will be sent every time you leapd to someone.\n You can use {name} to get the leaped player's name",
-        category: 'General',
-        subcategory: 'Dungeons',
+        category: 'Dungeons',
+        subcategory: 'Spirit Leaps',
         placeholder: 'I TP to {name}',
     })
     AnnouncedLeapMassage = 'I TP to {name}';
@@ -70,8 +71,8 @@ class Settings {
 	@SwitchProperty({
         name: "&bLegit Ghost Pickaxe",
         description: "&fThis is meant for people that lock all of their the inventory slots and are too lazy to unlock them every time they want to create a ghost pickaxe &l(Controlled by a keybind within Options/Controls)",
-        category: "General",
-        subcategory: "Dungeons"
+        category: "Dungeons",
+        subcategory: ""
     })
 	LegitGhostPickaxe = false
     
@@ -79,7 +80,7 @@ class Settings {
         name: "§eMove&r &bLegit Ghost Pickaxe",
         description: "&fEdit the &bLegit Ghost Pickaxe&r's &fPosition and Scale &l(Drag the text to move it, Scroll with the mouse wheel to change the scale of the text) &r&dMake sure that the Toggle is enable before you try to use this option else it wont work",
         category: "HUD",
-        subcategory: "Dungeons",
+        subcategory: "",
         placeholder: "MOVE"
     })
     LGPButtonAction() {
@@ -101,32 +102,32 @@ class Settings {
     @SwitchProperty({
         name: "&cM7 &0Dragon&r Box",
         description: "Draws a very accurate &0Dragon&r Kill Box for &cM7&r-&fP5",
-        category: "General",
-        subcategory: "Dungeons"
+        category: "Dungeons",
+        subcategory: "f7"
     })
 	M7DragBox = false
 
     @SwitchProperty({
         name: "&cM7 &0Dragon&f Spawn &eTimer",
         description: 'Draws a "Accurate" &0Dragon&r Spawn &eTimer&r for &cM7&r-&fP5',
-        category: "General",
-        subcategory: "Dungeons"
+        category: "Dungeons",
+        subcategory: "f7"
     })
 	M7DragTimer = false
 
     @SwitchProperty({
         name: "Auto &eRefill &3Ender Pearls",
         description: 'Automatically &eRefill &3Ender Pearls&r from sack at the start of a dungeon run (does not work properly if you have spirit leaps in inventory)',
-        category: "General",
-        subcategory: "Dungeons"
+        category: "Dungeons",
+        subcategory: "Ender Pearls"
     })
 	AutoRefillEnderPearls = false
 
     @SwitchProperty({
         name: "&dDungeon Auto Extra Stats",
         description: "Automatically types the command to show extra the extra dungeon stats at the end of the run",
-        category: "General",
-        subcategory: "Dungeons"
+        category: "Dungeons",
+        subcategory: ""
     })
     DungeonAutoExtraStats = false
 
@@ -151,16 +152,16 @@ class Settings {
     @SwitchProperty({
         name: "&fDungeon &eMob &dE&bS&dP",
         description: "Draw a see through wall box around stared dungeon mobs",
-        category: "General",
-        subcategory: "Dungeons"
+        category: "Dungeons",
+        subcategory: "ESP"
     })
 	DungeonMobESP = false
 
     @SelectorProperty({
         name: '&dE&bS&dP &6Mode',
         description: 'Select an option',
-        category: 'General',
-        subcategory: 'Dungeons',
+        category: "Dungeons",
+        subcategory: 'ESP',
         options: [
             'Box', 
             'Overlay',
@@ -172,8 +173,8 @@ class Settings {
     @ColorProperty({
         name: '&dE&bS&dP &dC&bo&dl&bo&dr',
         description: 'Select an option for the Dungeon Mob ESP box color',
-        category: 'General',
-        subcategory: 'Dungeons'
+        category: "Dungeons",
+        subcategory: 'ESP'
     })
     MobESPColor = new Color(0,1,0,1)
 
@@ -186,9 +187,9 @@ class Settings {
     ShadowAssasianAlert = false
 
     @SwitchProperty({
-        name: 'F7/M7 Phase Start Timers',
+        name: '&cF7/&4M7 &aPhase &dStart &eTimers',
         description: 'Global Toggle',
-        category: 'General',
+        category: 'Dungeons',
         subcategory: 'Timers'
     })
     F7M7PhaseStartTimers = false
@@ -196,7 +197,7 @@ class Settings {
     @CheckboxProperty({
         name: '&5P1 &fStart &eTimer',
         description: 'Shows a Timer on screen when &5&nMaxor Phase&r will start',
-        category: 'General',
+        category: 'Dungeons',
         subcategory: 'Timers'
     })
     P1StartTimer = false
@@ -204,7 +205,7 @@ class Settings {
     @CheckboxProperty({
         name: '&bP2 &fStart &eTimer',
         description: 'Shows a Timer on screen when &b&nStorm Phase&r will start',
-        category: 'General',
+        category: 'Dungeons',
         subcategory: 'Timers'
     })
     P2StartTimer = false
@@ -212,7 +213,7 @@ class Settings {
     @CheckboxProperty({
         name: '&7P3 &fStart &eTimer',
         description: 'Shows a Timer on screen when &7&nGoldor Phase&r will start',
-        category: 'General',
+        category: 'Dungeons',
         subcategory: 'Timers'
     })
     P3StartTimer = false
@@ -220,7 +221,7 @@ class Settings {
     @CheckboxProperty({
         name: '&cP4 &fStart &eTimer',
         description: 'Shows a Timer on screen when &4&nNecron Phase&r will start',
-        category: 'General',
+        category: 'Dungeons',
         subcategory: 'Timers'
     })
     P4StartTimer = false
@@ -228,7 +229,7 @@ class Settings {
     @CheckboxProperty({
         name: '&4P5 &fStart &eTimer', //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
         description: 'Shows a Timer on screen when &5&nWither King Phase&r will start', //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
-        category: 'General', //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+        category: 'Dungeons', //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
         subcategory: 'Timers' //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
     })
     P5StartTimer = false*/
@@ -244,8 +245,8 @@ class Settings {
     @SwitchProperty({
         name: "&eHide &cFalling &eBlocks",
         description: "Hides Falling Blocks in order to improve fps",
-        category: "General",
-        subcategory: "Dungeons"
+        category: "Cosmetic",
+        subcategory: "Visuals"
     })
     HideFallingBlocks = false
 
@@ -260,7 +261,7 @@ class Settings {
 	@SwitchProperty({
         name: "&9Bonzo Mask&r &eTimer&r",
         description: 'Draws a very accurate Display that shows the cooldown of the &9Bonzo &cMask&r "Clownin Around" &eAbility&r',
-        category: "General",
+        category: "Dungeons",
         subcategory: "Timers"
     })
 	BonzoMaskTimer = false
@@ -284,7 +285,7 @@ class Settings {
 	@SwitchProperty({
         name: "&fSpirit Mask&r &eTimer&r",
         description: 'Draws a very accurate Display that shows the cooldown of the &fSpirit Mask&r "Second Wind" &eAbility&r',
-        category: "General",
+        category: "Dungeons",
         subcategory: "Timers"
     })
 	SpiritMaskTimer = false
@@ -308,7 +309,7 @@ class Settings {
 	@SwitchProperty({
         name: "&5Phoenix Pet&r &eTimer&r",
         description: 'Draws a very accurate Display that shows the cooldown of the &5Phoenix Pet&r "Rekindle" &eAbility&r',
-        category: "General",
+        category: "Dungeons",
         subcategory: "Timers"
     })
 	PhoenixPetTimer = false
@@ -412,7 +413,7 @@ class Settings {
     @SwitchProperty({
         name: "&cNecron Dropping &eTimer",
         description: "Shows a Timer on screen when Necron will drop you to the Lava at F7/M7 P4",
-        category: "General",
+        category: "Dungeons",
         subcategory: "Timers"
     })
     NecronDroppingTimer = false
@@ -489,18 +490,18 @@ class Settings {
     BlockOverlayESP = true
     
     @SwitchProperty({
-        name: "&aDungeon &6Team&amates &6Nametag",
-        description: "draws your TeamMates Name and Class as a big NameTag that you can See through walls.\n\n§fExample: §e[§dT§e] §bNoamm9",
-        category: "General",
-        subcategory: "Dungeons"
+        name: "&aDungeon &6Team&amates &6Name&atag",
+        description: "draws your TeamMates Name and Class as a big NameTag that you can See through walls.\n\n§fExample: §e[§dM§e] §bNoamm9  &f||  §e[§4A§e] §4Noamm9",
+        category: "Dungeons",
+        subcategory: "Teammates Nametag"
     })
     TeammatesNametag = false
 
     @SelectorProperty({
-        name: "&aDungeon &6Team&amates &6Nametag &eMode",
+        name: "&aDungeon &6Team&amates &6Name&atag &eMode",
         description: "",
-        category: "General",
-        subcategory: "Dungeons",
+        category: "Dungeons",
+        subcategory: "Teammates Nametag",
         options: [
             "Class Color",
             "Player's Rank"
@@ -509,7 +510,7 @@ class Settings {
     TeammatesNametagMode = 0;
 
     @SwitchProperty({
-        name: "Custom Slot Highlight",
+        name: "&aCustom &bSlot &d&lHighlight",
         description: "Changes the Color and the opacity of Minecraft Vanilla slot highlight\n\n&c&lCurrently does not work with sba for some reason ",
         category: "Cosmetic",
         subcategory: "Visuals"
@@ -517,7 +518,7 @@ class Settings {
     CustomSlotHighlight = false
 
     @ColorProperty({
-        name: "Slot Highlight Color",
+        name: "&bSlot &d&lHighlight&r &6Color",
         description: "The color of the Overlay",
         category: "Cosmetic",
         subcategory: "Visuals"
@@ -527,8 +528,8 @@ class Settings {
     @SwitchProperty({
         name: "§cBlood §bDialouge §eSkip",
         description: "&fMakes a timer for &n24 seconds&r&f after you open the &5blood room \n\n&b&lTip: &c&lYou need to be in blood when timer ends",
-        category: "General",
-        subcategory: "Dungeons"
+        category: "Dungeons",
+        subcategory: "Timers"
     })
     BloodDialougeSkip = false
 
@@ -541,23 +542,40 @@ class Settings {
     ChatCoordsWayPoint = false
 
     @ColorProperty({
-        name: "WayPoint Color",
+        name: "&dWay&bPoint &6Color",
         description: "The color of the waypoint",
         category: "General",
         subcategory: "Chat"
     })
     ChatCoordsWayPointColor = new Color(0, 0, 0, 1)
 
+    
     @SwitchProperty({
-        name: `Spin`,
-        description: ``,
+        name: `&6Player &4Scale`,
+        description: `Allows to dynamically adjust the size of the player character's scale from the default 100% down to 30%. `,
+        category: "Cosmetic",
+        subcategory: "Player"
+    })
+    PlayerScale = false
+    
+    @PercentSliderProperty({
+        name: "&eCustom &4Scale",
+        description: "",
+        category: "Cosmetic",
+        subcategory: "Player",
+    })  
+    CustomPlayerScale = 100;
+    
+    @SwitchProperty({
+        name: `&bPlayer &aSpin`,
+        description: `Client-side feature that allows players to make their in-game avatar spin in place. This visual effect is only visible to the player using the module and does not affect the view or gameplay of other players on the server.`,
         category: "Cosmetic",
         subcategory: "Player"
     })
     ClientSideSpin = false
 
     @SelectorProperty({
-        name: "spin diraction",
+        name: "&aSpin &ediraction",
         description: "",
         category: "Cosmetic",
         subcategory: "Player",
@@ -569,7 +587,7 @@ class Settings {
     SpinDiraction = 0;
 
     @SliderProperty({
-        name: "spin speed",
+        name: "&sSpin &9speed",
         description: "",
         category: "Cosmetic",
         subcategory: "Player",
@@ -577,41 +595,25 @@ class Settings {
         max: 200
     })
     SpinSpeed = 50;
-
+    
     @SwitchProperty({
-        name: `Player's Scale`,
-        description: ``,
-        category: "Cosmetic",
-        subcategory: "Player"
-    })
-    PlayerScale = false
-
-    @PercentSliderProperty({
-        name: "Custom Scale",
-        description: "",
-        category: "Cosmetic",
-        subcategory: "Player",
-    })  
-    CustomPlayerScale = 100;
-
-    @SwitchProperty({
-        name: "Hebrew 2 English",
-        description: "",
+        name: "&dHebrew&r &62 &bEnglish",
+        description: "Automatically converts Hebrew characters to their corresponding English characters based on a predefined mapping.",
         category: "General",
         subcategory: "Chat"
     })
     HebrewToEnglish = false
 
     @SwitchProperty({
-        name: "Chat Emojis",
-        description: "",
+        name: "&6Chat &dEmojis",
+        description: "&6[MVP&c++&6]&r &dChat &bEmojis",
         category: "General",
         subcategory: "Chat"
     })
     ChatEmojis = false
 
     @SwitchProperty({
-        name: "Time Changer",
+        name: "&dTime &bChanger",
         description: "                &a&l^",
         category: "Cosmetic",
         subcategory: "Visuals"
@@ -619,7 +621,7 @@ class Settings {
     TimeChanger = false
 
     @SelectorProperty({
-        name: "Time Mode",
+        name: "&dTime &eMode",
         description: "",
         category: "Cosmetic",
         subcategory: "Visuals",
@@ -635,76 +637,80 @@ class Settings {
     TimeChangerMode = 0;
 
     @SwitchProperty({
-        name: `Inventory Search Bar`,
+        name: `&bInventory &dSearch &6Bar`,
         description: "                &a&l^\nSame as NEU's one",
         category: "Cosmetic",
         subcategory: "Visuals"
     })
     InventorySearchBar = false
 
-
-
-
-
-
     @SwitchProperty({
-        name: "Main Toggle",
+        name: "&9&lM&a&la&c&li&d&ln &b&lT&6&lo&e&lg&f&lg&0l&4&le",
         description: "If this is off all features below will be off.",
-        subcategory: "General",
-        category: "Party Commands"
+        category: "General",
+        subcategory: "Party Commands"
     })
     pcEnabled = false;
 
 
     @SwitchProperty({ 
-        name: "Whitelist",
+        name: "&f&lWhitelist",
         description: "...",
-        subcategory: "General",
-        category: "Party Commands"
+        category: "General",
+        subcategory: "Party Commands"
     })
-    pcWhitelist = false;
+    pcWhitelist = false
+
+    @SwitchProperty({ 
+        name: "&0&lBlacklist",
+        description: "...",
+        category: "General",
+        subcategory: "Party Commands"
+    })
+    pcBlacklist = true
 
     @SwitchProperty({
-        name: "ptme",
-        description: "Transfer the party to you.\n&8Aliases: transfer, pt",
-        subcategory: "Toggle",
-        category: "Party Commands"
+        name: "&e!ptme",
+        description: "Transfer the party to you.\n&bAliases: transfer, pt",
+        category: "General",
+        subcategory: "Party Commands"
     })
     pcPtme = false;
 
     @SwitchProperty({
-        name: "warp",
-        description: "Warp the party.",
-        subcategory: "Toggle",
-        category: "Party Commands"
+        name: "&6!warp",
+        description: "Warp the party.\n&bAlias: w",
+        category: "General",
+        subcategory: "Party Commands"
     })
     pcWarp = false;
 
     @SwitchProperty({
-        name: "allinvite",
-        description: "Enable all invite.\n&8Aliases: allinv",
-        subcategory: "Toggle",
-        category: "Party Commands"
+        name: "&d!allinvite",
+        description: "Enable all invite.\n&bAliases: allinv, ai",
+        category: "General",
+        subcategory: "Party Commands"
     })
     pcAllinv = false;
 
     @SwitchProperty({
-        name: "f0-7",
+        name: "!f&a0&r-&c7",
         description: `Join catacombs dungeons.`,
-        subcategory: "Toggle",
-        category: "Party Commands"
+        category: "General",
+        subcategory: "Party Commands"
     })
     pcFloor = false;
 
     @SwitchProperty({
-        name: "m1-7",
+        name: "!m&c1&r-&47",
         description: `Join mastermode catacombs dungeons.`,
-        subcategory: "Toggle",
-        category: "Party Commands"
+        category: "General",
+        subcategory: "Party Commands"
     })
     pcMasterFloor = false;
+    
     @SwitchProperty({
-        name: "Healer Wish",
+        name: "&5&lHealer &e&lWish!",
         description: "",
         category: "Dungeons",
         subcategory: "Healer Wish",
@@ -712,26 +718,100 @@ class Settings {
     healerWish = true;
 
     @TextProperty({
-        name: "Healer Wish Message",
+        name: "&5Healer &eWish! &bMessage",
         description: "",
         category: "Dungeons",
         subcategory: "Healer Wish",
-        placeholder: "Wish!"
     })
     healerWishMessage = "Wish!";
 
     @TextProperty({
-        name: "Healer Title Message",
+        name: "&5&nHealer&r &e&nWish!&r &b&nTitle&r &b&nMessage",
         description: "",
         category: "Dungeons",
         subcategory: "Healer Wish",
-        placeholder: "Wish!"
     })
     healerWishTitle = "Wish!";
 
+    @SwitchProperty({
+        name: "&4&lF7&r &f&lGhost Blocks&r",
+        description: `Auto Place Ghost Blocks in some places at f7 boss fight`,
+        category: "Dungeons",
+        subcategory: "f7"
+    })
+    f7GhostBlocks = false
+
+    @SwitchProperty({
+		name: "§bIcefill §6Solver",
+		description: "",
+		category: "Dungeons",
+        subcategory: "Solvers"
+	})
+	IcefillSolver = false
+
+    @ColorProperty({
+        name: "§bIcefill §6Solver &2C&3o&4l&5o&6r",
+        description: "The color of the Icefill Solver",
+        category: "Dungeons",
+        subcategory: "Solvers"
+    })
+    IcefillSolverColor = new Color(0, 0, 0, 1)
+
+    @SwitchProperty({
+		name: "§zClock Display",
+		description: "Displays the System Time on screen",
+		category: "General",
+        subcategory: ""
+	})
+    ClockDisplay = false
+
+    @ButtonProperty({
+        name: "§eMove&r §zClock Display§r",
+        description: "&fEdit the §zClock Display&r's &fPosition and Scale &l(Drag the text to move it, Scroll with the mouse wheel to change the scale of the text) &r&dMake sure that the Toggle is enable before you try to use this option else it wont work",
+        category: "HUD",
+        subcategory: "General",
+        placeholder: "MOVE"
+    })
+    CDButtonAction() {
+        if (this.ClockDisplay) {
+            Client.currentGui.close()
+            setTimeout(() => ChatLib.command("clockdisplaygui", true) , 100)
+        }
+    }
+
+    @SwitchProperty({
+		name: "§zFPS Display",
+		description: "Displays the System Time on screen",
+		category: "General",
+        subcategory: ""
+	})
+    FPSdisplay = false
+
+    @ButtonProperty({
+        name: "§eMove&r §zFPS Display§r",
+        description: "&fEdit the §zFPS Display&r's &fPosition and Scale &l(Drag the text to move it, Scroll with the mouse wheel to change the scale of the text) &r&dMake sure that the Toggle is enable before you try to use this option else it wont work",
+        category: "HUD",
+        subcategory: "General",
+        placeholder: "MOVE"
+    })
+    FPSDButtonAction() {
+        if (this.FPSdisplay) {
+            Client.currentGui.close()
+            setTimeout(() => ChatLib.command("fpsdisplaygui", true) , 100)
+        }
+    }
+
+
+
+
+
+
+
     constructor() {
         this.initialize(this);
-        this.setCategoryDescription("General", "&6Toggle &aOn&f/&cOff&f features within the mod")
+        this.setCategoryDescription(`HUD`, "&fEdit the &fPosition and Scale Of All of HUD Elements \n&b&l(Drag the text to move it, Scroll with the mouse wheel to change the scale of the text) \n&r&dMake sure that the Toggle is enable before you try to use this option else it wont work")
+        this.setCategoryDescription("Dungeons", "&6Toggle &aOn&f/&cOff&f features within the mod\nOr just &6Configurate &eThem")
+        this.setCategoryDescription("General", "&6Toggle &aOn&f/&cOff&f features within the mod\nOr just &6Configurate &eThem")
 		this.setCategoryDescription("Alerts", "&6Toggle &aOn&f/&cOff&f Alerts within this mod")
 
         this.addDependency('&bFOV', '&eCustom &dFOV');
@@ -740,6 +820,8 @@ class Settings {
         this.addDependency('§eMove&r &9Bonzo Mask&r &eTimer&r', '&9Bonzo Mask&r &eTimer&r')
         this.addDependency('§eMove&r &fSpirit Mask&r &eTimer&r', '&fSpirit Mask&r &eTimer&r')
         this.addDependency('§eMove&r &5Phoenix Pet&r &eTimer&r', '&5Phoenix Pet&r &eTimer&r')
+        this.addDependency(`§eMove&r §zClock Display§r`, `§zClock Display`)
+        this.addDependency(`§eMove&r §zFPS Display§r`, `§zFPS Display`)
         //this.addDependency('§eMove&r &cNecron Dropping&r &eTimer&r', '&cNecron Dropping &eTimer')
         this.addDependency("Block Overlay &eType", "§n&fBlock Overlay")
         this.addDependency("Outline Thickness", "§n&fBlock Overlay")
@@ -747,13 +829,29 @@ class Settings {
         this.addDependency("Overlay Color", "§n&fBlock Overlay")
         this.addDependency("&6Show Through Blocks?", "§n&fBlock Overlay")
         this.addDependency("&dE&bS&dP &6Mode", "&fDungeon &eMob &dE&bS&dP")
-        this.addDependency("Slot Highlight Color", "Custom Slot Highlight")
         this.addDependency("Announced &6Massage", "Announce &fSpirit &bLeaps")
-        this.addDependency("&5P1 &fStart &eTimer", "F7/M7 Phase Start Timers")
-        this.addDependency("&bP2 &fStart &eTimer", "F7/M7 Phase Start Timers")
-        this.addDependency("&7P3 &fStart &eTimer", "F7/M7 Phase Start Timers")
-        this.addDependency("&cP4 &fStart &eTimer", "F7/M7 Phase Start Timers")
-        this.addDependency("WayPoint Color", "&aChat Coords &d2 WayPoint")
+        this.addDependency("&5P1 &fStart &eTimer", "&cF7/&4M7 &aPhase &dStart &eTimers")
+        this.addDependency("&bP2 &fStart &eTimer", "&cF7/&4M7 &aPhase &dStart &eTimers")
+        this.addDependency("&7P3 &fStart &eTimer", "&cF7/&4M7 &aPhase &dStart &eTimers")
+        this.addDependency("&cP4 &fStart &eTimer", "&cF7/&4M7 &aPhase &dStart &eTimers")
+        this.addDependency("&dWay&bPoint &6Color", "&aChat Coords &d2 WayPoint")
+        this.addDependency(`§bIcefill §6Solver &2C&3o&4l&5o&6r`, `§bIcefill §6Solver`)
+        this.addDependency(`&f&lWhitelist`, `&9&lM&a&la&c&li&d&ln &b&lT&6&lo&e&lg&f&lg&0l&4&le`)
+        this.addDependency(`&0&lBlacklist`, `&9&lM&a&la&c&li&d&ln &b&lT&6&lo&e&lg&f&lg&0l&4&le`)
+        this.addDependency(`&e!ptme`, `&9&lM&a&la&c&li&d&ln &b&lT&6&lo&e&lg&f&lg&0l&4&le`)
+        this.addDependency(`&6!warp`, `&9&lM&a&la&c&li&d&ln &b&lT&6&lo&e&lg&f&lg&0l&4&le`)
+        this.addDependency(`&d!allinvite`, `&9&lM&a&la&c&li&d&ln &b&lT&6&lo&e&lg&f&lg&0l&4&le`)
+        this.addDependency(`!f&a0&r-&c7`, `&9&lM&a&la&c&li&d&ln &b&lT&6&lo&e&lg&f&lg&0l&4&le`)
+        this.addDependency(`!m&c1&r-&47`, `&9&lM&a&la&c&li&d&ln &b&lT&6&lo&e&lg&f&lg&0l&4&le`)
+        this.addDependency(`&5Healer &eWish! &bMessage`, `&5&lHealer &e&lWish!`)
+        this.addDependency(`&5&nHealer&r &e&nWish!&r &b&nTitle&r &b&nMessage`, `&5&lHealer &e&lWish!`)
+        this.addDependency(`&dTime &eMode`, "&dTime &bChanger")
+        this.addDependency(`&eCustom &4Scale`, `&6Player &4Scale`)
+        this.addDependency(`&aSpin &ediraction`, `&bPlayer &aSpin`)
+        this.addDependency(`&sSpin &9speed`, `&bPlayer &aSpin`)
+        this.addDependency("&bSlot &d&lHighlight&r &6Color", "&aCustom &bSlot &d&lHighlight")
+        this.addDependency(`&aDungeon &6Team&amates &6Name&atag &eMode`, `&aDungeon &6Team&amates &6Name&atag`)
+
 
     }
 }

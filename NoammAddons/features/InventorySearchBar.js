@@ -4,7 +4,8 @@
 
 import Settings from "../Config/Settings";
 const GuiTextField = Java.type("net.minecraft.client.gui.GuiTextField");
-let searchBar = new GuiTextField(0, Client.getMinecraft().field_71466_p,  (Renderer.screen.getWidth()/4) - 50, (Renderer.screen.getHeight() /2) - 30, 100, 10);
+let searchBar
+register(`worldLoad`, () => searchBar = new GuiTextField(0, Client.getMinecraft().field_71466_p, (Renderer.screen.getWidth()/4) - 50, (Renderer.screen.getHeight() /2) - 20, 100, 10))
 let searchTerm = "";
 
 
@@ -23,7 +24,6 @@ register("guiKey", (char, keyCode, gui, event) => {
         if (keyCode != 1) cancel(event)
     }
 })
-
 
 
 register('guiRender', () => {

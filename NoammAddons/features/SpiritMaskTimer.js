@@ -16,7 +16,7 @@ const SpiritMaskGUIdata = new PogObject("Noammaddons", {
 	s: 100,
 }, "Config/SpiritMask.json");
 
-SpiritMaskGUI.addButton(1, Renderer.screen.getWidth() / 2 -50, Renderer.screen.getHeight() - Renderer.screen.getHeight() / 4, 100, 20, "Reset Element");
+register(`worldLoad`, () => SpiritMaskGUI.addButton(1, Renderer.screen.getWidth() / 2 -50, Renderer.screen.getHeight() - Renderer.screen.getHeight() / 4, 100, 20, "Reset Element"))
 SpiritMaskGUI.registerActionPerformed(() => {
 	SpiritMaskGUIdata.x = 10
 	SpiritMaskGUIdata.y = 10

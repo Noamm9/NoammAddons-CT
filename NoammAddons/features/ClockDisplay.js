@@ -16,10 +16,10 @@ const ClockDisplayGUIdata = new PogObject("Noammaddons", {
 	x: 10,
 	y: 90,
 	s: 100,
-}, "Config/ClockDisplay.json");
+}, "Config/ClockDisplay.json")
 
 
-ClockDisplayGUI.addButton(1, Renderer.screen.getWidth() / 2 -50, Renderer.screen.getHeight() - Renderer.screen.getHeight() / 4, 100, 20, "Reset Element");
+register(`worldLoad`, () => ClockDisplayGUI.addButton(1, Renderer.screen.getWidth() / 2 -50, Renderer.screen.getHeight() - Renderer.screen.getHeight() / 4, 100, 20, "Reset Element"))
 ClockDisplayGUI.registerActionPerformed(() => {
 	ClockDisplayGUIdata.x = 10
 	ClockDisplayGUIdata.y = 10
@@ -67,17 +67,15 @@ ClockDisplayGUI.registerClosed(() => {
 register("command", () => {
 	ClockDisplayGUIdata.save()
 	ClockDisplayGUI.open()
-}).setName("clockdisplaygui");
+}).setName("clockdisplaygui")
 
 
-register('step', (elapsed) => {
-    chromaValue = elapsed
-})
+register('step', (elapsed) => chromaValue = elapsed )
 
 
 register('renderOverlay', () => {
-    if(!true) return
-    let time = LocalTime.now();
+    if(!Settings.ClockDisplay) return
+    let time = LocalTime.now()
     new Text(time.format(DateTimeFormatter.ofPattern("HH:mm:ss")),
     ClockDisplayGUIdata.x ,ClockDisplayGUIdata.y)
     .setColor(Renderer.getRainbow(chromaValue, 90))

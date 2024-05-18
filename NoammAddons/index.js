@@ -1,7 +1,7 @@
 import { gc, cc } from "./utils"
-import Settings from "./Config/Settings"
 
-//register("command", () => Settings.openGUI()).setName("noamm").setAliases("noam", "noamaddons", "noammaddons", "na") // moved to Party Commands
+//import Settings from "./Config/Settings"
+//register("command", () => Settings.openGUI()).setName("noamm").setAliases("noam", "noamaddons", "noammaddons", "na") // moved to Party Commands 
 import "./AutoUpDater"
 
 import "./features/RemoveSelfieCam"
@@ -44,7 +44,9 @@ import "./features/TimerChanger"
 import "./features/InventorySearchBar"
 //import "./features/RoomEdit" // WIP
 import "./features/HealerWish"
-import "./features/PartyCommands.js"
+import "./features/PartyCommands"
+import "./features/iceFillSolver"
+import "./features/FPSdisplay"
 
 
 cc("§e--------------------------");
@@ -54,4 +56,3 @@ cc("§e--------------------------");
 console.log("----------------------");
 console.log(" NoammAddons Loaded");
 console.log("----------------------");
-

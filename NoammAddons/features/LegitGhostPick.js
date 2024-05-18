@@ -15,7 +15,7 @@ const LegitGhostPickGUIdata = new PogObject("Noammaddons", {
 	s: 100,
 }, "Config/LegitGhostPick.json");
 
-LegitGhostPickGUI.addButton(1, Renderer.screen.getWidth() / 2 -50, Renderer.screen.getHeight() - Renderer.screen.getHeight() / 4, 100, 20, "Reset Element");
+register(`worldLoad`, () => LegitGhostPickGUI.addButton(1, Renderer.screen.getWidth() / 2 -50, Renderer.screen.getHeight() - Renderer.screen.getHeight() / 4, 100, 20, "Reset Element"))
 LegitGhostPickGUI.registerActionPerformed(() => {
 	LegitGhostPickGUIdata.x = 10
 	LegitGhostPickGUIdata.y = 10

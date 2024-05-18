@@ -27,7 +27,7 @@ const wishMessages = [
 wishMessages.forEach((message) => {
     register("chat", () => {
         if (!Settings.healerWish || ChatLib.removeFormatting(Settings.healerWishTitle) == "") return;
-        ChatLib.command(`pc ${ChatLib.removeFormatting(Settings.healerWishTitle)}`)
+        ChatLib.command(`pc ${ChatLib.removeFormatting(Settings.healerWishMessage)}`)
         wishTitleComp.setString(Settings.healerWishTitle)
         wishTitleComp.setX(Renderer.screen.getWidth() / 2 - (Renderer.getStringWidth(ChatLib.removeFormatting(Settings.healerWishTitle))*5) / 2)
         wishTitleComp.setY(Renderer.screen.getHeight() / 2 - Renderer.screen.getHeight() / 4)
