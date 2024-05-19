@@ -15,10 +15,13 @@ register("tick", () => {
 })
 
 register("guiMouseClick", (x, y, button) => {
-  searchBar.func_146192_a(x, y, button); // detect when click text box
+    if (!Player.getContainer() || Player.getContainer().getClassName().includes("Chest"))
+    searchBar.func_146192_a(x, y, button) // detect when click text box
 })
 
 register("guiKey", (char, keyCode, gui, event) => {
+    if (Keyboard.isKeyDown(Keyboard.KEY_LCONTROL) && (Keyboard.isKeyDown(Keyboard.KEY_F))) searchBar.func_146195_b(!searchBar.func_146206_l()) // CTRL + F = Toggle focus on searchbar
+
     if (searchBar.func_146206_l()) {
         searchBar.func_146201_a(char, keyCode) 
         if (keyCode != 1) cancel(event)
