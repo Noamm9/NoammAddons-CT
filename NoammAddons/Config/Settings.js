@@ -564,7 +564,7 @@ class Settings {
         category: "Cosmetic",
         subcategory: "Player",
     })  
-    CustomPlayerScale = 100;
+    CustomPlayerScale = 1;
     
     @SwitchProperty({
         name: `&bPlayer &aSpin`,

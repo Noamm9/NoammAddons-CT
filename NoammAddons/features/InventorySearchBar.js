@@ -15,8 +15,9 @@ register("tick", () => {
 })
 
 register("guiMouseClick", (x, y, button) => {
-    if (!Player.getContainer() || Player.getContainer().getClassName().includes("Chest"))
-    searchBar.func_146192_a(x, y, button) // detect when click text box
+    try {
+        searchBar.func_146192_a(x, y, button) // detect when click text box
+    } catch (e) {}
 })
 
 register("guiKey", (char, keyCode, gui, event) => {

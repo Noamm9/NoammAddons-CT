@@ -14,14 +14,18 @@ setTimeout(() => {
     }).setFps(100)
     
     register("renderEntity", (entity) => {
-        if (entity.getName() != Player.getName() || !Settings.ClientSideSpin) return
-        Tessellator.pushMatrix()
-        Tessellator.rotate(rot, 0, 1, 0)
+        try {
+            if (entity.getName() != Player.getName() || !Settings.ClientSideSpin) return
+            Tessellator.pushMatrix()
+            Tessellator.rotate(rot, 0, 1, 0)
+        } catch (e) {}
     })
     
     register("postRenderEntity", (entity) => {
-        if (entity.getName() != Player.getName() || !Settings.ClientSideSpin) return
-        Tessellator.popMatrix()
+        try {
+            if (entity.getName() != Player.getName() || !Settings.ClientSideSpin) return
+            Tessellator.popMatrix()
+        } catch (e) {}
     })
 }, 1000)
 
