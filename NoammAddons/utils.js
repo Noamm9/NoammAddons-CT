@@ -2,19 +2,73 @@
 /// <reference lib="es2015" />
 
 import RenderLib from "../RenderLib"
-import { renderBlockHitbox, renderBoxFromCorners } from "../BloomCore/RenderUtils"
+import { renderBoxFromCorners } from "../BloomCore/RenderUtils"
 import Dungeon from "../BloomCore/dungeons/Dungeon"
 export const BlockPoss = Java.type("net.minecraft.util.BlockPos")
 export const player = Client.getMinecraft().field_71439_g
 export const gc = (text) => ChatLib.getCenteredText(text) // getCentered
 export const cc = (text) => ChatLib.chat(gc(text)) // centerChat
 export const prefix = "§6§l[§b§lN§d§lA§6§l]§r"
+export const Color = Java.type("java.awt.Color")
+const BufferUtils = Java.type("org.lwjgl.BufferUtils")
+const Project = Java.type("org.lwjgl.util.glu.Project")
+const modelViewMatrix = BufferUtils.createFloatBuffer(16)
+const projectionMatrix = BufferUtils.createFloatBuffer(16)
+const viewportDims = BufferUtils.createIntBuffer(16)
+const ScaledResolution = Java.type("net.minecraft.client.gui.ScaledResolution")
 
 export function ModMessage (string) {
   ChatLib.chat(`${prefix} ${string}`)
 }
 
 
+export function darkenColor(color, amount) {
+  let r = Math.max(color.getRed()/255 - amount/255, 0)
+  let g = Math.max(color.getGreen()/255 - amount/255, 0)
+  let b = Math.max(color.getBlue()/255 - amount/255, 0)
+  return new Color(r, g, b)
+}
+
+
+register('renderWorld', () => {
+
+  Tessellator.pushMatrix()
+
+  let x = Player.getRenderX()
+  let y = Player.getRenderY()
+  let z = Player.getRenderZ()
+
+  Tessellator.translate(-x, -y, -z)
+
+  GL11.glGetFloat(GL11.GL_MODELVIEW_MATRIX, modelViewMatrix)
+  GL11.glGetFloat(GL11.GL_PROJECTION_MATRIX, projectionMatrix)
+  
+  Tessellator.popMatrix()
+  
+  GL11.glGetInteger(GL11.GL_VIEWPORT, viewportDims)
+})
+
+function getBlockBoundingBox(ctBlock) {
+  const mcBlock = ctBlock.type.mcBlock
+
+  if (ctBlock.type.getName().includes("Stair")) return [
+      ctBlock.getX(),
+      ctBlock.getY(),
+      ctBlock.getZ(),
+      ctBlock.getX() + 1,
+      ctBlock.getY() + 1,
+      ctBlock.getZ() + 1
+  ]
+
+  return [
+      ctBlock.getX() + mcBlock.func_149704_x(),
+      ctBlock.getY() + mcBlock.func_149665_z(),
+      ctBlock.getZ() + mcBlock.func_149706_B(),
+      ctBlock.getX() + mcBlock.func_149753_y(),
+      ctBlock.getY() + mcBlock.func_149669_A(),
+      ctBlock.getZ() + mcBlock.func_149693_C()
+    ]
+  }
 
 export function isCoordinateInsideBox(coord, corner1, corner2) {
   const min = {
@@ -31,6 +85,7 @@ export function isCoordinateInsideBox(coord, corner1, corner2) {
     && coord.y >= min.y && coord.y <= max.y
     && coord.z >= min.z && coord.z <= max.z;
 }
+
 
 /**
   * Returns where abouts of the player
@@ -62,47 +117,26 @@ export function getPhase() {
   return inBoss ? inPhase : false;
 }
 
+
 /**
  * @param {Object} b The blockpos object
  * @returns {Number} The ID of the block at the specified coordinates
 */
-export const getBlockPosIdAt = (b) => World.getBlockAt(b).type.getID()
-
+export function getBlockPosIdAt(b) { World.getBlockAt(b).type.getID() }
 
  
 export class MyMath {
   
   static DistanceIn3dWorld(x1, y1, z1, x2, y2, z2) {
-    return Math.round(Math.sqrt((x1 - x2)**2 + (y1 - y2)**2 + (z1 - z2)**2)) 
+    return Math.sqrt((x1 - x2)**2 + (y1 - y2)**2 + (z1 - z2)**2)
   }
 
   static DistanceIn2dWorld(x1, z1, x2, z2) {
-    return Math.round(Math.sqrt((x1 - x2)**2 + (z1 - z2)**2)) 
+    return Math.sqrt((x1 - x2)**2 + (z1 - z2)**2)
   }
   
   
 }
-function getBlockBoundingBox(ctBlock) {
-  const mcBlock = ctBlock.type.mcBlock
-
-  if (ctBlock.type.getName().includes("Stair")) return [
-      ctBlock.getX(),
-      ctBlock.getY(),
-      ctBlock.getZ(),
-      ctBlock.getX() + 1,
-      ctBlock.getY() + 1,
-      ctBlock.getZ() + 1
-  ]
-
-  return [
-      ctBlock.getX() + mcBlock.func_149704_x(),
-      ctBlock.getY() + mcBlock.func_149665_z(),
-      ctBlock.getZ() + mcBlock.func_149706_B(),
-      ctBlock.getX() + mcBlock.func_149753_y(),
-      ctBlock.getY() + mcBlock.func_149669_A(),
-      ctBlock.getZ() + mcBlock.func_149693_C()
-    ]
-  }
 
 
 export class Render {
@@ -211,6 +245,78 @@ export class Render {
     })
   }
 
+
+  static Draw2DEspBox (x, y, z, color, thickness) {
+    
+    function projectPoint(posX, posY, posZ) {
+      const coords = BufferUtils.createFloatBuffer(3)
+      const success = Project.gluProject(posX, posY, posZ, modelViewMatrix, projectionMatrix, viewportDims, coords)
+      const z = coords.get(2)
+
+      if (!success || !(z > 0 && z < 1)) return null
+          
+      const sr = new ScaledResolution(Client.getMinecraft())
+      const x = (coords.get(0) / sr.func_78325_e())
+      let y = (coords.get(1) / sr.func_78325_e())
+      y = (sr.func_78328_b() - y)
+          
+      return { x, y, z };
+    }
+  
+    function calculateBoundingBox(box) {
+      let vertices = getVertices(box)
+  
+      let x1 = java.lang.Float.MAX_VALUE
+      let x2 = 0;
+      let y1 = java.lang.Float.MAX_VALUE
+      let y2 = 0;
+
+      vertices.forEach(vertex => {
+        let vec = projectPoint(vertex.x, vertex.y, vertex.z)
+        if (vec == null) return null
+  
+        let x = vec.x
+        let y = vec.y
+  
+        if (x < x1) x1 = x
+        if (x > x2) x2 = x
+        if (y < y1) y1 = y
+        if (y > y2) y2 = y
+      })
+  
+      return { x1, y1, x2, y2 }
+    }
+      
+    function getVertices(box) {
+      let list = [];
+  
+      list.push({ x: box.field_72340_a, y: box.field_72338_b, z: box.field_72339_c });
+      list.push({ x: box.field_72336_d, y: box.field_72338_b, z: box.field_72339_c });
+      list.push({ x: box.field_72336_d, y: box.field_72337_e, z: box.field_72339_c });
+      list.push({ x: box.field_72340_a, y: box.field_72337_e, z: box.field_72339_c });
+      list.push({ x: box.field_72340_a, y: box.field_72338_b, z: box.field_72334_f });
+      list.push({ x: box.field_72336_d, y: box.field_72338_b, z: box.field_72334_f });
+      list.push({ x: box.field_72336_d, y: box.field_72337_e, z: box.field_72334_f });
+      list.push({ x: box.field_72340_a, y: box.field_72337_e, z: box.field_72334_f });
+  
+      return list;
+    }
+  
+
+    let bb = calculateBoundingBox(new net.minecraft.util.AxisAlignedBB(x-0.5, y, z-0.5, x+0.5, y+2, z+0.5))
+    Renderer.drawLine(color, bb.x1, bb.y1, bb.x1, bb.y2, thickness)
+    Renderer.drawLine(color, bb.x1, bb.y1, bb.x2, bb.y1, thickness)
+    Renderer.drawLine(color, bb.x2, bb.y2, bb.x2, bb.y1, thickness)
+    Renderer.drawLine(color, bb.x2, bb.y2, bb.x1, bb.y2, thickness)
+  }
+
+  static drawStringWithShadow(text, x, y, z, color) {
+
+    const shadowColor = darkenColor(color, 120)
+    Tessellator.drawString(text, x + 0.09, y - 0.05, z + 0.05, shadowColor.getRGB(), false, 2, true)
+    Tessellator.drawString(text, x, y, z, color.getRGB(), false, 2, true)
+  
+  }
 
 
 }

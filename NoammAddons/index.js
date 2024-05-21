@@ -1,4 +1,4 @@
-import { gc, cc, ModMessage } from "./utils"
+import { gc, cc, Render } from "./utils"
 
 //import Settings from "./Config/Settings"
 //register("command", () => Settings.openGUI()).setName("noamm").setAliases("noam", "noamaddons", "noammaddons", "na") // moved to Party Commands 
@@ -47,6 +47,7 @@ import "./features/HealerWish"
 import "./features/PartyCommands"
 import "./features/iceFillSolver"
 import "./features/FPSdisplay"
+import "./features/TeamMatesBox.js"
 
 
 cc("§e--------------------------");
@@ -77,7 +78,7 @@ register(`renderSlotHighlight`, (mx, my, slot, gui, event) => {
             Renderer.translate(0, 0, 300)
             Renderer.drawRect(Renderer.BLACK, slot.getDisplayX() + 10, slot.getDisplayY() + 10, Renderer.getStringWidth(line) + 5, 12 + Lore.length * 9)
             Renderer.drawStringWithShadow(line, textx, texty)
-        
+            
         })
     } catch (e) {ModMessage(e)}
 })*/

@@ -4,7 +4,7 @@
 
 import Settings from "../Config/Settings"
 import Dungeon from "../../BloomCore/dungeons/Dungeon"
-import { MyMath } from "../utils"
+import { MyMath, Render, Color } from "../utils"
 
 
 register(`renderWorld`, () => {
@@ -13,13 +13,8 @@ register(`renderWorld`, () => {
     for (let PlayerName in DungeonPlayerClasses) {
         let PlayerClass = DungeonPlayerClasses[PlayerName];
 
-        if (Settings.TeammatesNametagMode == 0) {
-            if (PlayerClass.charAt(0) == `H`) DrawNames(World.getPlayerByName(PlayerName), `§e[§5${PlayerClass.charAt(0)}§e] §5${PlayerName}`)
-            else if (PlayerClass.charAt(0) == `T`) DrawNames(World.getPlayerByName(PlayerName), `§e[§a${PlayerClass.charAt(0)}§e] §a${PlayerName}`)
-            else if (PlayerClass.charAt(0) == `A`) DrawNames(World.getPlayerByName(PlayerName), `§e[§4${PlayerClass.charAt(0)}§e] §4${PlayerName}`)
-            else if (PlayerClass.charAt(0) == `B`) DrawNames(World.getPlayerByName(PlayerName), `§e[§6${PlayerClass.charAt(0)}§e] §6${PlayerName}`)
-            else DrawNames(World.getPlayerByName(PlayerName), `§e[§b${PlayerClass.charAt(0)}§e] §b${PlayerName}`)
-        } else {
+        if (Settings.TeammatesNametagMode == 0) DrawNames(World.getPlayerByName(PlayerName), PlayerName, PlayerClass.charAt(0))
+        else {
             let FormattedName = TabList.getNames().join().match(`§.${PlayerName}`).join()
             DrawNames(World.getPlayerByName(PlayerName), `§e[§d${PlayerClass.charAt(0)}§e] ${FormattedName}`)
         }
@@ -29,10 +24,20 @@ register(`renderWorld`, () => {
 })
 
 
-function DrawNames(player, string) {
+function DrawNames(player, string, PlayerClass) {
     if (World.isLoaded() && player != null) {
         if (MyMath.DistanceIn3dWorld(Player.getX(), Player.getY(), Player.getZ(), player.getX(), player.getY(), player.getZ()) >=9) {
-            Tessellator.drawString(string, player.getRenderX(), player.getRenderY() + 3.50, player.getRenderZ(), 0, true, 1.55, true)
+            let NameColor = new Color(255/255, 255/255, 255/255)
+
+            if (PlayerClass == `A`) NameColor = new Color(193/255, 32/255, 32/255)
+            else if (PlayerClass == `B`) NameColor = new Color(205/255, 100/255, 0/255)
+            else if (PlayerClass == `H`) NameColor = new Color(145/255, 4/255, 120/255)
+            else if (PlayerClass == `T`) NameColor = new Color(0/255, 170/255, 0/255)
+            else if (PlayerClass == `M`) NameColor = new Color(0/255, 234/255, 255/255)
+            else return
+
+            Render.drawStringWithShadow(string, player.getRenderX(), player.getRenderY() + 3.50, player.getRenderZ(), NameColor)
+        
         } 
     }
 }

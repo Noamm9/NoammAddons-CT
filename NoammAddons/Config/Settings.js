@@ -493,7 +493,7 @@ class Settings {
         name: "&aDungeon &6Team&amates &6Name&atag",
         description: "draws your TeamMates Name and Class as a big NameTag that you can See through walls.\n\n§fExample: §e[§dM§e] §bNoamm9  &f||  §e[§4A§e] §4Noamm9",
         category: "Dungeons",
-        subcategory: "Teammates Nametag"
+        subcategory: "Teammates"
     })
     TeammatesNametag = false
 
@@ -501,13 +501,33 @@ class Settings {
         name: "&aDungeon &6Team&amates &6Name&atag &eMode",
         description: "",
         category: "Dungeons",
-        subcategory: "Teammates Nametag",
+        subcategory: "Teammates",
         options: [
             "Class Color",
             "Player's Rank"
         ]
     })
     TeammatesNametagMode = 0;
+
+    @SwitchProperty({
+        name: "&aDungeon &6Team&amates &6Box",
+        description: "draws your TeamMates Name and Class as a big NameTag that you can See through walls.\n\n§fExample: §e[§dM§e] §bNoamm9  &f||  §e[§4A§e] §4Noamm9",
+        category: "Dungeons",
+        subcategory: "Teammates"
+    })
+    TeammatesBox = false
+
+    @SelectorProperty({
+        name: "&aDungeon &6Team&amates &6Box &eMode",
+        description: "",
+        category: "Dungeons",
+        subcategory: "Teammates",
+        options: [
+            "Class Color",
+            "Player's Rank"
+        ]
+    })
+    TeammatesBoxMode = 0;
 
     @SwitchProperty({
         name: "&aCustom &bSlot &d&lHighlight",

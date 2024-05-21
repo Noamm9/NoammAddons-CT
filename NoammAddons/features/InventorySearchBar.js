@@ -5,13 +5,15 @@
 import Settings from "../Config/Settings";
 const GuiTextField = Java.type("net.minecraft.client.gui.GuiTextField");
 let searchBar
-register(`worldLoad`, () => searchBar = new GuiTextField(0, Client.getMinecraft().field_71466_p, (Renderer.screen.getWidth()/4) - 50, (Renderer.screen.getHeight() /2) - 20, 100, 10))
+register(`step`, () => searchBar = new GuiTextField(0, Client.getMinecraft().field_71466_p, (Renderer.screen.getWidth()/4) - 50, (Renderer.screen.getHeight() /2) - 20, 100, 10))
 let searchTerm = "";
 
 
 register("tick", () => {
-    if (!Client.isInGui()) searchBar.func_146195_b(false) // setfocused
-    else searchTerm = searchBar.func_146179_b()
+    try {
+        if (!Client.isInGui()) searchBar.func_146195_b(false) // setfocused
+        else searchTerm = searchBar.func_146179_b()
+    } catch (e) {}
 })
 
 register("guiMouseClick", (x, y, button) => {
@@ -21,12 +23,14 @@ register("guiMouseClick", (x, y, button) => {
 })
 
 register("guiKey", (char, keyCode, gui, event) => {
-    if (Keyboard.isKeyDown(Keyboard.KEY_LCONTROL) && (Keyboard.isKeyDown(Keyboard.KEY_F))) searchBar.func_146195_b(!searchBar.func_146206_l()) // CTRL + F = Toggle focus on searchbar
-
-    if (searchBar.func_146206_l()) {
-        searchBar.func_146201_a(char, keyCode) 
-        if (keyCode != 1) cancel(event)
-    }
+    try {
+        if (Keyboard.isKeyDown(Keyboard.KEY_LCONTROL) && (Keyboard.isKeyDown(Keyboard.KEY_F))) searchBar.func_146195_b(!searchBar.func_146206_l()) // CTRL + F = Toggle focus on searchbar
+    
+        if (searchBar.func_146206_l()) {
+            searchBar.func_146201_a(char, keyCode) 
+            if (keyCode != 1) cancel(event)
+        }
+    } catch (e) {}
 })
 
 
