@@ -1,4 +1,4 @@
-import { gc, cc, Render } from "./utils"
+import { gc, cc, Render, MyMath, ModMessage } from "./utils"
 
 //import Settings from "./Config/Settings"
 //register("command", () => Settings.openGUI()).setName("noamm").setAliases("noam", "noamaddons", "noammaddons", "na") // moved to Party Commands 
@@ -28,6 +28,7 @@ import "./features/DungeonAutoExtraStats"
 import "./features/HideFallingBlocks"
 import "./features/SimpleBlockOverlay"
 import "./features/TeamMatesNameTag"
+import "./features/TeamMatesBox.js"
 import "./features/AnnounceSpiritLeaps"
 import "./features/PingCommand"
 import "./features/CustomSlotHighlight"
@@ -47,7 +48,6 @@ import "./features/HealerWish"
 import "./features/PartyCommands"
 import "./features/iceFillSolver"
 import "./features/FPSdisplay"
-import "./features/TeamMatesBox.js"
 
 
 cc("§e--------------------------");
@@ -82,3 +82,6 @@ register(`renderSlotHighlight`, (mx, my, slot, gui, event) => {
         })
     } catch (e) {ModMessage(e)}
 })*/
+
+
+

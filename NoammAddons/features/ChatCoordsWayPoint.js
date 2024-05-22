@@ -25,4 +25,4 @@ register(`chat`, (type, name, x1, y2, z3, event) => {
         Render.drawFilledOutLineBox(x, y, z, 1, 1, r, g, b, 50/255, true)
     })
     cancel(event)
-}).setCriteria(/^(Co-op|Party)?(?: > )?(?:\[\d+\] .? ?)?(?:\[[\w\+]+\] )?(\w{1,16})\: x\: (.{1,4}), y\: (.{1,4}), z\: (.{1,4})$/) // Thanks DocilElm for the Regex
+}).setCriteria(/^(Co-op|Party)?(?: > )?(?:\[\d+\] .? ?)?(?:\[[\w\+]+\] )?(\w{1,16})\: x\: (.{1,4}), y\: (.{1,4}), z\: (.{1,4})/) // Thanks DocilElm for the Regex

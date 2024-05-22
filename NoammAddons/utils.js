@@ -16,6 +16,10 @@ const modelViewMatrix = BufferUtils.createFloatBuffer(16)
 const projectionMatrix = BufferUtils.createFloatBuffer(16)
 const viewportDims = BufferUtils.createIntBuffer(16)
 const ScaledResolution = Java.type("net.minecraft.client.gui.ScaledResolution")
+const UMatrixStack = Java.type("gg.essential.universal.UMatrixStack");
+const UGraphics = Java.type("gg.essential.universal.UGraphics");
+const DefaultFonts = Java.type("gg.essential.elementa.font.DefaultFonts")
+const ElementaFonts = Java.type("gg.essential.elementa.font.ElementaFonts")
 
 export function ModMessage (string) {
   ChatLib.chat(`${prefix} ${string}`)
@@ -310,12 +314,40 @@ export class Render {
     Renderer.drawLine(color, bb.x2, bb.y2, bb.x1, bb.y2, thickness)
   }
 
-  static drawStringWithShadow(text, x, y, z, color) {
-
-    const shadowColor = darkenColor(color, 120)
-    Tessellator.drawString(text, x + 0.09, y - 0.05, z + 0.05, shadowColor.getRGB(), false, 2, true)
-    Tessellator.drawString(text, x, y, z, color.getRGB(), false, 2, true)
+  static drawStringWithShadow(string, x, y, z, color, scale, RenderBlackBox) {
+      var matrixStack = new UMatrixStack();
+      var x1 = x - Player.getRenderX();
+      var y1 = y - Player.getRenderY();
+      var z1 = z - Player.getRenderZ();
+      var f1 = 0.0266666688;
+      var width = Renderer.getStringWidth(string) / 2;
+      matrixStack.push();
+      matrixStack.translate(x1, y1, z1);
+      GL11.glNormal3f(0, 1, 0);
+      
+      matrixStack.rotate(-Player.getYaw(), 0.0, 1.0, 0.0);
+      matrixStack.rotate(Player.getPitch(), 1.0, 0.0, 0.0);
+      matrixStack.scale(-f1, -f1, -f1);
+      UGraphics.disableLighting();
+      UGraphics.depthMask(true);
+      UGraphics.enableBlend();
+      UGraphics.disableDepth()
+      UGraphics.tryBlendFuncSeparate(770, 771, 1, 0);
   
+      if (RenderBlackBox) {
+          var worldRenderer = UGraphics.getFromTessellator();
+          worldRenderer.beginWithDefaultShader(UGraphics.DrawMode.QUADS, UGraphics.CommonVertexFormats.POSITION_COLOR);
+          worldRenderer.pos(matrixStack, (-width - 1.0) * scale, -1.0 * scale, 0.0).color(0, 0, 0, 0.15).endVertex();
+          worldRenderer.pos(matrixStack, (-width - 1.0) * scale, 9.0 * scale, 0.0).color(0, 0, 0, 0.15).endVertex();
+          worldRenderer.pos(matrixStack, (width + 1.0) * scale, 9.0 * scale, 0.0).color(0, 0, 0, 0.15).endVertex();
+          worldRenderer.pos(matrixStack, (width + 1.0) * scale, -1.0 * scale, 0.0).color(0, 0, 0, 0.15).endVertex();
+          worldRenderer.drawDirect();
+      }
+  
+      GlStateManager.func_179098_w();
+      DefaultFonts.VANILLA_FONT_RENDERER.drawString(matrixStack, string, new Color(color), -width * scale, ElementaFonts.MINECRAFT.getBelowLineHeight() * scale, width * 2, scale, true, null);
+      UGraphics.depthMask(true);
+      matrixStack.pop();
   }
 
 

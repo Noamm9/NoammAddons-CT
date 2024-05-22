@@ -26,18 +26,30 @@ register(`renderWorld`, () => {
 
 function DrawNames(player, string, PlayerClass) {
     if (World.isLoaded() && player != null) {
-        if (MyMath.DistanceIn3dWorld(Player.getX(), Player.getY(), Player.getZ(), player.getX(), player.getY(), player.getZ()) >=9) {
-            let NameColor = new Color(255/255, 255/255, 255/255)
+        let NameColor = Renderer.color(255, 255, 255)
 
-            if (PlayerClass == `A`) NameColor = new Color(193/255, 32/255, 32/255)
-            else if (PlayerClass == `B`) NameColor = new Color(205/255, 100/255, 0/255)
-            else if (PlayerClass == `H`) NameColor = new Color(145/255, 4/255, 120/255)
-            else if (PlayerClass == `T`) NameColor = new Color(0/255, 170/255, 0/255)
-            else if (PlayerClass == `M`) NameColor = new Color(0/255, 234/255, 255/255)
-            else return
+        if (PlayerClass == `A`) NameColor = Renderer.color(193, 32, 32)
+        else if (PlayerClass == `B`) NameColor = Renderer.color(205, 100, 0)
+        else if (PlayerClass == `H`) NameColor = Renderer.color(145, 4, 120)
+        else if (PlayerClass == `T`) NameColor = Renderer.color(0, 170, 0)
+        else if (PlayerClass == `M`) NameColor = Renderer.color(0, 234, 255)
+        else return
 
-            Render.drawStringWithShadow(string, player.getRenderX(), player.getRenderY() + 3.50, player.getRenderZ(), NameColor)
+        let Dinstance = MyMath.DistanceIn3dWorld(Player.getRenderX(), Player.getRenderY(), Player.getRenderZ(), player.getRenderX(), player.getRenderY(), player.getRenderZ())
+        Render.drawStringWithShadow(string, player.getRenderX(), player.getRenderY() + 2.5 + (Dinstance*0.1) , player.getRenderZ(), NameColor, Dinstance * 0.3, false)
         
-        } 
+        
     }
 }
+
+
+
+register(net.minecraftforge.client.event.RenderLivingEvent$Specials$Pre, (event) => {
+    if (!Settings.TeammatesNametag || !Dungeon.inDungeon) return
+    if (event.entity instanceof net.minecraft.entity.player.EntityPlayer) {
+        let DungeonPlayerClasses = Dungeon.classes
+        for (let PlayerName in DungeonPlayerClasses) {
+            if (event.entity != World.getPlayerByName(PlayerName)) cancel(event)
+        }
+    }
+})
