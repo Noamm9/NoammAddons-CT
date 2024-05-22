@@ -1,17 +1,4 @@
-
-NoammAddons/config.toml
-NoammAddons/.data.json
-NoammAddons/BonzoMask.json
-NoammAddons/test.json
-NoammAddons/SpiritMask.json
-NoammAddons/PhoenixPet.json
-NoammAddons/LegitGhostPick.json
-NoammAddons/NecronDropTimer.json
-NoammAddons/test.txt
-CopyToGithubFolder.bat
-CopyToModules.bat
+*.toml
 *.json
-Skyblock Copy To Modules.bat
-Mod Development Copy To Modules .bat
+*.bat
 *.lnk
-NoammAddons/Config/config.toml
