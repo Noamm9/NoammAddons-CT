@@ -21,6 +21,8 @@ const UGraphics = Java.type("gg.essential.universal.UGraphics");
 const DefaultFonts = Java.type("gg.essential.elementa.font.DefaultFonts")
 const ElementaFonts = Java.type("gg.essential.elementa.font.ElementaFonts")
 
+
+
 export function ModMessage (string) {
   ChatLib.chat(`${prefix} ${string}`)
 }
@@ -160,7 +162,7 @@ export class Render {
        * @param {boolean} phase - Depth test disabled. True: See through walls
        * @param {number} [lineWidth=2.0] - The line width in float. if this parameter not pass, default is 2.0
        */
-  static renderLine = (x1, y1, z1, x2, y2, z2, red, green, blue, alpha, phase, lineWidth) => {
+  static Line = (x1, y1, z1, x2, y2, z2, red, green, blue, alpha, phase, lineWidth) => {
     if (!lineWidth) lineWidth = 2.0;
     GlStateManager.func_179094_E(); // pushMatrix
     GL11.glLineWidth(lineWidth);
@@ -188,7 +190,7 @@ export class Render {
   }
 
     
-  static renderBlockHitbox = (ctBlock, r, g, b, a, phase=true, lineWidth=2, filled=false) => {
+  static BlockHitbox = (ctBlock, r, g, b, a, phase=true, lineWidth=2, filled=false) => {
       const [x0, y0, z0, x1, y1, z1] = getBlockBoundingBox(ctBlock)
       renderBoxFromCorners(x0-0.003, y0-0.008, z0-0.003, x1+0.003, y1+0.003, z1+0.003, r, g, b, a, phase, lineWidth, filled)
   }
@@ -207,7 +209,7 @@ export class Render {
   * @param {number} alpha - Box Color Alpha 0-1
   * @param {boolean} phase - Depth test disabled. True: See through walls
   */
-  static drawFilledOutLineBox (x, y, z, w, h, red, green, blue, alpha, phase) {
+  static FilledOutLineBox (x, y, z, w, h, red, green, blue, alpha, phase) {
     RenderLib.drawEspBox(x, y, z, w+0.02, h+0.02, red, green, blue, 255, phase)
     RenderLib.drawInnerEspBox(x, y, z, w+0.02, h+0.02, red, green, blue, alpha, phase)
     
@@ -218,7 +220,7 @@ export class Render {
    * @param {Text} String - Text to be Displayed
    * @param {Number} MsTime - Time in Milisecends
   */
-  static DrawTitleUnderCursor(Text, MsTime) {
+  static TitleUnderCursor(Text, MsTime) {
     let StartTime = new Date().getTime();
     let Trigger = register(`renderOverlay`, () => {
       let TimeLeft = MsTime - (new Date().getTime() - StartTime);
@@ -236,7 +238,7 @@ export class Render {
  * @param {String} Formating - Color format, Example: §a
  * @param {Number} MsTime - Time in Milisecends
 */
-  static DrawTimerUnderCursor(Formating, MsTime) {
+  static TimerUnderCursor(Formating, MsTime) {
     let StartTime = new Date().getTime();
     let Trigger = register(`renderOverlay`, () => {
       let TimeLeft = ((MsTime - (new Date().getTime() - StartTime))/1000).toFixed(2)
@@ -250,7 +252,7 @@ export class Render {
   }
 
 
-  static Draw2DEspBox (x, y, z, color, thickness) {
+  static TwoDEspBox (x, y, z, color, thickness) {
     
     function projectPoint(posX, posY, posZ) {
       const coords = BufferUtils.createFloatBuffer(3)
@@ -314,7 +316,8 @@ export class Render {
     Renderer.drawLine(color, bb.x2, bb.y2, bb.x1, bb.y2, thickness)
   }
 
-  static drawStringWithShadow(string, x, y, z, color, scale, RenderBlackBox) {
+
+  static StringWithShadow(string, x, y, z, color, scale, RenderBlackBox) {
       var matrixStack = new UMatrixStack();
       var x1 = x - Player.getRenderX();
       var y1 = y - Player.getRenderY();
@@ -350,5 +353,20 @@ export class Render {
       matrixStack.pop();
   }
 
+
+  static TextBoundingBox(x, y, Width, Height, borderWidth) {
+
+    x -= Width / 50
+    y -= Height / 6
+    borderWidth *= 1.2
+  
+    
+    Renderer.drawRect(Renderer.WHITE, x, y, Width + Width / 30, borderWidth)  // Top border
+    Renderer.drawRect(Renderer.WHITE, x, y + Height, Width + Width / 30, borderWidth)  // Bottom border
+    Renderer.drawRect(Renderer.WHITE, x, y, borderWidth, Height)  // Left border
+    Renderer.drawRect(Renderer.WHITE, x + Width + Width / 30 - borderWidth, y, borderWidth, Height)  // Right border
+  
+  }
+  
 
 }

@@ -12,8 +12,8 @@ let Criteria = [
 register(`chat`, (e) => {
     if (!Settings.F7M7PhaseStartTimers) return
     let ChatMessage = ChatLib.getChatMessage(e,false).toString()
-    if (ChatMessage.startsWith(Criteria[0]) && Settings.P1StartTimer) Render.DrawTimerUnderCursor(`&a`, 7_500)
-    else if (ChatMessage.startsWith(Criteria[1]) && Settings.P2StartTimer) Render.DrawTimerUnderCursor(`&a`, 6_000)
-    else if (ChatMessage.startsWith(Criteria[2]) && Settings.P3StartTimer) Render.DrawTimerUnderCursor(`&a`, 5_200)
-    else if (ChatMessage.startsWith(Criteria[3]) && Settings.P4StartTimer) Render.DrawTimerUnderCursor(`&a`, 3_000)
+    if (ChatMessage.startsWith(Criteria[0]) && Settings.P1StartTimer) Render.TimerUnderCursor(`&a`, 7_500)
+    else if (ChatMessage.startsWith(Criteria[1]) && Settings.P2StartTimer) Render.TimerUnderCursor(`&a`, 6_000)
+    else if (ChatMessage.startsWith(Criteria[2]) && Settings.P3StartTimer) Render.TimerUnderCursor(`&a`, 5_200)
+    else if (ChatMessage.startsWith(Criteria[3]) && Settings.P4StartTimer) Render.TimerUnderCursor(`&a`, 3_000)
 })

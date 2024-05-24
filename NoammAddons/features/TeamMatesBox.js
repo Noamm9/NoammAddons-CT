@@ -19,21 +19,21 @@ register('renderOverlay', () => {
             if (Otherplayer.getName() !== MyPlayerName) {
                 if (Settings.TeammatesBoxMode == 0) {
                 
-                    if (PlayerClass.charAt(0) == `H`) Render.Draw2DEspBox(Otherplayer.getRenderX(), Otherplayer.getRenderY(), Otherplayer.getRenderZ(), Renderer.color(255, 0, 209), 2)
-                    else if (PlayerClass.charAt(0) == `T`) Render.Draw2DEspBox(Otherplayer.getRenderX(), Otherplayer.getRenderY(), Otherplayer.getRenderZ(), Renderer.color(0, 170, 0), 2)
-                    else if (PlayerClass.charAt(0) == `A`) Render.Draw2DEspBox(Otherplayer.getRenderX(), Otherplayer.getRenderY(), Otherplayer.getRenderZ(), Renderer.color(193, 32, 32), 2)
-                    else if (PlayerClass.charAt(0) == `B`) Render.Draw2DEspBox(Otherplayer.getRenderX(), Otherplayer.getRenderY(), Otherplayer.getRenderZ(), Renderer.color(205, 100, 0), 2)
-                    else Render.Draw2DEspBox(Otherplayer.getRenderX(), Otherplayer.getRenderY(), Otherplayer.getRenderZ(), Renderer.color(0, 234, 255), 2) 
+                    if (PlayerClass.charAt(0) == `H`) Render.TwoDEspBox(Otherplayer.getRenderX(), Otherplayer.getRenderY(), Otherplayer.getRenderZ(), Renderer.color(255, 0, 209), 2)
+                    else if (PlayerClass.charAt(0) == `T`) Render.TwoDEspBox(Otherplayer.getRenderX(), Otherplayer.getRenderY(), Otherplayer.getRenderZ(), Renderer.color(0, 170, 0), 2)
+                    else if (PlayerClass.charAt(0) == `A`) Render.TwoDEspBox(Otherplayer.getRenderX(), Otherplayer.getRenderY(), Otherplayer.getRenderZ(), Renderer.color(193, 32, 32), 2)
+                    else if (PlayerClass.charAt(0) == `B`) Render.TwoDEspBox(Otherplayer.getRenderX(), Otherplayer.getRenderY(), Otherplayer.getRenderZ(), Renderer.color(205, 100, 0), 2)
+                    else Render.TwoDEspBox(Otherplayer.getRenderX(), Otherplayer.getRenderY(), Otherplayer.getRenderZ(), Renderer.color(0, 234, 255), 2) 
                 
                 } else {
                 
                     let ColorCode = TabList.getNames().join().match(`§.${PlayerName}`).join().replace(PlayerName, "").replace(`§`, "")
                 
-                    if (ColorCode == "b") Render.Draw2DEspBox(Otherplayer.getRenderX(), Otherplayer.getRenderY(), Otherplayer.getRenderZ(), Renderer.color(0, 234, 255), 2) 
-                    else if (ColorCode == "a") Render.Draw2DEspBox(Otherplayer.getRenderX(), Otherplayer.getRenderY(), Otherplayer.getRenderZ(), Renderer.color(0, 255, 0), 2)
-                    else if (ColorCode == "6") Render.Draw2DEspBox(Otherplayer.getRenderX(), Otherplayer.getRenderY(), Otherplayer.getRenderZ(), Renderer.color(255, 150, 0), 2)
-                    else if (ColorCode == "c") Render.Draw2DEspBox(Otherplayer.getRenderX(), Otherplayer.getRenderY(), Otherplayer.getRenderZ(), Renderer.color(123, 32, 32), 2)
-                    else Render.Draw2DEspBox(Otherplayer.getRenderX(), Otherplayer.getRenderY(), Otherplayer.getRenderZ(), Renderer.color(98, 98, 98), 2)
+                    if (ColorCode == "b") Render.TwoDEspBox(Otherplayer.getRenderX(), Otherplayer.getRenderY(), Otherplayer.getRenderZ(), Renderer.color(0, 234, 255), 2) 
+                    else if (ColorCode == "a") Render.TwoDEspBox(Otherplayer.getRenderX(), Otherplayer.getRenderY(), Otherplayer.getRenderZ(), Renderer.color(0, 255, 0), 2)
+                    else if (ColorCode == "6") Render.TwoDEspBox(Otherplayer.getRenderX(), Otherplayer.getRenderY(), Otherplayer.getRenderZ(), Renderer.color(255, 150, 0), 2)
+                    else if (ColorCode == "c") Render.TwoDEspBox(Otherplayer.getRenderX(), Otherplayer.getRenderY(), Otherplayer.getRenderZ(), Renderer.color(123, 32, 32), 2)
+                    else Render.TwoDEspBox(Otherplayer.getRenderX(), Otherplayer.getRenderY(), Otherplayer.getRenderZ(), Renderer.color(98, 98, 98), 2)
                 
                 }
             }

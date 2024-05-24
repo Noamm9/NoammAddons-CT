@@ -14,13 +14,13 @@ register("drawBlockHighlight", (pos, event) => {
 
 
     if (Settings.BlockOverlayType == 2) {
-        Render.renderBlockHitbox(block, r, g, b, a, Settings.BlockOverlayESP, Settings.BlockOverlayOutlineThickness, false)
-        Render.renderBlockHitbox(block, r2, g2, b2, a2, Settings.BlockOverlayESP, 0, true)
+        Render.BlockHitbox(block, r, g, b, a, Settings.BlockOverlayESP, Settings.BlockOverlayOutlineThickness, false)
+        Render.BlockHitbox(block, r2, g2, b2, a2, Settings.BlockOverlayESP, 0, true)
     }
     if (Settings.BlockOverlayType == 1) {
-        Render.renderBlockHitbox(block, r2, g2, b2, a2, Settings.BlockOverlayESP, 0, true)
+        Render.BlockHitbox(block, r2, g2, b2, a2, Settings.BlockOverlayESP, 0, true)
     }
     if (Settings.BlockOverlayType == 0) {
-        Render.renderBlockHitbox(block, r, g, b, a, Settings.BlockOverlayESP, Settings.BlockOverlayOutlineThickness, false)
+        Render.BlockHitbox(block, r, g, b, a, Settings.BlockOverlayESP, Settings.BlockOverlayOutlineThickness, false)
     }
 })

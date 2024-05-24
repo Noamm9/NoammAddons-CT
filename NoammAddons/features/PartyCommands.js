@@ -3,6 +3,7 @@ import PogObject from "../../PogData";
 import { prefix } from "../utils";
 
 
+
 const PartyCommand = new PogObject("NoammAddons", {
     "blacklist": [],
     "whitelist": []
@@ -138,6 +139,9 @@ register("command",(...args) => {
     try {
         try {args[0]} catch (e) {Settings.openGUI()}
         switch (args[0]) {
+            case "edit":
+                ChatLib.command(`naeditmaingui`, true)
+                break;
             case "help":
                 ChatLib.chat("help message")
                 break;

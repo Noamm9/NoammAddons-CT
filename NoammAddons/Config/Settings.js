@@ -1,7 +1,7 @@
 import {  @ButtonProperty, @PercentSliderProperty, @CheckboxProperty, @ColorProperty, @SelectorProperty, @SwitchProperty, @Vigilant, @SliderProperty, @TextProperty, Color } from "../../Vigilance"
 
 
-@Vigilant("NoammAddons", "§d§l§nNoamm§b§l§nAddons", {
+@Vigilant("NoammAddons\\Config", "§d§l§nNoamm§b§l§nAddons", {
     getCategoryComparator: () => (a, b) => {
         const categories = [
             "General",
@@ -76,22 +76,6 @@ class Settings {
     })
 	LegitGhostPickaxe = false
     
-    @ButtonProperty({
-        name: "§eMove&r &bLegit Ghost Pickaxe",
-        description: "&fEdit the &bLegit Ghost Pickaxe&r's &fPosition and Scale &l(Drag the text to move it, Scroll with the mouse wheel to change the scale of the text) &r&dMake sure that the Toggle is enable before you try to use this option else it wont work",
-        category: "HUD",
-        subcategory: "",
-        placeholder: "MOVE"
-    })
-    LGPButtonAction() {
-        if (this.LegitGhostPickaxe) {
-            Client.currentGui.close()
-            setTimeout(() => {
-                ChatLib.command("legitghostpickgui", true) 
-            }, 100)
-        }
-    }
-
     @SwitchProperty({
         name: "&aRemove Sword Block",
         description: "&fEnables Minecraft 1.9 RightClick animation to the following swords: All Wither blades, Rogue Sword, wither cloak, Aspect of the end, All Jerry Swords, All VoidGloom Katanas, Aspect of the Dragons",
@@ -99,6 +83,7 @@ class Settings {
         subcategory: "Visuals"
     })
     NoSwordBlock = false
+
     @SwitchProperty({
         name: "&cM7 &0Dragon&r Box",
         description: "Draws a very accurate &0Dragon&r Kill Box for &cM7&r-&fP5",
@@ -266,22 +251,6 @@ class Settings {
     })
 	BonzoMaskTimer = false
 	
-    @ButtonProperty({
-        name: "§eMove&r &9Bonzo Mask&r &eTimer&r",
-        description: "&fEdit the &9Bonzo Mask&r &eTimer&r's &fPosition and Scale &l(Drag the text to move it, Scroll with the mouse wheel to change the scale of the text) &r&dMake sure that the Toggle is enable before you try to use this option else it wont work",
-        category: "HUD",
-        subcategory: "Timers",
-        placeholder: "MOVE"
-    })
-    BMTButtonAction() {
-        if (this.BonzoMaskTimer) {
-            Client.currentGui.close()
-            setTimeout(() => {
-                ChatLib.command("bonzomaskgui", true) 
-            }, 100)
-        }
-    }
-	
 	@SwitchProperty({
         name: "&fSpirit Mask&r &eTimer&r",
         description: 'Draws a very accurate Display that shows the cooldown of the &fSpirit Mask&r "Second Wind" &eAbility&r',
@@ -290,22 +259,6 @@ class Settings {
     })
 	SpiritMaskTimer = false
 
-    @ButtonProperty({
-        name: "§eMove&r &fSpirit Mask&r &eTimer&r",
-        description: "&fEdit the Spirit Mask&r &eTimer&r's &fPosition and Scale &l(Drag the text to move it, Scroll with the mouse wheel to change the scale of the text) &r&dMake sure that the Toggle is enable before you try to use this option else it wont work",
-        category: "HUD",
-        subcategory: "Timers",
-        placeholder: "MOVE"
-    })
-    SMTButtonAction() {
-        if (this.SpiritMaskTimer) {
-            Client.currentGui.close()
-            setTimeout(() => {
-                ChatLib.command("spiritmaskgui", true) 
-            }, 100)
-        }
-    }
-
 	@SwitchProperty({
         name: "&5Phoenix Pet&r &eTimer&r",
         description: 'Draws a very accurate Display that shows the cooldown of the &5Phoenix Pet&r "Rekindle" &eAbility&r',
@@ -313,22 +266,6 @@ class Settings {
         subcategory: "Timers"
     })
 	PhoenixPetTimer = false
-
-    @ButtonProperty({
-        name: "§eMove&r &5Phoenix Pet&r &eTimer&r",
-        description: "&fEdit the &5Phoenix Pet&r &eTimer&r's &fPosition and Scale &l(Drag the text to move it, Scroll with the mouse wheel to change the scale of the text) &r&dMake sure that the Toggle is enable before you try to use this option else it wont work",
-        category: "HUD",
-        subcategory: "Timers",
-        placeholder: "MOVE"
-    })
-    PTTButtonAction() {
-        if (this.PhoenixPetTimer) {
-            Client.currentGui.close()
-            setTimeout(() => {
-                ChatLib.command("phoenixpetgui", true) 
-            }, 100)
-        }
-    }
 
 	@SwitchProperty({ 
 		name: "&dShort &bSky&dBlock &bCommands",
@@ -785,20 +722,6 @@ class Settings {
 	})
     ClockDisplay = false
 
-    @ButtonProperty({
-        name: "§eMove&r §zClock Display§r",
-        description: "&fEdit the §zClock Display&r's &fPosition and Scale &l(Drag the text to move it, Scroll with the mouse wheel to change the scale of the text) &r&dMake sure that the Toggle is enable before you try to use this option else it wont work",
-        category: "HUD",
-        subcategory: "General",
-        placeholder: "MOVE"
-    })
-    CDButtonAction() {
-        if (this.ClockDisplay) {
-            Client.currentGui.close()
-            setTimeout(() => ChatLib.command("clockdisplaygui", true) , 100)
-        }
-    }
-
     @SwitchProperty({
 		name: "§zFPS Display",
 		description: "Displays the System Time on screen",
@@ -808,21 +731,15 @@ class Settings {
     FPSdisplay = false
 
     @ButtonProperty({
-        name: "§eMove&r §zFPS Display§r",
-        description: "&fEdit the §zFPS Display&r's &fPosition and Scale &l(Drag the text to move it, Scroll with the mouse wheel to change the scale of the text) &r&dMake sure that the Toggle is enable before you try to use this option else it wont work",
-        category: "HUD",
-        subcategory: "General",
-        placeholder: "MOVE"
+        name: "Edit Gui locations",
+		description: "&fClick on an element and drag it to change its location.\n&fClick and Hold than Scroll to incrase/decrese the size of an Element. ",
+		category: "HUD",
+        placeholder: "                [ Click me! ]              "
     })
-    FPSDButtonAction() {
-        if (this.FPSdisplay) {
-            Client.currentGui.close()
-            setTimeout(() => ChatLib.command("fpsdisplaygui", true) , 100)
-        }
+    EGUIButtonAction() {
+        Client.currentGui.close()
+        setTimeout(() => ChatLib.command("naeditmaingui", true) , 100)
     }
-
-
-
 
 
 
@@ -836,12 +753,6 @@ class Settings {
 
         this.addDependency('&bFOV', '&eCustom &dFOV');
         this.addDependency('&dE&bS&dP &dC&bo&dl&bo&dr', '&fDungeon &eMob &dE&bS&dP')
-        this.addDependency('§eMove&r &bLegit Ghost Pickaxe', '&bLegit Ghost Pickaxe')
-        this.addDependency('§eMove&r &9Bonzo Mask&r &eTimer&r', '&9Bonzo Mask&r &eTimer&r')
-        this.addDependency('§eMove&r &fSpirit Mask&r &eTimer&r', '&fSpirit Mask&r &eTimer&r')
-        this.addDependency('§eMove&r &5Phoenix Pet&r &eTimer&r', '&5Phoenix Pet&r &eTimer&r')
-        this.addDependency(`§eMove&r §zClock Display§r`, `§zClock Display`)
-        this.addDependency(`§eMove&r §zFPS Display§r`, `§zFPS Display`)
         //this.addDependency('§eMove&r &cNecron Dropping&r &eTimer&r', '&cNecron Dropping &eTimer')
         this.addDependency("Block Overlay &eType", "§n&fBlock Overlay")
         this.addDependency("Outline Thickness", "§n&fBlock Overlay")

@@ -7,7 +7,7 @@ function render(path) {
 	for (let i = 0; i < path.length - 1; ++i) {
 		let [x1, y1, z1] = path[i];
 		let [x2, y2, z2] = path[i + 1];
-		Render.renderLine(x1 + 0.5, y1, z1 + 0.5, x2 + 0.5, y2, z2 + 0.5, Settings.IcefillSolverColor.getRed(),Settings.IcefillSolverColor.getGreen(),
+		Render.Line(x1 + 0.5, y1, z1 + 0.5, x2 + 0.5, y2, z2 + 0.5, Settings.IcefillSolverColor.getRed(),Settings.IcefillSolverColor.getGreen(),
          Settings.IcefillSolverColor.getBlue(), Settings.IcefillSolverColor.getAlpha(), true, 5);
 	}
 }
