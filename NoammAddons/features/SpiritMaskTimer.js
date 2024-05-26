@@ -28,3 +28,5 @@ export const RenderRegister = register("renderOverlay", () => {
 	else RenderRegister.unregister()
 
 }).unregister()
+
+register("step", () => Timer -= 1 ).setFps(1)

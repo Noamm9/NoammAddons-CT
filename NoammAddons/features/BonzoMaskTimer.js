@@ -4,9 +4,9 @@
 import { BonzoMaskGUIdata } from "../index";
 import Settings from "../Config/Settings";
 
-export var Timer = null; 
 export let Text = new Text(` `).setShadow(true).setFormatted(true) 
 export let md = false
+export var Timer = null; 
 
 register("chat", () => { 
 	if (!Settings.BonzoMaskTimer) return
@@ -27,3 +27,5 @@ export const RenderRegister = register("renderOverlay", () => {
 	else RenderRegister.unregister()
 
 }).unregister()
+
+register("step", () => Timer -= 1 ).setFps(1)

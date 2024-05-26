@@ -3,8 +3,8 @@
 
 import { guiData, BonzoMaskGUIdata, SpiritMaskGUIdata, PhoenixPetGUIdata, LegitGhostPickGUIdata, FPSdisplayGUIdata, ClockDisplayGUIdata} from "./index";
 import { Render} from "./utils";
-import * as PhoenixPet from "./features/PhoenixPetTimer";
 import * as BonzoMask from "./features/BonzoMaskTimer";
+import * as PhoenixPet from "./features/PhoenixPetTimer";
 import * as SpiritMask from "./features/SpiritMaskTimer";
 import * as LegitGhostPick from "./features/LegitGhostPick";
 import * as FPSdisplay from "./features/FPSdisplay";
@@ -158,11 +158,6 @@ register("command", () => {
 
 MainGUI.registerClosed(() => guiData.save())
 
-register("step", () => {
-	BonzoMask.Timer -= 1
-	SpiritMask.Timer -= 1
-	PhoenixPet.Timer -= 1
-}).setFps(1)
 
 const EditView = TriggerRegister.registerRenderOverlay(() => {
 
