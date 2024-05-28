@@ -38,18 +38,12 @@ wishMessages.forEach((message) => {
 
 register("chat", () => {
     showWishMessage = false; 
-    wishTimer = 0
+    wishTimer = -2
 }).setCriteria('${.} Wish healed you for ${.} health and granted you an absorption shield with ${.} health!')
     
 register("step", () => {
-    if (!showWishMessage) return;
-    if (wishTimer > 0) {
-        wishTimer -= 1
-    }
-    if (wishTimer < -1){
-        wishTimer = 0
-    }
-    if (wishTimer == 0) {showWishMessage = false}
+    if (!showWishMessage) return
 
-
+    if (wishTimer > 0) wishTimer -= 1
+    if (wishTimer < -1) showWishMessage = false
 }).setFps(1)

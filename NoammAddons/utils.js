@@ -36,6 +36,20 @@ export function darkenColor(color, amount) {
 }
 
 
+export function getLore (item,returnName=true) {
+	let lore=returnName?[item.getName()] : []
+	if(!item) return lore
+	
+	let loreNBT=item.getNBT()?.getCompoundTag("tag")?.getCompoundTag("display")?.getTagList("Lore",8)
+	if(loreNBT) {
+		for(let i=0; i<loreNBT["func_74745_c"](); i++) {
+			lore.push(loreNBT["func_150307_f"](i))
+		}
+	} 
+	return lore
+}
+
+
 register('renderWorld', () => {
 
   Tessellator.pushMatrix()
