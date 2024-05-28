@@ -19,7 +19,7 @@ const runRegisters = register(`worldLoad`, () => {
 
 const unfocusedRegister = register(`guiClosed`, () => searchBar.func_146195_b(false)).unregister()          // setfocused
 
-const mouseClickRegister = register("guiMouseClick", (x, y, button) => searchBar.func_146192_a(x, y, button)).unregister()  // detect when click text box
+const mouseClickRegister = register("guiMouseClick", (x, y, button) => {try {searchBar.func_146192_a(x, y, button)} catch (e) {}}).unregister()  // detect when click text box
 
 const pressingButtonsRegister = register("guiKey", (char, keyCode, gui, event) => {
     if (Keyboard.isKeyDown(Keyboard.KEY_LCONTROL) && (Keyboard.isKeyDown(Keyboard.KEY_F))) searchBar.func_146195_b(!searchBar.func_146206_l()) // CTRL + F = Toggle focus on searchbar
