@@ -1,8 +1,9 @@
 /// <reference types="../../CTAutocomplete" />
 /// <reference lib="es2015" />
 
+import Dungeon from "../../BloomCore/dungeons/Dungeon"
 import Settings from "../Config/Settings"
-import { getPhase, BlockPoss } from "../utils"
+import { BlockPoss } from "../utils"
 
 const WhiteGlass = new BlockType("stained_glass").getDefaultState()
 const Chest = new BlockType(`chest`).getDefaultState()
@@ -116,11 +117,12 @@ const WhiteGlassCords = [
 
 
 register(`step`, () => {
-    if (!World.isLoaded() || !Settings.f7GhostBlocks || !getPhase() == "p3" || !getPhase() == "p2" || !getPhase() == "p1") return
+    if (!World.isLoaded() || !Dungeon.floorNumber == 7 || !Settings.f7GhostBlocks) return
 
     for (let i = 0; i<ChestCords.length;i++) GhostBlock(ChestCords[i], Chest)
     for (let i = 0; i<AirCords.length;i++) setAir(AirCords[i])
     for (let i = 0; i<WhiteGlassCords.length;i++) GhostBlock(WhiteGlassCords[i], WhiteGlass)
     
-}).setFps(10)
+}).setFps(3)
 
+register(`renderTitle`)

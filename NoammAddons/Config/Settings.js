@@ -185,7 +185,7 @@ class Settings {
         category: 'Dungeons',
         subcategory: 'Timers'
     })
-    P1StartTimer = false
+    P1StartTimer = true
 
     @CheckboxProperty({
         name: '&bP2 &fStart &eTimer',
@@ -193,7 +193,7 @@ class Settings {
         category: 'Dungeons',
         subcategory: 'Timers'
     })
-    P2StartTimer = false
+    P2StartTimer = true
 
     @CheckboxProperty({
         name: '&7P3 &fStart &eTimer',
@@ -201,7 +201,7 @@ class Settings {
         category: 'Dungeons',
         subcategory: 'Timers'
     })
-    P3StartTimer = false
+    P3StartTimer = true
 
     @CheckboxProperty({
         name: '&cP4 &fStart &eTimer',
@@ -209,7 +209,7 @@ class Settings {
         category: 'Dungeons',
         subcategory: 'Timers'
     })
-    P4StartTimer = false
+    P4StartTimer = true
 /*
     @CheckboxProperty({
         name: '&4P5 &fStart &eTimer', //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
@@ -217,7 +217,7 @@ class Settings {
         category: 'Dungeons', //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
         subcategory: 'Timers' //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
     })
-    P5StartTimer = false*/
+    P5StartTimer = true*/
 
 	@SwitchProperty({
         name: "&dPink&r DMs",
@@ -428,7 +428,7 @@ class Settings {
     
     @SwitchProperty({
         name: "&aDungeon &6Team&amates &6Name&atag",
-        description: "draws your TeamMates Name and Class as a big NameTag that you can See through walls.\n\n§fExample: §e[§dM§e] §bNoamm9  &f||  §e[§4A§e] §4Noamm9",
+        description: "draws your TeamMates Name and Class as a big NameTag that you can See through walls.",
         category: "Dungeons",
         subcategory: "Teammates"
     })
@@ -448,7 +448,7 @@ class Settings {
 
     @SwitchProperty({
         name: "&aDungeon &6Team&amates &6Box",
-        description: "draws your TeamMates Name and Class as a big NameTag that you can See through walls.\n\n§fExample: §e[§dM§e] §bNoamm9  &f||  §e[§4A§e] §4Noamm9",
+        description: "Renders a 2D box on the screen that visually represents the positions of your teammates.",
         category: "Dungeons",
         subcategory: "Teammates"
     })
@@ -612,7 +612,7 @@ class Settings {
 
     @SwitchProperty({ 
         name: "&f&lWhitelist",
-        description: "...",
+        description: "WhiteList for PartyCommands, Only usernames who have been added to the whitelist can use commands\n/na wl add {name}.",
         category: "General",
         subcategory: "Party Commands"
     })
@@ -626,45 +626,45 @@ class Settings {
     })
     pcBlacklist = true
 
-    @SwitchProperty({
+    @CheckboxProperty({
         name: "&e!ptme",
         description: "Transfer the party to you.\n&bAliases: transfer, pt",
         category: "General",
         subcategory: "Party Commands"
     })
-    pcPtme = false;
+    pcPtme = false
 
-    @SwitchProperty({
+    @CheckboxProperty({
         name: "&6!warp",
         description: "Warp the party.\n&bAlias: w",
         category: "General",
         subcategory: "Party Commands"
     })
-    pcWarp = false;
+    pcWarp = true
 
-    @SwitchProperty({
+    @CheckboxProperty({
         name: "&d!allinvite",
         description: "Enable all invite.\n&bAliases: allinv, ai",
         category: "General",
         subcategory: "Party Commands"
     })
-    pcAllinv = false;
+    pcAllinv = true
 
-    @SwitchProperty({
+    @CheckboxProperty({
         name: "!f&a0&r-&c7",
         description: `Join catacombs dungeons.`,
         category: "General",
         subcategory: "Party Commands"
     })
-    pcFloor = false;
+    pcFloor = true
 
-    @SwitchProperty({
+    @CheckboxProperty({
         name: "!m&c1&r-&47",
         description: `Join mastermode catacombs dungeons.`,
         category: "General",
         subcategory: "Party Commands"
     })
-    pcMasterFloor = false;
+    pcMasterFloor = true
     
     @SwitchProperty({
         name: "&5&lHealer &e&lWish!",
@@ -672,7 +672,7 @@ class Settings {
         category: "Dungeons",
         subcategory: "Healer Wish",
     })
-    healerWish = true;
+    healerWish = true
 
     @TextProperty({
         name: "&5Healer &eWish! &bMessage",

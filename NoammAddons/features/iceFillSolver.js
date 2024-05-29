@@ -8,7 +8,7 @@ function render(path) {
 		let [x1, y1, z1] = path[i];
 		let [x2, y2, z2] = path[i + 1];
 		Render.Line(x1 + 0.5, y1, z1 + 0.5, x2 + 0.5, y2, z2 + 0.5, Settings.IcefillSolverColor.getRed(),Settings.IcefillSolverColor.getGreen(),
-         Settings.IcefillSolverColor.getBlue(), Settings.IcefillSolverColor.getAlpha(), true, 5);
+        Settings.IcefillSolverColor.getBlue(), Settings.IcefillSolverColor.getAlpha(), true, 5);
 	}
 }
 
@@ -16,9 +16,7 @@ function render(path) {
 let path = [];
 let pattern = [];
 
-const renderTrigger = register("renderWorld", () => {
-	render(pattern)
-}).unregister();
+const renderTrigger = register("renderWorld", () => render(pattern)).unregister()
 
 
 register("step", () => {
