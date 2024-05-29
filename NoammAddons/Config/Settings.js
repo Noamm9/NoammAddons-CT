@@ -688,7 +688,7 @@ class Settings {
         category: "Dungeons",
         subcategory: "Healer Wish",
     })
-    healerWishTitle = "Wish!";
+    healerWishTitle = "§9[§6§kO§r§9] §e§l⚠ §d§lW§bi§ds§bh§d! §e§l⚠ §9[§6§kO§r§9]";
 
     @SwitchProperty({
         name: "&4&lF7&r &f&lGhost Blocks&r",
