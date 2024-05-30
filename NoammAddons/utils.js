@@ -23,6 +23,7 @@ const ElementaFonts = Java.type("gg.essential.elementa.font.ElementaFonts")
 
 
 
+
 export function ModMessage (string) {
   ChatLib.chat(`${prefix} ${string}`)
 }
@@ -121,17 +122,13 @@ export function getPhase() {
 
   if (Dungeon.inDungeon && isCoordinateInsideBox({ x: Player.getX(), y: Player.getY(), z: Player.getZ() }, corner1, corner2)) {
     inBoss = true;
-    if (Player.getY() > 210) {
-      inPhase = "p1";
-    } else if (Player.getY() > 155) {
-      inPhase = "p2";
-    } else if (Player.getY() > 100) {
-      inPhase = "p3";
-    } else if (Player.getY() > 45) {
-      inPhase = "p4";
-    } else {
-      inPhase = "p5";
-    }
+
+    if (Player.getY() > 210) inPhase = "p1"
+    else if (Player.getY() > 155) inPhase = "p2";
+    else if (Player.getY() > 100) inPhase = "p3";
+    else if (Player.getY() > 45) inPhase = "p4";
+    else inPhase = "p5";
+    
   }
 
   return inBoss ? inPhase : false;
@@ -382,5 +379,95 @@ export class Render {
   
   }
   
+
+}
+
+export class PlayerUtils {
+  
+
+  static getEyePos() {
+    return {
+        x: Player.getX(),
+        y: Player.getY() + Player.getPlayer().func_70047_e(),
+        z: Player.getZ()
+    }
+  }
+
+
+  static rotate(yaw, pitch) {
+    const player = Player.getPlayer()
+    player.field_70177_z = yaw
+    player.field_70125_A = pitch
+  }
+
+
+  static rightClick() {
+    const rightClickMethod = Client.getMinecraft().getClass().getDeclaredMethod("func_147121_ag", null)
+    rightClickMethod.setAccessible(true)
+    rightClickMethod.invoke(Client.getMinecraft(), null);
+  } 
+
+
+  static calcYawPitch(blcPos, plrPos) {
+    if (!plrPos) plrPos = this.getEyePos()
+
+    let d = {
+        x: blcPos.x - plrPos.x,
+        y: blcPos.y - plrPos.y,
+        z: blcPos.z - plrPos.z
+    }
+
+    let yaw = 0;
+    let pitch = 0;
+
+    if (d.x != 0) {
+
+        if (d.x < 0) yaw = 1.5 * Math.PI
+        else {yaw = 0.5 * Math.PI}
+
+        yaw = yaw - Math.atan(d.z / d.x);
+    }
+    else if (d.z < 0) yaw = Math.PI;
+
+    d.xz = Math.sqrt(Math.pow(d.x, 2) + Math.pow(d.z, 2))
+    pitch = -Math.atan(d.y / d.xz)
+    yaw = -yaw * 180 / Math.PI
+    pitch = pitch * 180 / Math.PI
+    if (pitch < -90 || pitch > 90 || isNaN(yaw) || isNaN(pitch) || yaw == null || pitch == null || yaw == undefined || pitch == null) return
+
+    return [yaw, pitch]
+   
+}
+
+
+  static rotateSmoothly(yaw, pitch, time) {
+	  while (yaw >= 180) yaw -= 360
+	  while (pitch >= 180) pitch -= 360
+
+	  const initialYaw = Player.getYaw()
+	  const initialPitch = Player.getPitch()
+	  const initialTime = new Date().getTime()
+
+	  const trigger = register("step", () => {
+	  	const progress = time <= 0 ? 1 : Math.max(Math.min((new Date().getTime() - initialTime) / time, 1), 0)
+	  	const amount = (1 - progress) * (1 - progress) * (1 - progress) * 0 + 3 * (1 - progress) * (1 - progress) * progress * 1 + 3 * (1 - progress) * progress * progress * 1 + progress * progress * progress * 1
+	  	this.rotate(initialYaw + (yaw - initialYaw) * amount, initialPitch + (pitch - initialPitch) * amount)
+	  	if (progress >= 1) trigger.unregister()
+	  })
+  }
+
+
+  static swapToSlot(SlotIndex) {
+    const MCplayer = Player.getPlayer()
+    if (!MCplayer) return
+
+    const MCInventory = MCplayer.field_71071_by
+    if (!MCInventory) return
+
+    MCInventory.field_70461_c = SlotIndex
+    ModMessage(`Swapped to item in slot ${SlotIndex}`)
+  }
+
+
 
 }
