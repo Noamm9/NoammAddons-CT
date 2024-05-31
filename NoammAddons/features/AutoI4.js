@@ -13,7 +13,7 @@ let lastShot
 
 register("step", () => {
     try {
-        if (!FourthDevEnabled) return
+        if (!Settings.AutoI4) return
         if (Player.getHeldItem()?.getID() !== 261) return
 	    if (Date.now() - lastShot < 300) return
 	    if (!isNearPlate()) {
@@ -39,10 +39,22 @@ register("step", () => {
 
 
 	    let [yaw, pitch] = PlayerUtils.calcYawPitch({ x: emeraldLocation.x + xdiff, y: emeraldLocation.y + 1.1, z: emeraldLocation.z })
-        lastShot = Date.now()
-	    PlayerUtils.rotateSmoothly(yaw, pitch, 200)
-	    setTimeout(() => PlayerUtils.rightClick(), 300)
 
+
+        if (doneCoords.size === 0) {
+            PlayerUtils.rotateSmoothly(yaw, pitch, 300)
+            setTimeout(() => PlayerUtils.rightClick(), 310)
+            lastShot = Date.now();
+        }
+        
+        else if (doneCoords.size !== 0) {
+            PlayerUtils.rotateSmoothly(yaw, pitch, 200)
+            setTimeout(() => PlayerUtils.rightClick(), 210)
+            lastShot = Date.now();
+            setTimeout(() => predictNextTarget(),240)
+            
+        }
+           
 
         if (doneCoords.size === 9) {
             setTimeout(() => {
@@ -50,42 +62,26 @@ register("step", () => {
                 Client.showTitle(`&6Dev done!`, `&aFinished shooting all blocks!`, 0, 100, 0,)
                 Client.showTitle(`&6Dev done!`, `&aFinished shooting all blocks!`, 0, 100, 0,)
             }, 300)
-
         } 
+
     } catch (e) {ModMessage(e)}
 })
 
 register("worldUnload", () => doneCoords.clear())
 
 
-register("command", () => {
-
-    if (FourthDevEnabled) {
-        ModMessage("&cDisabling Auto Arrows");
-        FourthDevEnabled = false;
-    } else {
-        ModMessage("&aEnabling Auto Arrows");
-        doneCoords.clear()
-        FourthDevEnabled = true;
-    }
-
-}).setName("i4")
-
-
 
 const DevBlocks  = [
-    { x: 64, y: 126, z: 50 },
-    { x: 68, y: 126, z: 50 },
+    { x: 66, y: 128, z: 50 },
     { x: 66, y: 126, z: 50 },
+    { x: 64, y: 126, z: 50 },
 	{ x: 64, y: 128, z: 50 },
     { x: 68, y: 128, z: 50 },
-    { x: 66, y: 128, z: 50 },
+    { x: 66, y: 130, z: 50 },
     { x: 64, y: 130, z: 50 },
-    { x: 68, y: 130, z: 50 },
-    { x: 66, y: 130, z: 50 }
-];
-
-
+    { x: 68, y: 126, z: 50 },
+    { x: 68, y: 130, z: 50 }
+]
 
 
 function isNearPlate () {
@@ -94,9 +90,22 @@ function isNearPlate () {
 } 
 
 
+function predictNextTarget() {
+    const remaining = DevBlocks.filter(coord => !doneCoords.has(coord));
+    if (!remaining.length) return;
+
+    const randomIndex = Math.round(Math.random() * (remaining.length - 1));
+    const nextTarget = remaining[randomIndex]
+    let xdiff = 0.5
 
 
+    if (nextTarget.x === 68 || nextTarget.x === 66) xdiff = -0.6
+    else if (nextTarget.x === 64) xdiff = 1.3
+    
 
+    let [yaw, pitch] = PlayerUtils.calcYawPitch({ x: nextTarget.x + xdiff, y: nextTarget.y + 1.1, z: nextTarget.z })
+    PlayerUtils.rotateSmoothly(yaw, pitch, 200, () => {})
+}
 
 
 

@@ -22,7 +22,13 @@ const DefaultFonts = Java.type("gg.essential.elementa.font.DefaultFonts")
 const ElementaFonts = Java.type("gg.essential.elementa.font.ElementaFonts")
 
 
+export function setAir (BlockPoss) {
+  World.getWorld().func_175698_g(BlockPoss)
+}  
 
+export function GhostBlock (BlockPoss, MCIBlockState) {
+  World.getWorld().func_175656_a(BlockPoss, MCIBlockState);
+}
 
 export function ModMessage (string) {
   ChatLib.chat(`${prefix} ${string}`)

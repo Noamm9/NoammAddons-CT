@@ -37,9 +37,9 @@ class Settings {
     
     @SwitchProperty({
         name: "&c&lI HATE DIORITE",
-        description: "Replace the Diorite blocks at the F7/M7 P2 to Glass blocks in older to see Storm get Crushed better (Alternative to trying to see his name tag through the blocks)",
+        description: "Replace the Diorite blocks at the P2 to Glass blocks in older to see Storm get Crushed better (Alternative to trying to see his name tag through the blocks)",
         category: "Dungeons",
-        subcategory: "f7"
+        subcategory: "F7"
     })
     IHateDiorite = false
     
@@ -75,7 +75,19 @@ class Settings {
         subcategory: ""
     })
 	LegitGhostPickaxe = false
-    
+
+    @SelectorProperty({
+        name: "&Pickaxe &eMode",
+        description: "",
+        category: "Dungeons",
+        subcategory: "",
+        options: [
+            "Toggleable Ghost Pick",
+            "Mimic efficiency 10"
+        ]
+    })
+    PickaxeMode = 0;
+
     @SwitchProperty({
         name: "&aRemove Sword Block",
         description: "&fEnables Minecraft 1.9 RightClick animation to the following swords: All Wither blades, Rogue Sword, wither cloak, Aspect of the end, All Jerry Swords, All VoidGloom Katanas, Aspect of the Dragons",
@@ -88,7 +100,7 @@ class Settings {
         name: "&cM7 &0Dragon&r Box",
         description: "Draws a very accurate &0Dragon&r Kill Box for &cM7&r-&fP5",
         category: "Dungeons",
-        subcategory: "f7"
+        subcategory: "F7"
     })
 	M7DragBox = false
 
@@ -96,7 +108,7 @@ class Settings {
         name: "&cM7 &0Dragon&f Spawn &eTimer",
         description: 'Draws a "Accurate" &0Dragon&r Spawn &eTimer&r for &cM7&r-&fP5',
         category: "Dungeons",
-        subcategory: "f7"
+        subcategory: "F7"
     })
 	M7DragTimer = false
 
@@ -373,7 +385,7 @@ class Settings {
     */
     @SwitchProperty({
         name: "§n&fBlock Overlay",
-        description: "description: No need, Surely you know what this feature does",
+        description: "No need, Surely you know what this feature does",
         category: "Cosmetic",
         subcategory: "Block Overlay"
     })
@@ -691,10 +703,10 @@ class Settings {
     healerWishTitle = "§9[§6§kO§r§9] §e§l⚠ §d§lW§bi§ds§bh§d! §e§l⚠ §9[§6§kO§r§9]";
 
     @SwitchProperty({
-        name: "&4&lF7&r &f&lGhost Blocks&r",
-        description: `Auto Place Ghost Blocks in some places at f7 boss fight`,
+        name: "&4&lBoss&r &f&lGhost Blocks&r",
+        description: `Auto Place Ghost Blocks in some places at the boss fight area`,
         category: "Dungeons",
-        subcategory: "f7"
+        subcategory: "F7"
     })
     f7GhostBlocks = false
 
@@ -741,8 +753,21 @@ class Settings {
         setTimeout(() => ChatLib.command("naeditmaingui", true) , 100)
     }
 
+    @SwitchProperty({
+        name: "&a&lAuto I4",
+        description: "&fAuto aims and shoots the emerald block at the forth dev in P3&r \n\n &f[ &b&nNeed a term&r &f&n&land&r &e&n100 atk speed&r &f] ",
+        category: "Dungeons",
+        subcategory: "F7"
+    })
+    AutoI4 = false
 
-
+    @SwitchProperty({
+        name: "Clean Titles",
+        description: "&Replaces the big and annoyying f7 titles with smaller and cleaner ones and display them on screen\n\n&b&nExsamples:\n\n&r &a1/2 Energy Crystals are now active!&f ==> &f(&c1&f/&b2&f) \n &aNoamm9&a activated a Terminal! (&c6&f/&a7&f)&f ==> &f(&c6&a/7&f)",
+        category: "Dungeons",
+        subcategory: "F7"
+    })
+    CleanTitles = false
 
     constructor() {
         this.initialize(this);

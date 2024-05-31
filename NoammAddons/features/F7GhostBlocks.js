@@ -3,19 +3,12 @@
 
 import Dungeon from "../../BloomCore/dungeons/Dungeon"
 import Settings from "../Config/Settings"
-import { BlockPoss } from "../utils"
+import { BlockPoss, setAir, GhostBlock } from "../utils"
 
 const WhiteGlass = new BlockType("stained_glass").getDefaultState()
 const Chest = new BlockType(`chest`).getDefaultState()
 
 
-function setAir (BlockPoss) {
-    World.getWorld().func_175698_g(BlockPoss)
-}  
-
-function GhostBlock (BlockPoss, MCIBlockState) {
-    World.getWorld().func_175656_a(BlockPoss, MCIBlockState);
-}
 
 const ChestCords = [
     new BlockPoss(75, 221, 36),
@@ -117,12 +110,10 @@ const WhiteGlassCords = [
 
 
 register(`step`, () => {
-    if (!World.isLoaded() || !Dungeon.floorNumber == 7 || !Settings.f7GhostBlocks) return
+    if (!World.isLoaded() || Dungeon.floorNumber !== 7.0 || !Settings.f7GhostBlocks) return
 
     for (let i = 0; i<ChestCords.length;i++) GhostBlock(ChestCords[i], Chest)
     for (let i = 0; i<AirCords.length;i++) setAir(AirCords[i])
     for (let i = 0; i<WhiteGlassCords.length;i++) GhostBlock(WhiteGlassCords[i], WhiteGlass)
     
 }).setFps(3)
-
-register(`renderTitle`)
