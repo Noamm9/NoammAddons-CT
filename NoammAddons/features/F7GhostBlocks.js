@@ -112,8 +112,8 @@ const WhiteGlassCords = [
 register(`step`, () => {
     if (!World.isLoaded() || Dungeon.floorNumber !== 7.0 || !Settings.f7GhostBlocks) return
 
-    for (let i = 0; i<ChestCords.length;i++) GhostBlock(ChestCords[i], Chest)
-    for (let i = 0; i<AirCords.length;i++) setAir(AirCords[i])
-    for (let i = 0; i<WhiteGlassCords.length;i++) GhostBlock(WhiteGlassCords[i], WhiteGlass)
-    
+    ChestCords.forEach((BlockPoss) => GhostBlock(BlockPoss, Chest))
+    AirCords.forEach((BlockPoss) => setAir(BlockPoss))
+    WhiteGlassCords.forEach((BlockPoss) => GhostBlock(BlockPoss, WhiteGlass))
+
 }).setFps(3)
