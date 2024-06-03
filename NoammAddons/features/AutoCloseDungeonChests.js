@@ -4,7 +4,7 @@
 
 import Settings from "../Settings"
 import Dungeon from "../../BloomCore/dungeons/Dungeon"
-import { ModMessage, Render } from "../utils"
+import { Render } from "../utils"
 const C0DPacketCloseWindow = Java.type("net.minecraft.network.play.client.C0DPacketCloseWindow")
 const PreGuiRenderEvent = net.minecraftforge.client.event.GuiScreenEvent.DrawScreenEvent.Pre
 
@@ -17,18 +17,20 @@ register(PreGuiRenderEvent, (event) => {
         if(Chest.getName().toLocaleLowerCase().removeFormatting() == "chest") {
 			const maxSlot = Chest.getSize() - 36
 
-            Chest.getItems().forEach((item, index) => {
-				const itemName = item.getName().toLowerCase().removeFormatting()
-				if(!item || !dungeonSecrets.includes(itemName) || index >= maxSlot) return
+			cancel(event)
+			Client.sendPacket(new C0DPacketCloseWindow())
+			Client.currentGui.close()
 
-				if (itemName == `healing viii splash potion` || itemName == `healing potion 8 splash potion`) Render.TitleUnderCursor(`&dHealing Splash Potion&r &bFound in Chest!`, 5000)
-				else if (itemName == `treasure talisman`) Render.TitleUnderCursor(`&6Treasure Talisman&r &bFound in Chest!`, 5000)
+
+            Chest.getItems().forEach((item, index) => {
+				if(!item || !dungeonSecrets.includes(item.getName().toLowerCase().removeFormatting()) || index >= maxSlot) return
+
+				if (item.getName().toLowerCase().removeFormatting() == `healing viii splash potion` || itemName == `healing potion 8 splash potion`) Render.TitleUnderCursor(`&dHealing Splash Potion&r &bFound in Chest!`, 5000)
+				else if (item.getName().toLowerCase().removeFormatting() == `treasure talisman`) Render.TitleUnderCursor(`&6Treasure Talisman&r &bFound in Chest!`, 5000)
 
 					// TODO Add a check to see if the Chest Contains any items that the user wants to keep the Chest open for them
 
-				cancel(event)
-				Client.sendPacket(new C0DPacketCloseWindow())
-				Client.currentGui.close()
+
                 
             })
         }
