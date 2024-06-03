@@ -1,9 +1,10 @@
 /// <reference types="../../CTAutocomplete" />
 /// <reference lib="es2015" />
 
+import Settings from "../Settings"
 import RenderLib from "../../RenderLib"
-import Settings from "../Config/Settings"
 import Dungeon from "../../BloomCore/dungeons/Dungeon"
+import { ModMessage } from "../utils"
 
 let InBoss = false
 
@@ -38,8 +39,11 @@ register(`worldUnload`, () => {
 
 
 
-register("renderEntity", (entity, pos, partialTicks, event) => {
-    if (!Dungeon.inDungeon || !Config.DungeonMobESP && !Dungeon.inDungeon || InBoss) return
+register("renderEntity", (entity) => {
+    if (!Settings.DungeonMobESP) return
+    if (!Dungeon.inDungeon) return
+    if (InBoss) return
+
     let name = ChatLib.removeFormatting(entity.getName())
     const espBox = (x, y, z, height) => {RenderLib.drawEspBox(x, y-height, z, 0.9, height, Settings.MobESPColor.getRed()/255 ,Settings.MobESPColor.getGreen()/255, Settings.MobESPColor.getBlue()/255, 1, true);}
     const espfilledBox = (x, y, z, height) => {RenderLib.drawInnerEspBox(x, y-height, z, 0.9, height, Settings.MobESPColor.getRed()/255 ,Settings.MobESPColor.getGreen()/255, Settings.MobESPColor.getBlue()/255, Settings.MobESPColor.getAlpha() /255, 1, true);}

@@ -2,7 +2,7 @@
 /// <reference lib="es2015" />
 
 import { FPSdisplayGUIdata } from "../index"
-import Settings from "../Config/Settings"
+import Settings from "../Settings"
 
 
 export let md = false

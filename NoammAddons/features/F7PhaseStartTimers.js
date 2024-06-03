@@ -1,4 +1,4 @@
-import Settings from "../Config/Settings";
+import Settings from "../Settings";
 import { Render } from "../utils";
 
 
@@ -11,7 +11,7 @@ let Criteria = [
 
 register(`chat`, (e) => {
     if (!Settings.F7M7PhaseStartTimers) return
-    let ChatMessage = ChatLib.getChatMessage(e,false).toString()
+    let ChatMessage = ChatLib.getChatMessage(e,false)
     if (ChatMessage.startsWith(Criteria[0]) && Settings.P1StartTimer) Render.TimerUnderCursor(`&a`, 7_500)
     else if (ChatMessage.startsWith(Criteria[1]) && Settings.P2StartTimer) Render.TimerUnderCursor(`&a`, 6_000)
     else if (ChatMessage.startsWith(Criteria[2]) && Settings.P3StartTimer) Render.TimerUnderCursor(`&a`, 5_200)

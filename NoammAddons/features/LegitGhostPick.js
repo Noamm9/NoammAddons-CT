@@ -2,13 +2,18 @@
 /// <reference lib="es2015" />
 
 
-import { LegitGhostPickGUIdata } from "../index"
-import Settings from "../Config/Settings"
-import { MainGUI } from "../EditGui"
+import Settings from "../Settings"
 import Dungeon from "../../BloomCore/dungeons/Dungeon"
-import { setAir } from "../utils"
+import { LegitGhostPickGUIdata } from "../index"
+import { MainGUI } from "../EditGui"
+import { BlockPoss, setAir } from "../utils"
+
+export let Toggle = false 
+export let md = false
+export let Text = new Text(` `).setShadow(true).setFormatted(true) 
+
 const LegitGhostPickBind = new KeyBind("Legit Ghost Pickaxe", Keyboard.KEY_Z, "NoammAddons")
-const sounds = JSON.parse(FileLib.read("CookieAddons", "data/sounds.json"))
+let BreakingSounds = JSON.parse(FileLib.read("NoammAddons", "RandomShit/BreakingSounds.json"))
 
 const ids = [
     257,  // Iron Pickaxe
@@ -17,7 +22,8 @@ const ids = [
     285,  // Golden Pickaxe
     278,  // Diamond Pickaxe
     130,  // Ender Chest
-    54    // Chest
+    54/*,    Chest
+    276      // Diamond sword for testing*/
 ]
 
 const ignoreList = [
@@ -28,23 +34,24 @@ const ignoreList = [
     'tile.air.name',
     'Button',
     'Ender Chest',
-    'Bedrock'
+    'Bedrock',
+    `Ladder`,
+    `TNT`,
+    `Portal`
 ]
 
-export let Toggle = false 
-export let md = false
-export let Text = new Text(` `).setShadow(true).setFormatted(true) 
+
 
 
 
 LegitGhostPickBind.registerKeyPress(() => {
-	if (!Settings.LegitGhostPickaxe || !Dungeon.inDungeon) return
+	if (!Settings.LegitGhostPickaxe || Settings.PickaxeMode !== 0) return
 	Toggle = !Toggle
 })
 
 
 register("renderOverlay", () => {
-	if (!Settings.LegitGhostPickaxe || Settings.PickaxeMode !== 0) return
+	if (!Settings.LegitGhostPickaxe) return
 
 	
 	Text.setX(LegitGhostPickGUIdata.x)
@@ -66,20 +73,21 @@ register("packetsent", (packet, event) => {
 
 
 
-register("packetsent", (packet, event) => {
-    if (!Dungeon.inDungeon || Settings.PickaxeMode !== 1) return;
-    if (packet.class.getSimpleName() == "C0APacketAnimation") {
+register("packetsent", (packet) => {
+    if (!Dungeon.inDungeon || Settings.PickaxeMode !== 1) return
+    if (packet.class.getSimpleName() !== "C0APacketAnimation") return
+    const block = Player.lookingAt()
+
+
+    try {
+        if (block.type == null || ignoreList.includes(block.type.name) || Player.getHeldItem() == null) return
+    
+        const id = Player.getHeldItem().getID()
         
-		const block = Player.lookingAt()
-        try {
-            if (block.type == null || ignoreList.includes(block.type.name) || Player.getHeldItem() == null) return;
+        if (!ids.includes(id)) return
+        setAir(new BlockPoss(block.getX(), block.getY(), block.getZ()))
+        World.playSound(BreakingSounds[String(block.type.name).toLowerCase()], 100, 1)
         
-            const id = Player.getHeldItem().getID()
-            
-            if (ids.includes(id)) {
-                setAir(block.getX(), block.getY(), block.getZ())
-                World.playSound(sounds[String(block.type.name).toLowerCase()], 100, 1)
-            } 
-        } catch (e) {}
-    }
+    } catch (e) {}
+    
 })

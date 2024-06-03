@@ -2,7 +2,7 @@
 /// <reference lib="es2015" />
 
 import { BonzoMaskGUIdata } from "../index";
-import Settings from "../Config/Settings";
+import Settings from "../Settings";
 
 export let Text = new Text(` `).setShadow(true).setFormatted(true) 
 export let md = false

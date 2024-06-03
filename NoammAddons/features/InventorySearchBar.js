@@ -2,7 +2,7 @@
 /// <reference lib="es2015" />
 
 
-import Settings from "../Config/Settings"
+import Settings from "../Settings"
 const GuiTextField = Java.type("net.minecraft.client.gui.GuiTextField")
 let searchTerm = "";
 let searchBar

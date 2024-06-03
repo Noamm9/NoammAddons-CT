@@ -3,12 +3,12 @@
 
 import { guiData, BonzoMaskGUIdata, SpiritMaskGUIdata, PhoenixPetGUIdata, LegitGhostPickGUIdata, FPSdisplayGUIdata, ClockDisplayGUIdata} from "./index";
 import { Render} from "./utils";
-import * as BonzoMask from "./features/BonzoMaskTimer";
-import * as PhoenixPet from "./features/PhoenixPetTimer";
-import * as SpiritMask from "./features/SpiritMaskTimer";
-import * as LegitGhostPick from "./features/LegitGhostPick";
-import * as FPSdisplay from "./features/FPSdisplay";
-import * as ClockDisplay from "./features/ClockDisplay"
+import * as BonzoMask from "./Features/BonzoMaskTimer";
+import * as PhoenixPet from "./Features/PhoenixPetTimer";
+import * as SpiritMask from "./Features/SpiritMaskTimer";
+import * as LegitGhostPick from "./Features/LegitGhostPick";
+import * as FPSdisplay from "./Features/FPSdisplay";
+import * as ClockDisplay from "./Features/ClockDisplay"
 export const MainGUI = new Gui()
 
 

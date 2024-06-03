@@ -2,10 +2,10 @@
 /// <reference lib="es2015" />
 
 
-import Settings from "../Config/Settings";
+import Settings from "../Settings"
 
 
 TriggerRegister.registerRenderEntity((entity, pos, ticks, event) => {
-    if(Settings.HideFallingBlocks && entity.getName() === "Falling Block")
-        cancel(event)
-    })
+    if(Settings.HideFallingBlocks && entity.getName() == "Falling Block")
+    cancel(event)
+})

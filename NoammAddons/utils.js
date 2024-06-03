@@ -239,7 +239,7 @@ export class Render {
   */
   static TitleUnderCursor(Text, MsTime) {
     let StartTime = new Date().getTime();
-    let Trigger = register(`renderOverlay`, () => {
+    const Trigger = register(`renderOverlay`, () => {
       let TimeLeft = MsTime - (new Date().getTime() - StartTime);
       Renderer.translate(Renderer.screen.getWidth()/2, Renderer.screen.getHeight()/2)
       Renderer.scale(2, 2)
@@ -257,7 +257,7 @@ export class Render {
 */
   static TimerUnderCursor(Formating, MsTime) {
     let StartTime = new Date().getTime();
-    let Trigger = register(`renderOverlay`, () => {
+    const Trigger = register(`renderOverlay`, () => {
       let TimeLeft = ((MsTime - (new Date().getTime() - StartTime))/1000).toFixed(2)
       Renderer.translate(Renderer.screen.getWidth()/2, Renderer.screen.getHeight()/2)
       Renderer.scale(2, 2)

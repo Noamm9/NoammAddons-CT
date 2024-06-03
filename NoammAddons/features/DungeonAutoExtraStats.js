@@ -1,7 +1,7 @@
 /// <reference types="../../CTAutocomplete" />
 /// <reference lib="es2015" />
 
-import Settings from "../Config/Settings";
+import Settings from "../Settings";
 
 register("chat", () => { 
     if (!Settings.DungeonAutoExtraStats) return

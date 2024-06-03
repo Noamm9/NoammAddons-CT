@@ -1,7 +1,7 @@
 /// <reference types="../../CTAutocomplete" />
 /// <reference lib="es2015" />
 
-import Settings from "../Config/Settings";
+import Settings from "../Settings";
 
 const item = [ "Ender Pearl"] // maybe i will add more stuff in the future
 

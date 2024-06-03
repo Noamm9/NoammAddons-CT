@@ -2,7 +2,7 @@
 /// <reference lib="es2015" />
 
 import Dungeon from "../../BloomCore/dungeons/Dungeon"
-import Settings from "../Config/Settings"
+import Settings from "../Settings"
 import { BlockPoss, setAir, GhostBlock } from "../utils"
 
 const WhiteGlass = new BlockType("stained_glass").getDefaultState()

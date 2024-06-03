@@ -1,7 +1,7 @@
 /// <reference types="../../CTAutocomplete" />
 /// <reference lib="es2015" />
 
-import Settings from "../Config/Settings"
+import Settings from "../Settings"
 import { BlockPoss } from "../utils";
 
 const mc = Client.getMinecraft();

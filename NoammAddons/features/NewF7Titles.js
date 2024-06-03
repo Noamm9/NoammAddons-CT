@@ -2,8 +2,8 @@
 /// <reference lib="es2015" />
 
 
-import Settings from "../Config/Settings"
-import { getPhase } from "../utils"
+import Settings from "../Settings"
+
 
 
 let InfoText = new Text(` `).setShadow(true).setFormatted(true).setScale(2)
@@ -15,9 +15,8 @@ const progressRegex = /\d+\/\d+/
 // I suck at making regex
 
 
-register(`chat`, (event) => {
+const StartRegister = register(`chat`, (event) => {
 	if (!Settings.CleanTitles) return
-	if (getPhase() != `p3` && getPhase() != `p1`) return
 
 	try {
 		let msg = ChatLib.getChatMessage(event, false)
@@ -29,7 +28,7 @@ register(`chat`, (event) => {
 			RenderTrigger.register()
 		}
 	} catch (e) {}
-})
+}).unregister()
 
 
 
@@ -37,10 +36,9 @@ register(`chat`, (event) => {
 let RenderTrigger = TriggerRegister.registerRenderOverlay(() => {
 	try {
 		let TimeLeft = MsTime - (new Date().getTime() - StartTime);
-		let TitleString
 	
-		
-        TitleString = `&r(${terminalInfo.replace("1/7", "&c1&r/&a7").replace("1/8", "&c1&r/&a8").replace("1/2", "&c1&r/&b2")
+
+        let TitleString = `&r(${terminalInfo.replace("1/7", "&c1&r/&a7").replace("1/8", "&c1&r/&a8").replace("1/2", "&c1&r/&b2")
 		.replace("2/8", "&c2&r/&a8").replace("2/7", "&c2&r/&a7").replace("2/2", "&b2&r/&b2")
 		.replace("3/", "&c3&r/&a").replace("4/", "&c4&r/&a").replace("5/", "&c5&r/&a")
 		.replace("6/", "&c6&r/&a").replace("7/8", "&c7&r/&a8")
@@ -62,8 +60,31 @@ let RenderTrigger = TriggerRegister.registerRenderOverlay(() => {
     
 	
 	
-register(`renderTitle`, (t, subt, event) => {
+const HideTitles = register(`renderTitle`, (t, subt, event) => {
 	if (!Settings.CleanTitles) return
-	if (getPhase() != `p3` && getPhase() != `p1`) return
 	cancel(event)
+}).unregister()
+
+
+
+register(`chat`, (e) => {
+	if (!Settings.CleanTitles) return
+
+	const ChatMessage = ChatLib.getChatMessage(e, false)
+
+	if (ChatMessage.includes(`[BOSS] Maxor: WELL! WELL! WELL! LOOK WHO'S HERE!`) || ChatMessage.includes(`[BOSS] Storm: I should have known that I stood no chance.`)) {
+		HideTitles.register()
+		StartRegister.register()
+	} 
+
+	if (ChatMessage.includes(`[BOSS] Maxor: I'M TOO YOUNG TO DIE AGAIN!`) || ChatMessage.includes(`[BOSS] Goldor: You have done it`)) {
+		HideTitles.unregister()
+		StartRegister.unregister()
+	} 
+
+})
+
+register(`worldLoad`, () => {
+	HideTitles.unregister()
+	StartRegister.unregister()
 })
