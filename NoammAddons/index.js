@@ -1,5 +1,5 @@
 import PogObject from "../PogData/index.js"
-import { gc, cc } from "./utils"
+//import { gc, cc } from "./utils"
 
 //import Settings from "./Config/Settings"
 //register("command", () => Settings.openGUI()).setName("noamm").setAliases("noam", "noamaddons", "noammaddons", "na") // moved to Party Commands 
@@ -100,14 +100,19 @@ import "./Features/NewF7Titles"
 import "./Features/AutoCloseDungeonChests"
 import "./Features/SecretSound"
 import "./Features/HidePortalEffect"
-
+import "./Features/CustomLeapMenu.js"
+import "./Features/AbilityKeybinds.js"
+import "./Features/NoBlindness.js"
 
 import "./AutoUpDater"
 import "./EditGui"
 import "./Features/PingCommand"
 
 import "./TODO/TestGround"
-import "./TODO/ExtractMinecraftChat"
+//import "./TODO/ExtractMinecraftChat"
+
+//import "./asm/exposed/toggleSecretHitboxes"
+
 
 /*
 cc("§e--------------------------");
@@ -118,3 +123,4 @@ console.log("----------------------");
 console.log(" NoammAddons Loaded")
 console.log("----------------------")
 */
+

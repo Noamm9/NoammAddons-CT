@@ -20,6 +20,14 @@ const UMatrixStack = Java.type("gg.essential.universal.UMatrixStack");
 const UGraphics = Java.type("gg.essential.universal.UGraphics");
 const DefaultFonts = Java.type("gg.essential.elementa.font.DefaultFonts")
 const ElementaFonts = Java.type("gg.essential.elementa.font.ElementaFonts")
+const EssentialAPI =Java.type("gg.essential.api.EssentialAPI")
+
+
+function Alert(string, TimeUp) {
+  EssentialAPI.getNotifications().push(
+    `${prefix}`, `${string}`, TimeUp
+  )
+}
 
 
 export function setAir (BlockPoss) {
@@ -32,6 +40,39 @@ export function GhostBlock (BlockPoss, MCIBlockState) {
 
 export function ModMessage (string) {
   ChatLib.chat(`${prefix} ${string}`)
+}
+
+export function removeDuplicates(arr) {
+  return arr.filter((val, i) => arr.indexOf(val) === i);
+}
+
+export function colorClass(className) {
+	className = className.toLowerCase();
+	if (className === "healer") return "§d";
+	else if (className === "berserk") return "§6";
+	else if (className === "archer") return "§4";
+	else if (className === "tank") return "§a";
+	else if (className === "mage") return "§b";
+	else return "§7";
+}
+
+
+export function clickSlot(slot, btn) { 
+  Client.getMinecraft().field_71442_b.func_78753_a(
+    Player.getContainer().getWindowId(), slot, btn ? btn : 2, 3, Player.getPlayer()
+  )
+}
+
+
+export function getClass(player) {
+
+  let tabInfo = TabList.getNames()
+  for (let i = 0; i < tabInfo.length; i++) {
+      let tabLine = tabInfo[i].removeFormatting()
+      if (tabLine.includes(Player.getName())) {
+          return tabLine.substring((tabLine.indexOf("(")) + 1)
+      }
+  }
 }
 
 
@@ -407,13 +448,6 @@ export class PlayerUtils {
   }
 
 
-  static rightClick() {
-    const rightClickMethod = Client.getMinecraft().getClass().getDeclaredMethod("func_147121_ag", null)
-    rightClickMethod.setAccessible(true)
-    rightClickMethod.invoke(Client.getMinecraft(), null);
-  } 
-
-
   static calcYawPitch(blcPos, plrPos) {
     if (!plrPos) plrPos = this.getEyePos()
 
@@ -475,5 +509,30 @@ export class PlayerUtils {
   }
 
 
+  static Click(type = "left") {
+    type = type.removeFormatting().toLocaleLowerCase()
 
+    const LeftClickMethod = Client.getMinecraft().getClass().getDeclaredMethod("func_147116_af", null)
+    const RightClickMethod = Client.getMinecraft().getClass().getDeclaredMethod("func_147121_ag", null)
+    const MiddleClickMethod = Client.getMinecraft().getClass().getDeclaredMethod("func_147112_ai", null)
+    LeftClickMethod.setAccessible(true)
+    RightClickMethod.setAccessible(true)
+    MiddleClickMethod.setAccessible(true)
+
+  
+    if (type === "left") LeftClickMethod.invoke(Client.getMinecraft(), null)
+    else if (type === "right") RightClickMethod.invoke(Client.getMinecraft(), null)
+    else if (type === `middle`) MiddleClickMethod.invoke(Client.getMinecraft(), null)
+  } 
+
+
+  static UseDungeonClassAbility(Ultimate) {
+    Ultimate = !Ultimate
+    const MCplayer = Player.getPlayer()
+    if (!MCplayer) return
+
+    MCplayer.func_71040_bB(Ultimate)
+
+  }
 }
+

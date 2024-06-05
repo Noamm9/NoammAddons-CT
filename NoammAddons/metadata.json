@@ -5,6 +5,10 @@
     "version": "1.0.0",
     "author": "Noamm",
     "entry": "index.js",
+//    "asmEntry": "asm/asm.js",
+//    "asmExposedFunctions": {
+//      "toggleSecretHitboxes": "asm/exposed/toggleSecretHitboxes.js"
+//    },
     "requires": [
     "BloomCore",
     "RenderLib",

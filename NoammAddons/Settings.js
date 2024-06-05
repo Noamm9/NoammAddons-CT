@@ -1,6 +1,5 @@
 import {  @ButtonProperty, @PercentSliderProperty, @CheckboxProperty, @ColorProperty, @SelectorProperty, @SwitchProperty, @Vigilant, @SliderProperty, @TextProperty, Color } from "../Vigilance"
 
-import "../Vigilance"
 @Vigilant("NoammAddons\\Config", "§d§l§nNoamm§b§l§nAddons", {
     getCategoryComparator: () => (a, b) => {
         const categories = [
@@ -177,7 +176,7 @@ class Settings {
     FOV = Client.settings.getFOV();
 
     @SwitchProperty({
-        name: "&fDungeon &eMob &dE&bS&dP",
+        name: "&fDungeon &eMob &6ESP",
         description: "Draw a see through wall box around stared dungeon mobs",
         category: "Dungeons",
         subcategory: "ESP"
@@ -198,7 +197,7 @@ class Settings {
     MobESPMode = 0;
 
     @ColorProperty({
-        name: '&dE&bS&dP &dC&bo&dl&bo&dr',
+        name: '&dE&bS&dP &6Color',
         description: 'Select an option for the Dungeon Mob ESP box color',
         category: "Dungeons",
         subcategory: 'ESP'
@@ -782,7 +781,7 @@ class Settings {
 
     @SwitchProperty({
         name: "Clean Titles",
-        description: "&Replaces the big and annoyying f7 titles with smaller and cleaner ones and display them on screen\n\n&b&nExsamples:\n\n&r &a1/2 Energy Crystals are now active!&f ==> &f(&c1&f/&b2&f) \n &aNoamm9&a activated a Terminal! (&c6&f/&a7&f)&f ==> &f(&c6&a/7&f)",
+        description: "&eReplaces the big and annoyying f7 titles with smaller and cleaner ones and display them on screen\n\n&b&nExsamples:\n\n&r &a1/2 Energy Crystals are now active!&f ==> &f(&c1&f/&b2&f) \n &aNoamm9&a activated a Terminal! (&c6&f/&a7&f)&f ==> &f(&c6&a/7&f)",
         category: "Dungeons",
         subcategory: "F7"
     })
@@ -828,7 +827,80 @@ class Settings {
     })
     HidePortalEffect = false
 
+    @SwitchProperty({
+        name: "&dCustom &bLeap &6Menu",
+        description: "Renders a Custom Menu for leaps",
+        category: "Dungeons",
+        subcategory: "Spirit Leaps"
+    })
+    CustomLeapMenu = false
+/*
+    @PercentSliderProperty({
+        name: "&eScale",
+        description: "Scale of the &dCustom &bLeap &6Menu",
+        category: "Dungeons",
+        subcategory: "Spirit Leaps"
+    })
+    CustomLeapMenuScale = 1*/
     
+    @SwitchProperty({
+        name: "&eToggle &5Secrets Hitboxes",
+        description: "Toggles the hitboxes of secrets in dungeons",
+        category: "Dungeons",
+        subcategory: "Secrets",
+        hide: true
+    })
+    SecretsHitboxes = true
+    
+    @SwitchProperty({
+        name: "&bAbility &aKeybinds",
+        description: "Allows to use the Your Classs ULTIMATE/ABILITY with a keybind witch can be configirate in Minecraft's Options/Controls",
+        category: "Dungeons",
+        subcategory: ""
+    })
+    AbilityKeybinds = false
+
+    @SwitchProperty({
+        name: "&4&lFuck &0&lBlindness!",
+        description: "Removes the Fucking Annoying Blindness Effect (Client-side ofc)",
+        category: "Cosmetic",
+        subcategory: "Visuals"
+    })
+    NoBlindness = false
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     constructor() {
         this.initialize(this);
@@ -838,14 +910,14 @@ class Settings {
 		this.setCategoryDescription("Alerts", "&6Toggle &aOn&f/&cOff&f Alerts within this mod")
 
         this.addDependency('&bFOV', '&eCustom &dFOV');
-        this.addDependency('&dE&bS&dP &dC&bo&dl&bo&dr', '&fDungeon &eMob &dE&bS&dP')
+        this.addDependency('&dE&bS&dP &6Color', '&fDungeon &eMob &6ESP')
+        this.addDependency("&dE&bS&dP &6Mode", "&fDungeon &eMob &6ESP")
         //this.addDependency('§eMove&r &cNecron Dropping&r &eTimer&r', '&cNecron Dropping &eTimer')
         this.addDependency("Block Overlay &eType", "§n&fBlock Overlay")
         this.addDependency("Outline Thickness", "§n&fBlock Overlay")
         this.addDependency("Outline Color", "§n&fBlock Overlay")
         this.addDependency("Overlay Color", "§n&fBlock Overlay")
         this.addDependency("&6Show Through Blocks?", "§n&fBlock Overlay")
-        this.addDependency("&dE&bS&dP &6Mode", "&fDungeon &eMob &dE&bS&dP")
         this.addDependency("Announced &6Massage", "Announce &fSpirit &bLeaps")
         this.addDependency("&5P1 &fStart &eTimer", "&cF7/&4M7 &aPhase &dStart &eTimers")
         this.addDependency("&bP2 &fStart &eTimer", "&cF7/&4M7 &aPhase &dStart &eTimers")
@@ -868,6 +940,7 @@ class Settings {
         this.addDependency(`&sSpin &9speed`, `&bPlayer &aSpin`)
         this.addDependency("&bSlot &d&lHighlight&r &6Color", "&aCustom &bSlot &d&lHighlight")
         this.addDependency(`&aDungeon &6Team&amates &6Name&atag &eMode`, `&aDungeon &6Team&amates &6Name&atag`)
+        /*this.addDependency(`&eScale`, `&dCustom &bLeap &6Menu`)*/
 
 
     }

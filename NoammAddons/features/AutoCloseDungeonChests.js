@@ -15,13 +15,13 @@ register(PreGuiRenderEvent, (event) => {
     try {
 		const Chest = Player.getContainer()
         if(Chest.getName().toLocaleLowerCase().removeFormatting() == "chest") {
-			const maxSlot = Chest.getSize() - 36
-
+			
 			cancel(event)
 			Client.sendPacket(new C0DPacketCloseWindow())
 			Client.currentGui.close()
-
-
+			
+			
+			const maxSlot = Chest.getSize() - 36
             Chest.getItems().forEach((item, index) => {
 				if(!item || !dungeonSecrets.includes(item.getName().toLowerCase().removeFormatting()) || index >= maxSlot) return
 

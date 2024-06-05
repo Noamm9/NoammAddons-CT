@@ -38,7 +38,7 @@ register("tick", () => {
     
     PlayerUtils.rotateSmoothly(yaw, pitch, 300) 
     setTimeout(() => {
-        PlayerUtils.rightClick()
+        PlayerUtils.Click(`right`)
         lastShot = Date.now()
         predictNextTarget()
     },320) 

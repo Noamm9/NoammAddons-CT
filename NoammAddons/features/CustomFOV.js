@@ -3,7 +3,15 @@
 
 
 import Settings from "../Settings";
+const EntityViewRenderEventFOVModifier = net.minecraftforge.client.event.EntityViewRenderEvent.FOVModifier
 
-register("step", () => { 
+register(EntityViewRenderEventFOVModifier, () => { 
 	if (Settings.CustomFOV) Client.settings.setFOV(Settings.FOV)
-}).setFps(1)
+})
+
+
+
+
+
+
+
