@@ -7,13 +7,13 @@ import { registerWhen } from "../utils"
 
 
 function StartOrStop() {
-    if (Settings.HideFallingBlocks) return true
+    if (Settings.HideLightning) return true
     else return false
 }
 
 
-const trigger = TriggerRegister.registerRenderEntity((entity, pos, ticks, event) => {
-    if(entity.getName() == "Falling Block")
+const trigger = register("renderEntity", (entity, pos, ticks, event) => {
+    if (entity.getClassName() !== "EntityLightningBolt") return
     entity.getEntity().func_70106_y()
 })
 

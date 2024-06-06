@@ -1,7 +1,6 @@
 import PogObject from "../PogData/index.js"
-//import { gc, cc } from "./utils"
 
-//import Settings from "./Config/Settings"
+
 //register("command", () => Settings.openGUI()).setName("noamm").setAliases("noam", "noamaddons", "noammaddons", "na") // moved to Party Commands 
 
 export const guiData = new PogObject("Noammaddons", {
@@ -100,9 +99,13 @@ import "./Features/NewF7Titles"
 import "./Features/AutoCloseDungeonChests"
 import "./Features/SecretSound"
 import "./Features/HidePortalEffect"
-import "./Features/CustomLeapMenu.js"
-import "./Features/AbilityKeybinds.js"
-import "./Features/NoBlindness.js"
+import "./Features/CustomLeapMenu"
+import "./Features/AbilityKeybinds"
+import "./Features/NoBlindness"
+import "./Features/LeftClickEtherWarp"
+import "./Features/GyroCircle"
+import "./Features/MelodyAlert"
+import "./Features/HideLightning"
 
 import "./AutoUpDater"
 import "./EditGui"
@@ -114,13 +117,22 @@ import "./TODO/TestGround"
 //import "./asm/exposed/toggleSecretHitboxes"
 
 
-/*
-cc("§e--------------------------");
-ChatLib.chat(gc(`NoammAddons Loaded     &r`).replace(`NoammAddons Loaded`, `§b&lNoamm&d&lAddons &a&lLoaded`))
-cc("§e--------------------------");
 
-console.log("----------------------");
-console.log(" NoammAddons Loaded")
-console.log("----------------------")
+/*
+const drawRoundedRect = (colour, x, y, width, height, radius) => {
+    const matrix = Java.type("gg.essential.universal.UMatrixStack").Compat.INSTANCE
+
+    matrix.runLegacyMethod(matrix.get(), () => {
+        Java.type("gg.essential.elementa.components.UIRoundedRectangle").Companion.drawRoundedRectangle(
+            matrix.get(),
+            x,
+            y,
+            x + width,
+            y + height,
+            radius,
+            colour // java.awt.Color
+        )
+    })
+}
 */
 

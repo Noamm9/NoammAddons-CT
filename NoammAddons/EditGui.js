@@ -161,11 +161,11 @@ MainGUI.registerClosed(() => guiData.save())
 
 const EditView = TriggerRegister.registerRenderOverlay(() => {
 
-	if (BonzoMask.md) Render.TextBoundingBox(BonzoMaskGUIdata.x, BonzoMaskGUIdata.y, BonzoMask.Text.getWidth(), BonzoMask.Text.getHeight(), BonzoMaskGUIdata.s/100)
-	if (SpiritMask.md) Render.TextBoundingBox(SpiritMaskGUIdata.x, SpiritMaskGUIdata.y, SpiritMask.Text.getWidth(), SpiritMask.Text.getHeight(), SpiritMaskGUIdata.s/100)
-	if (PhoenixPet.md) Render.TextBoundingBox(PhoenixPetGUIdata.x, PhoenixPetGUIdata.y, PhoenixPet.Text.getWidth(), PhoenixPet.Text.getHeight(), PhoenixPetGUIdata.s/100)
-	if (LegitGhostPick.md) Render.TextBoundingBox(LegitGhostPickGUIdata.x, LegitGhostPickGUIdata.y, LegitGhostPick.Text.getWidth(), LegitGhostPick.Text.getHeight(), LegitGhostPickGUIdata.s/100)
-	if (FPSdisplay.md) Render.TextBoundingBox(FPSdisplayGUIdata.x, FPSdisplayGUIdata.y, FPSdisplay.Text.getWidth(), FPSdisplay.Text.getHeight(), FPSdisplayGUIdata.s/100)
-	if (ClockDisplay.md) Render.TextBoundingBox(ClockDisplayGUIdata.x, ClockDisplayGUIdata.y, ClockDisplay.Text.getWidth(), ClockDisplay.Text.getHeight(), ClockDisplayGUIdata.s/100)
+	if (BonzoMask.md) Render.TextBoundingBox(BonzoMaskGUIdata.x, BonzoMaskGUIdata.y, BonzoMask.Text.getWidth(), BonzoMask.Text.getHeight(), Renderer.WHITE, BonzoMaskGUIdata.s/100)
+	if (SpiritMask.md) Render.TextBoundingBox(SpiritMaskGUIdata.x, SpiritMaskGUIdata.y, SpiritMask.Text.getWidth(), SpiritMask.Text.getHeight(), Renderer.WHITE, SpiritMaskGUIdata.s/100)
+	if (PhoenixPet.md) Render.TextBoundingBox(PhoenixPetGUIdata.x, PhoenixPetGUIdata.y, PhoenixPet.Text.getWidth(), PhoenixPet.Text.getHeight(), Renderer.WHITE, PhoenixPetGUIdata.s/100)
+	if (LegitGhostPick.md) Render.TextBoundingBox(LegitGhostPickGUIdata.x, LegitGhostPickGUIdata.y, LegitGhostPick.Text.getWidth(), LegitGhostPick.Text.getHeight(), Renderer.WHITE, LegitGhostPickGUIdata.s/100)
+	if (FPSdisplay.md) Render.TextBoundingBox(FPSdisplayGUIdata.x, FPSdisplayGUIdata.y, FPSdisplay.Text.getWidth(), FPSdisplay.Text.getHeight(), Renderer.WHITE, FPSdisplayGUIdata.s/100)
+	if (ClockDisplay.md) Render.TextBoundingBox(ClockDisplayGUIdata.x, ClockDisplayGUIdata.y, ClockDisplay.Text.getWidth(), ClockDisplay.Text.getHeight(), Renderer.WHITE, ClockDisplayGUIdata.s/100)
 
 }).unregister()

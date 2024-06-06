@@ -1,0 +1,48 @@
+
+
+
+import Settings from "../Settings"
+import { registerWhen, PlayerUtils } from "../utils"
+import { getSkyblockItemID } from "../../BloomCore/utils/Utils";
+
+
+const MouseEvent = Java.type("net.minecraftforge.client.event.MouseEvent")
+const sneakKey = new KeyBind(Client.getMinecraft().field_71474_y.field_74311_E)
+
+
+function StartOrStop() {
+    return Settings.LeftClickEtherwarp
+}
+
+
+
+function isHoldingEtherwarpItem() {
+    const held = Player.getHeldItem()
+    const sbId = getSkyblockItemID(held)
+
+    if (sbId !== "ASPECT_OF_THE_END" && sbId !== "ASPECT_OF_THE_VOID") return false
+    
+    return held.getNBT()?.toObject()?.tag?.ExtraAttributes?.ethermerge == 1
+}
+
+
+const Trigger = register(MouseEvent, (event) => {
+
+    const btn = event.button
+    const state = event.buttonstate
+    if (btn !== 0 || !state || !isHoldingEtherwarpItem() || !Client.isTabbedIn()) return
+
+    cancel(event)
+
+    const shouldSneak = !Player.isSneaking()
+    if (shouldSneak) sneakKey.setState(true)
+    
+    Client.scheduleTask(0, () => {
+        PlayerUtils.Click(`right`)
+        if (shouldSneak) sneakKey.setState(false)
+    })
+
+}).unregister()
+
+
+registerWhen(Trigger, StartOrStop)

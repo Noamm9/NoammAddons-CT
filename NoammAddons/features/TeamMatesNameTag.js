@@ -36,7 +36,7 @@ function DrawNames(player, string, PlayerClass) {
         else return
 
         let Dinstance = MyMath.DistanceIn3dWorld(Player.getRenderX(), Player.getRenderY(), Player.getRenderZ(), player.getRenderX(), player.getRenderY(), player.getRenderZ())
-        Render.StringWithShadow(string, player.getRenderX(), player.getRenderY() + 2.5 + (Dinstance*0.1) , player.getRenderZ(), NameColor, Dinstance * 0.3, false)
+        Render.StringWithShadow(string, player.getRenderX(), player.getRenderY() + 2.5 + (Dinstance*0.1) , player.getRenderZ(), NameColor, Dinstance * 0.3, true, false)
         
         
     }

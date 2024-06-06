@@ -21,7 +21,7 @@ register(`chat`, (type, name, x1, y2, z3, event) => {
         const distance = MyMath.DistanceIn3dWorld(Player.getX(), Player.getY(), Player.getZ(), x, y, z)
         if ( !World.isLoaded() || distance <= 5 || TimeLeft <= 0 ) renderWorld.unregister()
 
-        Render.StringWithShadow(`${Math.trunc(distance)}`, x-0.2, y+5, z+0.2, Renderer.LIGHT_PURPLE, 2, false)
+        Render.StringWithShadow(`${Math.trunc(distance)}`, x-0.2, y+5, z+0.2, Renderer.LIGHT_PURPLE, 0.3 * distance, true, false)
         Render.FilledOutLineBox(x, y, z, 1, 1, r, g, b, 50/255, true)
     })
     cancel(event)

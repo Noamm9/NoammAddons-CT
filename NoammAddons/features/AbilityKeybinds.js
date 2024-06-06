@@ -4,6 +4,7 @@
 import Settings from "../Settings"
 import PogObject from "../../PogData"
 import { PlayerUtils } from "../utils"
+import Dungeon from "../../BloomCore/dungeons/Dungeon"
 
 const Keybinds = new PogObject("Noammaddons", {
 	ClassULTIMATE: Keyboard.KEY_NONE,

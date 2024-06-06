@@ -1,4 +1,6 @@
 import {  @ButtonProperty, @PercentSliderProperty, @CheckboxProperty, @ColorProperty, @SelectorProperty, @SwitchProperty, @Vigilant, @SliderProperty, @TextProperty, Color } from "../Vigilance"
+import { DisconnectFromServer } from "./utils"
+
 
 @Vigilant("NoammAddons\\Config", "§d§l§nNoamm§b§l§nAddons", {
     getCategoryComparator: () => (a, b) => {
@@ -31,10 +33,25 @@ class Settings {
         description: "Join if you want to report a bug or want to make a suggestion",
         category: "General",
         subcategory: "",
-        placeholder: "Join"
+        placeholder: "                [ Click me! ]              "
     })
     MyDiscord() {
-        Java.awt.Desktop.getDesktop().browse(new Java.net.URI("https://www.youtube.com/watch?v=dQw4w9WgXcQ"))
+       // Java.awt.Desktop.getDesktop().browse(new Java.net.URI("https://www.youtube.com/watch?v=dQw4w9WgXcQ"))
+       Client.currentGui.close()
+       setTimeout(() => {
+        DisconnectFromServer(`
+&cYou are temporarily banned for &r359d 23h 59m 59s &cfrom this server!
+
+
+&7Reason:&r Cheating through the use of unfair game game advantages.
+&7Find out more: &b&nhttps://www.hypixel.net/appeal
+
+
+&7Ban ID: &r#783A8N7C
+&7Sharing your Ban ID may affect the proccessing of your appeal!
+`.replace(/&/g, "§"))
+       }, 2000)
+       
     }
 
     @ButtonProperty({
@@ -93,7 +110,7 @@ class Settings {
         description: "The Message that will be sent every time you leapd to someone.\n You can use {name} to get the leaped player's name",
         category: 'Dungeons',
         subcategory: 'Spirit Leaps',
-        placeholder: 'I TP to {name}',
+        placeholder: ''
     })
     AnnouncedLeapMassage = 'I TP to {name}';
 
@@ -868,19 +885,46 @@ class Settings {
     })
     NoBlindness = false
 
+    @SwitchProperty({
+        name: "&dLeft &aClick &5Etherwarp",
+        description: "If enabled when Left clicking with a AOTV in hand it will try Etherwarp instead",
+        category: "Dungeons",
+        subcategory: ""
+    })
+    LeftClickEtherwarp = false
 
+    @SwitchProperty({
+        name: "&eShow &6Gyro &dRadius",
+        description: "Shows the Gyrokinetic wand sucking radius",
+        category: "Dungeons",
+        subcategory: ""
+    })
+    GyroCircle = false
 
+    @TextProperty({
+        name: "&dMelody &6Alert",
+        description: "Sends a Message in chat when you open Melody Terminal\nDelete all text to disable",
+        category: "Dungeons",
+        subcategory: "F7",
+        placeholder: ''
+    })
+    MelodyAlert = ""
 
+    @SwitchProperty({
+        name: "&eHide &bLightning",
+        description: "Stops Lightning Effect from rendering",
+        category: "Cosmetic",
+        subcategory: "Visuals"
+    })
+    HideLightning = false
 
-
-
-
-
-
-
-
-
-
+    @SwitchProperty({
+        name: "&bHighlight &cMimic &6Chest",
+        description: "Renders a Box and nametag above the Mimic Chest",
+        category: "Dungeons",
+        subcategory: "Secrets"
+    })
+    HighlightMinicChest = false
 
 
 
