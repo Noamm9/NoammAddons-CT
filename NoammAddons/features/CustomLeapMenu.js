@@ -10,18 +10,33 @@ let players = []
 let heads = new Set([])
 let runned = false
 
-const ResetTrigger = register(`worldUnload`, () => players = [])
+
+function Runned() {
+    if (runned) return true
+    else return false
+}
+
+
+
+
+
+const ResetTrigger = register(`worldUnload`, () => {
+    ModMessage(`1`)
+    while (players.length) players.pop()
+    heads = new Set([])
+    runned = false
+})
 
 const clickTrigger = register("guiMouseClick", (x, y, _0, _1, event) => ClickLogic(x, y, event)).unregister();
 
-const renderTrigger = register(`renderOverlay`, () => RenderCustomGUI())
+const renderTrigger = register(`renderOverlay`, () => RenderCustomGUI()).unregister();
 
-const ArrayTrigger = register(`step`, () => UpdatePlayersArray()).setFps(1)
+const ArrayTrigger = register(`step`, () => UpdatePlayersArray()).setFps(1).unregister();
 
-const cancelRenderTrigger = register(net.minecraftforge.client.event.GuiScreenEvent.DrawScreenEvent.Pre, (event) => cancel(event))
+const cancelRenderTrigger = register(net.minecraftforge.client.event.GuiScreenEvent.DrawScreenEvent.Pre, (event) => cancel(event)).unregister();
 
 
-registerWhen(ResetTrigger, IsSpiritLeapGuiAndSettingsEnabled)
+registerWhen(ResetTrigger, Runned)
 registerWhen(clickTrigger, IsSpiritLeapGuiAndSettingsEnabled)
 registerWhen(renderTrigger, IsSpiritLeapGuiAndSettingsEnabled)
 registerWhen(ArrayTrigger, IsSpiritLeapGuiAndSettingsEnabled)
@@ -85,7 +100,7 @@ function UpdatePlayersArray() {
     Chest.getItems().forEach((item, slot) => {
 		if(!item || slot >= maxSlot) return
         const itemName = item.getName().removeFormatting()
-        let DungeonPlayerClasses = Dungeon.classes //{"WebbierAmoeba0":"Archer","Ocookie":"Mage","MythDragoon":"Healer","Shaharrr":"Berserk"}
+        let DungeonPlayerClasses = /*Dungeon.classes*/ {"WebbierAmoeba0":"Archer","Ocookie":"Mage","MythDragoon":"Healer","Shaharrr":"Berserk"}
         for (let PlayerName in DungeonPlayerClasses) {
             let PlayerClass = DungeonPlayerClasses[PlayerName];
             if (itemName == PlayerName) { 
@@ -107,7 +122,6 @@ function UpdatePlayersArray() {
                 
                 for (let i = 0; i<4; i++) {
                     if (!players[i]) return
-                    if (heads.size > 3) return
                     heads.add(Image.fromUrl(`https://www.mc-heads.net/avatar/${players[i].name}`))
                 }
                 
@@ -150,4 +164,3 @@ function IsSpiritLeapGuiAndSettingsEnabled() {
     if(Chest.getName().toLowerCase().removeFormatting() == "spirit leap" && Settings.CustomLeapMenu) return true
     else return false
 }
-
