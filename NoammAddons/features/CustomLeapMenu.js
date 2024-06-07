@@ -3,15 +3,26 @@
 
 import Settings from "../Settings"
 import Dungeon from "../../BloomCore/dungeons/Dungeon";
-import { clickSlot, colorClass, ModMessage } from "../utils"
+import { clickSlot, colorClass, ModMessage, Render, Color } from "../utils"
 
 
 let players = []
 let heads = new Set([])
 let runned = false
 
+
+
+
 const clickTrigger = register("guiMouseClick", (x, y, _0, _1, event) => ClickLogic(x, y, event)).unregister();
-register(net.minecraftforge.client.event.GuiScreenEvent.DrawScreenEvent.Pre, (event) => RenderCustomGUI(event))
+
+register(`renderOverlay`, () => RenderCustomGUI())
+
+register(net.minecraftforge.client.event.GuiScreenEvent.DrawScreenEvent.Pre, (event) => { 
+    if (IsSpiritLeapGuiAndSettingsEnabled()) cancel(event)
+})
+
+
+
 register(`worldUnload`, () => players = [])
 
 register(`step`, () => {
@@ -24,39 +35,57 @@ register(`step`, () => {
 
 
 
-
-function RenderCustomGUI(event) {
+function RenderCustomGUI() {
     if(!IsSpiritLeapGuiAndSettingsEnabled()) return
-    cancel(event)
 
-    const Scale = /*Settings.CustomLeapMenuScale*/ 1
+
+	Tessellator.pushMatrix();
+
+    const Scale = /*Settings.CustomLeapMenuScale*/ 2
 	const screenWidth = Renderer.screen.getWidth() / Scale
 	const screenHeight = Renderer.screen.getHeight() / Scale
 	const width = 128 + 32 + 128
-	const height = 64 + 32 + 64
+	const height = 80 + 32 + 80
 	const X = screenWidth / 2 - width / 2
 	const Y = screenHeight / 2 - height / 2
-	const offsets = [[X, Y], [X + 128 + 32, Y], [X, Y + 64 + 32], [X + 128 + 32, Y + 64 + 32]]
+    const BoxWidth = 128
+    const BoxHeight = 80
+    const BoxSpacing = 32
+    const HeadsHeightWidth = 50
+	const offsets = [[X, Y], [X + BoxWidth + BoxSpacing, Y], [X, Y + BoxHeight + BoxSpacing], [X + BoxWidth + BoxSpacing, Y + BoxHeight + BoxSpacing]]
+    const Lightmode = new Color(203/255, 202/255, 205/255, 100/100)
+    const Darkmode = new Color(33/255, 33/255, 33/255, 100/100)
 
-	Tessellator.pushMatrix();
+
 	for (let i = 0; i < 4; ++i) {
 		if (!players[i]) return
 		Renderer.scale(Scale);
-		Renderer.drawRect(Renderer.color(255, 255, 255, 150), offsets[i][0], offsets[i][1], 128, 64);
-		let nameScale = 112 / Renderer.getStringWidth(players[i].name);
-		if (nameScale > 1.5) nameScale = 1.5;
-		Renderer.scale(Scale * nameScale);
-		Renderer.drawStringWithShadow(`§n${colorClass(players[i].class)}§n${players[i].name}§r`, offsets[i][0] / nameScale + 4, (offsets[i][1] / nameScale + 4) - 2.5);
-		Renderer.scale(Scale);
-		Renderer.drawStringWithShadow(`${colorClass(players[i].class)}${players[i].class}`, offsets[i][0] + 128 - 4 - Renderer.getStringWidth(players[i].class), offsets[i][1] + 64 - 12);
-        if (runned) heads.forEach((head) => head.draw(offsets[i][0] + 64 - (46 * Scale)/2, (offsets[i][1] + 64 - 46 * Scale) - 1.5, 46 * Scale, 46 * Scale))
-        if (runned) ModMessage(heads.size)
 
 
-    
-	
+        Render.RoundedRect(Darkmode.darker(), offsets[i][0] - (BoxWidth/15) /2, offsets[i][1] - (BoxHeight/15) /2, BoxWidth + BoxWidth/15, BoxHeight + BoxHeight/15, 5)
+        Render.RoundedRect(Darkmode, offsets[i][0], offsets[i][1], BoxWidth, BoxHeight, 5)
+
+
+
+		Renderer.drawStringWithShadow(`§n${colorClass(players[i].class)}§n${players[i].name}§r`, offsets[i][0] + 4, (offsets[i][1] + 4))
+        Renderer.scale(Scale)
+		Renderer.drawStringWithShadow(`${colorClass(players[i].class)}${players[i].class}`, offsets[i][0] + BoxWidth - Renderer.getStringWidth(players[i].class) - BoxWidth/25, offsets[i][1] + BoxHeight - BoxHeight/8)
+
+
+        if (!runned) return
+        const headsArray = Array.from(heads);
+        const HeadScale = HeadsHeightWidth * Scale
+        headsArray.forEach((head, index) => { headsArray[index].draw((offsets[index][0] + BoxWidth/2 - HeadsHeightWidth/2) * Scale, ((offsets[index][1] + BoxHeight - HeadsHeightWidth *1.2) - BoxHeight/20) * Scale, HeadScale, HeadScale)})
+        
+
+
+
+
+       // ModMessage(heads.size)
+
     }
 	Tessellator.popMatrix();
+    Renderer.scale(1)
 }
 
 function UpdatePlayersArray() {
@@ -67,7 +96,7 @@ function UpdatePlayersArray() {
     Chest.getItems().forEach((item, slot) => {
 		if(!item || slot >= maxSlot) return
         const itemName = item.getName().removeFormatting()
-        let DungeonPlayerClasses = Dungeon.classes
+        let DungeonPlayerClasses = Dungeon.classes //{"Noamm9":"Tank","Ocookie":"Mage","Ori":"Healer","hellop2":"Berserk"}
         for (let PlayerName in DungeonPlayerClasses) {
             let PlayerClass = DungeonPlayerClasses[PlayerName];
             if (itemName == PlayerName) { 
@@ -82,15 +111,24 @@ function UpdatePlayersArray() {
     })
 
     if (players.length > 4) players.pop()
-    
-    if (!runned) { 
-    
-        runned = true
-        for (let i = 0; i<4; i++) {
-            if (!players[i]) return
-            heads.add(Image.fromUrl(`https://www.mc-heads.net/avatar/${players[i].name}`))
+    new Thread(() => {
+        if (!runned) { 
+            try {
+                runned = true
+                
+                for (let i = 0; i<4; i++) {
+                    if (!players[i]) return
+                    if (heads.size > 3) return
+                    heads.add(Image.fromUrl(`https://www.mc-heads.net/avatar/${players[i].name}`))
+                }
+                
+            } catch (error) {
+                ModMessage(`&cFailed to get &b${players[i].name}&c Head Texture`)
+                console.log(`NoammAddons: ${error}`)
+            }
         }
-    }
+    }).start()
+    
 }
 
 
@@ -110,6 +148,7 @@ function ClickLogic(x, y, event) {
 	if (index === -1) return;
 	if (!players[index]) return;
 
+    World.playSound(`mob.cat.meow`, 1, 1)
     clickSlot(players[index].slot, 0)
 	Player.getPlayer().func_71053_j()
 }

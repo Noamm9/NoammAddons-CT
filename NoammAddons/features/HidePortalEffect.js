@@ -12,11 +12,14 @@ InPortal.setAccessible(true)
 
 function StartOrStop() {
     if (!Player.getPlayer()) return false
-    if (Settings.HidePortalEffect && Player.getPlayer().field_71086_bY > 0) return true
+    if (Settings.HidePortalEffect) return true
     else return false
 }
 
-const trigger = register("tick", () => InPortal.set(Player.getPlayer(), false)).unregister()
+const trigger = register("renderPortal", (event) => { 
+    cancel(event)
+    InPortal.set(Player.getPlayer(), false)
+}).unregister()
 
 
 registerWhen(trigger, StartOrStop)

@@ -106,6 +106,7 @@ import "./Features/LeftClickEtherWarp"
 import "./Features/GyroCircle"
 import "./Features/MelodyAlert"
 import "./Features/HideLightning"
+import "./Features/HighlightMimicChest"	
 
 import "./AutoUpDater"
 import "./EditGui"
@@ -116,23 +117,4 @@ import "./TODO/TestGround"
 
 //import "./asm/exposed/toggleSecretHitboxes"
 
-
-
-/*
-const drawRoundedRect = (colour, x, y, width, height, radius) => {
-    const matrix = Java.type("gg.essential.universal.UMatrixStack").Compat.INSTANCE
-
-    matrix.runLegacyMethod(matrix.get(), () => {
-        Java.type("gg.essential.elementa.components.UIRoundedRectangle").Companion.drawRoundedRectangle(
-            matrix.get(),
-            x,
-            y,
-            x + width,
-            y + height,
-            radius,
-            colour // java.awt.Color
-        )
-    })
-}
-*/
 

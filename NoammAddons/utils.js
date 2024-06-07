@@ -5,7 +5,6 @@ import RenderLib from "../RenderLib"
 import { renderBoxFromCorners } from "../BloomCore/RenderUtils"
 import Dungeon from "../BloomCore/dungeons/Dungeon"
 export const BlockPoss = Java.type("net.minecraft.util.BlockPos")
-export const player = Client.getMinecraft().field_71439_g
 export const gc = (text) => ChatLib.getCenteredText(text) // getCentered
 export const cc = (text) => ChatLib.chat(gc(text)) // centerChat
 export const prefix = "§6§l[§b§lN§d§lA§6§l]§r"
@@ -16,14 +15,17 @@ const modelViewMatrix = BufferUtils.createFloatBuffer(16)
 const projectionMatrix = BufferUtils.createFloatBuffer(16)
 const viewportDims = BufferUtils.createIntBuffer(16)
 const ScaledResolution = Java.type("net.minecraft.client.gui.ScaledResolution")
-const UMatrixStack = Java.type("gg.essential.universal.UMatrixStack");
-const UGraphics = Java.type("gg.essential.universal.UGraphics");
+const UMatrixStack = Java.type("gg.essential.universal.UMatrixStack")
+const CompatMatrix = UMatrixStack.Compat.INSTANCE
+const UGraphics = Java.type("gg.essential.universal.UGraphics")
 const DefaultFonts = Java.type("gg.essential.elementa.font.DefaultFonts")
 const ElementaFonts = Java.type("gg.essential.elementa.font.ElementaFonts")
+const ElementaUIRoundedRectangle = Java.type("gg.essential.elementa.components.UIRoundedRectangle").Companion
 const EssentialAPI =Java.type("gg.essential.api.EssentialAPI")
-const regCylinder = new org.lwjgl.util.glu.Cylinder();
-const lineCylinder = new org.lwjgl.util.glu.Cylinder();
-lineCylinder.drawStyle = org.lwjgl.util.glu.GLU.GLU_LINE;
+const regCylinder = new org.lwjgl.util.glu.Cylinder()
+const lineCylinder = new org.lwjgl.util.glu.Cylinder()
+lineCylinder.drawStyle = org.lwjgl.util.glu.GLU.GLU_LINE
+
 
 
 export function Alert(string, TimeUp) {
@@ -529,7 +531,19 @@ export class Render {
   }
 
 
-
+  static RoundedRect(colour, x, y, width, height, radius) {
+    CompatMatrix.runLegacyMethod(CompatMatrix.get(), () => {
+      ElementaUIRoundedRectangle.drawRoundedRectangle(
+        CompatMatrix.get(),
+            x,
+            y,
+            x + width,
+            y + height,
+            radius,
+            colour // java.awt.Color
+        )
+    })
+  }
 
 
 
