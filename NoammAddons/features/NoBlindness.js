@@ -1,21 +1,17 @@
 /// <reference types="../../CTAutocomplete" />
 /// <reference lib="es2015" />
 
+import Dungeon from "../../BloomCore/dungeons/Dungeon"
 import Settings from "../Settings"
 import { registerWhen } from "../utils"
 const RenderFogEvent = net.minecraftforge.client.event.EntityViewRenderEvent.FogDensity
 
 
-const trigger = register(RenderFogEvent, (event) => {
-    if (!Settings.NoBlindness || !World.isLoaded()) return
-    GlStateManager.func_179095_a(0)
-    GlStateManager.func_179102_b(parseFloat(`998f`))
-    GlStateManager.func_179153_c(parseFloat(`999f`))
-    cancel(event)
-}).unregister()
+const trigger = register(RenderFogEvent, (event) => cancel(event)).unregister()
+
 
 function StartOrEnd() {
-    if (Settings.NoBlindness || World.isLoaded()) return true
+    if (Settings.NoBlindness && Dungeon.inDungeon) return true
     else return false
 }
 
