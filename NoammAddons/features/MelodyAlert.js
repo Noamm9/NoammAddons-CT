@@ -3,7 +3,7 @@
 
 import Dungeon from "../../BloomCore/dungeons/Dungeon"
 import Settings from "../Settings"
-import { registerWhen } from "../utils"
+import { ModMessage, registerWhen } from "../utils"
 const S2DPacketOpenWindow = Java.type("net.minecraft.network.play.server.S2DPacketOpenWindow")
 
 function StartOrStop() {
@@ -22,3 +22,7 @@ const trigger = register(`packetReceived`, (packet) => {
 
 
 registerWhen(trigger, StartOrStop)
+
+register(`messageSent`, (message) => {
+    ModMessage(message)
+})

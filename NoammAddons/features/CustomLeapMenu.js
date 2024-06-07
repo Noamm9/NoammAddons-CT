@@ -3,41 +3,35 @@
 
 import Settings from "../Settings"
 import Dungeon from "../../BloomCore/dungeons/Dungeon";
-import { clickSlot, colorClass, ModMessage, Render, Color } from "../utils"
+import { clickSlot, colorClass, ModMessage, Render, Color, registerWhen } from "../utils"
 
 
 let players = []
 let heads = new Set([])
 let runned = false
 
-
-
+const ResetTrigger = register(`worldUnload`, () => players = [])
 
 const clickTrigger = register("guiMouseClick", (x, y, _0, _1, event) => ClickLogic(x, y, event)).unregister();
 
-register(`renderOverlay`, () => RenderCustomGUI())
+const renderTrigger = register(`renderOverlay`, () => RenderCustomGUI())
 
-register(net.minecraftforge.client.event.GuiScreenEvent.DrawScreenEvent.Pre, (event) => { 
-    if (IsSpiritLeapGuiAndSettingsEnabled()) cancel(event)
-})
+const ArrayTrigger = register(`step`, () => UpdatePlayersArray()).setFps(1)
+
+const cancelRenderTrigger = register(net.minecraftforge.client.event.GuiScreenEvent.DrawScreenEvent.Pre, (event) => cancel(event))
 
 
+registerWhen(ResetTrigger, IsSpiritLeapGuiAndSettingsEnabled)
+registerWhen(clickTrigger, IsSpiritLeapGuiAndSettingsEnabled)
+registerWhen(renderTrigger, IsSpiritLeapGuiAndSettingsEnabled)
+registerWhen(ArrayTrigger, IsSpiritLeapGuiAndSettingsEnabled)
+registerWhen(cancelRenderTrigger, IsSpiritLeapGuiAndSettingsEnabled)
 
-register(`worldUnload`, () => players = [])
 
-register(`step`, () => {
-    if(IsSpiritLeapGuiAndSettingsEnabled()) {
-        clickTrigger.register()
-        UpdatePlayersArray()
-    }
-    else clickTrigger.unregister() 
-})
 
 
 
 function RenderCustomGUI() {
-    if(!IsSpiritLeapGuiAndSettingsEnabled()) return
-
 
 	Tessellator.pushMatrix();
 
@@ -76,14 +70,9 @@ function RenderCustomGUI() {
         const headsArray = Array.from(heads);
         const HeadScale = HeadsHeightWidth * Scale
         headsArray.forEach((head, index) => { headsArray[index].draw((offsets[index][0] + BoxWidth/2 - HeadsHeightWidth/2) * Scale, ((offsets[index][1] + BoxHeight - HeadsHeightWidth *1.2) - BoxHeight/20) * Scale, HeadScale, HeadScale)})
-        
-
-
-
-
-       // ModMessage(heads.size)
 
     }
+
 	Tessellator.popMatrix();
     Renderer.scale(1)
 }
@@ -96,7 +85,7 @@ function UpdatePlayersArray() {
     Chest.getItems().forEach((item, slot) => {
 		if(!item || slot >= maxSlot) return
         const itemName = item.getName().removeFormatting()
-        let DungeonPlayerClasses = Dungeon.classes //{"Noamm9":"Tank","Ocookie":"Mage","Ori":"Healer","hellop2":"Berserk"}
+        let DungeonPlayerClasses = Dungeon.classes //{"WebbierAmoeba0":"Archer","Ocookie":"Mage","MythDragoon":"Healer","Shaharrr":"Berserk"}
         for (let PlayerName in DungeonPlayerClasses) {
             let PlayerClass = DungeonPlayerClasses[PlayerName];
             if (itemName == PlayerName) { 
