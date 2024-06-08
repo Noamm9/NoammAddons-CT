@@ -57,11 +57,11 @@ export function removeDuplicates(arr) {
 
 export function colorClass(className) {
 	className = className.toLowerCase();
-	if (className === "healer") return "§d";
-	else if (className === "berserk") return "§6";
-	else if (className === "archer") return "§4";
-	else if (className === "tank") return "§a";
-	else if (className === "mage") return "§b";
+	if (className.includes("healer")) return "§d";
+	else if (className.includes("berserk")) return "§6";
+	else if (className.includes("archer")) return "§4";
+	else if (className.includes("tank")) return "§a";
+	else if (className.includes("mage")) return "§b";
 	else return "§7";
 }
 
@@ -73,12 +73,12 @@ export function clickSlot(slot, btn) {
 }
 
 
-export function getClass(player) {
+export function getClass(name) {
 
   let tabInfo = TabList.getNames()
   for (let i = 0; i < tabInfo.length; i++) {
       let tabLine = tabInfo[i].removeFormatting()
-      if (tabLine.includes(Player.getName())) {
+      if (tabLine.includes(name)) {
           return tabLine.substring((tabLine.indexOf("(")) + 1)
       }
   }
@@ -213,12 +213,12 @@ export function registerWhen(trigger, checkFunc) {
   checkingTriggers.push([trigger.unregister(), checkFunc])
 }
 
-register("step", () => {
-    for (let i = 0; i < checkingTriggers.length; i++) {
-        let [trigger, func] = checkingTriggers[i]
-        if (func()) trigger.register()
-        else trigger.unregister()
-    }
+register("renderOverlay", () => {
+  for (let i = 0; i < checkingTriggers.length; i++) {
+    let [trigger, func] = checkingTriggers[i]
+      if (func()) trigger.register()
+      else trigger.unregister()
+  }
 })
 
 const ChatComponentText = Java.type("net.minecraft.util.ChatComponentText")
