@@ -4,7 +4,7 @@
 import Settings from "../Settings"
 import RenderLib from "../../RenderLib"
 import Dungeon from "../../BloomCore/dungeons/Dungeon"
-import { ModMessage } from "../utils"
+import { IsInBossRoom } from "../utils"
 
 const InvisDungeonMobs = [
     "Revoker",
@@ -31,6 +31,7 @@ const InvisDungeonMobs = [
     "Spirit Bear",
     "Shadow Assassin",
     "Fel",
+    "Dinnerbone"
 ]
 
 let Criteria = [
@@ -48,27 +49,12 @@ let Criteria = [
 
 let InBoss = false
 
-register(`worldUnload`, () => {
-    InBoss = false
-    const trigger = register(`chat`, (e) => {
-        let ChatMessage = ChatLib.getChatMessage(e,false).toString()
-        if (Dungeon.inDungeon) {
-            for (i=0 ; i < Criteria.length ; i++) {
-                if (!ChatMessage.startsWith(Criteria[i]) || ChatMessage.includes(`Watcher`)) return
-                InBoss = true
-                trigger.unregister()
-            }
-        }
-    })
-    trigger.register()
-})
-
 
 
 register("renderEntity", (entity) => {
     if (!Settings.DungeonMobESP) return
     if (!Dungeon.inDungeon) return
-    if (InBoss) return
+    if (IsInBossRoom()) return
 
     let name = ChatLib.removeFormatting(entity.getName())
     const espBox = (x, y, z, height) => {RenderLib.drawEspBox(x, y-height, z, 0.9, height, Settings.MobESPColor.getRed()/255 ,Settings.MobESPColor.getGreen()/255, Settings.MobESPColor.getBlue()/255, 1, true);}

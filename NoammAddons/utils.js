@@ -229,6 +229,12 @@ export function DisconnectFromServer(message= "") {
 }
 
 
+export function IsInBossRoom() {
+  return Player.getX() > 0 && Player.getZ() > 0
+}
+
+
+
 
 
 
