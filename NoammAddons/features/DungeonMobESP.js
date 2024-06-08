@@ -34,22 +34,6 @@ const InvisDungeonMobs = [
     "Dinnerbone"
 ]
 
-let Criteria = [
-    `[BOSS] Maxor:`,
-    `[BOSS] Storm`,
-    `[BOSS] Goldor`,
-    `[BOSS] Necron`, 
-    `[BOSS] Sadan:`,
-    `[BOSS] Livid:`,
-    `[BOSS] Thorn:`,
-    `[BOSS] The Professor:`,
-    `[BOSS] Scarf:`,
-    `[BOSS] Bonzo:`
-]
-
-let InBoss = false
-
-
 
 register("renderEntity", (entity) => {
     if (!Settings.DungeonMobESP) return

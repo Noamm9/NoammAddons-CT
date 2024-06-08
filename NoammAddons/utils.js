@@ -22,6 +22,7 @@ const DefaultFonts = Java.type("gg.essential.elementa.font.DefaultFonts")
 const ElementaFonts = Java.type("gg.essential.elementa.font.ElementaFonts")
 const ElementaUIRoundedRectangle = Java.type("gg.essential.elementa.components.UIRoundedRectangle").Companion
 const EssentialAPI =Java.type("gg.essential.api.EssentialAPI")
+const ChatComponentText = Java.type("net.minecraft.util.ChatComponentText")
 const regCylinder = new org.lwjgl.util.glu.Cylinder()
 const lineCylinder = new org.lwjgl.util.glu.Cylinder()
 lineCylinder.drawStyle = org.lwjgl.util.glu.GLU.GLU_LINE
@@ -221,7 +222,7 @@ register("renderOverlay", () => {
   }
 })
 
-const ChatComponentText = Java.type("net.minecraft.util.ChatComponentText")
+
 export function DisconnectFromServer(message= "") {
   Client.getMinecraft().func_147114_u()
   .func_147298_b().func_150718_a(
@@ -229,10 +230,27 @@ export function DisconnectFromServer(message= "") {
 }
 
 
-export function IsInBossRoom() {
-  return Player.getX() > 0 && Player.getZ() > 0
-}
 
+const bossRoomCorners = {
+  "7": { corner1: { x: -8, y: 0, z: -8 }, corner2: { x: 134, y: 254, z: 147 } },
+  "6": { corner1: { x: -40, y: 51, z: -8 }, corner2: { x: 22, y: 110, z: 134 } },
+  "5": { corner1: { x: -40, y: 53, z: -8 }, corner2: { x: 50, y: 112, z: 118 } },
+  "4": { corner1: { x: -40, y: 53, z: -40 }, corner2: { x: 134, y: 254, z: 147 } },
+  "3": { corner1: { x: -40, y: 0, z: -40 }, corner2: { x: 42, y: 118, z: 73 } },
+};
+
+
+export function IsInBossRoom() {
+  const playerCoords = { x: Player.getX(), y: Player.getY(), z: Player.getZ() };
+  const floorNumber = Dungeon.floorNumber;
+
+  if (floorNumber && bossRoomCorners[floorNumber]) {
+    const { corner1, corner2 } = bossRoomCorners[floorNumber];
+    return isCoordinateInsideBox(playerCoords, corner1, corner2);
+  }
+
+  return false;
+}
 
 
 
