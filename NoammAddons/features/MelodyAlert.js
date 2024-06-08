@@ -22,7 +22,3 @@ const trigger = register(`packetReceived`, (packet) => {
 
 
 registerWhen(trigger, StartOrStop)
-
-register(`messageSent`, (message) => {
-    ModMessage(message)
-})
