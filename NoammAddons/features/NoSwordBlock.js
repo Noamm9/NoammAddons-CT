@@ -38,5 +38,5 @@ register("playerInteract", (action, _, event) => {
           cancel(event)
           if (!isRightClickKeyDown) Client.sendPacket(new C08PacketPlayerBlockPlacement(new BlockPoss(-1, -1, -1), 255, Player?.getHeldItem()?.getItemStack(), 0, 0, 0))
         }
-    } catch (e) {ChatLib.chat(`&4${e}`)}
+    } catch (e) {}
 })

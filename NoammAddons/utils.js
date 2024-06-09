@@ -5,6 +5,7 @@ import RenderLib from "../RenderLib"
 import { renderBoxFromCorners } from "../BloomCore/RenderUtils"
 import Dungeon from "../BloomCore/dungeons/Dungeon"
 export const BlockPoss = Java.type("net.minecraft.util.BlockPos")
+export const MouseEvent = Java.type("net.minecraftforge.client.event.MouseEvent")
 export const gc = (text) => ChatLib.getCenteredText(text) // getCentered
 export const cc = (text) => ChatLib.chat(gc(text)) // centerChat
 export const prefix = "§6§l[§b§lN§d§lA§6§l]§r"
@@ -150,22 +151,6 @@ function getBlockBoundingBox(ctBlock) {
 }
 
 
-export function isCoordinateInsideBox(coord, corner1, corner2) {
-  const min = {
-    x: Math.min(corner1.x, corner2.x),
-    y: Math.min(corner1.y, corner2.y),
-    z: Math.min(corner1.z, corner2.z)
-  };
-  const max = {
-    x: Math.max(corner1.x, corner2.x),
-    y: Math.max(corner1.y, corner2.y),
-    z: Math.max(corner1.z, corner2.z)
-  };
-  return coord.x >= min.x && coord.x <= max.x
-    && coord.y >= min.y && coord.y <= max.y
-    && coord.z >= min.z && coord.z <= max.z;
-}
-
 
 /**
   * Returns where abouts of the player
@@ -177,9 +162,9 @@ export function getPhase() {
   const corner2 = { x: 134, y: 0, z: -8 };
   let inBoss = false
   let inPhase = null
-  if (Dungeon.floor != "F7" && Dungeon.floor != "M7") return
+  if (Dungeon.floorNumber != "7") return
 
-  if (Dungeon.inDungeon && isCoordinateInsideBox({ x: Player.getX(), y: Player.getY(), z: Player.getZ() }, corner1, corner2)) {
+  if (Dungeon.inDungeon && MyMath.isCoordinateInsideBox({ x: Player.getX(), y: Player.getY(), z: Player.getZ() }, corner1, corner2)) {
     inBoss = true;
 
     if (Player.getY() > 210) inPhase = "p1"
@@ -194,15 +179,7 @@ export function getPhase() {
 }
 
 
-/**
- * @param {Object} b The blockpos object
- * @returns {Number} The ID of the block at the specified coordinates
-*/
-export function getBlockPosIdAt(b) { World.getBlockAt(b).type.getID() }
-
  
-
-
 /**
  * Registers and unregisters the trigger depending on the result of the checkFunc. Use with render triggers to reduce lag when they are not being used.
  * @param {() => void} trigger 
@@ -246,7 +223,7 @@ export function IsInBossRoom() {
 
   if (floorNumber && bossRoomCorners[floorNumber]) {
     const { corner1, corner2 } = bossRoomCorners[floorNumber];
-    return isCoordinateInsideBox(playerCoords, corner1, corner2);
+    return MyMath.isCoordinateInsideBox(playerCoords, corner1, corner2);
   }
 
   return false;
@@ -260,6 +237,23 @@ export function IsInBossRoom() {
 
 export class MyMath {
   
+  static isCoordinateInsideBox(coord, corner1, corner2) {
+    const min = {
+      x: Math.min(corner1.x, corner2.x),
+      y: Math.min(corner1.y, corner2.y),
+      z: Math.min(corner1.z, corner2.z)
+    };
+    const max = {
+      x: Math.max(corner1.x, corner2.x),
+      y: Math.max(corner1.y, corner2.y),
+      z: Math.max(corner1.z, corner2.z)
+    };
+    return coord.x >= min.x && coord.x <= max.x
+      && coord.y >= min.y && coord.y <= max.y
+      && coord.z >= min.z && coord.z <= max.z;
+  }
+
+
   static DistanceIn3dWorld(x1, y1, z1, x2, y2, z2) {
     return Math.sqrt((x1 - x2)**2 + (y1 - y2)**2 + (z1 - z2)**2)
   }

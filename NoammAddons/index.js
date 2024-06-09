@@ -1,6 +1,6 @@
 import PogObject from "../PogData/index.js"
 
-
+ 
 //register("command", () => Settings.openGUI()).setName("noamm").setAliases("noam", "noamaddons", "noammaddons", "na") // moved to Party Commands 
 
 export const guiData = new PogObject("Noammaddons", {
@@ -50,7 +50,6 @@ export const LegitGhostPickGUIdata = guiData.LegitGhostPickGUIdata
 export const FPSdisplayGUIdata = guiData.FPSdisplayGUIdata
 export const ClockDisplayGUIdata = guiData.ClockDisplayGUIdata
 
-import "./Features/RemoveSelfieCam"
 import "./Features/BonzoMaskTimer"
 import "./Features/SpiritMaskTimer"
 import "./Features/PhoenixPetTimer"
@@ -58,6 +57,7 @@ import "./Features/LegitGhostPick"
 import "./Features/FPSdisplay"
 import "./Features/ClockDisplay"
 // import "./Features/NecronDroppingTimer"   // Moved to F7PhaseStartTimers
+import "./Features/RemoveSelfieCam"
 import "./Features/CustomFOV"
 // import "./Features/IHATECARPETS" // thx hypixel for fixing it ):
 import "./Features/IHATEDIORITE" 
@@ -106,7 +106,8 @@ import "./Features/LeftClickEtherWarp"
 import "./Features/GyroCircle"
 import "./Features/MelodyAlert"
 import "./Features/HideLightning"
-import "./Features/HighlightMimicChest"	
+import "./Features/HighlightMimicChest"
+import "./Features/BlockGloomlockDeath.js"
 
 import "./AutoUpDater"
 import "./EditGui"
@@ -116,4 +117,3 @@ import "./TODO/TestGround"
 //import "./TODO/ExtractMinecraftChat"
 
 //import "./asm/exposed/toggleSecretHitboxes"
-

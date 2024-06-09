@@ -926,6 +926,14 @@ class Settings {
     })
     HighlightMinicChest = false
 
+    @SwitchProperty({
+        name: "&6Block &dGloomlock &cDeath",
+        description: "Blocks left Clicking with a Gloomlock while your HP is lower than 25%",
+        category: "Dungeons",
+        subcategory: ""
+    })
+    BlockGloomlockDeath = false
+
 
 
 

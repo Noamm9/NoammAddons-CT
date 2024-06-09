@@ -2,9 +2,11 @@
 /// <reference lib="es2015" />
 
 import Settings from "../Settings"
-import { getPhase, getBlockPosIdAt } from "../utils"
+import { getPhase, GhostBlock, registerWhen } from "../utils"
 
-const greenArray = [
+const WhiteGlass = new BlockType("stained_glass").getDefaultState()
+
+const GreenArray = [
     new BlockPos(45, 169, 44),
     new BlockPos(46, 169, 44),
     new BlockPos(47, 169, 44),
@@ -44,7 +46,7 @@ const greenArray = [
     new BlockPos(47, 169, 38)
 ]
 
-const yellowArray = [
+const YellowArray = [
     new BlockPos(45, 169, 68),
     new BlockPos(46, 169, 68),
     new BlockPos(47, 169, 68),
@@ -84,25 +86,29 @@ const yellowArray = [
     new BlockPos(47, 169, 62)
 ]
 
-const green = new Set(greenArray)
-const yellow = new Set(yellowArray)
-const WhiteGlass = new BlockType("stained_glass").getDefaultState()
 
 
+function StartOrStop() {
+    return World.isLoaded() && Settings.IHateDiorite && getPhase() == "p2"
+}
 
-register("step", () => {
-    if (!World.isLoaded() || !Settings.IHateDiorite || getPhase() !== "p2") return
-    for (let height = 0; height < 37; height++) {
-        for (let block of green) {
-            if (getBlockPosIdAt(block.add(0, height, 0)) === 1) {
-                World.getWorld().func_175656_a(block.add(0, height, 0).toMCBlock(), WhiteGlass);
-            }
-        }
-        for (let block of yellow) {
-            if (getBlockPosIdAt(block.add(0, height, 0)) === 1) {
-                World.getWorld().func_175656_a(block.add(0, height, 0).toMCBlock(), WhiteGlass);
-            } 
-        }
+
+const trigger = register("step", () => {
+    for (let i = 0; i < 37; i++) {
+
+        GreenArray.forEach(block => {
+            if (World.getBlockAt(block.x, block.y+i, block.z).type.getID() == 1) 
+            GhostBlock(block.add(0, i, 0).toMCBlock(), WhiteGlass); 
+        })
+
+        YellowArray.forEach(block => {
+            if (World.getBlockAt(block.x, block.y+i, block.z).type.getID() == 1) 
+            GhostBlock(block.add(0, i, 0).toMCBlock(), WhiteGlass)
+        })
+        
     }
 }).setFps(10)
 
+
+
+registerWhen(trigger, StartOrStop)

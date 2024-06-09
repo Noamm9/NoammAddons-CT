@@ -3,14 +3,21 @@
 
 
 import Settings from "../Settings";
+import { registerWhen } from "../utils";
+
 const EntityViewRenderEventFOVModifier = net.minecraftforge.client.event.EntityViewRenderEvent.FOVModifier
 
-register(EntityViewRenderEventFOVModifier, () => { 
-	if (Settings.CustomFOV) Client.settings.setFOV(Settings.FOV)
-})
+
+function StartOrStop() {
+	return Settings.CustomFOV
+}
+
+
+const trigger = register(EntityViewRenderEventFOVModifier, () => Client.settings.setFOV(Settings.FOV))
 
 
 
+registerWhen(trigger, StartOrStop)
 
 
 

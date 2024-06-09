@@ -2,11 +2,11 @@
 
 
 import Settings from "../Settings"
-import { registerWhen, PlayerUtils } from "../utils"
+import { registerWhen, PlayerUtils, MouseEvent } from "../utils"
 import { getSkyblockItemID } from "../../BloomCore/utils/Utils";
 
 
-const MouseEvent = Java.type("net.minecraftforge.client.event.MouseEvent")
+
 const sneakKey = new KeyBind(Client.getMinecraft().field_71474_y.field_74311_E)
 
 

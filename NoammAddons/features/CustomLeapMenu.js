@@ -3,7 +3,7 @@
 
 import Settings from "../Settings";
 import Dungeon from "../../BloomCore/dungeons/Dungeon";
-import { clickSlot, colorClass, ModMessage, Render, Color, registerWhen } from "../utils";
+import { clickSlot, colorClass, Render, Color, registerWhen } from "../utils";
 
 let players = [];
 let heads = new Set([]);
@@ -104,12 +104,10 @@ function UpdatePlayersArray() {
         if (!runned) {
             runned = true;
             try {
-                for (let i = 0; i < 4; i++) {
-                    if (!players[i]) return;
-                    heads.add(Image.fromUrl(`https://www.mc-heads.net/avatar/${players[i].name}`));
-                }
+                players.forEach(player => {
+                    heads.add(Image.fromUrl(`https://www.mc-heads.net/avatar/${player.name}`));
+                })
             } catch (error) {
-                ModMessage(`&cFailed to get &b${players[i].name}&c Head Texture`);
                 console.log(`NoammAddons: ${error}`);
             }
         }
@@ -131,7 +129,7 @@ function ClickLogic(x, y, event) {
 
     World.playSound('mob.cat.meow', 1, 1);
     clickSlot(players[index].slot, 0);
-    //Player.getPlayer().func_71053_j();
+    Player.getPlayer().func_71053_j();
 }
 
 function IsSpiritLeapGuiAndSettingsEnabled() {
