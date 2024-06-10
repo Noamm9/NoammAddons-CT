@@ -76,22 +76,13 @@ export function clickSlot(slot, btn) {
 
 
 export function getClass(name) {
-
   let tabInfo = TabList.getNames()
   for (let i = 0; i < tabInfo.length; i++) {
       let tabLine = tabInfo[i].removeFormatting()
       if (tabLine.includes(name)) {
-          return tabLine.substring((tabLine.indexOf("(")) + 1)
+        return tabLine.substring((tabLine.indexOf("(")) + 1)
       }
   }
-}
-
-
-export function darkenColor(color, amount) {
-  let r = Math.max(color.getRed()/255 - amount/255, 0)
-  let g = Math.max(color.getGreen()/255 - amount/255, 0)
-  let b = Math.max(color.getBlue()/255 - amount/255, 0)
-  return new Color(r, g, b)
 }
 
 
@@ -151,7 +142,6 @@ function getBlockBoundingBox(ctBlock) {
 }
 
 
-
 /**
   * Returns where abouts of the player
   * @returns {string} the phase you are in the m7
@@ -177,7 +167,6 @@ export function getPhase() {
 
   return inBoss ? inPhase : false;
 }
-
 
  
 /**
@@ -215,7 +204,6 @@ const bossRoomCorners = {
   "4": { corner1: { x: -40, y: 53, z: -40 }, corner2: { x: 134, y: 254, z: 147 } },
   "3": { corner1: { x: -40, y: 0, z: -40 }, corner2: { x: 42, y: 118, z: 73 } },
 };
-
 
 export function IsInBossRoom() {
   const playerCoords = { x: Player.getX(), y: Player.getY(), z: Player.getZ() };
@@ -264,6 +252,8 @@ export class MyMath {
   
   
 }
+
+
 
 
 export class Render {
@@ -553,12 +543,12 @@ export class Render {
     CompatMatrix.runLegacyMethod(CompatMatrix.get(), () => {
       ElementaUIRoundedRectangle.drawRoundedRectangle(
         CompatMatrix.get(),
-            x,
-            y,
-            x + width,
-            y + height,
-            radius,
-            colour // java.awt.Color
+          x,
+          y,
+          x + width,
+          y + height,
+          radius,
+          colour // java.awt.Color
         )
     })
   }
@@ -672,7 +662,7 @@ export class PlayerUtils {
   } 
 
 
-  static UseDungeonClassAbility(Ultimate) {
+  static UseDungeonClassAbility(Ultimate = false) {
     Ultimate = !Ultimate
     const MCplayer = Player.getPlayer()
     if (!MCplayer) return

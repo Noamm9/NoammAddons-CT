@@ -6,6 +6,8 @@ import Settings from "../Settings"
 import Dungeon from "../../BloomCore/dungeons/Dungeon"
 import { MyMath, Render } from "../utils"
 
+const RenderLivingEventSpecialsPre = net.minecraftforge.client.event.RenderLivingEvent$Specials$Pre
+const PlayerEntity = net.minecraft.entity.player.EntityPlayer
 
 register(`renderWorld`, () => {
     if (!Settings.TeammatesNametag || !Dungeon.inDungeon) return
@@ -44,11 +46,11 @@ function DrawNames(player, string, PlayerClass) {
 
 
 
-register(net.minecraftforge.client.event.RenderLivingEvent$Specials$Pre, (event) => {
+register(RenderLivingEventSpecialsPre, (event) => {
     if (!Settings.TeammatesNametag || !Dungeon.inDungeon) return
-    if (event.entity instanceof net.minecraft.entity.player.EntityPlayer) {
-        let DungeonPlayerClasses = Dungeon.classes
-        for (let PlayerName in DungeonPlayerClasses) {
+    if (event.entity instanceof PlayerEntity) {
+        const DungeonPlayerClasses = Dungeon.classes
+        for (const PlayerName in DungeonPlayerClasses) {
             if (event.entity != World.getPlayerByName(PlayerName)) cancel(event)
         }
     }
