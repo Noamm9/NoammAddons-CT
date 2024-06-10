@@ -3,7 +3,7 @@
 
 
 import Settings from "../Settings"
-import Dungeon from "../../BloomCore/dungeons/Dungeon"
+import { IsInDungeon } from "../utils"
 
 
 const EntityJoinWorldEvent = net.minecraftforge.event.entity.EntityJoinWorldEvent
@@ -110,7 +110,7 @@ const EntityJoinWorldEventTrigger = register(EntityJoinWorldEvent, (event) => {
 register(`step`, () => {
     if (!Settings.SecretsSound) return
 
-    if (Dungeon.inDungeon) {
+    if (IsInDungeon()) {
 
         packetReceivedTrigger.register()
         packetSentTrigger.register()

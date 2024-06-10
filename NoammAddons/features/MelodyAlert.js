@@ -1,13 +1,13 @@
 /// <reference types="../../CTAutocomplete" />
 /// <reference lib="es2015" />
 
-import Dungeon from "../../BloomCore/dungeons/Dungeon"
+
 import Settings from "../Settings"
-import { ModMessage, registerWhen } from "../utils"
+import { IsInDungeon, registerWhen } from "../utils"
 const S2DPacketOpenWindow = Java.type("net.minecraft.network.play.server.S2DPacketOpenWindow")
 
 function StartOrStop() {
-    return Settings.MelodyAlert.removeFormatting() && Dungeon.inDungeon
+    return Settings.MelodyAlert.removeFormatting() && IsInDungeon()
 }
 
 

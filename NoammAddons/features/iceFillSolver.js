@@ -1,13 +1,13 @@
 /// <reference types="../../CTAutocomplete" />
 
 import Settings from "../Settings";
-import { Render, registerWhen } from "../utils";
+import { Render, registerWhen, IsInDungeon } from "../utils";
 import { getCurrentRoom } from "../../BloomCore/utils/Utils"
-import Dungeon from "../../BloomCore/dungeons/Dungeon";
+
 
 
 function StartOrStop() {
-	return Settings.IcefillSolver && Dungeon.inDungeon
+	return Settings.IcefillSolver && IsInDungeon()
 }
 
 

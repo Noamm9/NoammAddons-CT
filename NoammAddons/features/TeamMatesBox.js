@@ -4,15 +4,16 @@
 
 import Settings from "../Settings"
 import Dungeon from "../../BloomCore/dungeons/Dungeon"
-import { Render } from "../utils"
+import { Render, IsInDungeon } from "../utils"
 
 
 register('renderOverlay', () => {
-    if (!Settings.TeammatesBox || !Dungeon.inDungeon) return
+    if (!Settings.TeammatesBox || !IsInDungeon()) return
     const DungeonPlayerClasses = Dungeon.classes
     for (const PlayerName in DungeonPlayerClasses) {
         const PlayerClass = DungeonPlayerClasses[PlayerName];
         const Otherplayer = World.getPlayerByName(PlayerName)
+        if (!Otherplayer) return
 
         if (Otherplayer.getName() !== Player.getName())
         DrawBoxs(Otherplayer, PlayerClass)

@@ -3,10 +3,9 @@
 
 
 import Settings from "../Settings"
-import Dungeon from "../../BloomCore/dungeons/Dungeon"
 import { LegitGhostPickGUIdata } from "../index"
 import { MainGUI } from "../EditGui"
-import { BlockPoss, setAir } from "../utils"
+import { BlockPoss, setAir, IsInDungeon } from "../utils"
 
 export let Toggle = false 
 export let md = false
@@ -74,7 +73,7 @@ register("packetsent", (packet, event) => {
 
 
 register("packetsent", (packet) => {
-    if (!Dungeon.inDungeon || Settings.PickaxeMode !== 1) return
+    if (!IsInDungeon() || Settings.PickaxeMode !== 1) return
     if (packet.class.getSimpleName() !== "C0APacketAnimation") return
     const block = Player.lookingAt()
 

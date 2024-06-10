@@ -4,7 +4,7 @@
 
 import Settings from "../Settings"
 import Dungeon from "../../BloomCore/dungeons/Dungeon"
-import { MyMath, Render } from "../utils"
+import { MyMath, Render, IsInDungeon } from "../utils"
 
 const RenderLivingEventSpecialsPre = net.minecraftforge.client.event.RenderLivingEvent$Specials$Pre
 const PlayerEntity = net.minecraft.entity.player.EntityPlayer
@@ -47,7 +47,7 @@ function DrawNames(player, string, PlayerClass) {
 
 
 register(RenderLivingEventSpecialsPre, (event) => {
-    if (!Settings.TeammatesNametag || !Dungeon.inDungeon) return
+    if (!Settings.TeammatesNametag || !IsInDungeon()) return
     if (event.entity instanceof PlayerEntity) {
         const DungeonPlayerClasses = Dungeon.classes
         for (const PlayerName in DungeonPlayerClasses) {

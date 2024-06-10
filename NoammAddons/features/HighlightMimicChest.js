@@ -3,12 +3,11 @@
 
 
 import Settings from "../Settings"
-import Dungeon from "../../BloomCore/dungeons/Dungeon"
-import { ModMessage, Render, registerWhen } from "../utils"
+import { IsInDungeon, Render, registerWhen } from "../utils"
 const TileEntityChest = Java.type("net.minecraft.tileentity.TileEntityChest")
 
 function StartOrStop() {
-    if (Settings.HighlightMinicChest && Dungeon.inDungeon) return true
+    if (Settings.HighlightMinicChest && IsInDungeon()) return true
     else return false
 }
 

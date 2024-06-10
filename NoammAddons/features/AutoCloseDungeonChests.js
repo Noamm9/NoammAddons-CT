@@ -3,14 +3,13 @@
 
 
 import Settings from "../Settings"
-import Dungeon from "../../BloomCore/dungeons/Dungeon"
-import { Render } from "../utils"
+import { Render, IsInDungeon } from "../utils"
 const C0DPacketCloseWindow = Java.type("net.minecraft.network.play.client.C0DPacketCloseWindow")
 const PreGuiRenderEvent = net.minecraftforge.client.event.GuiScreenEvent.DrawScreenEvent.Pre
 
 
 register(PreGuiRenderEvent, (event) => {
-	if (!Dungeon.inDungeon || !Settings.AutoCloseDungeonChests) return
+	if (!IsInDungeon() || !Settings.AutoCloseDungeonChests) return
 
     try {
 		const Chest = Player.getContainer()

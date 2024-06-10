@@ -3,8 +3,8 @@
 
 import Settings from "../Settings"
 import PogObject from "../../PogData"
-import { PlayerUtils } from "../utils"
-import Dungeon from "../../BloomCore/dungeons/Dungeon"
+import { PlayerUtils, IsInDungeon } from "../utils"
+
 
 const Keybinds = new PogObject("Noammaddons", {
 	ClassULTIMATE: Keyboard.KEY_NONE,
@@ -19,13 +19,13 @@ let ClassAbility = new KeyBind("Class ABILITY", Keybinds.ClassAbility, "NoammAdd
 
 
 ClassULTIMATE.registerKeyPress(() => {
-    if (!Settings.AbilityKeybinds || !Dungeon.inDungeon) return
+    if (!Settings.AbilityKeybinds || !IsInDungeon()) return
     PlayerUtils.UseDungeonClassAbility(true)
     Keybinds.ClassULTIMATE = ClassULTIMATE.getKeyCode()
 })
     
 ClassAbility.registerKeyPress(() => {
-    if (!Settings.AbilityKeybinds || !Dungeon.inDungeon) return
+    if (!Settings.AbilityKeybinds || !IsInDungeon()) return
     PlayerUtils.UseDungeonClassAbility(false)
     Keybinds.ClassAbility = ClassAbility.getKeyCode()
 })

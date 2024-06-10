@@ -3,8 +3,7 @@
 
 import Settings from "../Settings"
 import RenderLib from "../../RenderLib"
-import Dungeon from "../../BloomCore/dungeons/Dungeon"
-import { IsInBossRoom } from "../utils"
+import { IsInBossRoom, IsInDungeon } from "../utils"
 
 const InvisDungeonMobs = [
     "Revoker",
@@ -37,7 +36,7 @@ const InvisDungeonMobs = [
 
 register("renderEntity", (entity) => {
     if (!Settings.DungeonMobESP) return
-    if (!Dungeon.inDungeon) return
+    if (!IsInDungeon()) return
     if (IsInBossRoom()) return
 
     let name = ChatLib.removeFormatting(entity.getName())

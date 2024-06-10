@@ -219,8 +219,9 @@ export function IsInBossRoom() {
 
 
 
-
-
+export function IsInDungeon() {
+  return Dungeon.inDungeon
+}
 
 
 export class MyMath {

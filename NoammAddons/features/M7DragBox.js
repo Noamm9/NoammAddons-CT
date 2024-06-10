@@ -7,14 +7,14 @@ import Settings from "../Settings"
 let inP5 = false
 	
 const chat = register("chat", (e) => { 
-inP5 = true
-trigger.register()
+	inP5 = true
+	trigger.register()
 }).setChatCriteria("[BOSS] Wither King: You.. again?")
 
 
 register(`worldUnload`, () => {
-inP5 = false
-chat.register()
+	inP5 = false
+	chat.register()
 })
 
 const trigger = register('renderWorld', () => { 
