@@ -11,9 +11,7 @@ InPortal.setAccessible(true)
 
 
 function StartOrStop() {
-    if (!Player.getPlayer()) return false
-    if (Settings.HidePortalEffect) return true
-    else return false
+    return Player.getPlayer() && Settings.HidePortalEffect
 }
 
 const trigger = register("renderPortal", (event) => { 

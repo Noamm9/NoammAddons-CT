@@ -106,8 +106,9 @@ import "./Features/LeftClickEtherWarp"
 import "./Features/GyroCircle"
 import "./Features/MelodyAlert"
 import "./Features/HideLightning"
+
 import "./Features/HighlightMimicChest"
-import "./Features/BlockGloomlockDeath.js"
+import "./Features/BlockGloomlockDeath"
 
 import "./AutoUpDater"
 import "./EditGui"

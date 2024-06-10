@@ -1,30 +1,45 @@
 /// <reference types="../../CTAutocomplete" />
 
 import Settings from "../Settings";
-import { Render } from "../utils";
+import { Render, registerWhen } from "../utils";
+import { getCurrentRoom } from "../../BloomCore/utils/Utils"
+import Dungeon from "../../BloomCore/dungeons/Dungeon";
 
 
-register("step", () => {
+function StartOrStop() {
+	return Settings.IcefillSolver && Dungeon.inDungeon
+}
+
+
+
+const trigger = register("renderWorld", () => {
 	try {
-		const lines = Scoreboard.getLines()
-		const line = ChatLib.removeFormatting(lines[lines.length - 1])
-		if (line.includes("-132,-492")) {
-			if (!Settings.IcefillSolver) return
-			if (pattern.length) return
-			pattern = solve()
-			if (!pattern) {
-				pattern = []
-				return
-			}
-			path = pattern.map(point => [point[0], point[2]])
-			renderTrigger.register()
-		} else {
-			while (pattern.length) pattern.pop()
-			while (path.length) path.pop()
-			renderTrigger.unregister()
+		const room = getCurrentRoom()
+
+		if (room == null || room.name != `Ice Fill`) {
+			pattern.length = 0
+			path.length = 0
 		}
+		else if (room == null && room.name != `Ice Fill` && pattern.length == null) return
+
+		pattern = solve()
+
+		if (!pattern) {
+			pattern = []
+			return
+		}
+
+		path = pattern.map(point => [point[0], point[2]])
+		render(pattern)
+	
 	} catch (error) {}
-}).setFps(2)
+}).unregister()
+
+
+
+registerWhen(trigger, StartOrStop)
+
+
 
 
 
@@ -121,5 +136,3 @@ function render(path) {
 		Render.Line(x1 + 0.5, y1, z1 + 0.5, x2 + 0.5, y2, z2 + 0.5, r, g, b, a, true, 5)
 	}
 }
-
-const renderTrigger = register("renderWorld", () => render(pattern)).unregister();

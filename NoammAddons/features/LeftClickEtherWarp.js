@@ -5,15 +5,12 @@ import Settings from "../Settings"
 import { registerWhen, PlayerUtils, MouseEvent } from "../utils"
 import { getSkyblockItemID } from "../../BloomCore/utils/Utils";
 
-
-
 const sneakKey = new KeyBind(Client.getMinecraft().field_71474_y.field_74311_E)
 
 
 function StartOrStop() {
     return Settings.LeftClickEtherwarp
 }
-
 
 
 function isHoldingEtherwarpItem() {

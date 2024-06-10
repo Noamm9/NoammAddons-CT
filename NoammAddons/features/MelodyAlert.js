@@ -7,8 +7,7 @@ import { ModMessage, registerWhen } from "../utils"
 const S2DPacketOpenWindow = Java.type("net.minecraft.network.play.server.S2DPacketOpenWindow")
 
 function StartOrStop() {
-    if (!Settings.MelodyAlert.removeFormatting() || Dungeon.inDungeon) return false
-    else return true
+    return Settings.MelodyAlert.removeFormatting() && Dungeon.inDungeon
 }
 
 
