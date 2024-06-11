@@ -3,40 +3,30 @@
 
 import Settings from "../Settings";
 import Dungeon from "../../BloomCore/dungeons/Dungeon";
-import { clickSlot, colorClass, Render, Color, registerWhen } from "../utils";
+import { clickSlot, colorClass, Render, Color, registerWhen} from "../utils";
 
 let players = [];
 let heads = new Set([]);
-let runned = false;
 
-function hasRunned() {
-    return runned;
-}
 
 function SettingsON() {
     return Settings.CustomLeapMenu
 }
 
-const ResetTrigger = register('worldUnload', () => {
-    players.length = 0;
-    heads.clear();
-    runned = false;
-}).unregister()
 
 const clickTrigger = register("guiMouseClick", (x, y, _0, _1, event) => ClickLogic(x, y, event)).unregister();
 const renderTrigger = register('renderOverlay', () => RenderCustomGUI()).unregister();
 const ArrayTrigger = register('renderOverlay', () => UpdatePlayersArray()).unregister();
 const cancelRenderTrigger = register(net.minecraftforge.client.event.GuiScreenEvent.DrawScreenEvent.Pre, (event) => cancel(event)).unregister();
+const ResetTrigger = register('worldUnload', () => {
+    players.length = 0;
+    heads.clear();
+}).unregister()
 
-registerWhen(ResetTrigger, hasRunned);
-registerWhen(clickTrigger, IsSpiritLeapGuiAndSettingsEnabled);
-registerWhen(renderTrigger, IsSpiritLeapGuiAndSettingsEnabled);
-registerWhen(ArrayTrigger, SettingsON);
-registerWhen(cancelRenderTrigger, IsSpiritLeapGuiAndSettingsEnabled);
 
 function RenderCustomGUI() {
     Tessellator.pushMatrix();
-    const Scale = 2;
+    const Scale = Settings.CustomLeapMenuScale * 2
     const screenWidth = Renderer.screen.getWidth() / Scale;
     const screenHeight = Renderer.screen.getHeight() / Scale;
     const width = 288;
@@ -55,63 +45,61 @@ function RenderCustomGUI() {
     ];
     const Lightmode = new Color(203 / 255, 202 / 255, 205 / 255, 1);
     const Darkmode = new Color(33 / 255, 33 / 255, 33 / 255, 1);
+    let ColorMode = Darkmode
+    if (Settings.CustomLeapMenuLightMode) ColorMode = Lightmode
+
 
     for (let i = 0; i < 4; ++i) {
         if (!players[i]) return;
         Renderer.scale(Scale);
 
-        Render.RoundedRect(Darkmode.darker(), offsets[i][0] - (BoxWidth / 15) / 2, offsets[i][1] - (BoxHeight / 15) / 2, BoxWidth + BoxWidth / 15, BoxHeight + BoxHeight / 15, 5);
-        Render.RoundedRect(Darkmode, offsets[i][0], offsets[i][1], BoxWidth, BoxHeight, 5);
+        Render.RoundedRect(ColorMode.darker(), offsets[i][0] - (BoxWidth / 15) / 2, offsets[i][1] - (BoxHeight / 15) / 2, BoxWidth + BoxWidth / 15, BoxHeight + BoxHeight / 15, 5);
+        Render.RoundedRect(ColorMode, offsets[i][0], offsets[i][1], BoxWidth, BoxHeight, 5);
 
         Renderer.drawStringWithShadow(`§n${colorClass(players[i].class)}§n${players[i].name}§r`, offsets[i][0] + 4, offsets[i][1] + 4);
         Renderer.scale(Scale);
         Renderer.drawStringWithShadow(`${colorClass(players[i].class)}${players[i].class}`, offsets[i][0] + BoxWidth - Renderer.getStringWidth(players[i].class) - BoxWidth / 25, offsets[i][1] + BoxHeight - BoxHeight / 8);
 
-        if (!runned) return;
+        try {
         const headsArray = Array.from(heads);
         const HeadScale = HeadsHeightWidth * Scale;
         headsArray.forEach((head, index) => {
             head.draw((offsets[index][0] + BoxWidth / 2 - HeadsHeightWidth / 2) * Scale, ((offsets[index][1] + BoxHeight - HeadsHeightWidth * 1.2) - BoxHeight / 20) * Scale, HeadScale, HeadScale);
         });
+        } catch (error) {}
     }
 
-    Tessellator.popMatrix();
     Renderer.scale(1);
+    Tessellator.popMatrix();
 }
 
 function UpdatePlayersArray() {
-    if (!Client.isInGui()) return
-    const Chest = Player.getContainer();
-    if (!Chest) return;
-    const maxSlot = Chest.getSize() - 36;
-
-    Chest.getItems().forEach((item, slot) => {
-        if (!item || slot >= maxSlot) return;
-        const itemName = item.getName().removeFormatting();
-        const DungeonPlayerClasses = Dungeon.classes //{"WebbierAmoeba0":"Archer","Ocookie":"Mage","MythDragoon":"Healer","Shaharrr":"Berserk"};
-        for (let PlayerName in DungeonPlayerClasses) {
-            let PlayerClass = DungeonPlayerClasses[PlayerName];
-            if (itemName === PlayerName) {
-                if (!players.some(player => player.name === itemName)) {
-                    players.push({ name: PlayerName, class: PlayerClass, slot: slot });
+    new Thread(()=> {
+        if (!Client.isInGui()) return
+        const Chest = Player.getContainer();
+        if (!Chest) return;
+        const maxSlot = Chest.getSize() - 36;
+    
+        Chest.getItems().forEach((item, slot) => {
+            if (!item || slot >= maxSlot) return;
+            const itemName = item.getName().removeFormatting();
+            const DungeonPlayerClasses =
+            Dungeon.classes 
+            // {"WebbierAmoeba0":"Archer","Ocookie":"Mage","MythDragoon":"Healer","Shaharrr":"Berserk"};
+    
+            for (let PlayerName in DungeonPlayerClasses) {
+                let PlayerClass = DungeonPlayerClasses[PlayerName];
+                if (itemName === PlayerName) {
+                    if (!players.some(player => player.name == itemName)) {
+                        players.push({ name: PlayerName, class: PlayerClass, slot: slot });
+    
+                        let PlayerHead = new Image(`${PlayerName}_Head.png`, `https://www.mc-heads.net/avatar/${PlayerName}/8`)
+                        heads.add(PlayerHead)
+                    }
                 }
             }
-        }
-    });
-
-    if (players.length > 4) players.pop();
-    new Thread(() => {
-        if (!runned) {
-            runned = true;
-            try {
-                players.forEach(player => {
-                    heads.add(Image.fromUrl(`https://www.mc-heads.net/avatar/${player.name}`));
-                })
-            } catch (error) {
-                console.log(`NoammAddons: ${error}`);
-            }
-        }
-    }).start();
+        })
+    }).start()
 }
 
 function ClickLogic(x, y, event) {
@@ -137,3 +125,10 @@ function IsSpiritLeapGuiAndSettingsEnabled() {
     if (!Chest) return false;
     return Chest.getName().toLowerCase().removeFormatting() === "spirit leap" && Settings.CustomLeapMenu;
 }
+
+
+registerWhen(ResetTrigger, SettingsON)
+registerWhen(ArrayTrigger, SettingsON)
+registerWhen(clickTrigger, IsSpiritLeapGuiAndSettingsEnabled)
+registerWhen(renderTrigger, IsSpiritLeapGuiAndSettingsEnabled)
+registerWhen(cancelRenderTrigger, IsSpiritLeapGuiAndSettingsEnabled)

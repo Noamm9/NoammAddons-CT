@@ -93,7 +93,7 @@ import "./Features/InventorySearchBar"
 import "./Features/HealerWish"
 import "./Features/PartyCommands"
 import "./Features/iceFillSolver"
-// import "./Features/CustomItemToolTip" // WIP
+import "./Features/CustomItemToolTip" // WIP
 import "./Features/AutoI4"
 import "./Features/NewF7Titles"
 import "./Features/AutoCloseDungeonChests"

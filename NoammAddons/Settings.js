@@ -851,14 +851,22 @@ class Settings {
         subcategory: "Spirit Leaps"
     })
     CustomLeapMenu = false
-/*
+
+    @CheckboxProperty({
+        name: "&fLight &6Mode?",
+        description: "Changes the Color Mode of the &dCustom &bLeap &6Menu",
+        category: "Dungeons",
+        subcategory: "Spirit Leaps"
+    })
+    CustomLeapMenuLightMode = false
+
     @PercentSliderProperty({
         name: "&eScale",
         description: "Scale of the &dCustom &bLeap &6Menu",
         category: "Dungeons",
         subcategory: "Spirit Leaps"
     })
-    CustomLeapMenuScale = 1*/
+    CustomLeapMenuScale = 1;
     
     @SwitchProperty({
         name: "&eToggle &5Secrets Hitboxes",
