@@ -104,6 +104,11 @@ import "./Features/MelodyAlert"
 import "./Features/HideLightning"
 import "./Features/HighlightMimicChest"
 import "./Features/BlockGloomlockDeath"
+import "./Features/DarkFloor5"
+import "./Features/BlurBackground.js"
+
+
+
 
 import "./AutoUpDater"
 import "./EditGui"

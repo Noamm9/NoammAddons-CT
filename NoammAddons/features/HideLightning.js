@@ -14,7 +14,7 @@ function StartOrStop() {
 
 const trigger = register("renderEntity", (entity, pos, ticks, event) => {
     if (entity.getClassName() !== "EntityLightningBolt") return
-    entity.getEntity().func_70106_y()
+    cancel(event)
 })
 
 

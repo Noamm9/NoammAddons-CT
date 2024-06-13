@@ -10,6 +10,7 @@ export const gc = (text) => ChatLib.getCenteredText(text) // getCentered
 export const cc = (text) => ChatLib.chat(gc(text)) // centerChat
 export const prefix = "§6§l[§b§lN§d§lA§6§l]§r"
 export const Color = Java.type("java.awt.Color")
+export const Font = Java.type("xyz.forkdev.fontlib.Font")
 const BufferUtils = Java.type("org.lwjgl.BufferUtils")
 const Project = Java.type("org.lwjgl.util.glu.Project")
 const modelViewMatrix = BufferUtils.createFloatBuffer(16)
@@ -37,13 +38,18 @@ export function Alert(string, TimeUp) {
 }
 
 
-export function setAir (BlockPoss) {
-  World.getWorld().func_175698_g(BlockPoss)
+export function MCBlockState(id, variant) {
+  return new BlockType(id).mcBlock.func_176203_a(variant)
+}
+
+
+export function setAir (MCBlockPoss) {
+  World.getWorld().func_175698_g(MCBlockPoss)
 }  
 
 
-export function GhostBlock (BlockPoss, MCIBlockState) {
-  World.getWorld().func_175656_a(BlockPoss, MCIBlockState);
+export function GhostBlock (MCBlockPoss, MCIBlockState) {
+  World.getWorld().func_175656_a(MCBlockPoss, MCIBlockState);
 }
 
 
@@ -75,18 +81,16 @@ export function clickSlot(slot, btn) {
 }
 
 
-export function getClass(name) {
-  let tabInfo = TabList.getNames()
-  for (let i = 0; i < tabInfo.length; i++) {
-      let tabLine = tabInfo[i].removeFormatting()
-      if (tabLine.includes(name)) {
-        return tabLine.substring((tabLine.indexOf("(")) + 1)
-      }
-  }
+export function getClass(Name) {
+  let index = TabList?.getNames()?.findIndex(line => line?.includes(Name))
+  if (index == -1) return
+  let match = TabList?.getNames()[index]?.removeFormatting().match(/.+ \((.+) .+\)/)
+  if (!match) return "EMPTY"
+  return match[1];
 }
 
 
-export function getLore (item,returnName=true) {
+export function getLore (item, returnName=true) {
 	let lore=returnName?[item.getName()] : []
 	if(!item) return lore
 	
@@ -148,14 +152,12 @@ function getBlockBoundingBox(ctBlock) {
   * @returns {boolean} true if you are in the m7 boss
 */
 export function getPhase() {
-  const corner1 = { x: -8, y: 254, z: 147 };
-  const corner2 = { x: 134, y: 0, z: -8 };
-  let inBoss = false
-  let inPhase = null
   if (Dungeon.floorNumber != "7") return
+  const corner1 = { x: -8, y: 254, z: 147 }
+  const corner2 = { x: 134, y: 0, z: -8 }
+  let inPhase = null
 
-  if (Dungeon.inDungeon && MyMath.isCoordinateInsideBox({ x: Player.getX(), y: Player.getY(), z: Player.getZ() }, corner1, corner2)) {
-    inBoss = true;
+  if (IsInDungeon() && MyMath.isCoordinateInsideBox({ x: Player.getX(), y: Player.getY(), z: Player.getZ() }, corner1, corner2)) {
 
     if (Player.getY() > 210) inPhase = "p1"
     else if (Player.getY() > 155) inPhase = "p2";
@@ -183,8 +185,8 @@ export function registerWhen(trigger, checkFunc) {
 register("renderOverlay", () => {
   for (let i = 0; i < checkingTriggers.length; i++) {
     let [trigger, func] = checkingTriggers[i]
-      if (func()) trigger.register()
-      else trigger.unregister()
+    if (func()) trigger.register()
+    else trigger.unregister()
   }
 })
 
@@ -220,7 +222,9 @@ export function IsInBossRoom() {
 
 
 export function IsInDungeon() {
-  return Dungeon.inDungeon
+  try {
+    return TabList?.getNames()?.some(a => a.removeFormatting() == 'Dungeon: Catacombs')
+  } catch (e) { }
 }
 
 
@@ -231,15 +235,18 @@ export class MyMath {
       x: Math.min(corner1.x, corner2.x),
       y: Math.min(corner1.y, corner2.y),
       z: Math.min(corner1.z, corner2.z)
-    };
+    }
+
     const max = {
       x: Math.max(corner1.x, corner2.x),
       y: Math.max(corner1.y, corner2.y),
       z: Math.max(corner1.z, corner2.z)
-    };
+    }
+
     return coord.x >= min.x && coord.x <= max.x
       && coord.y >= min.y && coord.y <= max.y
       && coord.z >= min.z && coord.z <= max.z;
+
   }
 
 
@@ -260,20 +267,20 @@ export class MyMath {
 export class Render {
 
   /**
-       * Draws a line between 2 coordinates
-       * @param {number} x1 - X Coordinates of first position
-       * @param {number} y1 - Y Coordinates of first position
-       * @param {number} z1 - Z Coordinates of first position
-       * @param {number} x2 - X Coordinates of second position
-       * @param {number} y2 - Y Coordinates of second position
-       * @param {number} z2 - Z Coordinates of second position
-       * @param {number} red - Line Color Red 0-1
-       * @param {number} green - Line Color Green 0-1
-       * @param {number} blue - Line Color Blue 0-1
-       * @param {number} alpha - Line Color Alpha 0-1
-       * @param {boolean} phase - Depth test disabled. True: See through walls
-       * @param {number} [lineWidth=2.0] - The line width in float. if this parameter not pass, default is 2.0
-       */
+   * Draws a line between 2 coordinates
+   * @param {number} x1 - X Coordinates of first position
+   * @param {number} y1 - Y Coordinates of first position
+   * @param {number} z1 - Z Coordinates of first position
+   * @param {number} x2 - X Coordinates of second position
+   * @param {number} y2 - Y Coordinates of second position
+   * @param {number} z2 - Z Coordinates of second position
+   * @param {number} red - Line Color Red 0-1
+   * @param {number} green - Line Color Green 0-1
+   * @param {number} blue - Line Color Blue 0-1
+   * @param {number} alpha - Line Color Alpha 0-1
+   * @param {boolean} phase - Depth test disabled. True: See through walls
+   * @param {number} [lineWidth=2.0] - The line width in float. if this parameter not pass, default is 2.0
+  */
   static Line = (x1, y1, z1, x2, y2, z2, red, green, blue, alpha, phase, lineWidth) => {
     if (!lineWidth) lineWidth = 2.0;
     GlStateManager.func_179094_E(); // pushMatrix
@@ -287,10 +294,10 @@ export class Render {
     if (phase) GL11.glDisable(GL11.GL_DEPTH_TEST); // disableDepth
 
     Tessellator.begin(3)
-        .colorize(red, green, blue, alpha)
-        .pos(x1, y1, z1)
-        .pos(x2, y2, z2)
-        .draw()
+      .colorize(red, green, blue, alpha)
+      .pos(x1, y1, z1)
+      .pos(x2, y2, z2)
+      .draw()
 
 
     GL11.glEnable(GL11.GL_CULL_FACE); // enableCull
@@ -308,19 +315,6 @@ export class Render {
   }
     
 
-   /**
-  * Draws the frame of a box
-  * @param {number} x - X Coordinates
-  * @param {number} y - Y Coordinates
-  * @param {number} z - Z Coordinates
-  * @param {number} w - Box Width
-  * @param {number} h - Box Height
-  * @param {number} red - Box Color Red 0-1
-  * @param {number} green - Box Color Green 0-1
-  * @param {number} blue - Box Color Blue 0-1
-  * @param {number} alpha - Box Color Alpha 0-1
-  * @param {boolean} phase - Depth test disabled. True: See through walls
-  */
   static FilledOutLineBox (x, y, z, w, h, red, green, blue, alpha, phase) {
     RenderLib.drawEspBox(x, y, z, w+0.02, h+0.02, red, green, blue, 255, phase)
     RenderLib.drawInnerEspBox(x, y, z, w+0.02, h+0.02, red, green, blue, alpha, phase)

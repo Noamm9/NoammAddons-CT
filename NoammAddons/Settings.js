@@ -50,7 +50,7 @@ class Settings {
 &7Ban ID: &r#783A8N7C
 &7Sharing your Ban ID may affect the proccessing of your appeal!
 `.replace(/&/g, "§"))
-       }, 2000)
+       }, 5000)
        
     }
 
@@ -129,7 +129,9 @@ class Settings {
         subcategory: "",
         options: [
             "Toggleable Ghost Pick",
-            "Mimic efficiency 10"
+            "Mimic efficiency 10",
+            "Both options 1 & 2"
+
         ]
     })
     PickaxeMode = 0;
@@ -942,11 +944,21 @@ class Settings {
     })
     BlockGloomlockDeath = false
 
+    @SwitchProperty({
+        name: "&0&lDark &aFloor &65",
+        description: "Changes the &6Stupid &fDiorite&r blocks at the Boss fight To &0&lCoal blocks&r\n\n&dNow my eyes can rest",
+        category: "Dungeons",
+        subcategory: ""
+    })
+    DarkFloor5 = false
 
-
-
-
-
+    @SwitchProperty({
+        name: "&fBlur Background",
+        description: "Apply a Sexy Blur Effect to the Background",
+        category: "Cosmetic",
+        subcategory: "Visuals"
+    })
+    BlurBackground = false
 
 
 

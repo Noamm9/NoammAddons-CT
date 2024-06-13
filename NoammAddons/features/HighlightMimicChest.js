@@ -2,18 +2,19 @@
 /// <reference lib="es2015" />
 
 
+import { getTESkullID } from "../../BloomCore/utils/Utils"
 import Settings from "../Settings"
-import { IsInDungeon, Render, registerWhen } from "../utils"
+
+import { IsInDungeon, ModMessage, Render, registerWhen } from "../utils"
 const TileEntityChest = Java.type("net.minecraft.tileentity.TileEntityChest")
 
 function StartOrStop() {
-    if (Settings.HighlightMinicChest && IsInDungeon()) return true
-    else return false
+    return Settings.HighlightMinicChest && IsInDungeon()
 }
 
 
 function getTrappedChests() {
-    World.getWorld().field_147482_g.filter(e => e instanceof TileEntityChest && e.func_145980_j() == 1).map(entity => 
+    return World.getWorld().field_147482_g. filter(e => e instanceof TileEntityChest && e.func_145980_j() == 1).map(entity => 
         [entity.func_174877_v().func_177958_n(), entity.func_174877_v().func_177956_o(), entity.func_174877_v().func_177952_p()])
 }
 
@@ -21,6 +22,7 @@ function getTrappedChests() {
 const trigger = register(`renderWorld`, (pt) => {
 
     const test = getTrappedChests()
+
     if (!test) return
     const arr = Array.from(test);
 
@@ -31,7 +33,7 @@ const trigger = register(`renderWorld`, (pt) => {
         Render.StringWithShadow("Mimic", X+0.5, Y + 2, Z+0.5, Renderer.color(255, 60, 60), 2, false)
     })
 
-}).unregister()
+})
 
 
 
