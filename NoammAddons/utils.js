@@ -167,7 +167,7 @@ export function getPhase() {
     
   }
 
-  return inBoss ? inPhase : false;
+  return inPhase
 }
 
  

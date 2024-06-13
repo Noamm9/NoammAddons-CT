@@ -105,7 +105,7 @@ import "./Features/HideLightning"
 import "./Features/HighlightMimicChest"
 import "./Features/BlockGloomlockDeath"
 import "./Features/DarkFloor5"
-import "./Features/BlurBackground.js"
+import "./Features/BlurBackground"
 
 
 
