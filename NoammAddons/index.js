@@ -117,7 +117,7 @@ import "./Features/PingCommand"
 
 
 import "./TODO/TestGround"
-import "./TODO/CustomItemToolTip" // WIP
+//import "./TODO/CustomItemToolTip" // WIP
 
 // import "./TODO/RoomEdit" // WIP
 // import "./TODO/ExtractMinecraftChat"
