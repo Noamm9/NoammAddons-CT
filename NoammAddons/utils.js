@@ -222,9 +222,7 @@ export function IsInBossRoom() {
 
 
 export function IsInDungeon() {
-  try {
-    return TabList?.getNames()?.some(a => a.removeFormatting() == 'Dungeon: Catacombs')
-  } catch (e) { }
+  return Dungeon.inDungeon
 }
 
 
