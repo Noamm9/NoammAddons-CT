@@ -23,11 +23,11 @@ const Trigger = register('renderOverlay', () => {
             if (Otherplayer.getName() !== MyPlayerName) {
                 if (Settings.TeammatesBoxMode == 0) {
             
+                    if (PlayerClass.charAt(0) == `M`) Render.TwoDEspBox(Otherplayer.getRenderX(), Otherplayer.getRenderY(), Otherplayer.getRenderZ(), Renderer.color(0, 234, 255), 2) 
                     if (PlayerClass.charAt(0) == `H`) Render.TwoDEspBox(Otherplayer.getRenderX(), Otherplayer.getRenderY(), Otherplayer.getRenderZ(), Renderer.color(255, 0, 209), 2)
-                    else if (PlayerClass.charAt(0) == `T`) Render.TwoDEspBox(Otherplayer.getRenderX(), Otherplayer.getRenderY(), Otherplayer.getRenderZ(), Renderer.color(0, 170, 0), 2)
-                    else if (PlayerClass.charAt(0) == `A`) Render.TwoDEspBox(Otherplayer.getRenderX(), Otherplayer.getRenderY(), Otherplayer.getRenderZ(), Renderer.color(193, 32, 32), 2)
-                    else if (PlayerClass.charAt(0) == `B`) Render.TwoDEspBox(Otherplayer.getRenderX(), Otherplayer.getRenderY(), Otherplayer.getRenderZ(), Renderer.color(205, 100, 0), 2)
-                    else Render.TwoDEspBox(Otherplayer.getRenderX(), Otherplayer.getRenderY(), Otherplayer.getRenderZ(), Renderer.color(0, 234, 255), 2) 
+                    if (PlayerClass.charAt(0) == `T`) Render.TwoDEspBox(Otherplayer.getRenderX(), Otherplayer.getRenderY(), Otherplayer.getRenderZ(), Renderer.color(0, 170, 0), 2)
+                    if (PlayerClass.charAt(0) == `A`) Render.TwoDEspBox(Otherplayer.getRenderX(), Otherplayer.getRenderY(), Otherplayer.getRenderZ(), Renderer.color(193, 32, 32), 2)
+                    if (PlayerClass.charAt(0) == `B`) Render.TwoDEspBox(Otherplayer.getRenderX(), Otherplayer.getRenderY(), Otherplayer.getRenderZ(), Renderer.color(205, 100, 0), 2)
             
                 } else {
             

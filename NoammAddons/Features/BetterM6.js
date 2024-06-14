@@ -35,4 +35,4 @@ function ProcessBlocks() {
 
 
 
-registerWhen(register("step", ProcessBlocks).setFps(10), () => IsInBoss() && Dungeon.floorNumber == "6" && Settings.BetterM6)
+registerWhen(register("step", ProcessBlocks).setFps(10), () => IsInBossRoom() && Dungeon.floorNumber == "6" && Settings.BetterM6)

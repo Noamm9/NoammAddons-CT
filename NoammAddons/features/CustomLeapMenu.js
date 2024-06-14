@@ -1,30 +1,28 @@
 /// <reference types="../../CTAutocomplete" />
 /// <reference lib="es2015" />
 
+
 import Settings from "../Settings";
-import Dungeon from "../../BloomCore/dungeons/Dungeon";
-import { clickSlot, colorClass, Render, Color, registerWhen} from "../utils";
+import { clickSlot, colorClass, Render, Color, registerWhen } from "../utils"
+
+const MCTessellator = Java.type("net.minecraft.client.renderer.Tessellator")
+const PlayerComparator = Java.type("net.minecraft.client.gui.GuiPlayerTabOverlay").PlayerComparator
+const c = PlayerComparator.class.getDeclaredConstructor()
+c.setAccessible(true)
+const sorter = c.newInstance()
 
 let players = [];
-let heads = new Set([]);
 
 
-function SettingsON() {
-    return Settings.CustomLeapMenu
-}
-
-
-const clickTrigger = register("guiMouseClick", (x, y, _0, _1, event) => ClickLogic(x, y, event)).unregister();
-const renderTrigger = register('renderOverlay', () => RenderCustomGUI()).unregister();
-const ArrayTrigger = register('renderOverlay', () => UpdatePlayersArray()).unregister();
-const cancelRenderTrigger = register(net.minecraftforge.client.event.GuiScreenEvent.DrawScreenEvent.Pre, (event) => cancel(event)).unregister();
-const ResetTrigger = register('worldUnload', () => {
-    players.length = 0;
-    heads.clear();
-}).unregister()
+const cancelRenderTrigger = register(net.minecraftforge.client.event.GuiScreenEvent.DrawScreenEvent.Pre, event => cancel(event)).unregister()
+const clickTrigger = register("guiMouseClick", (x, y, _0, _1, event) => ClickLogic(x, y, event)).unregister()
+const renderTrigger = register('renderOverlay', RenderCustomGUI).unregister()
+const ResetTrigger = register('worldUnload', () => players.length = 0).unregister()
 
 
 function RenderCustomGUI() {
+    UpdatePlayersArray()
+
     Tessellator.pushMatrix();
     const Scale = Settings.CustomLeapMenuScale * 2
     const screenWidth = Renderer.screen.getWidth() / Scale;
@@ -37,7 +35,6 @@ function RenderCustomGUI() {
     const BoxHeight = 80;
     const BoxSpacing = 32;
     const HeadsHeightWidth = 50;
-    const headsArray = Array.from(heads)
     const HeadScale = HeadsHeightWidth * Scale
     const offsets = [
         [X, Y], 
@@ -62,10 +59,7 @@ function RenderCustomGUI() {
         Renderer.scale(Scale);
         Renderer.drawStringWithShadow(`${colorClass(players[i].class)}${players[i].class}`, offsets[i][0] + BoxWidth - Renderer.getStringWidth(players[i].class) - BoxWidth / 25, offsets[i][1] + BoxHeight - BoxHeight / 8);
 
-
-        if (headsArray.length !== players.length) return
-
-        headsArray.forEach((head, index) => head.draw((offsets[index][0] + BoxWidth / 2 - HeadsHeightWidth / 2) * Scale, ((offsets[index][1] + BoxHeight - HeadsHeightWidth * 1.2) - BoxHeight / 20) * Scale, HeadScale, HeadScale))
+        DrawHead(players[i].Head, (offsets[i][0] + BoxWidth / 2 - HeadsHeightWidth / 2) * Scale, ((offsets[i][1] + BoxHeight - HeadsHeightWidth * 1.2) - BoxHeight / 20) * Scale, HeadScale, HeadScale, 1, players[i].class);
       
     }
 
@@ -73,34 +67,57 @@ function RenderCustomGUI() {
     Tessellator.popMatrix();
 }
 
-function UpdatePlayersArray() {
-    new Thread(()=> {
-        if (!Client.isInGui()) return
-        const Chest = Player.getContainer();
-        if (!Chest) return;
-        const maxSlot = Chest.getSize() - 36;
+
+function DrawHead(PlayerNetWorkThing, x, y, w, h, borderWidth, PlayerClass) {
+    Tessellator.pushMatrix()
+    Renderer.retainTransforms(true)
+    Renderer.translate(x + w / 2, y + h / 2, 50)
+    let Color = Renderer.BLACK
     
-        Chest.getItems().forEach((item, slot) => {
-            if (!item || slot >= maxSlot) return;
-            const itemName = item.getName().removeFormatting();
-            const DungeonPlayerClasses =
-            Dungeon.classes 
-            // {"WebbierAmoeba0":"Archer","Ocookie":"Mage","MythDragoon":"Healer","Shaharrr":"Berserk"};
-    
-            for (let PlayerName in DungeonPlayerClasses) {
-                let PlayerClass = DungeonPlayerClasses[PlayerName];
-                if (itemName === PlayerName) {
-                    if (!players.some(player => player.name == itemName)) {
-                        players.push({ name: PlayerName, class: PlayerClass, slot: slot });
-    
-                        let PlayerHead = new Image(`${PlayerName}_Head.png`, `https://www.mc-heads.net/avatar/${PlayerName}/8`)
-                        heads.add(PlayerHead)
-                    }
-                }
-            }
-        })
-    }).start()
+    if (PlayerClass[0] == `H`) Color = Renderer.color(255, 0, 209)
+    if (PlayerClass[0] == `T`) Color = Renderer.color(0, 170, 0)
+    if (PlayerClass[0] == `A`) Color = Renderer.color(193, 32, 32)
+    if (PlayerClass[0] == `B`) Color = Renderer.color(205, 100, 0)
+    if (PlayerClass[0] == `M`) Color = Renderer.color(0, 234, 255)
+
+
+
+    if (borderWidth) Renderer.drawRect(
+        Color,
+        -w / 2 - borderWidth * w / 30,
+        -h / 2 - borderWidth * w / 30, 
+        w + borderWidth * 2 * w / 30, 
+        h + borderWidth * 2 * w / 30
+    )
+      
+    GlStateManager.func_179147_l()
+    Client.getMinecraft().func_110434_K().func_110577_a(PlayerNetWorkThing)
+    GlStateManager.func_179098_w()
+
+    let tessellator = MCTessellator.func_178181_a()
+    let worldRenderer = tessellator.func_178180_c()
+    worldRenderer.func_181668_a(7, net.minecraft.client.renderer.vertex.DefaultVertexFormats.field_181707_g)
+
+    worldRenderer.func_181662_b(-w / 2, h / 2, 0.0).func_181673_a(8 / 64, 16 / 64).func_181675_d()
+    worldRenderer.func_181662_b(w / 2, h / 2, 0.0).func_181673_a(16 / 64, 16 / 64).func_181675_d()
+    worldRenderer.func_181662_b(w / 2, -h / 2, 0.0).func_181673_a(16 / 64, 8 / 64).func_181675_d()
+    worldRenderer.func_181662_b(-w / 2, -h / 2, 0.0).func_181673_a(8 / 64, 8 / 64).func_181675_d()
+
+    tessellator.func_78381_a()
+
+    worldRenderer.func_181668_a(7, net.minecraft.client.renderer.vertex.DefaultVertexFormats.field_181707_g)
+
+    worldRenderer.func_181662_b(-w / 2, h / 2, 0.0).func_181673_a(40 / 64, 16 / 64).func_181675_d()
+    worldRenderer.func_181662_b(w / 2, h / 2, 0.0).func_181673_a(48 / 64, 16 / 64).func_181675_d()
+    worldRenderer.func_181662_b(w / 2, -h / 2, 0.0).func_181673_a(48 / 64, 8 / 64).func_181675_d()
+    worldRenderer.func_181662_b(-w / 2, -h / 2, 0.0).func_181673_a(40 / 64, 8 / 64).func_181675_d()
+
+    tessellator.func_78381_a()
+
+    Renderer.retainTransforms(false)
+    Tessellator.popMatrix()
 }
+
 
 function ClickLogic(x, y, event) {
     cancel(event);
@@ -115,10 +132,59 @@ function ClickLogic(x, y, event) {
 
     if (index === -1 || !players[index]) return;
 
-    World.playSound('mob.cat.meow', 1, 1);
-    clickSlot(players[index].slot, 0);
-    Player.getPlayer().func_71053_j();
+    clickSlot(players[index].slot, 0)
+    Player.getPlayer().func_71053_j()
+    setTimeout(() => {
+        World.playSound('mob.cat.meow', 1, 1)
+        World.playSound('mob.cat.meow', 1, 1)
+        World.playSound('mob.cat.meow', 1, 1)
+        World.playSound('mob.cat.meow', 1, 1)
+        World.playSound('mob.cat.meow', 1, 1)
+        World.playSound('mob.cat.meow', 1, 1)
+        World.playSound('mob.cat.meow', 1, 1)
+        World.playSound('mob.cat.meow', 1, 1)
+        World.playSound('mob.cat.meow', 1, 1)
+        World.playSound('mob.cat.meow', 1, 1)
+        World.playSound('mob.cat.meow', 1, 1)
+        World.playSound('mob.cat.meow', 1, 1)
+    }, 100)
 }
+
+
+function UpdatePlayersArray() {
+    let Tablines = Player.getPlayer().field_71174_a.func_175106_d().sort((a, b) => sorter.compare(a, b))
+
+    for (let p of Tablines) {
+        if (!p.func_178854_k()) continue
+
+        let line = p.func_178854_k().func_150260_c()
+        line = line.replace(/§[a-fnmz0-9r]/g, '')
+        let match = line.match(/^\[(\d+)\] (?:\[\w+\] )*(\w+) (?:.)*?\((\w+)(?: (\w+))*\)$/) // https://regex101.com/r/cUzJoK/6
+        if (!match || match.join().includes(Player.getName())) continue
+
+
+        let [AllInOne, sbLevel, PlayerName, ClassType, ClassLevel] = match
+
+        if (ClassType == `EMPTY`) return 
+           
+        if (!Client.isInGui()) return
+        const Chest = Player.getContainer();
+        if (!Chest) return;
+        const maxSlot = Chest.getSize() - 36;
+    
+        Chest.getItems().forEach((item, slot) => {
+            if (!item || slot >= maxSlot) return;
+            const itemName = item.getName().removeFormatting();
+
+            if (itemName === PlayerName) {
+                if (!players.some(player => player.name == itemName)) {
+                    players.push({ name: PlayerName, class: ClassType, slot: slot, Head: p.func_178837_g() });
+                }
+            }
+        })   
+    }
+}
+
 
 function IsSpiritLeapGuiAndSettingsEnabled() {
     const Chest = Player.getContainer();
@@ -127,52 +193,42 @@ function IsSpiritLeapGuiAndSettingsEnabled() {
 }
 
 
-registerWhen(ResetTrigger, SettingsON)
-registerWhen(ArrayTrigger, SettingsON)
+
+
+registerWhen(ResetTrigger, () => Settings.CustomLeapMenu)
 registerWhen(clickTrigger, IsSpiritLeapGuiAndSettingsEnabled)
 registerWhen(renderTrigger, IsSpiritLeapGuiAndSettingsEnabled)
 registerWhen(cancelRenderTrigger, IsSpiritLeapGuiAndSettingsEnabled)
 
 
 
-
 /*
-const MCTessellator = Java.type("net.minecraft.client.renderer.Tessellator")
-function drawAt(x, y, w, h, showIcons = false, rotation = 0, borderWidth = 2) {
-    Tessellator.pushMatrix()
-    Renderer.retainTransforms(true)
-
-    if (showIcons) {
-        h *= 1.4
-    }
-
-    Renderer.translate(x + w / 2, y + h / 2, 50)
-
-    Renderer.rotate(rotation)
-
-
-        GlStateManager.func_179147_l()
-        Client.getMinecraft().func_110434_K().func_110577_a(this.networkPlayerInfo.func_178837_g())
-        GlStateManager.func_179098_w()
-
-        let tessellator = MCTessellator.func_178181_a()
-        let worldRenderer = tessellator.func_178180_c()
-        worldRenderer.func_181668_a(7, net.minecraft.client.renderer.vertex.DefaultVertexFormats.field_181707_g)
-
-        worldRenderer.func_181662_b(-w / 2, h / 2, 0.0).func_181673_a(8 / 64, 16 / 64).func_181675_d()
-        worldRenderer.func_181662_b(w / 2, h / 2, 0.0).func_181673_a(16 / 64, 16 / 64).func_181675_d()
-        worldRenderer.func_181662_b(w / 2, -h / 2, 0.0).func_181673_a(16 / 64, 8 / 64).func_181675_d()
-        worldRenderer.func_181662_b(-w / 2, -h / 2, 0.0).func_181673_a(8 / 64, 8 / 64).func_181675_d()
-        tessellator.func_78381_a()
-
-        worldRenderer.func_181668_a(7, net.minecraft.client.renderer.vertex.DefaultVertexFormats.field_181707_g)
-
-        worldRenderer.func_181662_b(-w / 2, h / 2, 0.0)[m.tex](40 / 64, 16 / 64).func_181675_d()
-        worldRenderer.func_181662_b(w / 2, h / 2, 0.0)[m.tex](48 / 64, 16 / 64).func_181675_d()
-        worldRenderer.func_181662_b(w / 2, -h / 2, 0.0)[m.tex](48 / 64, 8 / 64).func_181675_d()
-        worldRenderer.func_181662_b(-w / 2, -h / 2, 0.0)[m.tex](40 / 64, 8 / 64).func_181675_d()
-        tessellator.func_78381_a()
-    
-    Renderer.retainTransforms(false)
-    Tessellator.popMatrix()
+function UpdatePlayersArray() {
+    new Thread(()=> {
+        try {
+            if (!Client.isInGui()) return
+            const Chest = Player.getContainer();
+            if (!Chest) return;
+            const maxSlot = Chest.getSize() - 36;
+        
+            Chest.getItems().forEach((item, slot) => {
+                if (!item || slot >= maxSlot) return;
+                const itemName = item.getName().removeFormatting();
+                const DungeonPlayerClasses = Dungeon.classes 
+                //    {"WebbierAmoeba0":"Archer","Ocookie":"Mage","MythDragoon":"Healer","Shaharrr":"Berserk"};
+        
+                for (let PlayerName in DungeonPlayerClasses) {
+                    let PlayerClass = DungeonPlayerClasses[PlayerName];
+                    if (itemName === PlayerName) {
+                        if (!players.some(player => player.name == itemName)) {
+                            players.push({ name: PlayerName, class: PlayerClass, slot: slot });
+        
+                            let PlayerHead = new Image(`${PlayerName}_Head.png`, `https://www.mc-heads.net/avatar/${PlayerName}/8`)
+                            heads.add(PlayerHead)
+                        }
+                    }
+                }
+            })
+        } catch (e) {ModMessage(e)}
+    }).start()
 }*/
