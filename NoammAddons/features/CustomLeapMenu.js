@@ -37,12 +37,14 @@ function RenderCustomGUI() {
     const BoxHeight = 80;
     const BoxSpacing = 32;
     const HeadsHeightWidth = 50;
+    const headsArray = Array.from(heads)
+    const HeadScale = HeadsHeightWidth * Scale
     const offsets = [
         [X, Y], 
         [X + BoxWidth + BoxSpacing, Y], 
         [X, Y + BoxHeight + BoxSpacing], 
         [X + BoxWidth + BoxSpacing, Y + BoxHeight + BoxSpacing]
-    ];
+    ]
     const Lightmode = new Color(203 / 255, 202 / 255, 205 / 255, 1);
     const Darkmode = new Color(33 / 255, 33 / 255, 33 / 255, 1);
     let ColorMode = Darkmode
@@ -60,13 +62,11 @@ function RenderCustomGUI() {
         Renderer.scale(Scale);
         Renderer.drawStringWithShadow(`${colorClass(players[i].class)}${players[i].class}`, offsets[i][0] + BoxWidth - Renderer.getStringWidth(players[i].class) - BoxWidth / 25, offsets[i][1] + BoxHeight - BoxHeight / 8);
 
-        try {
-        const headsArray = Array.from(heads);
-        const HeadScale = HeadsHeightWidth * Scale;
-        headsArray.forEach((head, index) => {
-            head.draw((offsets[index][0] + BoxWidth / 2 - HeadsHeightWidth / 2) * Scale, ((offsets[index][1] + BoxHeight - HeadsHeightWidth * 1.2) - BoxHeight / 20) * Scale, HeadScale, HeadScale);
-        });
-        } catch (error) {}
+
+        if (headsArray.length !== players.length) return
+
+        headsArray.forEach((head, index) => head.draw((offsets[index][0] + BoxWidth / 2 - HeadsHeightWidth / 2) * Scale, ((offsets[index][1] + BoxHeight - HeadsHeightWidth * 1.2) - BoxHeight / 20) * Scale, HeadScale, HeadScale))
+      
     }
 
     Renderer.scale(1);
@@ -132,3 +132,47 @@ registerWhen(ArrayTrigger, SettingsON)
 registerWhen(clickTrigger, IsSpiritLeapGuiAndSettingsEnabled)
 registerWhen(renderTrigger, IsSpiritLeapGuiAndSettingsEnabled)
 registerWhen(cancelRenderTrigger, IsSpiritLeapGuiAndSettingsEnabled)
+
+
+
+
+/*
+const MCTessellator = Java.type("net.minecraft.client.renderer.Tessellator")
+function drawAt(x, y, w, h, showIcons = false, rotation = 0, borderWidth = 2) {
+    Tessellator.pushMatrix()
+    Renderer.retainTransforms(true)
+
+    if (showIcons) {
+        h *= 1.4
+    }
+
+    Renderer.translate(x + w / 2, y + h / 2, 50)
+
+    Renderer.rotate(rotation)
+
+
+        GlStateManager.func_179147_l()
+        Client.getMinecraft().func_110434_K().func_110577_a(this.networkPlayerInfo.func_178837_g())
+        GlStateManager.func_179098_w()
+
+        let tessellator = MCTessellator.func_178181_a()
+        let worldRenderer = tessellator.func_178180_c()
+        worldRenderer.func_181668_a(7, net.minecraft.client.renderer.vertex.DefaultVertexFormats.field_181707_g)
+
+        worldRenderer.func_181662_b(-w / 2, h / 2, 0.0).func_181673_a(8 / 64, 16 / 64).func_181675_d()
+        worldRenderer.func_181662_b(w / 2, h / 2, 0.0).func_181673_a(16 / 64, 16 / 64).func_181675_d()
+        worldRenderer.func_181662_b(w / 2, -h / 2, 0.0).func_181673_a(16 / 64, 8 / 64).func_181675_d()
+        worldRenderer.func_181662_b(-w / 2, -h / 2, 0.0).func_181673_a(8 / 64, 8 / 64).func_181675_d()
+        tessellator.func_78381_a()
+
+        worldRenderer.func_181668_a(7, net.minecraft.client.renderer.vertex.DefaultVertexFormats.field_181707_g)
+
+        worldRenderer.func_181662_b(-w / 2, h / 2, 0.0)[m.tex](40 / 64, 16 / 64).func_181675_d()
+        worldRenderer.func_181662_b(w / 2, h / 2, 0.0)[m.tex](48 / 64, 16 / 64).func_181675_d()
+        worldRenderer.func_181662_b(w / 2, -h / 2, 0.0)[m.tex](48 / 64, 8 / 64).func_181675_d()
+        worldRenderer.func_181662_b(-w / 2, -h / 2, 0.0)[m.tex](40 / 64, 8 / 64).func_181675_d()
+        tessellator.func_78381_a()
+    
+    Renderer.retainTransforms(false)
+    Tessellator.popMatrix()
+}*/

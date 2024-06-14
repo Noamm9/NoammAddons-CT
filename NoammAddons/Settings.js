@@ -945,12 +945,12 @@ class Settings {
     BlockGloomlockDeath = false
 
     @SwitchProperty({
-        name: "&0&lDark &aFloor &65",
-        description: "Changes the &6Stupid &fDiorite&r blocks at the Boss fight To &0&lCoal blocks&r\n\n&dNow my eyes can rest",
+        name: "&0&lBetter &aM&65",
+        description: "Changes the &6Stupid &fDiorite&r blocks at the Boss fight To &0&Clay blocks&r\n\n&dNow my eyes can finally rest",
         category: "Dungeons",
         subcategory: ""
     })
-    DarkFloor5 = false
+    BetterM5 = false
 
     @SwitchProperty({
         name: "&fBlur Background",
@@ -960,8 +960,13 @@ class Settings {
     })
     BlurBackground = false
 
-
-
+    @SwitchProperty({
+        name: "&0&lBetter &a&lM&6&l6",
+        description: "Places Some QQL Blocks at the Boss fight",
+        category: "Dungeons",
+        subcategory: ""
+    })
+    BetterM6 = false
 
 
 

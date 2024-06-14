@@ -10,17 +10,9 @@ const Blocks = JSON.parse(FileLib.read("NoammAddons", "RandomShit/F5BossCoords.j
 const GrayClay = MCBlockState(159, 9)
 
 
-function DioriteToCoal() {
-    Blocks.blocks.forEach(function(block, index) {
-        let x = block.x;
-        let y = block.y;
-        let z = block.z;
-        let Pos = new BlockPoss(x, y, z)
-        
-        GhostBlock(Pos, GrayClay)
-        
-    })
+function DioriteToClay() {
+    Blocks.blocks.forEach(block => GhostBlock(new BlockPoss(block.x, block.y, block.z), GrayClay))
 }
         
         
-registerWhen(register("step", DioriteToCoal).setFps(10), () => Settings.DarkFloor5 && IsInBossRoom() && Dungeon.floorNumber == 5)
+registerWhen(register("step", DioriteToClay).setFps(10), () => Settings.BetterM5 && IsInBossRoom() && Dungeon.floorNumber == 5)

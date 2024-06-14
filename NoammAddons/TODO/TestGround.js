@@ -2,5 +2,6 @@
 /// <reference lib="es2015" />
 
 
-import { getSkyblockItemID } from "../../BloomCore/utils/Utils";
-import { registerWhen, ModMessage, MouseEvent } from "../utils";
+import Dungeon from "../../BloomCore/dungeons/Dungeon";
+import Settings from "../Settings";
+import { registerWhen, GhostBlock, MCBlockState, BlockPoss, IsInBossRoom } from "../utils";
