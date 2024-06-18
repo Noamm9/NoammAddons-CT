@@ -1,4 +1,4 @@
 *.toml
-*.json
 *.bat
 *.lnk
+/NoammAddons/Config
