@@ -1,5 +1,6 @@
 
 
+
 let frame = new javax.swing.JFrame("Minecaft Chat -- NoammAddons")
 frame.setDefaultCloseOperation(javax.swing.JFrame.DISPOSE_ON_CLOSE)
 
@@ -35,4 +36,37 @@ register("chat", (event) => {
         textBox.append("\n" +ChatMessage)
         textBox.setCaretPosition(textBox.getDocument().getLength())
     } catch (e) {}
+})
+
+
+/*
+register(`command`, () => {
+    let x1 = 95, y1 = 168, z1 = 60;
+    let x2 = 105, y2 = 168, z2 = 70;
+    
+    for (let x = x1; x <= x2; x++) {
+        for (let y = y1; y <= y2; y++) {
+            for (let z = z1; z <= z2; z++) {
+                if (World.getBlockAt(x, y, z).type.getID() == 35) {
+                    textBox.append("\n" +`  {"x": ${x}, "y": ${y}, "z": ${z}},  `)
+                    textBox.setCaretPosition(textBox.getDocument().getLength())
+                }
+            }
+        }
+    }
+}).setName(`getCoords`)
+
+
+*/
+import { MouseEvent } from "../utils"
+let lastShot 
+register(MouseEvent, (event) => {
+    try {
+        if (Date.now() - lastShot < 300) return
+        if (event.button == 1 && Player.getHeldItem()?.getID() == 276) {
+            textBox.append("\n" +`{"x": ${Player.lookingAt().getX()}, "y": ${Player.lookingAt().getY()}, "z": ${Player.lookingAt().getZ()}},`)
+            lastShot = Date.now()
+            textBox.setCaretPosition(textBox.getDocument().getLength())
+        }
+    } catch (error) {ModMessage(`Look at a block`)}
 })

@@ -2,6 +2,5 @@
 /// <reference lib="es2015" />
 
 
-import Dungeon from "../../BloomCore/dungeons/Dungeon";
-import Settings from "../Settings";
-import { registerWhen, GhostBlock, MCBlockState, BlockPoss, IsInBossRoom } from "../utils";
+import Settings from "../Settings"
+import { IsInBossRoom, IsInDungeon, Render, registerWhen } from "../utils";

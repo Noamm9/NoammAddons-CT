@@ -1,5 +1,6 @@
 import PogObject from "../PogData/index.js"
-
+new BlockType(144).getDefaultState().func_177230_c().func_149676_a(0, 0, 0, 1, 1 ,1)
+new BlockType(397).getDefaultState().func_177230_c().func_149676_a(0, 0, 0, 1, 1 ,1)
  
 //register("command", () => Settings.openGUI()).setName("noamm").setAliases("noam", "noamaddons", "noammaddons", "na") // moved to Party Commands 
 
@@ -84,7 +85,6 @@ import "./Features/ClientSideSpin"
 import "./Features/PlayerScale"
 import './Features/HebrewToEnglish'
 import "./Features/emojis"
-import "./Features/F7GhostBlocks"
 import "./Features/TimerChanger"
 import "./Features/InventorySearchBar"
 import "./Features/HealerWish"
@@ -106,8 +106,12 @@ import "./Features/HighlightMimicChest"
 import "./Features/BlockGloomlockDeath"
 import "./Features/BetterM5"
 import "./Features/BetterM6"
+import "./Features/BetterM7"
 import "./Features/BlurBackground"
-
+import "./Features/WardrodeHelper"
+import "./Features/ColorSecrets"
+import "./Features/TraceKeys"
+//import "./Features/NoFallDamage"
 
 
 
@@ -121,9 +125,11 @@ import "./TODO/TestGround"
 //import "./TODO/CustomItemToolTip" // WIP
 
 // import "./TODO/RoomEdit" // WIP
-// import "./TODO/ExtractMinecraftChat"
-// import "./TODO/asm/exposed/toggleSecretHitboxes"
+//import "./TODO/ExtractMinecraftChat"
+//import "./TODO/asm/exposed/toggleSecretHitboxes"
 
 
 // import "./TODO/NecronDroppingTimer"   // Moved to F7PhaseStartTimers
 // import "./TODO/IHATECARPETS" // thx hypixel for fixing it ):
+
+

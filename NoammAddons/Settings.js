@@ -751,12 +751,12 @@ class Settings {
     healerWishTitle = "§9[§6§kO§r§9] §e§l⚠ §d§lW§bi§ds§bh§d! §e§l⚠ §9[§6§kO§r§9]";
 
     @SwitchProperty({
-        name: "&4&lBoss&r &f&lGhost Blocks&r",
+        name: "&f&lBetter&r &4&lM7&r",
         description: `Auto Place Ghost Blocks in some places at the boss fight area`,
         category: "Dungeons",
         subcategory: "F7"
     })
-    f7GhostBlocks = false
+    BetterM7 = false
 
     @SwitchProperty({
 		name: "§bIcefill §6Solver",
@@ -869,16 +869,15 @@ class Settings {
         subcategory: "Spirit Leaps"
     })
     CustomLeapMenuScale = 1;
-    
+/*    
     @SwitchProperty({
         name: "&eToggle &5Secrets Hitboxes",
         description: "Toggles the hitboxes of secrets in dungeons",
         category: "Dungeons",
         subcategory: "Secrets",
-        hide: true
     })
     SecretsHitboxes = true
-    
+*/  
     @SwitchProperty({
         name: "&bAbility &aKeybinds",
         description: "Allows to use the Your Classs ULTIMATE/ABILITY with a keybind witch can be configirate in Minecraft's Options/Controls",
@@ -968,20 +967,35 @@ class Settings {
     })
     BetterM6 = false
 
+    @SwitchProperty({
+        name: "&a&lWardrobe &6&lHelper",
+        description: "Allows armor swapping with keyboard keys 1-9",
+        category: "General",
+        subcategory: ""
+    })
+    WardrobeHelper = false
 
+    @SwitchProperty({
+        name: "&aColor &dSecrets",
+        description: "Replaces the Secrets items with a cool box and draws the name of the Secret",
+        category: "Dungeons",
+        subcategory: "Secrets"
+    })
+    ColorSecrets = false
 
-
-
-
-
-
+    @SwitchProperty({
+        name: "&dTrace &6Keys",
+        description: "Draws a line from your mouse cursor to the Wither/Blood key",
+        category: "Dungeons",
+        subcategory: ""
+    })
+    TraceKeys = false
 
 
 
 
     constructor() {
         this.initialize(this);
-       // this.setCategoryDescription(`HUD`, "&fEdit the &fPosition and Scale Of All of HUD Elements \n&b&l(Drag the text to move it, Scroll with the mouse wheel to change the scale of the text) \n&r&dMake sure that the Toggle is enable before you try to use this option else it wont work")
         this.setCategoryDescription("Dungeons", "&6Toggle &aOn&f/&cOff&f features within the mod\nOr just &6Configurate &eThem")
         this.setCategoryDescription("General", "&6Toggle &aOn&f/&cOff&f features within the mod\nOr just &6Configurate &eThem")
 		this.setCategoryDescription("Alerts", "&6Toggle &aOn&f/&cOff&f Alerts within this mod")
@@ -989,7 +1003,6 @@ class Settings {
         this.addDependency('&bFOV', '&eCustom &dFOV');
         this.addDependency('&dE&bS&dP &6Color', '&fDungeon &eMob &6ESP')
         this.addDependency("&dE&bS&dP &6Mode", "&fDungeon &eMob &6ESP")
-        //this.addDependency('§eMove&r &cNecron Dropping&r &eTimer&r', '&cNecron Dropping &eTimer')
         this.addDependency("Block Overlay &eType", "§n&fBlock Overlay")
         this.addDependency("Outline Thickness", "§n&fBlock Overlay")
         this.addDependency("Outline Color", "§n&fBlock Overlay")
@@ -1017,7 +1030,7 @@ class Settings {
         this.addDependency(`&sSpin &9speed`, `&bPlayer &aSpin`)
         this.addDependency("&bSlot &d&lHighlight&r &6Color", "&aCustom &bSlot &d&lHighlight")
         this.addDependency(`&aDungeon &6Team&amates &6Name&atag &eMode`, `&aDungeon &6Team&amates &6Name&atag`)
-        /*this.addDependency(`&eScale`, `&dCustom &bLeap &6Menu`)*/
+        this.addDependency(`&eScale`, `&dCustom &bLeap &6Menu`)
 
 
     }

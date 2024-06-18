@@ -152,7 +152,11 @@ function ClickLogic(x, y, event) {
 
 
 function UpdatePlayersArray() {
-    let Tablines = Player.getPlayer().field_71174_a.func_175106_d().sort((a, b) => sorter.compare(a, b))
+    const Tablines = Player.getPlayer().field_71174_a.func_175106_d().sort((a, b) => sorter.compare(a, b))
+    const customOrder = ["Archer", "Berserk", "Healer", "Mage", "Tank"];
+    const orderMap = {}
+    customOrder.forEach((item, index) => orderMap[item] = index)
+    
 
     for (let p of Tablines) {
         if (!p.func_178854_k()) continue
@@ -179,6 +183,7 @@ function UpdatePlayersArray() {
             if (itemName === PlayerName) {
                 if (!players.some(player => player.name == itemName)) {
                     players.push({ name: PlayerName, class: ClassType, slot: slot, Head: p.func_178837_g() });
+                    players.sort((a, b) => a.class.localeCompare(b.class));
                 }
             }
         })   

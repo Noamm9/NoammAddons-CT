@@ -23,6 +23,7 @@ register(`chat`, (type, name, x1, y2, z3, event) => {
 
         Render.StringWithShadow(`${Math.trunc(distance)}`, x-0.2, y+5, z+0.2, Renderer.LIGHT_PURPLE, 0.3 * distance, true, false)
         Render.FilledOutLineBox(x, y, z, 1, 1, r, g, b, 50/255, true)
+        Render.drawTrace(x, y, z, r, g, b)
     })
     cancel(event)
 }).setCriteria(/^(Co-op|Party)?(?: > )?(?:\[\d+\] .? ?)?(?:\[[\w\+]+\] )?(\w{1,16})\: x\: (.{1,4}), y\: (.{1,4}), z\: (.{1,4})/) // Thanks DocilElm for the Regex
