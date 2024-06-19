@@ -1,13 +1,13 @@
 /// <reference types="../CTAutocomplete" />
 /// <reference lib="es2015" />
 
-import { guiData, BonzoMaskGUIdata, SpiritMaskGUIdata, PhoenixPetGUIdata, LegitGhostPickGUIdata, FPSdisplayGUIdata, ClockDisplayGUIdata} from "./index";
-import { Render} from "./utils";
-import * as BonzoMask from "./Features/BonzoMaskTimer";
-import * as PhoenixPet from "./Features/PhoenixPetTimer";
-import * as SpiritMask from "./Features/SpiritMaskTimer";
-import * as LegitGhostPick from "./Features/LegitGhostPick";
-import * as FPSdisplay from "./Features/FPSdisplay";
+
+import { guiData, BonzoMaskGUIdata, SpiritMaskGUIdata, PhoenixPetGUIdata, LegitGhostPickGUIdata, FPSdisplayGUIdata, ClockDisplayGUIdata, Render} from "./utils"
+import * as BonzoMask from "./Features/BonzoMaskTimer"
+import * as PhoenixPet from "./Features/PhoenixPetTimer"
+import * as SpiritMask from "./Features/SpiritMaskTimer"
+import * as LegitGhostPick from "./Features/LegitGhostPick"
+import * as FPSdisplay from "./Features/FPSdisplay"
 import * as ClockDisplay from "./Features/ClockDisplay"
 export const MainGUI = new Gui()
 

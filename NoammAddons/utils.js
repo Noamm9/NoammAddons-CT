@@ -4,6 +4,7 @@
 import RenderLib from "../RenderLib"
 import { renderBoxFromCorners } from "../BloomCore/RenderUtils"
 import Dungeon from "../BloomCore/dungeons/Dungeon"
+import PogObject from "../PogData/index.js"
 export const BlockPoss = Java.type("net.minecraft.util.BlockPos")
 export const MouseEvent = Java.type("net.minecraftforge.client.event.MouseEvent")
 export const gc = (text) => ChatLib.getCenteredText(text) // getCentered
@@ -77,7 +78,9 @@ export function setAir(MCBlockPoss) {
  * @param {BlockState} MCBlockState - The block state to set at the specified position.
  */
 export function GhostBlock(MCBlockPoss, MCBlockState) {
-  World.getWorld().func_175656_a(MCBlockPoss, MCBlockState);
+  try {
+    return World.getWorld().func_175656_a(MCBlockPoss, MCBlockState);
+  } catch (error) {ModMessage(prefix + error)}
 }
 
 /**
@@ -251,8 +254,6 @@ export function DisconnectFromServer(message= "") {
 }
 
 
-
-
 // A collection of boss room corners for each floor.
 const bossRoomCorners = {
   "7": { corner1: { x: -8, y: 0, z: -8 }, corner2: { x: 134, y: 254, z: 147 } },
@@ -279,9 +280,39 @@ export function IsInBossRoom() {
 }
 
 
-
 export function IsInDungeon() {
   return Dungeon.inDungeon
+}
+
+
+
+/**
+ * Converts RGB color values to a 32-bit integer color value with alpha.
+ *
+ * @param {number} red - The red color value (0-255).
+ * @param {number} green - The green color value (0-255).
+ * @param {number} blue - The blue color value (0-255).
+ * @param {number} [alpha=255] - The alpha (transparency) value (0-255). Default is 255 (fully opaque).
+ *
+ * @returns {number} - The 32-bit integer color value with alpha.
+ */
+export function rgbToColorInt(red, green, blue, alpha = 255) {
+  return (alpha << 24) | (red << 16) | (green << 8) | blue;
+}
+
+
+/**
+ * Converts an integer color value to an array of RGB color values.
+ *
+ * @param {number} color - The integer color value.
+ * @returns {Array} - An array containing the RGB color values as [r, g, b], where each value is normalized to the range [0 - 1].
+ */
+export function intToRGB(color) {
+  const r = (color >> 16) & 0xFF;
+  const g = (color >> 8) & 0xFF;
+  const b = color & 0xFF;
+  
+  return [r, g, b];
 }
 
 
@@ -345,7 +376,6 @@ export class MyMath {
   
   
 }
-
 
 
 /**
@@ -746,7 +776,49 @@ export class Render {
     )
   }
 
+  /**
+   * This function is used to display a title with customizable parameters.
+   *
+   * @param {string} text - The text to be displayed as the title.
+   * @param {number} [scale=5] - The scale factor for the title text. Default is 5.
+   * @param {number} [time=3000] - The duration in milliseconds for which the title should be displayed. Default is 3000.
+   * @param {string} [sound="random.orb"] - The sound to be played when the title is displayed. Default is "random.orb".
+   * @param {number} [yOffset=0] - The vertical offset for the title position. Default is 0.
+   * @param {number} [xOffset=0] - The horizontal offset for the title position. Default is 0.
+   */
+  static Title(text, scale = 5, time = 3000, sound = "random.orb", yOffset = 0, xOffset = 0) {
+      let timePast = null
+      const titleText = new Text(" ")
+
+      const trigger = register("renderOverlay", () => {
+        const currentTime = Date.now()
+
+        if (!timePast) {
+          timePast = currentTime
+          World.playSound(sound, 1, 1)
+        }
+
+        const remainingTime = time - (currentTime - timePast)
+
+        if (remainingTime > 0) {
+          titleText.setString(text)
+          titleText.setX(Renderer.screen.getWidth() / 2 + xOffset)
+          titleText.setY(Renderer.screen.getHeight() / 2 - Renderer.screen.getHeight() / 14 + yOffset)
+            
+
+          title.setAlign("CENTER")
+            .setShadow(true)
+            .setScale(scale)
+            .draw()
+        } else trigger.unregister()
+
+      })
+  }
+
+
+
 }
+
 
 export class PlayerUtils {
   
@@ -917,7 +989,55 @@ export class PlayerUtils {
 
       MCplayer.func_71040_bB(Ultimate)
   }
+
+
 }
 
 
 
+export const guiData = new PogObject("Noammaddons", {
+
+	BonzoMaskGUIdata: {
+		x: 10,
+		y: 90,
+		s: 100,
+	},
+
+	SpiritMaskGUIdata: {
+		x: 10,
+		y: 110,
+		s: 100,
+	},
+
+	PhoenixPetGUIdata: {
+		x: 10,
+		y: 130,
+		s: 100,
+	},
+
+	LegitGhostPickGUIdata: {
+		x: 10,
+		y: 150,
+		s: 100,
+	},
+
+	ClockDisplayGUIdata: {
+		x: 10,
+		y: 90,
+		s: 100,
+	},
+    
+	FPSdisplayGUIdata: {
+		x: 10,
+		y: 90,
+		s: 100,
+	}
+		
+}, "Config/GuiData.json")
+
+export const BonzoMaskGUIdata = guiData.BonzoMaskGUIdata
+export const SpiritMaskGUIdata = guiData.SpiritMaskGUIdata
+export const PhoenixPetGUIdata = guiData.PhoenixPetGUIdata
+export const LegitGhostPickGUIdata = guiData.LegitGhostPickGUIdata
+export const FPSdisplayGUIdata = guiData.FPSdisplayGUIdata
+export const ClockDisplayGUIdata = guiData.ClockDisplayGUIdata

@@ -1,8 +1,8 @@
 /// <reference types="../../CTAutocomplete" />
 /// <reference lib="es2015" />
 
-import { FPSdisplayGUIdata } from "../index"
 import Settings from "../Settings"
+import { FPSdisplayGUIdata } from "../utils"
 
 
 export let md = false

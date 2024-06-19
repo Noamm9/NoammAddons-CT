@@ -582,7 +582,15 @@ class Settings {
         subcategory: "Player",
     })  
     CustomPlayerScale = 1;
-    
+/*
+    @CheckboxProperty({ 
+        name: "Should I Scale everyone?",
+        description: "",
+        category: "Cosmetic",
+        subcategory: "Player"
+    })
+    ScaleOnEveryone = false;
+*/
     @SwitchProperty({
         name: `&bPlayer &aSpin`,
         description: `Client-side feature that allows players to make their in-game avatar spin in place. This visual effect is only visible to the player using the module and does not affect the view or gameplay of other players on the server.`,
@@ -612,7 +620,15 @@ class Settings {
         max: 200
     })
     SpinSpeed = 50;
-    
+
+    @CheckboxProperty({ 
+        name: "Should I spin everyone?",
+        description: "",
+        category: "Cosmetic",
+        subcategory: "Player"
+    })
+    SpinOnEveryone = false;
+
     @SwitchProperty({
         name: "&dHebrew&r &62 &bEnglish",
         description: "Automatically converts Hebrew characters to their corresponding English characters based on a predefined mapping.",
@@ -768,7 +784,7 @@ class Settings {
 
     @ColorProperty({
         name: "§bIcefill §6Solver &2C&3o&4l&5o&6r",
-        description: "The color of the Icefill Solver",
+        description: "The color of the §bIcefill §6Solver",
         category: "Dungeons",
         subcategory: "Solvers"
     })
@@ -990,6 +1006,45 @@ class Settings {
         subcategory: ""
     })
     TraceKeys = false
+
+    @SwitchProperty({
+        name: "&bBoulder &dSolver",
+        description: "",
+        category: "Dungeons",
+        subcategory: "Solvers"
+    })
+    BoulderSolver = false
+
+    @ColorProperty({
+        name: "&bBoulder &dSolver &2C&3o&4l&5o&6r",
+        description: "The color of the &bBoulder &dSolver",
+        category: "Dungeons",
+        subcategory: "Solvers"
+    })
+    BoulderSolverColor = new Color(0, 0, 0, 20/100)
+
+    @SwitchProperty({
+        name: "&5Livid &aSolver",
+        description: "",
+        category: "Dungeons",
+        subcategory: "Solvers"
+    })
+    LividSolver = false
+
+    @CheckboxProperty({
+        name: "&6Hide &cWrong &5Livids?",
+        description: "",
+        category: "Dungeons",
+        subcategory: "Solvers"
+    })
+    HideWrongLivids = false
+
+
+
+
+
+
+
 
 
 

@@ -29,15 +29,9 @@ const Trigger = register(MouseEvent, (event) => {
     const state = event.buttonstate
     if (btn !== 0 || !state || !isHoldingEtherwarpItem() || !Client.isTabbedIn()) return
 
-    cancel(event)
+    if (!Player.isSneaking()) return
 
-    const shouldSneak = !Player.isSneaking()
-    if (shouldSneak) sneakKey.setState(true)
-    
-    Client.scheduleTask(0, () => {
-        PlayerUtils.Click(`right`)
-        if (shouldSneak) sneakKey.setState(false)
-    })
+    Client.scheduleTask(1, () => PlayerUtils.Click(`right`))
 
 }).unregister()
 

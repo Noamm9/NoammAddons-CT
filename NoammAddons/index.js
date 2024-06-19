@@ -1,55 +1,9 @@
-import PogObject from "../PogData/index.js"
 new BlockType(144).getDefaultState().func_177230_c().func_149676_a(0, 0, 0, 1, 1 ,1)
 new BlockType(397).getDefaultState().func_177230_c().func_149676_a(0, 0, 0, 1, 1 ,1)
  
 //register("command", () => Settings.openGUI()).setName("noamm").setAliases("noam", "noamaddons", "noammaddons", "na") // moved to Party Commands 
 
-export const guiData = new PogObject("Noammaddons", {
 
-	BonzoMaskGUIdata: {
-		x: 10,
-		y: 90,
-		s: 100,
-	},
-
-	SpiritMaskGUIdata: {
-		x: 10,
-		y: 110,
-		s: 100,
-	},
-
-	PhoenixPetGUIdata: {
-		x: 10,
-		y: 130,
-		s: 100,
-	},
-
-	LegitGhostPickGUIdata: {
-		x: 10,
-		y: 150,
-		s: 100,
-	},
-
-	ClockDisplayGUIdata: {
-		x: 10,
-		y: 90,
-		s: 100,
-	},
-    
-	FPSdisplayGUIdata: {
-		x: 10,
-		y: 90,
-		s: 100,
-	}
-		
-}, "Config/GuiData.json")
-
-export const BonzoMaskGUIdata = guiData.BonzoMaskGUIdata
-export const SpiritMaskGUIdata = guiData.SpiritMaskGUIdata
-export const PhoenixPetGUIdata = guiData.PhoenixPetGUIdata
-export const LegitGhostPickGUIdata = guiData.LegitGhostPickGUIdata
-export const FPSdisplayGUIdata = guiData.FPSdisplayGUIdata
-export const ClockDisplayGUIdata = guiData.ClockDisplayGUIdata
 
 import "./Features/BonzoMaskTimer"
 import "./Features/SpiritMaskTimer"
@@ -111,7 +65,8 @@ import "./Features/BlurBackground"
 import "./Features/WardrodeHelper"
 import "./Features/ColorSecrets"
 import "./Features/TraceKeys"
-//import "./Features/NoFallDamage"
+import "./Features/BoulderSolver"
+import "./Features/LividSolver"
 
 
 

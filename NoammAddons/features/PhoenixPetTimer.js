@@ -2,7 +2,7 @@
 /// <reference types="../../CTAutocomplete" />
 /// <reference lib="es2015" />
 
-import { PhoenixPetGUIdata } from "../index";
+import { PhoenixPetGUIdata } from "../utils";
 import Settings from "../Settings";
 
 export var Timer = null; 

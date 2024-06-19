@@ -3,16 +3,26 @@
 
 
 import Settings from "../Settings";
+import { registerWhen } from "../utils";
 
-setTimeout(() => {
-    register("renderEntity", (entity) => {
-        if (entity.getName() != Player.getName() || !Settings.PlayerScale) return
+
+const renderTrigger = register("renderEntity", (entity) => {
+    if (Player && entity.getEntity() instanceof net.minecraft.entity.player.EntityPlayer) {
         Tessellator.pushMatrix()
-        Tessellator.scale(Settings.CustomPlayerScale, Settings.CustomPlayerScale, Settings.CustomPlayerScale)
-    })
-    
-    register("postRenderEntity", (entity) => {
-        if (entity.getName() != Player.getName() || !Settings.PlayerScale) return
-        Tessellator.popMatrix()
-    })
-}, 1000)
+
+       /* if (Settings.ScaleOnEveryone) Tessellator.scale(Settings.CustomPlayerScale, Settings.CustomPlayerScale, Settings.CustomPlayerScale)
+
+        else */if (entity.getName() == Player.getName()) Tessellator.scale(Settings.CustomPlayerScale, Settings.CustomPlayerScale, Settings.CustomPlayerScale)
+
+    }
+})
+
+
+const renderTriggerPost = register("postRenderEntity", (entity) => {
+    if (Player && entity.getEntity() instanceof net.minecraft.entity.player.EntityPlayer) Tessellator.popMatrix()
+})
+
+
+
+registerWhen(renderTrigger, () => Settings.PlayerScale)
+registerWhen(renderTriggerPost, () => Settings.PlayerScale)

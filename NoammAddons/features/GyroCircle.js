@@ -18,7 +18,8 @@ const trigger = register("renderWorld", (pt) => {
   
     if (rayTrace.field_72313_a.toString() !== "BLOCK") return
   
-    Render.Cylinder(...getVec3iPos(rayTrace.func_178782_a()), 10, 1, -1, 30, 1, 0, 90, 90, 118/255, 0/255, 123/255, 100/100, false, true);
+    Render.Cylinder(...getVec3iPos(rayTrace.func_178782_a()), 10, 1, -1, 30, 1, 0, 90, 90, 118/255, 0/255, 123/255, 30/100, true, false) // purple
+    Render.Cylinder(...getVec3iPos(rayTrace.func_178782_a()),  10, 10, 0.2, 30, 1, 0, 90, 90, 0, 255/255, 0/255, 80/100, true, false) // green
 }).unregister()
 
 function getVec3iPos(vec) {

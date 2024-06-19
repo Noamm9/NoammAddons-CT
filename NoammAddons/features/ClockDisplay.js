@@ -1,8 +1,8 @@
 /// <reference types="../../CTAutocomplete" />
 /// <reference lib="es2015" />
 
-import { ClockDisplayGUIdata } from "../index";
 import Settings from "../Settings";
+import { ClockDisplayGUIdata } from "../utils";
 
 
 const LocalTime = Java.type("java.time.LocalTime");

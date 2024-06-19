@@ -1,7 +1,7 @@
 /// <reference types="../../CTAutocomplete" />
 /// <reference lib="es2015" />
 
-import { BonzoMaskGUIdata } from "../index";
+import { BonzoMaskGUIdata } from "../utils";
 import Settings from "../Settings";
 
 export let Text = new Text(` `).setShadow(true).setFormatted(true) 
