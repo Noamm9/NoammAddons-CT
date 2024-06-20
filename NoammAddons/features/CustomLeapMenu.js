@@ -3,7 +3,7 @@
 
 
 import Settings from "../Settings";
-import { clickSlot, colorClass, Render, Color, registerWhen } from "../utils"
+import { clickSlot, colorClass, Render, Color, registerWhen, CoolSound } from "../utils"
 
 const MCTessellator = Java.type("net.minecraft.client.renderer.Tessellator")
 const PlayerComparator = Java.type("net.minecraft.client.gui.GuiPlayerTabOverlay").PlayerComparator
@@ -14,7 +14,13 @@ const sorter = c.newInstance()
 let players = [];
 
 
-const cancelRenderTrigger = register(net.minecraftforge.client.event.GuiScreenEvent.DrawScreenEvent.Pre, event => cancel(event)).unregister()
+const cancelRenderTrigger = register(net.minecraftforge.client.event.GuiScreenEvent.DrawScreenEvent.Pre, event => {
+    if (players.length) cancel(event)
+}).unregister()
+
+
+
+
 const clickTrigger = register("guiMouseClick", (x, y, _0, _1, event) => ClickLogic(x, y, event)).unregister()
 const renderTrigger = register('renderOverlay', RenderCustomGUI).unregister()
 const ResetTrigger = register('worldUnload', () => players.length = 0).unregister()
@@ -134,20 +140,7 @@ function ClickLogic(x, y, event) {
 
     clickSlot(players[index].slot, 0)
     Player.getPlayer().func_71053_j()
-    setTimeout(() => {
-        World.playSound('mob.cat.meow', 1, 1)
-        World.playSound('mob.cat.meow', 1, 1)
-        World.playSound('mob.cat.meow', 1, 1)
-        World.playSound('mob.cat.meow', 1, 1)
-        World.playSound('mob.cat.meow', 1, 1)
-        World.playSound('mob.cat.meow', 1, 1)
-        World.playSound('mob.cat.meow', 1, 1)
-        World.playSound('mob.cat.meow', 1, 1)
-        World.playSound('mob.cat.meow', 1, 1)
-        World.playSound('mob.cat.meow', 1, 1)
-        World.playSound('mob.cat.meow', 1, 1)
-        World.playSound('mob.cat.meow', 1, 1)
-    }, 100)
+    CoolSound()
 }
 
 

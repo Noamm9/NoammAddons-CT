@@ -32,6 +32,12 @@ const regCylinder = new org.lwjgl.util.glu.Cylinder()
 const lineCylinder = new org.lwjgl.util.glu.Cylinder()
 lineCylinder.drawStyle = org.lwjgl.util.glu.GLU.GLU_LINE
 
+export const F7PhaseCriterias = [
+  `[BOSS] Maxor: WELL! WELL! WELL! LOOK WHO'S HERE!`,
+  `[BOSS] Maxor: I'M TOO YOUNG TO DIE AGAIN!`,
+  `[BOSS] Storm: I should have known that I stood no chance.`,
+  `[BOSS] Necron: I'm afraid, your journey ends now.`
+]
 
 
 /**
@@ -112,9 +118,9 @@ export function colorClass(className) {
  * @param {number} slot - The slot number to click.
  * @param {number} [btn=2] - The mouse button to use for the click. Defaults to right-click.
  */
-export function clickSlot(slot, btn) { 
+export function clickSlot(slot, btn, windowID = Player.getContainer().getWindowId()) { 
   Client.getMinecraft().field_71442_b.func_78753_a(
-    Player.getContainer().getWindowId(), slot, btn ? btn : 2, 3, Player.getPlayer()
+    windowID, slot, btn ? btn : 2, 3, Player.getPlayer()
   )
 }
 
@@ -492,7 +498,7 @@ export class Render {
    * @param {string} Formating - The format to display before the timer.
    * @param {number} MsTime - The duration in milliseconds to display the timer.
    */
-  static TimerUnderCursor(Formating, MsTime) {
+  static TimerUnderCursor(Formating, MsTime, ) {
     let StartTime = new Date().getTime()
     const Trigger = register(`renderOverlay`, () => {
       let TimeLeft = ((MsTime - (new Date().getTime() - StartTime))/1000).toFixed(2)
@@ -759,7 +765,7 @@ export class Render {
   * @param {number} a - The alpha (transparency) value (0-100).
   * @param {number} [lineWidth=1] - The width of the line.
   */
-  static drawTrace(x, y, z, r, g, b, a = 100, lineWidth = 3.5) {
+  static drawTrace(x, y, z, r, g, b, a = 1, lineWidth = 3.5) {
     this.Line(
       Player.getRenderX(),
       Player.getRenderY() + Player.getPlayer().func_70047_e(),
@@ -767,10 +773,10 @@ export class Render {
       x,
       y,
       z,
-      r / 255,
-      g / 255,
-      b / 255,
-      a / 100,
+      r,
+      g,
+      b,
+      a,
       true,
       lineWidth
     )

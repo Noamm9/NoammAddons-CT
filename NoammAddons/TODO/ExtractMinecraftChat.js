@@ -58,13 +58,14 @@ register(`command`, () => {
 
 
 */
-import { MouseEvent } from "../utils"
+import { ModMessage, MouseEvent } from "../utils"
 let lastShot 
 register(MouseEvent, (event) => {
     try {
         if (Date.now() - lastShot < 300) return
         if (event.button == 1 && Player.getHeldItem()?.getID() == 276) {
             textBox.append("\n" +`{"x": ${Player.lookingAt().getX()}, "y": ${Player.lookingAt().getY()}, "z": ${Player.lookingAt().getZ()}},`)
+            ModMessage(`{"x": ${Player.lookingAt().getX()}, "y": ${Player.lookingAt().getY()}, "z": ${Player.lookingAt().getZ()}},`)
             lastShot = Date.now()
             textBox.setCaretPosition(textBox.getDocument().getLength())
         }

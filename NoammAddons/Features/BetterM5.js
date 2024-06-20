@@ -4,7 +4,7 @@
 
 import Settings from "../Settings"
 import Dungeon from "../../BloomCore/dungeons/Dungeon";
-import { GhostBlock, registerWhen, BlockPoss, IsInBossRoom, MCBlockState } from "../utils";
+import { GhostBlock, registerWhen, BlockPoss, IsInBossRoom, MCBlockState, ModMessage } from "../utils";
 
 const Blocks = JSON.parse(FileLib.read("NoammAddons", "RandomShit/F5BossCoords.json"))
 const GrayClay = MCBlockState(159, 9)
@@ -13,6 +13,35 @@ const GrayClay = MCBlockState(159, 9)
 function DioriteToClay() {
     Blocks.blocks.forEach(block => GhostBlock(new BlockPoss(block.x, block.y, block.z), GrayClay))
 }
-        
-        
-registerWhen(register("step", DioriteToClay).setFps(10), () => Settings.BetterM5 && IsInBossRoom() && Dungeon.floorNumber == 5)
+
+
+const packetReceived = register("packetReceived", (packet, event) => {
+    const blockPos = packet.func_179827_b() // getBlockPosition
+    
+    Blocks.blocks.forEach(block => {
+        if (blockPos.func_177958_n() == block.x && blockPos.func_177956_o() == block.y && blockPos.func_177952_p() == block.z) {
+            cancel(event)
+            return
+        }
+    })
+    
+}).setFilteredClass(net.minecraft.network.play.server.S23PacketBlockChange)
+
+
+const hitBlock = register("hitBlock", (EventBlock, event) => {
+    Blocks.blocks.forEach(block => {
+        if (EventBlock.getX() == block.x && EventBlock.getY() == block.y && EventBlock.getZ() == block.z) {
+            cancel(event)
+            return
+        }
+    })
+})
+
+
+
+registerWhen(register("step", () => {
+    if (World.getBlockAt(25, 69, 41).type.getID() == 1) DioriteToClay()
+}).setFps(1), () => Settings.BetterM5 && IsInBossRoom() && Dungeon.floorNumber == 5)
+
+registerWhen(packetReceived, () => Settings.BetterM5 && IsInBossRoom() && Dungeon.floorNumber == 5)
+registerWhen(hitBlock, () => Settings.BetterM5 && IsInBossRoom() && Dungeon.floorNumber == 5)

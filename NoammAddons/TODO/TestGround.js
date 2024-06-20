@@ -3,5 +3,4 @@
 
 
 import Settings from "../Settings"
-import { IsInBossRoom, IsInDungeon, ModMessage, Render, registerWhen, intToRGB } from "../utils";
-
+import { Render, registerWhen, Color } from "../utils";

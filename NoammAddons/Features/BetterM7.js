@@ -4,7 +4,7 @@
 
 import Settings from "../Settings"
 import Dungeon from "../../BloomCore/dungeons/Dungeon";
-import { GhostBlock, BlockPoss, MCBlockState, ModMessage, setAir, IsInBossRoom } from "../utils";
+import { GhostBlock, BlockPoss, MCBlockState, ModMessage, setAir, IsInBossRoom, F7PhaseCriterias, registerWhen } from "../utils";
 const Blocks = JSON.parse(FileLib.read("NoammAddons", "RandomShit/F7BossCoords.json"))
 
 
@@ -45,15 +45,55 @@ function PlaceBlocks() {
     } catch (error) {ModMessage(error)}
 }
 
-     
-    
-    
-register("step", () => {
-    if (World.isLoaded() && Settings.BetterM7 && IsInBossRoom() && Dungeon.floorNumber == 7)
-    PlaceBlocks()
-}).setDelay(10)
 
-register(`command`, () => {
-    ModMessage(World.isLoaded() && Settings.BetterM7 && IsInBossRoom() && Dungeon.floorNumber == 7)
-    PlaceBlocks()
-}).setName(`forcePlaceBlocks`)
+
+
+const packetReceived = register("packetReceived", (packet, event) => {
+    const blockPos = packet.func_179827_b() // getBlockPosition
+
+    try {
+        Object.keys(Blocks).forEach(type => {
+            Blocks[type].forEach(block => {
+
+                if (blockPos.func_177958_n() == block.x && blockPos.func_177956_o() == block.y && blockPos.func_177952_p() == block.z) {
+                    cancel(event)
+                    return
+                }
+
+            })
+        })
+    } catch (error) {ModMessage(error)}
+}).setFilteredClass(net.minecraft.network.play.server.S23PacketBlockChange)
+
+
+const hitBlock = register("hitBlock", (EventBlock, event) => {
+    try {
+        Object.keys(Blocks).forEach(type => {
+            Blocks[type].forEach(block => {
+
+                if (EventBlock.getX() == block.x && EventBlock.getY() == block.y && EventBlock.getZ() == block.z) {
+                    cancel(event)
+                    return
+                }
+
+            })
+        })
+    } catch (error) {ModMessage(error)}
+})
+
+
+
+
+register(`chat`, (e) => {
+    if (Settings.BetterM7) {
+        let ChatMessage = ChatLib.getChatMessage(e,false)
+        if (ChatMessage.startsWith(F7PhaseCriterias[0]) && Settings.P1StartTimer) PlaceBlocks()
+        else if (ChatMessage.startsWith(F7PhaseCriterias[1]) && Settings.P2StartTimer) PlaceBlocks()
+        else if (ChatMessage.startsWith(F7PhaseCriterias[2]) && Settings.P3StartTimer) PlaceBlocks()
+        else if (ChatMessage.startsWith(F7PhaseCriterias[3]) && Settings.P4StartTimer) PlaceBlocks()
+    }
+})
+
+
+registerWhen(packetReceived, () => World.isLoaded() && Settings.BetterM7 && IsInBossRoom() && Dungeon.floorNumber == 7)
+registerWhen(hitBlock, () => World.isLoaded() && Settings.BetterM7 && IsInBossRoom() && Dungeon.floorNumber == 7)

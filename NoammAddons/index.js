@@ -1,8 +1,6 @@
+// FOR ASM SHIT
 new BlockType(144).getDefaultState().func_177230_c().func_149676_a(0, 0, 0, 1, 1 ,1)
 new BlockType(397).getDefaultState().func_177230_c().func_149676_a(0, 0, 0, 1, 1 ,1)
- 
-//register("command", () => Settings.openGUI()).setName("noamm").setAliases("noam", "noamaddons", "noammaddons", "na") // moved to Party Commands 
-
 
 
 import "./Features/BonzoMaskTimer"
@@ -67,7 +65,13 @@ import "./Features/ColorSecrets"
 import "./Features/TraceKeys"
 import "./Features/BoulderSolver"
 import "./Features/LividSolver"
-
+import "./Features/Terminals/Melody"
+import "./Features/Terminals/Numbers"
+import "./Features/Terminals/Rubix"
+import "./Features/Terminals/RedGreen"
+import "./Features/Terminals/StartWith"
+import "./Features/Terminals/Colors"
+import "./Features/ShadowAssasianAlert"
 
 
 import "./AutoUpDater"
@@ -77,14 +81,14 @@ import "./Features/PingCommand"
 
 
 import "./TODO/TestGround"
-//import "./TODO/CustomItemToolTip" // WIP
+// import "./TODO/ExtractMinecraftChat"
 
+// import "./TODO/CustomItemToolTip" // WIP
 // import "./TODO/RoomEdit" // WIP
-//import "./TODO/ExtractMinecraftChat"
-//import "./TODO/asm/exposed/toggleSecretHitboxes"
+// import "./TODO/asm/exposed/toggleSecretHitboxes" // Maybe someday will be toggleable
 
 
 // import "./TODO/NecronDroppingTimer"   // Moved to F7PhaseStartTimers
-// import "./TODO/IHATECARPETS" // thx hypixel for fixing it ):
+// import "./TODO/IHATECARPETS" // thx Hypixel for fixing it ):
 
 

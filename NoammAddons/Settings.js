@@ -42,10 +42,8 @@ class Settings {
         DisconnectFromServer(`
 &cYou are temporarily banned for &r359d 23h 59m 59s &cfrom this server!
 
-
 &7Reason:&r Cheating through the use of unfair game game advantages.
 &7Find out more: &b&nhttps://www.hypixel.net/appeal
-
 
 &7Ban ID: &r#783A8N7C
 &7Sharing your Ban ID may affect the proccessing of your appeal!
@@ -216,8 +214,8 @@ class Settings {
     MobESPMode = 0;
 
     @ColorProperty({
-        name: '&dE&bS&dP &6Color',
-        description: 'Select an option for the Dungeon Mob ESP box color',
+        name: '&dE&bS&dP &2C&3o&4l&5o&6r',
+        description: 'Select an option for the Dungeon Mob ESP box &2C&3o&4l&5o&6r',
         category: "Dungeons",
         subcategory: 'ESP'
     })
@@ -432,7 +430,7 @@ class Settings {
     }
     */
     @SwitchProperty({
-        name: "§n&fBlock Overlay",
+        name: "§n&9Block Overlay",
         description: "No need, Surely you know what this feature does",
         category: "Cosmetic",
         subcategory: "Block Overlay"
@@ -440,7 +438,7 @@ class Settings {
     BlockOverlay = false
     
     @SelectorProperty({
-        name: "Block Overlay &eType",
+        name: "&9Block Overlay &eType",
         description: "How to highlight the block",
         category: "Cosmetic",
         subcategory: "Block Overlay",
@@ -463,16 +461,16 @@ class Settings {
     BlockOverlayOutlineThickness = 5;
     
     @ColorProperty({
-        name: "Outline Color",
-        description: "The color of the Outline",
+        name: "Outline &2C&3o&4l&5o&6r",
+        description: "The &2C&3o&4l&5o&6r of the Outline",
         category: "Cosmetic",
         subcategory: "Block Overlay"
     })
     BlockOverlayOutlineColor = new Color(0,1,0,1)
     
     @ColorProperty({
-        name: "Overlay Color",
-        description: "The color of the Overlay",
+        name: "Overlay &2C&3o&4l&5o&6r",
+        description: "The &2C&3o&4l&5o&6r of the Overlay",
         category: "Cosmetic",
         subcategory: "Block Overlay"
     })
@@ -528,15 +526,15 @@ class Settings {
 
     @SwitchProperty({
         name: "&aCustom &bSlot &d&lHighlight",
-        description: "Changes the Color and the opacity of Minecraft Vanilla slot highlight\n\n&c&lCurrently does not work with sba for some reason ",
+        description: "Changes the &2C&3o&4l&5o&6r and the opacity of Minecraft Vanilla slot highlight\n\n&c&lCurrently does not work with sba for some reason ",
         category: "Cosmetic",
         subcategory: "Visuals"
     })
     CustomSlotHighlight = false
 
     @ColorProperty({
-        name: "&bSlot &d&lHighlight&r &6Color",
-        description: "The color of the Overlay",
+        name: "&bSlot &d&lHighlight&r &2C&3o&4l&5o&6r",
+        description: "The &2C&3o&4l&5o&6r of the Overlay",
         category: "Cosmetic",
         subcategory: "Visuals"
     })
@@ -559,8 +557,8 @@ class Settings {
     ChatCoordsWayPoint = false
 
     @ColorProperty({
-        name: "&dWay&bPoint &6Color",
-        description: "The color of the waypoint",
+        name: "&dWay&bPoint &2C&3o&4l&5o&6r",
+        description: "The &2C&3o&4l&5o&6r of the waypoint",
         category: "General",
         subcategory: "Chat"
     })
@@ -784,7 +782,7 @@ class Settings {
 
     @ColorProperty({
         name: "§bIcefill §6Solver &2C&3o&4l&5o&6r",
-        description: "The color of the §bIcefill §6Solver",
+        description: "The &2C&3o&4l&5o&6r of the §bIcefill §6Solver",
         category: "Dungeons",
         subcategory: "Solvers"
     })
@@ -872,7 +870,7 @@ class Settings {
 
     @CheckboxProperty({
         name: "&fLight &6Mode?",
-        description: "Changes the Color Mode of the &dCustom &bLeap &6Menu",
+        description: "Changes the &fColor&r Mode of the &dCustom &bLeap &6Menu",
         category: "Dungeons",
         subcategory: "Spirit Leaps"
     })
@@ -987,7 +985,7 @@ class Settings {
         name: "&a&lWardrobe &6&lHelper",
         description: "Allows armor swapping with keyboard keys 1-9",
         category: "General",
-        subcategory: ""
+        subcategory: "Menus"
     })
     WardrobeHelper = false
 
@@ -1013,11 +1011,11 @@ class Settings {
         category: "Dungeons",
         subcategory: "Solvers"
     })
-    BoulderSolver = false
+    BoulderSolver = false 
 
     @ColorProperty({
-        name: "&bBoulder &dSolver &2C&3o&4l&5o&6r",
-        description: "The color of the &bBoulder &dSolver",
+        name: "&6Boulder &bSolver &2C&3o&4l&5o&6r",
+        description: "The &2C&3o&4l&5o&6r of the &bBoulder &dSolver",
         category: "Dungeons",
         subcategory: "Solvers"
     })
@@ -1033,12 +1031,43 @@ class Settings {
 
     @CheckboxProperty({
         name: "&6Hide &cWrong &5Livids?",
-        description: "",
+        description: "Sometimes it breaks the &5Livid &aSolver, still &cW.I.P",
         category: "Dungeons",
         subcategory: "Solvers"
     })
     HideWrongLivids = false
 
+    @SwitchProperty({
+        name: "Custom Terminal Guis",
+        description: "Global Switch for Custom Terminal Guis",
+        category: "Dungeons",
+        subcategory: "Terminals"
+    })
+    CustomTerminalsGui = false
+
+    @PercentSliderProperty({
+        name: "&eScale",
+        description: "Scale of the &dCustom &bLeap &6Menu",
+        category: "Dungeons",
+        subcategory: "Terminals"
+    })
+    CustomTerminalMenuScale = 1;
+
+    @CheckboxProperty({
+        name: "&fLight &6Mode?",
+        description: "Changes the &fColor&r Mode of the &dCustom &bLeap &6Menu",
+        category: "Dungeons",
+        subcategory: "Terminals"
+    })
+    CustomTerminalMenuLightMode = false
+
+    @ColorProperty({
+        name: "&6Solution &2C&3o&4l&5o&6r",
+        description: "The &2C&3o&4l&5o&6r' of the &6Solution",
+        category: "Dungeons",
+        subcategory: "Terminals"
+    })
+    CustomTerminalMenuSolutionColor = new Color(0, 114/255, 1, 1)
 
 
 
@@ -1046,6 +1075,64 @@ class Settings {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+    @CheckboxProperty({
+        name: "&dMelody &aTerminal",
+        description: "",
+        category: "Dungeons",
+        subcategory: "Terminals"
+    })
+    CustomMelodyTerminal = true
+
+    @CheckboxProperty({
+        name: "&9Numbers &aTerminal",
+        description: "",
+        category: "Dungeons",
+        subcategory: "Terminals"
+    })
+    CustomNumbersTerminal = true
+
+    @CheckboxProperty({
+        name: "&bRubix &aTerminal",
+        description: "&6&l[&d&lTIP&6&l]&r &b&lNo need to swap between &n&lRightclick&r&b&l and &nLeftclick&r&b&l anymore",
+        category: "Dungeons",
+        subcategory: "Terminals"
+    })
+    CustomRubixTerminal = true
+
+    @CheckboxProperty({
+        name: "&aRed &cGreen &aTerminal",
+        description: "",
+        category: "Dungeons",
+        subcategory: "Terminals"
+    })
+    CustomRedGreenTerminal = true
+
+    @CheckboxProperty({
+        name: "&6Start With &aTerminal",
+        description: "",
+        category: "Dungeons",
+        subcategory: "Terminals"
+    })
+    CustomStartWithTerminal = true
+
+    @CheckboxProperty({
+        name: "&2C&3o&4l&5o&6r &aTerminal",
+        description: "",
+        category: "Dungeons",
+        subcategory: "Terminals"
+    })
+    CustomColorsTerminal = true
 
 
 
@@ -1056,19 +1143,19 @@ class Settings {
 		this.setCategoryDescription("Alerts", "&6Toggle &aOn&f/&cOff&f Alerts within this mod")
 
         this.addDependency('&bFOV', '&eCustom &dFOV');
-        this.addDependency('&dE&bS&dP &6Color', '&fDungeon &eMob &6ESP')
+        this.addDependency('&dE&bS&dP &2C&3o&4l&5o&6r', '&fDungeon &eMob &6ESP')
         this.addDependency("&dE&bS&dP &6Mode", "&fDungeon &eMob &6ESP")
-        this.addDependency("Block Overlay &eType", "§n&fBlock Overlay")
-        this.addDependency("Outline Thickness", "§n&fBlock Overlay")
-        this.addDependency("Outline Color", "§n&fBlock Overlay")
-        this.addDependency("Overlay Color", "§n&fBlock Overlay")
-        this.addDependency("&6Show Through Blocks?", "§n&fBlock Overlay")
+        this.addDependency("&9Block Overlay &eType", "§n&9Block Overlay")
+        this.addDependency("Outline Thickness", "§n&9Block Overlay")
+        this.addDependency("Outline &2C&3o&4l&5o&6r", "§n&9Block Overlay")
+        this.addDependency("Overlay &2C&3o&4l&5o&6r", "§n&9Block Overlay")
+        this.addDependency("&6Show Through Blocks?", "§n&9Block Overlay")
         this.addDependency("Announced &6Massage", "Announce &fSpirit &bLeaps")
         this.addDependency("&5P1 &fStart &eTimer", "&cF7/&4M7 &aPhase &dStart &eTimers")
         this.addDependency("&bP2 &fStart &eTimer", "&cF7/&4M7 &aPhase &dStart &eTimers")
         this.addDependency("&7P3 &fStart &eTimer", "&cF7/&4M7 &aPhase &dStart &eTimers")
         this.addDependency("&cP4 &fStart &eTimer", "&cF7/&4M7 &aPhase &dStart &eTimers")
-        this.addDependency("&dWay&bPoint &6Color", "&aChat Coords &d2 WayPoint")
+        this.addDependency("&dWay&bPoint &2C&3o&4l&5o&6r", "&aChat Coords &d2 WayPoint")
         this.addDependency(`§bIcefill §6Solver &2C&3o&4l&5o&6r`, `§bIcefill §6Solver`)
         this.addDependency(`&f&lWhitelist`, `&9&lM&a&la&c&li&d&ln &b&lT&6&lo&e&lg&f&lg&0l&4&le`)
         this.addDependency(`&0&lBlacklist`, `&9&lM&a&la&c&li&d&ln &b&lT&6&lo&e&lg&f&lg&0l&4&le`)
@@ -1083,11 +1170,12 @@ class Settings {
         this.addDependency(`&eCustom &4Scale`, `&6Player &4Scale`)
         this.addDependency(`&aSpin &ediraction`, `&bPlayer &aSpin`)
         this.addDependency(`&sSpin &9speed`, `&bPlayer &aSpin`)
-        this.addDependency("&bSlot &d&lHighlight&r &6Color", "&aCustom &bSlot &d&lHighlight")
+        this.addDependency("&bSlot &d&lHighlight&r &2C&3o&4l&5o&6r", "&aCustom &bSlot &d&lHighlight")
         this.addDependency(`&aDungeon &6Team&amates &6Name&atag &eMode`, `&aDungeon &6Team&amates &6Name&atag`)
         this.addDependency(`&eScale`, `&dCustom &bLeap &6Menu`)
-
-
+        this.addDependency(`&fLight &6Mode?`, "&dCustom &bLeap &6Menu")
+        this.addDependency(`&6Hide &cWrong &5Livids?`, `&5Livid &aSolver`)
+        this.addDependency("&6Boulder &bSolver &2C&3o&4l&5o&6r", "&bBoulder &dSolver")
     }
 }
 
