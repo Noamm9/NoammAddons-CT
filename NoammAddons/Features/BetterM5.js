@@ -39,9 +39,10 @@ const hitBlock = register("hitBlock", (EventBlock, event) => {
 
 
 
-registerWhen(register("step", () => {
-    if (World.getBlockAt(25, 69, 41).type.getID() == 1) DioriteToClay()
-}).setFps(1), () => Settings.BetterM5 && IsInBossRoom() && Dungeon.floorNumber == 5)
+register("step", () => {
+    if (Settings.BetterM5 && IsInBossRoom() && Dungeon.floorNumber == 5)
+        DioriteToClay()
+}).setDelay(5)
 
 registerWhen(packetReceived, () => Settings.BetterM5 && IsInBossRoom() && Dungeon.floorNumber == 5)
 registerWhen(hitBlock, () => Settings.BetterM5 && IsInBossRoom() && Dungeon.floorNumber == 5)

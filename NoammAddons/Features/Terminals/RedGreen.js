@@ -7,7 +7,6 @@ import Settings from "../../Settings"
 import { Render, registerWhen, Color, CoolSound, IsInBossRoom } from "../../utils";
 
 const C0EPacketClickWindow = Java.type("net.minecraft.network.play.client.C0EPacketClickWindow");
-const TermScale = Settings.CustomTerminalMenuScale * 2
 
 let inTerminal = false;
 let cwid = -1;
@@ -20,6 +19,7 @@ const solution = [];
 
 const clickTrigger = register("guiMouseClick", (x, y, button, _0, event) => {
 	cancel(event);
+	const TermScale = Settings.CustomTerminalMenuScale * 2
 	const screenWidth = Renderer.screen.getWidth();
 	const screenHeight = Renderer.screen.getHeight();
 
@@ -52,6 +52,7 @@ const clickTrigger = register("guiMouseClick", (x, y, button, _0, event) => {
 
 const renderTrigger = register(net.minecraftforge.client.event.GuiScreenEvent.DrawScreenEvent.Pre, event => {
 	cancel(event);
+	const TermScale = Settings.CustomTerminalMenuScale * 2
 	const screenWidth = Renderer.screen.getWidth() / TermScale;
 	const screenHeight = Renderer.screen.getHeight() / TermScale;
 
@@ -69,7 +70,7 @@ const renderTrigger = register(net.minecraftforge.client.event.GuiScreenEvent.Dr
     const Darkmode = new Color(33 / 255, 33 / 255, 33 / 255, 1);
 	let SolverColor = Settings.CustomTerminalMenuSolutionColor
     let ColorMode = Darkmode
-	if (Settings.CustomTerminalMenuLightMode) Colormode = Lightmode
+	if (Settings.CustomTerminalMenuLightMode) ColorMode = Lightmode
 
 	Tessellator.pushMatrix()
 
@@ -202,6 +203,9 @@ const S2EPacketCloseWindow = register("packetReceived", () => {
 	clickTrigger.unregister()
 	renderTrigger.unregister()
     S2FPacketSetSlot.unregister()
+	CoolSound()
+	S2EPacketCloseWindow.unregister()
+	C0DPacketCloseWindow.unregister()
     
 }).setFilteredClass(net.minecraft.network.play.server.S2EPacketCloseWindow).unregister();
 
@@ -212,6 +216,8 @@ const C0DPacketCloseWindow = register("packetSent", () => {
 	clickTrigger.unregister()
 	renderTrigger.unregister()
     S2FPacketSetSlot.unregister()
+	S2EPacketCloseWindow.unregister()
+	C0DPacketCloseWindow.unregister()
 
 }).setFilteredClass(net.minecraft.network.play.client.C0DPacketCloseWindow).unregister();
 

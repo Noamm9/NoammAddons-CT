@@ -84,15 +84,10 @@ const hitBlock = register("hitBlock", (EventBlock, event) => {
 
 
 
-register(`chat`, (e) => {
-    if (Settings.BetterM7) {
-        let ChatMessage = ChatLib.getChatMessage(e,false)
-        if (ChatMessage.startsWith(F7PhaseCriterias[0]) && Settings.P1StartTimer) PlaceBlocks()
-        else if (ChatMessage.startsWith(F7PhaseCriterias[1]) && Settings.P2StartTimer) PlaceBlocks()
-        else if (ChatMessage.startsWith(F7PhaseCriterias[2]) && Settings.P3StartTimer) PlaceBlocks()
-        else if (ChatMessage.startsWith(F7PhaseCriterias[3]) && Settings.P4StartTimer) PlaceBlocks()
-    }
-})
+register(`step`, (e) => {
+    if (Settings.BetterM7 && IsInBossRoom() && Dungeon.floorNumber == 7)
+        PlaceBlocks()
+}).setDelay(10)
 
 
 registerWhen(packetReceived, () => World.isLoaded() && Settings.BetterM7 && IsInBossRoom() && Dungeon.floorNumber == 7)
