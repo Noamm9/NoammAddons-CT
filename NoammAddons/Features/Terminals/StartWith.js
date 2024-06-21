@@ -208,7 +208,6 @@ const S2EPacketCloseWindow = register("packetReceived", () => {
 	clickTrigger.unregister()
 	renderTrigger.unregister()
     S2FPacketSetSlot.unregister()
-	CoolSound()
     
 }).setFilteredClass(net.minecraft.network.play.server.S2EPacketCloseWindow).unregister();
 
