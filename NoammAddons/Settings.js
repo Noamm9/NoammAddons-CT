@@ -1051,7 +1051,7 @@ class Settings {
         category: "Dungeons",
         subcategory: "Terminals"
     })
-    CustomTerminalMenuScale = 1;
+    CustomTerminalMenuScale = 0.5;
 
     @CheckboxProperty({
         name: "&fLight &6Mode?",
@@ -1068,23 +1068,6 @@ class Settings {
         subcategory: "Terminals"
     })
     CustomTerminalMenuSolutionColor = new Color(0, 114/255, 1, 1)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     @CheckboxProperty({
         name: "&dMelody &aTerminal",
