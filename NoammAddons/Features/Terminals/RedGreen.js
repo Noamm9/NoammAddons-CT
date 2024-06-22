@@ -4,9 +4,8 @@
 
 import Dungeon from "../../../BloomCore/dungeons/Dungeon";
 import Settings from "../../Settings"
-import { Render, registerWhen, Color, CoolSound, IsInBossRoom } from "../../utils";
+import { Render, registerWhen, Color, CoolSound, IsInBossRoom, PreGuiRenderEvent, C0EPacketClickWindow } from "../../utils";
 
-const C0EPacketClickWindow = Java.type("net.minecraft.network.play.client.C0EPacketClickWindow");
 
 let inTerminal = false;
 let cwid = -1;
@@ -50,7 +49,7 @@ const clickTrigger = register("guiMouseClick", (x, y, button, _0, event) => {
 	}
 }).unregister();
 
-const renderTrigger = register(net.minecraftforge.client.event.GuiScreenEvent.DrawScreenEvent.Pre, event => {
+const renderTrigger = register(PreGuiRenderEvent, event => {
 	cancel(event);
 	const TermScale = Settings.CustomTerminalMenuScale * 2
 	const screenWidth = Renderer.screen.getWidth() / TermScale;

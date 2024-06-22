@@ -11,6 +11,7 @@ const renderTrigger = register("renderEntity", (entity, _, partialTicks, event) 
 	if (entity.getClassName() !== "EntityItem") return
 	if (entity.isDead()) return;
 	if (!DungeonSecretsItems.includes(ChatLib.removeFormatting(entity.entity.func_92059_d().func_82833_r()))) return
+	cancel(event)
 
 	const distance = entity.distanceTo(Player.getPlayer())
 	const x = entity.getRenderX()
@@ -25,7 +26,6 @@ const renderTrigger = register("renderEntity", (entity, _, partialTicks, event) 
     else Render.FilledOutLineBox(x, y, z, 0.5, 0.5, 1, 0, 0, 20/100, true) // Can't be picked up cuz too far away
 	
 	Tessellator.enableLighting()
-    cancel(event)
 })
 
 

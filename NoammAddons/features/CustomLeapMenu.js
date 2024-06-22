@@ -3,7 +3,7 @@
 
 
 import Settings from "../Settings";
-import { clickSlot, colorClass, Render, Color, registerWhen, CoolSound } from "../utils"
+import { clickSlot, colorClass, Render, Color, registerWhen, PreGuiRenderEvent } from "../utils"
 
 const MCTessellator = Java.type("net.minecraft.client.renderer.Tessellator")
 const PlayerComparator = Java.type("net.minecraft.client.gui.GuiPlayerTabOverlay").PlayerComparator
@@ -14,7 +14,7 @@ const sorter = c.newInstance()
 let players = [];
 
 
-const cancelRenderTrigger = register(net.minecraftforge.client.event.GuiScreenEvent.DrawScreenEvent.Pre, event => {
+const cancelRenderTrigger = register(PreGuiRenderEvent, event => {
     if (players.length) cancel(event)
 }).unregister()
 
@@ -140,7 +140,6 @@ function ClickLogic(x, y, event) {
 
     clickSlot(players[index].slot, 0)
     Player.getPlayer().func_71053_j()
-    CoolSound()
 }
 
 

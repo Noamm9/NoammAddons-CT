@@ -7,6 +7,8 @@ import Dungeon from "../BloomCore/dungeons/Dungeon"
 import PogObject from "../PogData/index.js"
 export const BlockPoss = Java.type("net.minecraft.util.BlockPos")
 export const MouseEvent = Java.type("net.minecraftforge.client.event.MouseEvent")
+export const PreGuiRenderEvent = net.minecraftforge.client.event.GuiScreenEvent.DrawScreenEvent.Pre
+export const C0EPacketClickWindow = Java.type("net.minecraft.network.play.client.C0EPacketClickWindow")
 export const gc = (text) => ChatLib.getCenteredText(text) // getCentered
 export const cc = (text) => ChatLib.chat(gc(text)) // centerChat
 export const prefix = "§6§l[§b§lN§d§lA§6§l]§r"

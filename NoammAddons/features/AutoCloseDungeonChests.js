@@ -3,9 +3,9 @@
 
 
 import Settings from "../Settings"
-import { Render, IsInDungeon, DungeonSecretsItems } from "../utils"
+import { Render, IsInDungeon, DungeonSecretsItems, PreGuiRenderEvent } from "../utils"
 const C0DPacketCloseWindow = Java.type("net.minecraft.network.play.client.C0DPacketCloseWindow")
-const PreGuiRenderEvent = net.minecraftforge.client.event.GuiScreenEvent.DrawScreenEvent.Pre
+
 
 
 register(PreGuiRenderEvent, (event) => {

@@ -31,7 +31,7 @@ const Trigger = register(MouseEvent, (event) => {
 
     if (!Player.isSneaking()) return
 
-    Client.scheduleTask(1, () => PlayerUtils.Click(`right`))
+    PlayerUtils.Click(`right`)
 
 }).unregister()
 

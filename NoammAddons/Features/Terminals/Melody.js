@@ -4,7 +4,7 @@
 
 import Dungeon from "../../../BloomCore/dungeons/Dungeon";
 import Settings from "../../Settings"
-import { Render, registerWhen, clickSlot, Color, CoolSound, IsInBossRoom } from "../../utils";
+import { Render, registerWhen, clickSlot, Color, IsInBossRoom, PreGuiRenderEvent, CoolSound } from "../../utils";
 
 
 let cwid = -1;
@@ -44,7 +44,7 @@ const clickTrigger = register("guiMouseClick", (x, y, button, _0, event) => {
 	
 }).unregister();
 
-const renderTrigger = register(net.minecraftforge.client.event.GuiScreenEvent.DrawScreenEvent.Pre, event => {
+const renderTrigger = register(PreGuiRenderEvent, event => {
 	cancel(event);
 	const TermScale = Settings.CustomTerminalMenuScale * 2
 	const screenWidth = Renderer.screen.getWidth() / TermScale;
@@ -170,6 +170,7 @@ const S2EPacketCloseWindow = register("packetReceived", () => {
     S2FPacketSetSlot.unregister()
 	S2EPacketCloseWindow.unregister()
 	C0DPacketCloseWindow.unregister()
+	CoolSound()
 
 }).setFilteredClass(net.minecraft.network.play.server.S2EPacketCloseWindow).unregister();
 
