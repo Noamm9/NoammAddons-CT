@@ -3,7 +3,7 @@
 
 
 import Settings from "../Settings"
-import { EntityArmorStand, getRoomCenter, getCurrentRoom, getObjectXYZ } from "../../BloomCore/utils/Utils"
+import { EntityArmorStand, getRoomCenter, getObjectXYZ } from "../../BloomCore/utils/Utils"
 import { Render, registerWhen, convertToRealCoords, IsInDungeon, IsInBossRoom, ModMessage, WitherDoorsOffsets, intToRGB } from "../utils";
 
 
@@ -41,30 +41,31 @@ let inWeirdos = false
 
 
 register("step", () => {
-    if (!IsInDungeon() || IsInBossRoom()) return
+    if (!IsInDungeon() || IsInBossRoom() ) return
+    try {
+        let rotation = null
+        let [x, z] = getRoomCenter()
+        for (let i = 0; i < WitherDoorsOffsets.length; i++) {
+            let [dx, dz] = WitherDoorsOffsets[i]
+            let block = World.getBlockAt(x+dx, 68, z+dz)
+            let blockID = block.type.getID()
+            if (!blockID) continue
 
-    let rotation = null
-    let [x, z] = getRoomCenter()
-    for (let i = 0; i < WitherDoorsOffsets.length; i++) {
-        let [dx, dz] = WitherDoorsOffsets[i]
-        let block = World.getBlockAt(x+dx, 68, z+dz)
-        let blockID = block.type.getID()
-        if (!blockID) continue
-        if (blockID !== 0 && rotation !== null) return 
+            rotation = i*90
 
-        rotation = i*90
-        
-    }
+        }
 
-    if (rotation == null) return
 
-    const [x0, y0, z0] = redstoneLocation
-    const [x1, y1, z1] = convertToRealCoords(x0, y0, z0, x, z, rotation)
 
-    try {inWeirdos = World.getBlockAt(x1, 69, z1).type.getRegistryName() == "minecraft:redstone_wire"} catch (error) {}
+        const [x0, y0, z0] = redstoneLocation
+        const [x1, y1, z1] = convertToRealCoords(x0, y0, z0, x, z, rotation)
+
+        if (World.getBlockAt(x1, 69, z1).type.getRegistryName() == "minecraft:redstone_wire") inWeirdos = true
+        else inWeirdos = false
+
 
     
-	
+    } catch (e) {}
 }).setFps(1)
 
 
@@ -89,6 +90,14 @@ register("chat", (event) => {
     if (!IsInDungeon() || !Settings.ThreeWeirdosSolver|| !inWeirdos) return
 
     const message = ChatLib.getChatMessage(event).removeFormatting()
+
+    if (new RegExp("PUZZLE SOLVED! (\w+) wasn't fooled by (\w+)! Good job!", "").test(message)) {
+        correctChests.clear()
+        incorrectChests.clear()
+        setTimeout(() => inWeirdos = false, 5000)
+        return
+    }
+
     const match = message.match(/\[NPC\] (\w+): (.+)/)
     if (!match) return
 
@@ -115,16 +124,17 @@ register("chat", (event) => {
 
 function highlightChest(coord, red, green, blue, alpha) {
     let [x, y, z] = coord
-    Render.FilledOutLineBox(x+0.5, y, z+0.5, 1, 1, red, green, blue, alpha, false)
+    Render.FilledOutLineBox(x+0.5, y-0.1, z+0.5, 1, 1, red, green, blue, alpha, true)
 }
 
 
 registerWhen(register("renderWorld", () => {
     correctChests.forEach((v) => {
-        highlightChest(v, ...intToRGB(ThreeWeirdosSolverColor.getRGB(), true))
-        Render.StringWithShadow("CLICK ME!", v[0]+0.5, v[1] + 1.75, v[2]+0.5, Renderer.color(...intToRGB(ThreeWeirdosSolverColor.getRGB(), true)), 2, true)
+        let [r, g, b, a] = intToRGB(Settings.ThreeWeirdosSolverColor.getRGB(), true)
+        highlightChest(v, r/255, g/255, b/255, a/255)
+        Render.StringWithShadow("CLICK ME!", v[0]+0.5, v[1] + 1.75, v[2]+0.5, Renderer.color(r, g, b, a), 2, true)
     })
-    incorrectChests.forEach((v) => highlightChest(v, 1, 0, 0, 0.35))
+    incorrectChests.forEach((v) => highlightChest(v, 1, 0, 0, 0.20))
 }), () => inWeirdos)
 
 

@@ -2,14 +2,13 @@
 new BlockType(144).getDefaultState().func_177230_c().func_149676_a(0, 0, 0, 1, 1 ,1)
 new BlockType(397).getDefaultState().func_177230_c().func_149676_a(0, 0, 0, 1, 1 ,1)
 
-// Hud
+
 import "./Features/BonzoMaskTimer"
 import "./Features/SpiritMaskTimer"
 import "./Features/PhoenixPetTimer"
 import "./Features/LegitGhostPick"
 import "./Features/FPSdisplay"
 import "./Features/ClockDisplay"
-
 import "./Features/RemoveSelfieCam"
 import "./Features/CustomFOV"
 import "./Features/IHATEDIORITE" 
@@ -59,21 +58,15 @@ import "./Features/WardrodeHelper"
 import "./Features/ColorSecrets"
 import "./Features/TraceKeys"
 import "./Features/ShadowAssasianAlert"
-
-
 import "./Features/BetterM5"
 import "./Features/BetterM6"
 import "./Features/BetterM7"
-
-// Solvers
 import "./Features/iceFillSolver"
 import "./Features/BoulderSolver"
 import "./Features/ThreeWeirdosSolver"
 import "./Features/BlazeSolver"
 import "./Features/LividSolver"
 import "./Features/AutoI4"
-
-// Terminals
 import "./Features/Terminals/Melody"
 import "./Features/Terminals/Numbers"
 import "./Features/Terminals/Rubix"
@@ -100,10 +93,3 @@ import "./Features/PingCommand"
 
 // import "./TODO/NecronDroppingTimer"   // Moved to F7PhaseStartTimers
 // import "./TODO/IHATECARPETS" // thx Hypixel for fixing it ):
-
-function RickRoll() {
-    const Desktop = Java.type('java.awt.Desktop');
-    const URI = Java.type('java.net.URI');
-    
-    if (Desktop.isDesktopSupported()) Desktop.getDesktop().browse(new URI("https://www.youtube.com/watch?v=dQw4w9WgXcQ"));
-}

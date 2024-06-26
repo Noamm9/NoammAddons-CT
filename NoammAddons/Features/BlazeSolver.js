@@ -3,7 +3,7 @@
 
 
 import Settings from "../Settings"
-import { Render, registerWhen, prefix, convertToRealCoords, IsInDungeon, IsInBossRoom, WitherDoorsOffsets, intToRGB } from "../utils"; 
+import { Render, registerWhen, prefix, convertToRealCoords, IsInDungeon, IsInBossRoom, WitherDoorsOffsets, intToRGB, ModMessage } from "../utils"; 
 import { EntityArmorStand, EntityBlaze, getEntityXYZ, getRoomCenter } from "../../BloomCore/utils/Utils"
 
 const roomCoords = [
@@ -88,6 +88,8 @@ register("tick", () => {
 
         lastBlazeCount = 0
 
+        ChatLib.command(`pc ${prefix.removeFormatting()} Blaze Puzzle took &b${Math.floor((Date.now() - blazeStarted)/10)/100}s`)
+
         return
     }
 
@@ -113,8 +115,7 @@ registerWhen(register("renderEntity", (entity, pos, pt, event) => {
 registerWhen(register("renderWorld", () => {
     blazes.forEach((entity, i) => {
         let [r, g, b, a] = i == 0 ? intToRGB(Settings.BlazeSolverFirstBlazeColor.getRGB(), true) : i == 1 ? intToRGB(Settings.BlazeSolverSecondBlazeColor.getRGB(), true) : intToRGB(Settings.BlazeSolverThirdBlazeColor.getRGB(), true)
-        Render.FilledOutLineBox(entity.getX(), entity.getY()-2, entity.getZ(), 1.2, 1.8, r, g, b, a, false)
-
+        Render.FilledOutLineBox(entity.getX(), entity.getY()-2, entity.getZ(), 1.2, 1.8, r/255, g/255, b/255, a/255, false)
 
         if (i > 0 && i <= 2) {
             let [x0, y0, z0] = getEntityXYZ(blazes[i-1])
