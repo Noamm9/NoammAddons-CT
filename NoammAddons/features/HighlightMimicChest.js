@@ -2,15 +2,10 @@
 /// <reference lib="es2015" />
 
 
-import { getTESkullID } from "../../BloomCore/utils/Utils"
 import Settings from "../Settings"
+import { IsInDungeon, Render, registerWhen } from "../utils"
 
-import { IsInDungeon, ModMessage, Render, registerWhen } from "../utils"
 const TileEntityChest = Java.type("net.minecraft.tileentity.TileEntityChest")
-
-function StartOrStop() {
-    return Settings.HighlightMinicChest && IsInDungeon()
-}
 
 
 function getTrappedChests() {
@@ -19,22 +14,22 @@ function getTrappedChests() {
 }
 
 
-const trigger = register(`renderWorld`, (pt) => {
+const trigger = register(`renderWorld`, () => {
 
-    const test = getTrappedChests()
+    const TrappedChestsCoords = getTrappedChests()
 
-    if (!test) return
-    const arr = Array.from(test);
+    if (!TrappedChestsCoords) return
+    const TrappedChestsCoordsArray = Array.from(TrappedChestsCoords);
 
-    arr.forEach((key) => {
+    TrappedChestsCoordsArray.forEach((key) => {
         const [X, Y, Z] =  key
 
-        Render.FilledOutLineBox(X+0.5, Y + 0.01, Z+0.5, 1, 1-0.01, 255/255, 60/255, 60/255, 25/100, false)
-        Render.StringWithShadow("Mimic", X+0.5, Y + 2, Z+0.5, Renderer.color(255, 60, 60), 2, false)
+        Render.FilledOutLineBox(X+0.5, Y + 0.01, Z+0.5, 1, 1-0.01, 255/255, 60/255, 60/255, 25/100, true)
+        Render.StringWithShadow("Mimic", X+0.5, Y + 2, Z+0.5, Renderer.color(255, 60, 60), 2, true)
     })
 
 })
 
 
 
-registerWhen(trigger, StartOrStop)
+registerWhen(trigger, () => Settings.HighlightMinicChest && IsInDungeon())

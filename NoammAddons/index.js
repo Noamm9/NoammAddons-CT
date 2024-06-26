@@ -2,13 +2,14 @@
 new BlockType(144).getDefaultState().func_177230_c().func_149676_a(0, 0, 0, 1, 1 ,1)
 new BlockType(397).getDefaultState().func_177230_c().func_149676_a(0, 0, 0, 1, 1 ,1)
 
-
+// Hud
 import "./Features/BonzoMaskTimer"
 import "./Features/SpiritMaskTimer"
 import "./Features/PhoenixPetTimer"
 import "./Features/LegitGhostPick"
 import "./Features/FPSdisplay"
 import "./Features/ClockDisplay"
+
 import "./Features/RemoveSelfieCam"
 import "./Features/CustomFOV"
 import "./Features/IHATEDIORITE" 
@@ -41,8 +42,6 @@ import "./Features/TimerChanger"
 import "./Features/InventorySearchBar"
 import "./Features/HealerWish"
 import "./Features/PartyCommands"
-import "./Features/iceFillSolver"
-import "./Features/AutoI4"
 import "./Features/NewF7Titles"
 import "./Features/AutoCloseDungeonChests"
 import "./Features/SecretSound"
@@ -52,26 +51,36 @@ import "./Features/AbilityKeybinds"
 import "./Features/NoBlindness"
 import "./Features/LeftClickEtherWarp"
 import "./Features/GyroCircle"
-import "./Features/MelodyAlert"
 import "./Features/HideLightning"
 import "./Features/HighlightMimicChest"
 import "./Features/BlockGloomlockDeath"
-import "./Features/BetterM5"
-import "./Features/BetterM6"
-import "./Features/BetterM7"
 import "./Features/BlurBackground"
 import "./Features/WardrodeHelper"
 import "./Features/ColorSecrets"
 import "./Features/TraceKeys"
+import "./Features/ShadowAssasianAlert"
+
+
+import "./Features/BetterM5"
+import "./Features/BetterM6"
+import "./Features/BetterM7"
+
+// Solvers
+import "./Features/iceFillSolver"
 import "./Features/BoulderSolver"
+import "./Features/ThreeWeirdosSolver"
+import "./Features/BlazeSolver"
 import "./Features/LividSolver"
+import "./Features/AutoI4"
+
+// Terminals
 import "./Features/Terminals/Melody"
 import "./Features/Terminals/Numbers"
 import "./Features/Terminals/Rubix"
 import "./Features/Terminals/RedGreen"
 import "./Features/Terminals/StartWith"
 import "./Features/Terminals/Colors"
-import "./Features/ShadowAssasianAlert"
+import "./Features/MelodyAlert"
 
 
 import "./AutoUpDater"
@@ -80,7 +89,8 @@ import "./Features/PingCommand"
 
 
 
-import "./TODO/TestGround"
+//import "./TODO/TestGround"
+
 // import "./TODO/ExtractMinecraftChat"
 
 // import "./TODO/CustomItemToolTip" // WIP
@@ -91,4 +101,9 @@ import "./TODO/TestGround"
 // import "./TODO/NecronDroppingTimer"   // Moved to F7PhaseStartTimers
 // import "./TODO/IHATECARPETS" // thx Hypixel for fixing it ):
 
-
+function RickRoll() {
+    const Desktop = Java.type('java.awt.Desktop');
+    const URI = Java.type('java.net.URI');
+    
+    if (Desktop.isDesktopSupported()) Desktop.getDesktop().browse(new URI("https://www.youtube.com/watch?v=dQw4w9WgXcQ"));
+}

@@ -4,7 +4,7 @@
 import RenderLib from "../RenderLib"
 import { renderBoxFromCorners } from "../BloomCore/RenderUtils"
 import Dungeon from "../BloomCore/dungeons/Dungeon"
-import PogObject from "../PogData/index.js"
+import PogObject from "../PogData"
 export const BlockPoss = Java.type("net.minecraft.util.BlockPos")
 export const MouseEvent = Java.type("net.minecraftforge.client.event.MouseEvent")
 export const PreGuiRenderEvent = net.minecraftforge.client.event.GuiScreenEvent.DrawScreenEvent.Pre
@@ -13,9 +13,10 @@ export const gc = (text) => ChatLib.getCenteredText(text) // getCentered
 export const cc = (text) => ChatLib.chat(gc(text)) // centerChat
 export const prefix = "§6§l[§b§lN§d§lA§6§l]§r"
 export const Color = Java.type("java.awt.Color")
-export const Font = Java.type("xyz.forkdev.fontlib.Font")
 const dungeonSecrets = JSON.parse(FileLib.read(`Noammaddons`, "RandomShit/DungeonSecretsItems.json"))
 export const DungeonSecretsItems = dungeonSecrets.items
+const Desktop = Java.type('java.awt.Desktop');
+const URI = Java.type('java.net.URI');
 const BufferUtils = Java.type("org.lwjgl.BufferUtils")
 const Project = Java.type("org.lwjgl.util.glu.Project")
 const modelViewMatrix = BufferUtils.createFloatBuffer(16)
@@ -34,12 +35,47 @@ const regCylinder = new org.lwjgl.util.glu.Cylinder()
 const lineCylinder = new org.lwjgl.util.glu.Cylinder()
 lineCylinder.drawStyle = org.lwjgl.util.glu.GLU.GLU_LINE
 
+/**
+ * A collection of boss room messages for floor 7.
+ * @type {Array<string>}
+ */
 export const F7PhaseCriterias = [
   `[BOSS] Maxor: WELL! WELL! WELL! LOOK WHO'S HERE!`,
   `[BOSS] Maxor: I'M TOO YOUNG TO DIE AGAIN!`,
   `[BOSS] Storm: I should have known that I stood no chance.`,
   `[BOSS] Necron: I'm afraid, your journey ends now.`
 ]
+
+
+/**
+ * A collection of coordinates representing the offsets of wither doors in a dungeon 1x1 room.
+ * Each offset is represented as an array of two numbers: [x, z].
+*/
+export const WitherDoorsOffsets = [
+  [0, -16],
+  [16, 0],
+  [0, 16],
+  [-16, 0]
+]
+
+
+
+/**
+ * Function to open the Rick Roll video in the default web browser.
+ * This function is only supported on desktop environments.
+ * 
+ * @throws {Error} If the desktop environment is not supported.
+ * @returns {void}
+ */
+export function RickRoll() {
+  // Check if the desktop environment is supported
+  if (!Desktop.isDesktopSupported()) {
+    throw new Error("Desktop environment is not supported.");
+  }
+
+  // Open the Rick Roll video in the default web browser
+  Desktop.getDesktop().browse(new URI("https://www.youtube.com/watch?v=dQw4w9WgXcQ"));
+}
 
 
 /**
@@ -53,6 +89,7 @@ export function Alert(string, TimeUp) {
   )
 }
 
+
 /**
  * Creates a Minecraft block state for a given block ID and variant.
  * @param {number} id - The ID of the block.
@@ -63,6 +100,7 @@ export function MCBlockState(id, variant) {
   return new BlockType(id).mcBlock.func_176203_a(variant)
 }
 
+
 /**
  * Plays a sequence of "Pling" sounds with increasing pitch.
  */
@@ -72,6 +110,7 @@ export function CoolSound() {
   setTimeout(() => World.playSound("note.pling", 1, 1.782), 300)
 }
 
+
 /**
  * Sets a block at the specified position to air.
  * @param {BlockPos} MCBlockPoss - The position of the block
@@ -79,6 +118,7 @@ export function CoolSound() {
 export function setAir(MCBlockPoss) {
   World.getWorld().func_175698_g(MCBlockPoss)
 }  
+
 
 /**
  * Replaces a block at the specified position with a ghost block.
@@ -90,6 +130,7 @@ export function GhostBlock(MCBlockPoss, MCBlockState) {
     return World.getWorld().func_175656_a(MCBlockPoss, MCBlockState);
   } catch (error) {ModMessage(prefix + error)}
 }
+
 
 /**
  * Sends a mod message to the chat with a prefix.
@@ -114,6 +155,7 @@ export function colorClass(className) {
 	else if (className.includes("mage")) return "§b";
 	else return "§7";
 }
+
 
 /**
  * clicks on a slot in the player's container.
@@ -288,10 +330,66 @@ export function IsInBossRoom() {
 }
 
 
+/**
+ * Checks if the player is currently in a dungeon.
+ *
+ * @returns {boolean} True if the player is in a dungeon, false otherwise.
+ */
 export function IsInDungeon() {
   return Dungeon.inDungeon
 }
 
+
+/**
+* Rotates a set of coordinates clockwise.
+* @param {[Number, Number, Number]} coordinates 
+* @param {Number} degree - Angle in 90 degree intervals 
+* @returns 
+*/
+const rotateCoords = ([x, y, z], degree) => {
+  if (degree < 0) degree = degree + 360
+
+  if (degree == 0) return [x, y, z]
+  if (degree == 90) return [z, y, -x]
+  if (degree == 180) return [-x, y, -z]
+  if (degree == 270) return [-z, y, x]
+  return [x, y, z]
+}
+
+
+/**
+ * Converts real coordinates to room coordinates.
+ *
+ * @param {number} x - The X coordinate in the real world.
+ * @param {number} y - The Y coordinate in the real world.
+ * @param {number} z - The Z coordinate in the real world.
+ * @param {number} roomX - The X coordinate of the room.
+ * @param {number} roomZ - The Z coordinate of the room.
+ * @param {number} roomRotation - The rotation of the room in degrees.
+ *
+ * @returns {Array} - An array containing the converted room coordinates [rx, ry, rz].
+ */
+export const convertToRealCoords = (x, y, z, roomX, roomZ, roomRotation) => {
+  let [rx, ry, rz] = rotateCoords([x, y, z], 360 - roomRotation)
+  return [rx+roomX, ry, rz+roomZ]
+}
+
+
+/**
+ * Converts real coordinates to room coordinates.
+ *
+ * @param {number} x - The x-coordinate in the real world.
+ * @param {number} y - The y-coordinate in the real world.
+ * @param {number} z - The z-coordinate in the real world.
+ * @param {number} roomX - The x-coordinate of the room center.
+ * @param {number} roomZ - The z-coordinate of the room center.
+ * @param {number} roomRotation - The rotation of the room in degrees.
+ *
+ * @returns {Array} - An array containing the converted room coordinates [x, y, z].
+ */
+export function convertToRoomCoords(x, y, z, roomX, roomZ, roomRotation) {
+  return rotateCoords([x - roomX, y, z - roomZ], roomRotation)
+}
 
 
 /**
@@ -309,19 +407,28 @@ export function rgbToColorInt(red, green, blue, alpha = 255) {
 }
 
 
+
 /**
  * Converts an integer color value to an array of RGB color values.
  *
  * @param {number} color - The integer color value.
- * @returns {Array} - An array containing the RGB color values as [r, g, b], where each value is normalized to the range [0 - 1].
+ * @param {boolean} [Alpha=false] - Whether to include the alpha (transparency) value in the returned array.
+ * @returns {Array} - An array containing the RGB color values as [r, g, b, a], where each value is normalized to the range [0 - 1].
+ * If Alpha is false, the returned array will only contain the RGB values.
  */
-export function intToRGB(color) {
+export function intToRGB(color, Alpha = false) {
   const r = (color >> 16) & 0xFF;
   const g = (color >> 8) & 0xFF;
   const b = color & 0xFF;
-  
-  return [r, g, b];
+
+  if (Alpha) {
+    const a = (color >> 24) & 0xFF;
+    return [r, g, b, a];
+  }
+
+  else return [r, g, b];
 }
+
 
 
 /**
@@ -436,7 +543,7 @@ export class Render {
   /**
    * Draws a 3D box from the given block's corners.
    *
-   * @param {BlockPos} ctBlock - The block position to draw the box from.
+   * @param {Block} ctBlock - The block position to draw the box from.
    * @param {number} r - The red color value for the box.
    * @param {number} g - The green color value for the box.
    * @param {number} b - The blue color value for the box.
