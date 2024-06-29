@@ -1406,6 +1406,15 @@ class Settings {
         this.addDependency("&aRed &cGreen &aTerminal", "&dCustom Terminal Guis")
         this.addDependency("&6Start With &aTerminal", "&dCustom Terminal Guis")
         this.addDependency("&2C&3o&4l&5o&6r&r &aTerminal", "&dCustom Terminal Guis")
+        this.addDependency("First Slot Keybind", "&a&lWardrobe &6&lHelper")
+        this.addDependency('Second Slot Keybind', "&a&lWardrobe &6&lHelper")
+        this.addDependency("Third Slot Keybind", "&a&lWardrobe &6&lHelper")
+        this.addDependency("Fourth Slot Keybind", "&a&lWardrobe &6&lHelper")
+        this.addDependency("Fifth Slot Keybind", "&a&lWardrobe &6&lHelper")
+        this.addDependency("Sixth Slot Keybind", "&a&lWardrobe &6&lHelper")
+        this.addDependency("Seventh Slot Keybind", "&a&lWardrobe &6&lHelper")
+        this.addDependency("Eighth Slot Keybind", "&a&lWardrobe &6&lHelper")
+        this.addDependency("Ninth Slot Keybind", "&a&lWardrobe &6&lHelper")
 
     }
 }
