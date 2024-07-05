@@ -1,0 +1,15 @@
+{
+    "$schema": "../CTAutocomplete/schema.json",
+    "name": "&bNoamm&dAddons",
+    "description": "A cool mod that add the features i like the game to have.",
+    "version": "1.0.0",
+    "author": "Noamm9",
+    "entry": "index.js",
+    "asmEntry": "asm/asm.js",
+    "requires": [
+    "BloomCore",
+    "RenderLib",
+  	"Vigilance",
+	  "PogData"
+  ]
+}
