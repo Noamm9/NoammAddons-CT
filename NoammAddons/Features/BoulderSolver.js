@@ -3,7 +3,7 @@
 
 
 import Settings from "../Settings"
-import { IsInBossRoom, IsInDungeon, ModMessage, Render, registerWhen } from "../utils";
+import { IsInBossRoom, IsInDungeon, ModMessage, Render, prefix, registerWhen } from "../utils";
 import { getRoomCenter, getCurrentRoom } from "../../BloomCore/utils/Utils"
 const solutions = JSON.parse(FileLib.read("NoammAddons", "RandomShit/BoulderSolutions.json"))
 
@@ -166,7 +166,6 @@ onPuzzleRotation((rotation, posIndex) => {
 
     if (!currentSolution) return ModMessage(`&bBoulder room variant not found in the data`)
 
-    ModMessage(`&bBoulder room detected`)
     hasSolution = true
 
     currentSolution?.forEach(coord => {
@@ -201,7 +200,10 @@ function onBlockPlacement(block) {
     if (!World.isLoaded() || !IsInDungeon() || !enteredRoomAt) return
 
     if (block.type.mcBlock === net.minecraft.init.Blocks.field_150486_ae) {
-        if (enteredRoomAt) ModMessage(`&dBoulder took&f: &6${((Date.now() - enteredRoomAt) / 1000).toFixed(2)}s`)
+        if (enteredRoomAt) {
+            ModMessage(`&dBoulder took&f: &6${((Date.now() - enteredRoomAt) / 1000).toFixed(2)}s`)
+            ChatLib.command(`pc ${prefix.removeFormatting()} Boulder took: ${((Date.now() - enteredRoomAt) / 1000).toFixed(2)}s`)
+        }
         puzzleDone = true
 
         reset()

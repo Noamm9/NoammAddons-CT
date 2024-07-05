@@ -3,7 +3,7 @@
 
 
 import Settings from "../Settings"
-import { BlockPoss, setAir, IsInDungeon, LegitGhostPickGUIdata } from "../utils"
+import { BlockPoss, setAir, IsInDungeon, LegitGhostPickGUIdata, registerWhen } from "../utils"
 import { MainGUI } from "../EditGui"
 
 export let Toggle = false 

@@ -41,8 +41,8 @@ const clickTrigger = register("guiMouseClick", (x, y, button, _0, event) => {
 	if (slot >= windowSize) return;
 
     if (solution.indexOf(slot) === 0) {
-		predict(slot, 0);
 
+		predict(slot, 0);
 		if (clicked) queue.push([slot, 0]);
 		else click(slot, 0);
 		
@@ -209,29 +209,27 @@ const S2FPacketSetSlot = register("packetReceived", (packet, event) => {
 
 }).setFilteredClass(net.minecraft.network.play.server.S2FPacketSetSlot).unregister();
 
+
 const S2EPacketCloseWindow = register("packetReceived", () => {
 
-    inTerminal = false;
-	queue.length = 0
-	clickTrigger.unregister()
-	renderTrigger.unregister()
-    S2FPacketSetSlot.unregister()
-	S2EPacketCloseWindow.unregister()
-	C0DPacketCloseWindow.unregister()
+	Reset()
 	CoolSound()
     
 }).setFilteredClass(net.minecraft.network.play.server.S2EPacketCloseWindow).unregister();
 
-const C0DPacketCloseWindow = register("packetSent", () => {
-    inTerminal = false;
-	queue.length = 0
+const C0DPacketCloseWindow = register("packetSent", setTimeout(Reset, 100)).setFilteredClass(net.minecraft.network.play.client.C0DPacketCloseWindow).unregister();
+
+
+function Reset() {
+
 	clickTrigger.unregister()
 	renderTrigger.unregister()
     S2FPacketSetSlot.unregister()
 	S2EPacketCloseWindow.unregister()
 	C0DPacketCloseWindow.unregister()
-
-}).setFilteredClass(net.minecraft.network.play.client.C0DPacketCloseWindow).unregister();
+	inTerminal = false;
+	queue.length = 0
+}
 
 
 

@@ -164,25 +164,23 @@ const GuiOpened = register("packetReceived", (packet, event) => {
 
 
 const S2EPacketCloseWindow = register("packetReceived", () => {
-	
-	clickTrigger.unregister()
-	renderTrigger.unregister()
-    S2FPacketSetSlot.unregister()
-	S2EPacketCloseWindow.unregister()
-	C0DPacketCloseWindow.unregister()
-	CoolSound()
 
+	Reset()
+	CoolSound()
+    
 }).setFilteredClass(net.minecraft.network.play.server.S2EPacketCloseWindow).unregister();
 
-const C0DPacketCloseWindow = register("packetSent", () => {
+const C0DPacketCloseWindow = register("packetSent", setTimeout(Reset, 100)).setFilteredClass(net.minecraft.network.play.client.C0DPacketCloseWindow).unregister();
+
+
+function Reset() {
+
 	clickTrigger.unregister()
 	renderTrigger.unregister()
     S2FPacketSetSlot.unregister()
 	S2EPacketCloseWindow.unregister()
 	C0DPacketCloseWindow.unregister()
 
-}).setFilteredClass(net.minecraft.network.play.client.C0DPacketCloseWindow).unregister();
-
-
+}
 
 registerWhen(GuiOpened, () => Settings.CustomTerminalsGui && Settings.CustomMelodyTerminal, Dungeon.floorNumber == 7, IsInBossRoom())

@@ -202,28 +202,24 @@ const S2FPacketSetSlot = register("packetReceived", (packet, event) => {
 
 const S2EPacketCloseWindow = register("packetReceived", () => {
 
-	inTerminal = false
-	queue.length = 0
-	clickTrigger.unregister()
-	renderTrigger.unregister()
-    S2FPacketSetSlot.unregister()
+	Reset()
 	CoolSound()
-	S2EPacketCloseWindow.unregister()
-	C0DPacketCloseWindow.unregister()
     
 }).setFilteredClass(net.minecraft.network.play.server.S2EPacketCloseWindow).unregister();
 
+const C0DPacketCloseWindow = register("packetSent", setTimeout(Reset, 100)).setFilteredClass(net.minecraft.network.play.client.C0DPacketCloseWindow).unregister();
 
-const C0DPacketCloseWindow = register("packetSent", () => {
-    inTerminal = false
-	queue.length = 0
+
+function Reset() {
+
 	clickTrigger.unregister()
 	renderTrigger.unregister()
     S2FPacketSetSlot.unregister()
 	S2EPacketCloseWindow.unregister()
 	C0DPacketCloseWindow.unregister()
-
-}).setFilteredClass(net.minecraft.network.play.client.C0DPacketCloseWindow).unregister();
+	inTerminal = false;
+	queue.length = 0
+}
 
 
 

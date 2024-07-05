@@ -5,7 +5,6 @@
 import Settings from "../Settings"
 
 
-
 let InfoText = new Text(` `).setShadow(true).setFormatted(true).setScale(2)
 let terminalInfo
 let StartTime
@@ -16,8 +15,6 @@ const progressRegex = /\d+\/\d+/
 
 
 const StartRegister = register(`chat`, (event) => {
-	if (!Settings.CleanTitles) return
-
 	try {
 		let msg = ChatLib.getChatMessage(event, false)
 		terminalInfo = msg.match(TermCrystalRegex).join(``).match(progressRegex).join()
@@ -29,8 +26,6 @@ const StartRegister = register(`chat`, (event) => {
 		}
 	} catch (e) {}
 }).unregister()
-
-
 
 
 let RenderTrigger = TriggerRegister.registerRenderOverlay(() => {
@@ -57,13 +52,8 @@ let RenderTrigger = TriggerRegister.registerRenderOverlay(() => {
     
 }).unregister();
 	
-    
-	
-	
-const HideTitles = register(`renderTitle`, (t, subt, event) => {
-	if (!Settings.CleanTitles) return
-	cancel(event)
-}).unregister()
+
+const HideTitles = register(`renderTitle`, (t, subt, event) => cancel(event)).unregister()
 
 
 

@@ -84,11 +84,16 @@ const hitBlock = register("hitBlock", (EventBlock, event) => {
 
 
 
-register(`step`, (e) => {
+register(`step`, () => {
     if (Settings.BetterM7 && IsInBossRoom() && Dungeon.floorNumber == 7)
-        PlaceBlocks()
-}).setDelay(10)
+        new Thread(PlaceBlocks).start()
+    
+}).setFps(1)
 
 
-registerWhen(packetReceived, () => World.isLoaded() && Settings.BetterM7 && IsInBossRoom() && Dungeon.floorNumber == 7)
-registerWhen(hitBlock, () => World.isLoaded() && Settings.BetterM7 && IsInBossRoom() && Dungeon.floorNumber == 7)
+registerWhen(packetReceived, () =>
+   World.isLoaded() && Settings.BetterM7 && IsInBossRoom() && Dungeon.floorNumber == 7
+)
+registerWhen(hitBlock, () =>
+     World.isLoaded() && Settings.BetterM7 && IsInBossRoom() && Dungeon.floorNumber == 7
+)

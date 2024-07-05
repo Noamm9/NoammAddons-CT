@@ -758,9 +758,9 @@ export class Render {
    */
   static TextBoundingBox(x, y, Width, Height, Color, borderWidth) {
 
-    x -= Width / 50; // Adjusting the x-coordinate to center the bounding box horizontally
-    y -= Height / 6; // Adjusting the y-coordinate to center the bounding box vertically
-    borderWidth *= 1.2; // Adjusting the border width if needed
+    x -= Width / 50;
+    y -= Height / 6;
+    borderWidth *= 1.2;
 
     // Drawing the top border of the bounding box
     Renderer.drawRect(Color, x, y, Width + Width / 30, borderWidth);
@@ -1014,29 +1014,21 @@ export class PlayerUtils {
    * @param {number} time - The duration in milliseconds over which the rotation should occur.
    */
   static rotateSmoothly(yaw, pitch, time) {
-    // Normalize yaw to be within the range of -180 to 180
     while (yaw >= 180) yaw -= 360
     while (yaw < -180) yaw += 360
 
-    // Get the initial yaw and pitch values
     const initialYaw = Player.getYaw()
     const initialPitch = Player.getPitch()
 
-    // Get the current time
     const initialTime = new Date().getTime()
 
-    // Register a step event to handle the smooth rotation
     const trigger = register("step", () => {
-      // Calculate the progress of the rotation (0 to 1)
       const progress = time <= 0 ? 1 : Math.max(Math.min((new Date().getTime() - initialTime) / time, 1), 0)
 
-      // Calculate the amount of rotation based on the progress
       const amount = (1 - progress) * (1 - progress) * (1 - progress) * 0 + 3 * (1 - progress) * (1 - progress) * progress * 1 + 3 * (1 - progress) * progress * progress * 1 + progress * progress * progress * 1
 
-      // Apply the rotation
       this.rotate(initialYaw + (yaw - initialYaw) * amount, initialPitch + (pitch - initialPitch) * amount)
 
-      // Unregister the step event when the rotation is complete
       if (progress >= 1) trigger.unregister()
     })
   }

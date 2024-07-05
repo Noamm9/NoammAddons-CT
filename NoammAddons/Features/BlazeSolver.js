@@ -88,7 +88,7 @@ register("tick", () => {
 
         lastBlazeCount = 0
 
-        ChatLib.command(`pc ${prefix.removeFormatting()} Blaze Puzzle took &b${Math.floor((Date.now() - blazeStarted)/10)/100}s`)
+        ChatLib.command(`pc ${prefix.removeFormatting()} Blaze Puzzle took ${Math.floor((Date.now() - blazeStarted)/10)/100}s`)
 
         return
     }

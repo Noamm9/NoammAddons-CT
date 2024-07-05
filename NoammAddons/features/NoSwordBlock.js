@@ -28,7 +28,7 @@ register("playerInteract", (action, _, event) => {
         if (!item) return
         let isEnabledSword = false    
 
-        enabledSwords.forEach((sword) => { if (item?.getName()?.removeFormatting()?.toLowerCase()?.includes(sword?.toLowerCase())) isEnabledSword = true})
+        enabledSwords.forEach(sword => { if (item?.getName()?.removeFormatting()?.toLowerCase()?.includes(sword?.toLowerCase())) isEnabledSword = true})
     
         if (isEnabledSword) {
             cancel(event)
