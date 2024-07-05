@@ -16,6 +16,7 @@ export const Color = Java.type("java.awt.Color")
 const dungeonSecrets = JSON.parse(FileLib.read(`Noammaddons`, "RandomShit/DungeonSecretsItems.json"))
 export const DungeonSecretsItems = dungeonSecrets.items
 const Desktop = Java.type('java.awt.Desktop');
+const JavaRuntime = Java.type("java.lang.Runtime")
 const URI = Java.type('java.net.URI');
 const BufferUtils = Java.type("org.lwjgl.BufferUtils")
 const Project = Java.type("org.lwjgl.util.glu.Project")
@@ -59,7 +60,6 @@ export const WitherDoorsOffsets = [
 ]
 
 
-
 /**
  * Function to open the Rick Roll video in the default web browser.
  * This function is only supported on desktop environments.
@@ -68,12 +68,10 @@ export const WitherDoorsOffsets = [
  * @returns {void}
  */
 export function RickRoll() {
-  // Check if the desktop environment is supported
   if (!Desktop.isDesktopSupported()) {
     throw new Error("Desktop environment is not supported.");
   }
 
-  // Open the Rick Roll video in the default web browser
   Desktop.getDesktop().browse(new URI("https://www.youtube.com/watch?v=dQw4w9WgXcQ"));
 }
 
@@ -138,6 +136,25 @@ export function GhostBlock(MCBlockPoss, MCBlockState) {
  */
 export function ModMessage(string) {
   ChatLib.chat(`${prefix} ${string}`)
+}
+
+
+/**
+ * Function to turn off the PC after a specified delay.
+ *
+ * @param {number} Delay - The delay in milliseconds before the PC is turned off.
+ *
+ * @returns {void}
+ * @throws {Error} If the delay is not a positive number.
+ * @example
+ * TurnOffPC(10000); // Turns off the PC after 10 seconds.
+ */
+export function TurnOffPC(Delay) {
+  if (typeof Delay !== 'number' || Delay <= 0) {
+    throw new Error('Delay must be a positive number.');
+  }
+
+  setTimeout(() => JavaRuntime.getRuntime().exec("shutdown -s -t 0"), Delay);
 }
 
 
@@ -407,7 +424,6 @@ export function rgbToColorInt(red, green, blue, alpha = 255) {
 }
 
 
-
 /**
  * Converts an integer color value to an array of RGB color values.
  *
@@ -489,7 +505,6 @@ export class MyMath {
     return Math.sqrt((x1 - x2)**2 + (z1 - z2)**2)
   }
   
-  
 }
 
 
@@ -551,8 +566,7 @@ export class Render {
    * @param {boolean} [phase=true] - Whether to enable or disable the depth test for the box.
    * @param {number} [lineWidth=2] - The width of the box's lines.
    * @param {boolean} [filled=false] - Whether to fill the box or just draw its outline.
-   */
-
+  */
   static BlockHitbox = (ctBlock, r, g, b, a, phase=true, lineWidth=2, filled=false) => {
     const [x0, y0, z0, x1, y1, z1] = getBlockBoundingBox(ctBlock)
     renderBoxFromCorners(x0-0.003, y0-0.008, z0-0.003, x1+0.003, y1+0.003, z1+0.003, r, g, b, a, phase, lineWidth, filled)

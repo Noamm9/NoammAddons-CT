@@ -74,6 +74,7 @@ import "./Features/Terminals/RedGreen"
 import "./Features/Terminals/StartWith"
 import "./Features/Terminals/Colors"
 import "./Features/MelodyAlert"
+import "./Features/AnnounceDraftsReset"
 
 
 
@@ -85,7 +86,7 @@ import "./Features/PingCommand"
 
 
 
-// import "./TODO/TestGround"
+import "./TODO/TestGround"
 
 // import "./TODO/ExtractMinecraftChat"
 

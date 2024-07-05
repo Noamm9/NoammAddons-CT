@@ -37,35 +37,36 @@ register("step", () => {
     let [yaw, pitch] = PlayerUtils.calcYawPitch({ x: emeraldLocation.x + xdiff, y: emeraldLocation.y + 1.1, z: emeraldLocation.z })
 
 
-    PlayerUtils.rotateSmoothly(yaw, pitch, 300)
+    PlayerUtils.rotateSmoothly(yaw, pitch, 200)
     wait = true
-    setTimeout(() => wait = false, 310) 
+    setTimeout(() => wait = false, 250) 
 
     setTimeout(() => {if (!RightClickKey.func_151468_f()) RightClickKey.func_74510_a(RightClickKey.func_151463_i(), true)},310) 
 
 
-
-    setTimeout(() => {
+    new Thread(() => {
+        Thread.sleep(350)
         if (World.getBlockAt(emeraldLocation.x, emeraldLocation.y, emeraldLocation.z).type.getID() !== 133 || wait) { 
             RightClickKey.func_74510_a(RightClickKey.func_151463_i(), false)
             return
         }
-
+    
         const remaining = DevBlocks.filter(coord => !doneCoords.has(coord))
         if (!remaining.length) return
     
         const randomIndex = Math.floor(Math.random() * remaining.length)
         const nextTarget = remaining[randomIndex]
         let xdiff = 0.5
-
-
+    
+    
         if (nextTarget.x === 68 || nextTarget.x === 66) xdiff = -0.6
         else if (nextTarget.x === 64) xdiff = 1.3
-
+    
         
         let [yaw, pitch] = PlayerUtils.calcYawPitch({ x: nextTarget.x + xdiff, y: nextTarget.y + 1.1, z: nextTarget.z })
-        PlayerUtils.rotateSmoothly(yaw, pitch, 310)
-    },310) 
+        
+        PlayerUtils.rotateSmoothly(yaw, pitch, 200)
+    }).start()
 });
 
 
