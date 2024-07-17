@@ -13,7 +13,13 @@ let claySlots = new Map([
 ])
 
 
-const StartMSG = register('guiOpened', () => { 
+const StartMSG = register('guiOpened', () => {
+    claySlots = new Map([
+        [25, `pc ${Settings.MelodyAlert.removeFormatting()} 1/4`],
+        [34, `pc ${Settings.MelodyAlert.removeFormatting()} 2/4`],
+        [43, `pc ${Settings.MelodyAlert.removeFormatting()} 3/4`]
+    ])
+
     setTimeout(() => {
         if (Player?.getContainer()?.getName() !== 'Click the button on time!') return 
         Client.scheduleTask(2, () => ChatLib.command(`pc ${Settings.MelodyAlert.removeFormatting()}`))

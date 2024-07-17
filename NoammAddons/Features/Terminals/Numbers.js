@@ -65,9 +65,9 @@ const renderTrigger = register(PreGuiRenderEvent, event => {
 	const offsetX = screenWidth / 2 - width / 2 + globalOffsetX + 1;
 	const offsetY = screenHeight / 2 - height / 2 + globalOffsetY;
 
-	const title = "&6&l&n[&b&l&nN&d&l&nA&6&l&n] &b&l&nT&d&l&ne&b&l&nr&d&l&nm&b&l&ni&d&l&nn&b&l&na&d&l&nl&r:&r &9Numbers";
-	const Lightmode = new Color(203 / 255, 202 / 255, 205 / 255, 1);
-    const Darkmode = new Color(33 / 255, 33 / 255, 33 / 255, 1);
+	const title = "&6&l&n[&b&l&nN&d&l&nA&6&l&n] &b&l&nT&d&l&ne&b&l&nr&d&l&nm&b&l&ni&d&l&nn&b&l&na&d&l&nl&r:&r &9Numbers"
+	const Lightmode = new Color(203 / 255, 202 / 255, 205 / 255, 80/100)
+    const Darkmode = new Color(33 / 255, 33 / 255, 33 / 255, 80/100)
     let ColorMode = Darkmode
 	if (Settings.CustomTerminalMenuLightMode) ColorMode = Lightmode
 	
@@ -217,7 +217,7 @@ const S2EPacketCloseWindow = register("packetReceived", () => {
     
 }).setFilteredClass(net.minecraft.network.play.server.S2EPacketCloseWindow).unregister();
 
-const C0DPacketCloseWindow = register("packetSent", setTimeout(Reset, 100)).setFilteredClass(net.minecraft.network.play.client.C0DPacketCloseWindow).unregister();
+const C0DPacketCloseWindow = register("packetSent", () => setTimeout(Reset, 100)).setFilteredClass(net.minecraft.network.play.client.C0DPacketCloseWindow).unregister();
 
 
 function Reset() {

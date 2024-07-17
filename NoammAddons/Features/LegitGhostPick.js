@@ -74,7 +74,7 @@ register("packetsent", (packet, event) => {
         const block = Player.lookingAt()
 
         try {
-            if (block.type == null || ignoreList.includes(block.type.name) || Player.getHeldItem() == null) return
+            if (block.type == null || block.type.name == "air" || ignoreList.includes(block.type.name) || Player.getHeldItem() == null) return
         
             const id = Player.getHeldItem().getID()
             

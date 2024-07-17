@@ -26,7 +26,7 @@ const ResetTrigger = register('worldUnload', () => players.length = 0).unregiste
 
 function RenderCustomGUI() {
     UpdatePlayersArray()
-    Tessellator.pushMatrix()
+  //  Tessellator.pushMatrix()
 
     const Scale = Settings.CustomLeapMenuScale * 2
     const screenWidth = Renderer.screen.getWidth() / Scale
@@ -68,7 +68,7 @@ function RenderCustomGUI() {
     }
 
     Renderer.scale(1)
-    Tessellator.popMatrix()
+   // Tessellator.popMatrix()
 }
 
 

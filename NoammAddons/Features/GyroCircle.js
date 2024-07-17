@@ -12,19 +12,28 @@ function StartOrStop() {
 }
 
 
-const trigger = register("renderWorld", (pt) => {
-
-    const rayTrace = Player.getPlayer().func_174822_a(25, pt)
-  
-    if (rayTrace.field_72313_a.toString() !== "BLOCK") return
-  
-    Render.Cylinder(...getVec3iPos(rayTrace.func_178782_a()), 10, 1, -1, 30, 1, 0, 90, 90, 118/255, 0/255, 123/255, 30/100, true, false) // purple
-    Render.Cylinder(...getVec3iPos(rayTrace.func_178782_a()),  10, 10, 0.2, 30, 1, 0, 90, 90, 0, 255/255, 0/255, 80/100, true, false) // green
-}).unregister()
-
-function getVec3iPos(vec) {
-    return [~~vec.func_177958_n() + 0.5, ~~vec.func_177956_o() + 2, ~~vec.func_177952_p() + 0.5]
-}
+registerWhen(register('renderWorld', (pt) => {
+    
+    let block = new BlockPos(Player.getPlayer().func_174822_a(25, pt).func_178782_a()); // Credits to Bloom
+    let x = block.getX();
+    let y = block.getY();
+    let z = block.getZ();
 
 
-registerWhen(trigger, StartOrStop)
+    if (World.getBlockAt(x, y, z).type.name != 'tile.air.name' && World.getBlockAt(x, y + 1, z).type.name == 'tile.air.name') {
+        if (World.getBlockAt(x, y, z).type.name == 'Carpet') {
+
+            Render.Cylinder(x+0.5,y+1.5,z+0.5, 10, 10, 0.2, 30, 1, 0, 90, 90, 0, 255/255, 0/255, 80/100, true, false) // green
+            Render.BlockHitbox(World.getBlockAt(x, y, z), 0, 255/255, 0/255, 20/100, true, 4, true)
+            Render.BlockHitbox(World.getBlockAt(x, y, z), 0, 255/255, 0/255, 1, true, 4, false)
+
+        }
+        else {
+
+            Render.Cylinder(x+0.5,y+1.5,z+0.5, 10, 10, 0.2, 30, 1, 0, 90, 90, 0, 255/255, 0/255, 80/100, true, false) // green
+            Render.BlockHitbox(World.getBlockAt(x, y, z), 0, 255/255, 0/255, 20/100, true, 3, true)
+            Render.BlockHitbox(World.getBlockAt(x, y, z), 0, 255/255, 0/255, 1, true, 4, false)
+
+        }
+    }
+}), StartOrStop)

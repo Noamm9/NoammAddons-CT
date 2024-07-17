@@ -12,6 +12,7 @@ export const C0EPacketClickWindow = Java.type("net.minecraft.network.play.client
 export const gc = (text) => ChatLib.getCenteredText(text) // getCentered
 export const cc = (text) => ChatLib.chat(gc(text)) // centerChat
 export const prefix = "§6§l[§b§lN§d§lA§6§l]§r"
+export const fullName = `§d§l§nNoamm§b§l§nAddons`
 export const Color = Java.type("java.awt.Color")
 const dungeonSecrets = JSON.parse(FileLib.read(`Noammaddons`, "RandomShit/DungeonSecretsItems.json"))
 export const DungeonSecretsItems = dungeonSecrets.items
@@ -83,7 +84,7 @@ export function RickRoll() {
  */
 export function Alert(string, TimeUp) {
   EssentialAPI.getNotifications().push(
-    `${prefix}`, `${string}`, TimeUp
+    `${fullName}:`, `${string}`, TimeUp
   )
 }
 
@@ -140,21 +141,21 @@ export function ModMessage(string) {
 
 
 /**
- * Function to turn off the PC after a specified delay.
- *
- * @param {number} Delay - The delay in milliseconds before the PC is turned off.
- *
- * @returns {void}
- * @throws {Error} If the delay is not a positive number.
- * @example
- * TurnOffPC(10000); // Turns off the PC after 10 seconds.
+ * Closes the currently open GUI for the player.
  */
-export function TurnOffPC(Delay) {
-  if (typeof Delay !== 'number' || Delay <= 0) {
-    throw new Error('Delay must be a positive number.');
-  }
+export function CloseCurrentGui() {
+  Player.getPlayer().func_71053_j()
+}
 
-  setTimeout(() => JavaRuntime.getRuntime().exec("shutdown -s -t 0"), Delay);
+
+/**
+ * Function to turn off the PC.
+ * @returns {void}
+ * @example
+ * TurnOffPC(); // Turns off the PC
+ */
+export function TurnOffPC() {
+  JavaRuntime.getRuntime().exec("shutdown -s -t 0")
 }
 
 
@@ -345,6 +346,48 @@ export function IsInBossRoom() {
 
   return false;
 }
+
+
+
+
+const P3Sections = [
+  { corner1: { x: 91, y: 158, z: 123 }, corner2: { x: 110, y: 105, z: 32 } }, // 1
+  { corner1: { x: 16, y: 158, z: 122 }, corner2: { x: 110, y: 105, z: 142 } }, // 2
+  { corner1: { x: 18, y: 158, z: 48 }, corner2: { x: -2, y: 106, z: 142 } }, // 3
+  { corner1: { x: 91, y: 158, z: 50 }, corner2: { x: -2, y: 106, z: 30 } },  // 4
+];
+
+export function GetP3Section() {
+  if (getPhase() !== "p3") return
+  const playerCoords = { x: Player.getX(), y: Player.getY(), z: Player.getZ() };
+
+  // Check each section
+  if (MyMath.isCoordinateInsideBox(playerCoords, P3Sections[0].corner1, P3Sections[0].corner2)) return 1
+  if (MyMath.isCoordinateInsideBox(playerCoords, P3Sections[1].corner1, P3Sections[1].corner2)) return 2
+  if (MyMath.isCoordinateInsideBox(playerCoords, P3Sections[2].corner1, P3Sections[2].corner2)) return 3
+  if (MyMath.isCoordinateInsideBox(playerCoords, P3Sections[3].corner1, P3Sections[3].corner2)) return 4
+    
+  return 
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 /**
@@ -935,7 +978,7 @@ export class Render {
           titleText.setY(Renderer.screen.getHeight() / 2 - Renderer.screen.getHeight() / 14 + yOffset)
             
 
-          title.setAlign("CENTER")
+          titleText.setAlign("CENTER")
             .setShadow(true)
             .setScale(scale)
             .draw()
@@ -1071,23 +1114,59 @@ export class PlayerUtils {
   /**
    * Simulates a mouse click event in the game world.
    *
-   * @param {string} [type="LEFT"] - The type of mouse click. Can be "LEFT", "RIGHT", or "MIDDLE". Defaults to "LEFT".
+   * @param {string} [Type="LEFT"] - The type of mouse click. Can be "LEFT", "RIGHT", or "MIDDLE". Defaults to "LEFT".
    */
-  static Click(type = "LEFT") {
-    type = type.removeFormatting().toLocaleLowerCase()
+  static Click(Type = "LEFT") {
+    Type = Type.removeFormatting().toLocaleLowerCase()
     const MC = Client.getMinecraft()
 
-    const LeftClickMethod = MC.getClass().getDeclaredMethod("func_147116_af", null)
-    const RightClickMethod = MC.getClass().getDeclaredMethod("func_147121_ag", null)
-    const MiddleClickMethod = MC.getClass().getDeclaredMethod("func_147112_ai", null)
+    if (Type === "left") {
+      const LeftClickMethod = MC.getClass().getDeclaredMethod("func_147116_af", null)
+      LeftClickMethod.setAccessible(true)
+      LeftClickMethod.invoke(MC, null)
+    } 
+    
+    if (Type === "right") {
+      const RightClickMethod = MC.getClass().getDeclaredMethod("func_147121_ag", null)
+      RightClickMethod.setAccessible(true)
+      RightClickMethod.invoke(MC, null)
+    } 
 
-    LeftClickMethod.setAccessible(true)
-    RightClickMethod.setAccessible(true)
-    MiddleClickMethod.setAccessible(true)
+    if (Type === `middle`) {
+      const MiddleClickMethod = MC.getClass().getDeclaredMethod("func_147112_ai", null)
+      MiddleClickMethod.setAccessible(true)
+      MiddleClickMethod.invoke(MC, null)
+    } 
 
-    if (type === "left") LeftClickMethod.invoke(MC, null)
-    else if (type === "right") RightClickMethod.invoke(MC, null)
-    else if (type === `middle`) MiddleClickMethod.invoke(MC, null)
+  }
+
+
+  /**
+   * Holds a mouse button
+   *
+   * @param {boolean} Boolan - A boolean indicating whether to Hold or Release.
+   * If true, Hold. If false, Release.
+   *
+   * @param {string} [Type="RIGHT"] - The type of mouse click. Can be "LEFT", "RIGHT", or "MIDDLE".
+   * Defaults to "RIGHT".
+   */
+  static HoldClick(Boolan, Type = "RIGHT") {
+    Type = Type.removeFormatting().toLocaleLowerCase()
+
+    if (Type === "right") {
+      const RightClickKey = Client.getMinecraft().field_71474_y.field_74313_G
+      RightClickKey.func_74510_a(RightClickKey.func_151463_i(), Boolan)
+    } 
+
+    if (Type === "left") {
+      const LeftClickKey = Client.getMinecraft().field_71474_y.field_74312_F
+      LeftClickKey.func_74510_a(LeftClickKey.func_151463_i(), Boolan)
+    }
+    
+    if (Type === `middle`) {
+      const MiddleClickKey = Client.getMinecraft().field_71474_y.field_74322_I
+      MiddleClickKey.func_74510_a(MiddleClickKey.func_151463_i(), Boolan)
+    } 
 
   }
 
@@ -1097,7 +1176,7 @@ export class PlayerUtils {
    *
    * @param {boolean} [Ultimate=false] - A boolean indicating whether to use the ultimate or the ability.
    * If true, the ultimate ability will used. If false, the class ability will used.
-   * The default value is false, meaning the ultimate ability will be used initially.
+   * The default value is false, meaning the ability will be used.
    *
    * @example
    * PlayerUtils.UseDungeonClassAbility(true); // use the ultimate ability
@@ -1110,7 +1189,6 @@ export class PlayerUtils {
 
       MCplayer.func_71040_bB(Ultimate)
   }
-
 
 }
 

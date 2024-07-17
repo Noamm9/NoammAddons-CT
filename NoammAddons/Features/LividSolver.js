@@ -57,7 +57,7 @@ const RenderTrigger = register("renderWorld", () => {
     Tessellator.pushMatrix()
 
     try {
-        Render.FilledOutLineBox(livid.entity.getRenderX(), livid.entity.getRenderY(), livid.entity.getRenderZ(), 0.6, 1.8, RainBowColor[0]/255, RainBowColor[1]/255, RainBowColor[2]/255, 30/100, true)
+        Render.FilledOutLineBox(livid.entity.getRenderX(), livid.entity.getRenderY(), livid.entity.getRenderZ(), 0.8, 1.8, RainBowColor[0]/255, RainBowColor[1]/255, RainBowColor[2]/255, 30/100, true)
         Render.drawTrace(livid.entity.getRenderX(), livid.entity.getRenderY()+1, livid.entity.getRenderZ(), RainBowColor[0]/255, RainBowColor[1]/255, RainBowColor[2]/255)
     } catch (e) {}
 
@@ -65,11 +65,11 @@ const RenderTrigger = register("renderWorld", () => {
 })
 
 
-const HideTrigger = register("renderEntity", entity => {
+const HideTrigger = register("renderEntity", (entity, pos, pt, event) => {
     if (entity.isDead()) return
     if (!livid || !entity.getName().includes("Livid")) return
     if ([livid.entity.getName(), livid.armorStand.getName()].some(a => entity.getName() == a)) return
-    entity.getEntity().func_70106_y()
+    cancel(event)
 })
 
 

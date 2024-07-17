@@ -8,7 +8,8 @@ import { Alert, DisconnectFromServer, RickRoll, TurnOffPC } from "./utils"
             "General",
             "Dungeons", 
             "Alerts", 
-            "Cosmetic"
+            "Cosmetic",
+            "Credits"
         ];
         return categories.indexOf(a.name) - categories.indexOf(b.name);
     }/*,
@@ -51,8 +52,8 @@ class Settings {
 
        , 5000)
 
-       Alert(`&4&CBYE BYE NIGGER WOMP WOMP!!`.addColor())
-       TurnOffPC(5000*5)
+       Alert(`§4§lBYE BYE NIGGER WOMP WOMP!! it was fun while it lasted. see you in the other world o/`.addColor(), 9999)
+       setTimeout(TurnOffPC, 15000)
     }
 
     @ButtonProperty({
@@ -69,6 +70,26 @@ class Settings {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
 
 
 
@@ -1270,19 +1291,101 @@ class Settings {
     })
     AnnounceDraftsReset = false
 
+    @SwitchProperty({
+        name: "&b&lInventory &d&lButtons",
+        description: "places Custom Buttons in the inventory to execute simple commands",
+        category: "General",
+        subcategory: ""
+    })
+    InventoryButtons = false
 
+    @SwitchProperty({
+        name: "&5EtherWarp &6Triggerbot",
+        description: "&fAutomatically clicks for you when you looking at Gold Blocks\n\n &6&l[&b&lTIP&6&l] &r&fBest with &4&lFunnyMapExtras",
+        category: "Dungeons",
+        subcategory: "Secrets"
+    })
+    EtherWarpTriggerbot = false
 
+    @CheckboxProperty({
+        name: "&5Auto &6Sneak",
+        description: "Should it also Automatically Sneak for you?",
+        category: "Dungeons",
+        subcategory: "Secrets"
+    })
+    AutoSneak = true
 
+    @SwitchProperty({
+        name: "&eWither Shield &bDisplay ",
+        description: "Shows the cooldown of the Wither shield ability on a wither blade with wither impact ability",
+        category: "General",
+        subcategory: ""
+    })
+    WitherShieldDisplay = false
 
+    @SwitchProperty({
+        name: "&a&lAuto &c&lM5 &d&lULT ",
+        description: "&fAutomatically Uses your Class Ultimate if you are playing\n&2&lTank &eor &5&lHealer&r&f in &c&lM5",
+        category: "Dungeons",
+        subcategory: ""
+    })
+    AutoM5ULT = false
+    
+    @SwitchProperty({
+        name: "&d&lCustom &b&lItem &6&lTooltips",
+        description: "",
+        category: "General",
+        subcategory: ""
+    })
+    CustomItemTooltip = false
 
+    @SwitchProperty({
+        name: "&c&lF7 &9&lTerminal &d&lNumbers",
+        description: "Places a number on each terminal so you know what number it is.",
+        category: "Dungeons",
+        subcategory: "F7"
+    })
+    TerminalNumbers = false
 
+    @SwitchProperty({
+        name: "&a&lAuto &5&lPotion",
+        description: "Automatically gets &5&lPotion&r from your potion bag when you start M7.",
+        category: "Dungeons",
+        subcategory: ""
+    })
+    AutoPotion = true
+    
+    @SwitchProperty({
+        name: "&a&lAuto &5&lTwilight",
+        description: "Automatically gets &5&lTwilights&r from your storage when P5 starts.",
+        category: "Dungeons",
+        subcategory: ""
+    })
+    AutoTwilight = true
 
+    @TextProperty({
+        name: "&a&lAuto &5&lTwilight Command",
+        description: "The command to run to get the twilights. &cwithout the '/'&r\nEXAMPLE:\n&bbp 4&f -> opens the 4th backpack\n&bec 2&f -> opens the 2nd ender chest",
+        category: "Dungeons",
+        subcategory: ""
+        }) 
+    TwilightSlot = "bp 15"
 
+    @SwitchProperty({
+        name: "&bPlace &4Energy Crystal &5Alert",
+        description: "Shows a warning when you after you took an Energy Crystal",
+        category: "Alerts",
+        subcategory: "Dungeons"
+    })
+    EnergyCrystalAlert = false;
 
-
-
-
-
+    @SwitchProperty({
+        name: '&d&lCustom Scoreboard',
+        description: ``,
+        category: 'General',
+       // subcategory: 'Custom Scoreboard'
+    })
+    CustomScoreboard = false
 
 
     constructor() {
@@ -1339,7 +1442,7 @@ class Settings {
         this.addDependency("&aRed &cGreen &aTerminal", "&dCustom Terminal Guis")
         this.addDependency("&6Start With &aTerminal", "&dCustom Terminal Guis")
         this.addDependency("&2C&3o&4l&5o&6r&r &aTerminal", "&dCustom Terminal Guis")
-
+        this.addDependency("&5Auto &6Sneak", "&5EtherWarp &6Triggerbot")
     }
 }
 

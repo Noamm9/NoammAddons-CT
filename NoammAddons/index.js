@@ -75,22 +75,30 @@ import "./Features/Terminals/StartWith"
 import "./Features/Terminals/Colors"
 import "./Features/MelodyAlert"
 import "./Features/AnnounceDraftsReset"
-
+import "./Features/InventoryButtons"
+import "./Features/EtherWarpTriggerbot"
+import "./Features/WitherShieldDisplay"
+import "./Features/CustomItemToolTip" // WIP
+import "./Features/AutoM5UlT"
+import "./Features/TerminalNumbers"
+import "./Features/AutoPotion"
+import "./Features/AutoTwilight"
+import "./Features/CustomScoreboard.js"
 
 
 import "./AutoUpDater"
 import "./EditGui"
 import "./Features/PingCommand"
-
+//import "./DebugMode"
 
 
 
 
 import "./TODO/TestGround"
+//import "./TODO/CustomTablist.js"
 
 // import "./TODO/ExtractMinecraftChat"
-
-// import "./TODO/CustomItemToolTip" // WIP
+//import "./TODO/AutoReaperArmorSwap"
 // import "./TODO/RoomEdit" // WIP
 // import "./TODO/asm/exposed/toggleSecretHitboxes" // Maybe someday will be toggleable
 

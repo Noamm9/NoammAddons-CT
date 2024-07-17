@@ -10,9 +10,9 @@ export var Timer = null;
 
 register("chat", () => { 
 	if (!Settings.BonzoMaskTimer) return
-	Timer = 240
+	Timer = 183
 	RenderRegister.register()
-}).setChatCriteria("Your Bonzo's Mask saved your life!")
+}).setChatCriteria(/Your (?:. )?Bonzo's Mask saved your life!/)
 
 
 export const RenderRegister = register("renderOverlay", () => {
