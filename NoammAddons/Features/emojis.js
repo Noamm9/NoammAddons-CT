@@ -46,7 +46,7 @@ function includesAnyKey(message) {
 }
 
 register('messageSent', (message, event) => {
-    if (!includesAnyKey(message) || !Settings.ChatEmojis) return
+    if (!includesAnyKey(message) || !Settings().ChatEmojis) return
     let newMessage = message;
     emojiMap.forEach((value, key) => {
         newMessage = newMessage.replace(new RegExp(key, `g`), value);

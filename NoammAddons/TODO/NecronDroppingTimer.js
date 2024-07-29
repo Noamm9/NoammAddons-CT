@@ -75,7 +75,7 @@ register("command", () => {
 
 
 register("chat", () => {
-	if (!Settings.NecronDroppingTimer || !Dungeon.inDungeon) return
+	if (!Settings().NecronDroppingTimer || !Dungeon.inDungeon) return
     startingTime = Date.now()
 }).setChatCriteria("[BOSS] Necron: I'm afraid, your journey ends now.")
 

@@ -24,7 +24,7 @@ const isHoldingEtherwarpItem = () => {
 
 
 register("renderWorld", pt => {
-    if (!Settings.EtherWarpTriggerbot || IsInBossRoom() || !IsInDungeon() || Date.now() - Cooldown < 300 || !isHoldingEtherwarpItem()) return
+    if (!Settings().EtherWarpTriggerbot || IsInBossRoom() || !IsInDungeon() || Date.now() - Cooldown < 300 || !isHoldingEtherwarpItem()) return
     lookingAt = String(Player.getPlayer().func_174822_a(65, pt))
     if (lookingAt.includes("MISS")) return
 
@@ -36,7 +36,7 @@ register("renderWorld", pt => {
             Cooldown = Date.now()
             let ShouldSneak = !Player.isSneaking()
 
-            if (Settings.AutoSneak) new Thread(() => {
+            if (Settings().AutoSneak) new Thread(() => {
                 if (ShouldSneak) sneakKey.setState(true)
                 Thread.sleep(100)
                 Client.sendPacket(new C08PacketPlayerBlockPlacement(Player.getHeldItem()?.getItemStack() ?? null))

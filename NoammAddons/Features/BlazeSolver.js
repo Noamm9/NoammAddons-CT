@@ -57,7 +57,7 @@ register("tick", () => {
 
 
 register("tick", () => {
-    if (!Settings.BlazeSolver || !IsInDungeon() || IsInBossRoom() || !inBlaze) return
+    if (!Settings().BlazeSolver || !IsInDungeon() || IsInBossRoom() || !inBlaze) return
 
     const hpMap = new Map()
     blazes.length = 0
@@ -107,22 +107,22 @@ register("tick", () => {
 registerWhen(register("renderEntity", (entity, pos, pt, event) => {
     if (entity.getName().removeFormatting().startsWith("[Lv15] Blaze ")) cancel(event)
 //    if (entity.getEntity() instanceof EntityBlaze) return cancel(event)
-}), () => Settings.BlazeSolver && IsInDungeon() && !IsInBossRoom() && blazes.length) 
+}), () => Settings().BlazeSolver && IsInDungeon() && !IsInBossRoom() && blazes.length) 
 
 
 
 
 registerWhen(register("renderWorld", () => {
     blazes.forEach((entity, i) => {
-        let [r, g, b, a] = i == 0 ? intToRGB(Settings.BlazeSolverFirstBlazeColor.getRGB(), true) : i == 1 ? intToRGB(Settings.BlazeSolverSecondBlazeColor.getRGB(), true) : intToRGB(Settings.BlazeSolverThirdBlazeColor.getRGB(), true)
+        let [r, g, b, a] = i == 0 ? Settings().BlazeSolverFirstBlazeColor : i == 1 ? Settings().BlazeSolverSecondBlazeColor : Settings().BlazeSolverThirdBlazeColor
         Render.FilledOutLineBox(entity.getX(), entity.getY()-2, entity.getZ(), 1.2, 1.8, r/255, g/255, b/255, a/255, false)
 
         if (i > 0 && i <= 2) {
             let [x0, y0, z0] = getEntityXYZ(blazes[i-1])
             let [x1, y1, z1] = getEntityXYZ(blazes[i])
-            Render.Line(x0, y0-1, z0, x1, y1-1, z1, ...intToRGB(Settings.BlazeSolverLineColor.getRGB(), true), false, 3)
+            Render.Line(x0, y0-1, z0, x1, y1-1, z1, ...Settings().BlazeSolverLineColor, false, 3)
 
             
         }
     })
-}), () => Settings.BlazeSolver && IsInDungeon() && !IsInBossRoom())
+}), () => Settings().BlazeSolver && IsInDungeon() && !IsInBossRoom())

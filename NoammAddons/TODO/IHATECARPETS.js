@@ -10,7 +10,7 @@ const setAir = (x, y, z) => World.getWorld().func_175698_g(new BlockPoss(x, y, z
 const setBlockState = (x, y, z, state) => World.getWorld().func_175656_a(new BlockPoss(x, y, z), state) 
 let carpets = []
 register("tick", () => {
-	if (!Settings.IHateCarpets) return
+	if (!Settings().IHateCarpets) return
     let pX = parseInt(Player.getX())
     let pY = parseInt(Player.getY())
     let pZ = parseInt(Player.getZ())
@@ -28,7 +28,7 @@ register("tick", () => {
 })
 
 register("tick", () => {
-	if (!Settings.IHateCarpets) return
+	if (!Settings().IHateCarpets) return
     for (let i = 0; i < carpets.length; i++) {
         let x = carpets[i][1]
         let y = carpets[i][2]

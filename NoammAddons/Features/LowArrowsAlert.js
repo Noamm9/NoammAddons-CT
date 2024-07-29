@@ -13,7 +13,7 @@ const Critaria = [
 
 
 register('chat', (event) => {
-	if (Settings.ArrowsAlert) return
+	if (Settings().ArrowsAlert) return
 	for (let i = 0; i<Critaria.length; i++) {
 		const formattedMessage = ChatLib.getChatMessage(event, true)
 		if (formattedMessage.startsWith(Critaria[i])) {

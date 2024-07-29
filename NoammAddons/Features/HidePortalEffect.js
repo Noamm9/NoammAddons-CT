@@ -11,7 +11,7 @@ InPortal.setAccessible(true)
 
 
 function StartOrStop() {
-    return Player.getPlayer() && Settings.HidePortalEffect
+    return Player.getPlayer() && Settings().HidePortalEffect
 }
 
 const trigger = register("renderPortal", (event) => { 

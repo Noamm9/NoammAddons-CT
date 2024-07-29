@@ -26,7 +26,7 @@ registerWhen(register(`packetSent`, () => {
         Timer.register()
     }
     
-}).setFilteredClass(Java.type("net.minecraft.network.play.client.C08PacketPlayerBlockPlacement")), () => Settings.WitherShieldDisplay)
+}).setFilteredClass(Java.type("net.minecraft.network.play.client.C08PacketPlayerBlockPlacement")), () => Settings().WitherShieldDisplay)
 
 
 const Timer = register('packetReceived', () => {
@@ -46,7 +46,7 @@ const DrawOverlay = register(`renderOverlay`, () => {
     CooldownTimer.setString(`&e${(((5_000/50) - tickTimer/50)/20).toFixed(1)}`)
 
     CooldownTimer.setX(Renderer.screen.getWidth()/2 - Renderer.getStringWidth(CooldownTimer.getString().removeFormatting()))
-    CooldownTimer.setY(Renderer.screen.getHeight()/2 + Renderer.screen.getHeight()/80 + CooldownTimer.getHeight()/2)
+    CooldownTimer.setY(Renderer.screen.getHeight()/2 + Renderer.screen.getHeight()/8 + CooldownTimer.getHeight()/2)
     if (tickTimer < 5_000) CooldownTimer.draw()
 }).unregister()
 

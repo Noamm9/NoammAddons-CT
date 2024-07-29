@@ -11,6 +11,12 @@ const c = PlayerComparator.class.getDeclaredConstructor()
 c.setAccessible(true)
 const sorter = c.newInstance()
 
+const customOrder = ["Archer", "Berserk", "Healer", "Mage", "Tank", `EMPTY`]
+const orderMap = {}
+customOrder.forEach((item, index) => orderMap[item] = index)
+
+
+
 let players = []
 
 
@@ -28,7 +34,7 @@ function RenderCustomGUI() {
     UpdatePlayersArray()
   //  Tessellator.pushMatrix()
 
-    const Scale = Settings.CustomLeapMenuScale * 2
+    const Scale = Settings().CustomLeapMenuScale/100 * 2
     const screenWidth = Renderer.screen.getWidth() / Scale
     const screenHeight = Renderer.screen.getHeight() / Scale
     const width = 288
@@ -49,7 +55,7 @@ function RenderCustomGUI() {
     const Lightmode = new Color(203 / 255, 202 / 255, 205 / 255, 1)
     const Darkmode = new Color(33 / 255, 33 / 255, 33 / 255, 1)
     let ColorMode = Darkmode
-    if (Settings.CustomLeapMenuLightMode) ColorMode = Lightmode
+    if (Settings().CustomLeapMenuLightMode) ColorMode = Lightmode
 
 
     for (let i = 0; i < 4; ++i) {
@@ -143,9 +149,7 @@ function ClickLogic(x, y, event) {
 
 function UpdatePlayersArray() {
     const Tablines = Player.getPlayer().field_71174_a.func_175106_d().sort((a, b) => sorter.compare(a, b))
-    const customOrder = ["Archer", "Berserk", "Healer", "Mage", "Tank"]
-    const orderMap = {}
-    customOrder.forEach((item, index) => orderMap[item] = index)
+
     
 
     for (let p of Tablines) {
@@ -178,19 +182,20 @@ function UpdatePlayersArray() {
             }
         })   
     }
+    if (players.length > 4) players.pop()
 }
 
 
 function IsSpiritLeapGuiAndSettingsEnabled() {
     const Chest = Player.getContainer()
     if (!Chest) return false
-    return Chest.getName().toLowerCase().removeFormatting() === "spirit leap" && Settings.CustomLeapMenu && IsInDungeon()
+    return Chest.getName().toLowerCase().removeFormatting() === "spirit leap" && Settings().CustomLeapMenu && IsInDungeon()
 }
 
 
 
 
-registerWhen(ResetTrigger, () => Settings.CustomLeapMenu)
+registerWhen(ResetTrigger, () => Settings().CustomLeapMenu)
 registerWhen(clickTrigger, IsSpiritLeapGuiAndSettingsEnabled)
 registerWhen(renderTrigger, IsSpiritLeapGuiAndSettingsEnabled)
 registerWhen(cancelRenderTrigger, IsSpiritLeapGuiAndSettingsEnabled)

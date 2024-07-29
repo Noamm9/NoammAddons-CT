@@ -35,7 +35,7 @@ const pressingButtonsRegister = register("guiKey", (char, keyCode, gui, event) =
 
 
 const renderRegister = register('guiRender', () => {
-    if (!Settings.InventorySearchBar) return
+    if (!Settings().InventorySearchBar) return
     try {
         if(Player.getContainer().getClassName().includes("Chest")) {
             searchBar.func_146194_f()

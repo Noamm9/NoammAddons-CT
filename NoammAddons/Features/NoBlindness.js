@@ -11,7 +11,7 @@ const trigger = register(RenderFogEvent, (event) => cancel(event)).unregister()
 
 
 function StartOrEnd() {
-    return Settings.NoBlindness && IsInDungeon()
+    return Settings().NoBlindness && IsInDungeon()
 }
 
 

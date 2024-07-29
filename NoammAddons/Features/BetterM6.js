@@ -64,11 +64,11 @@ const hitBlock = register("hitBlock", (EventBlock, event) => {
 
 
 register("chat", () => {
-    if (Dungeon.floorNumber == "6" && Settings.BetterM6) {
+    if (Dungeon.floorNumber == "6" && Settings().BetterM6) {
         setTimeout(ProcessBlocks, 500)
         setTimeout(ProcessBlocks, 30_000)
     }
 }).setChatCriteria("[BOSS] Sadan: So you made it all the way here... Now you wish to defy me? Sadan?!")
 
-registerWhen(packetReceived, () => IsInBossRoom() && Dungeon.floorNumber == "6" && Settings.BetterM6)
-registerWhen(hitBlock, () => IsInBossRoom() && Dungeon.floorNumber == "6" && Settings.BetterM6)
+registerWhen(packetReceived, () => Settings().BetterFloorsMultiCheckbox && IsInBossRoom() && Dungeon.floorNumber == "6" && Settings().BetterM6)
+registerWhen(hitBlock, () => Settings().BetterFloorsMultiCheckbox && IsInBossRoom() && Dungeon.floorNumber == "6" && Settings().BetterM6)

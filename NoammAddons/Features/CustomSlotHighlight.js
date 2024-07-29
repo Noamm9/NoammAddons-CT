@@ -8,11 +8,11 @@ import Settings from "../Settings"
 
 /**/
 register(`renderSlotHighlight`, (mx, my, slot, gui, event) => {
-    if (!Settings.CustomSlotHighlight) return
-    const r = Settings.CustomSlotHighlightColor.getRed()
-    const g = Settings.CustomSlotHighlightColor.getGreen()
-    const b = Settings.CustomSlotHighlightColor.getBlue()
-    const a = Settings.CustomSlotHighlightColor.getAlpha()
+    if (!Settings().CustomSlotHighlight) return
+    const r = Settings().CustomSlotHighlightColor[0]
+    const g = Settings().CustomSlotHighlightColor[1]
+    const b = Settings().CustomSlotHighlightColor[2]
+    const a = Settings().CustomSlotHighlightColor[3]
     const NewColor = Renderer.color(r, g, b, a)
     const HighLightedSlot = new Slot(slot)
     cancel(event)
@@ -23,13 +23,13 @@ register(`renderSlotHighlight`, (mx, my, slot, gui, event) => {
 
 /*
 register(`postGuiRender`, () => {
-    if (!Settings.CustomSlotHighlight) return
+    if (!Settings().CustomSlotHighlight) return
 
     const [r, g, b, a] = [
-        Settings.CustomSlotHighlightColor.getRed(),
-        Settings.CustomSlotHighlightColor.getGreen(),
-        Settings.CustomSlotHighlightColor.getBlue(),
-        Settings.CustomSlotHighlightColor.getAlpha()
+        Settings().CustomSlotHighlightColor[0],
+        Settings().CustomSlotHighlightColor[1],
+        Settings().CustomSlotHighlightColor[2],
+        Settings().CustomSlotHighlightColor[3]
     ]
 
     const mx = Client.getMouseX()

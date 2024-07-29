@@ -10,7 +10,7 @@ export let Text = new Text(` `).setShadow(true).setFormatted(true)
 export let md = false
 
 register("chat", () => { 
-	if (!Settings.SpiritMaskTimer) return
+	if (!Settings().SpiritMaskTimer) return
 	Timer = 30
 	RenderRegister.register()
 }).setChatCriteria("Second Wind Activated! Your Spirit Mask saved your life!")

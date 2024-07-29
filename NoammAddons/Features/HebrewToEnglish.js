@@ -30,7 +30,7 @@ function includesAnyKey(message) {
 
 
 register(`messageSent`, (ChatMessage, event) => {
-    if (!includesAnyKey(ChatMessage) || !Settings.HebrewToEnglish) return
+    if (!includesAnyKey(ChatMessage) || !Settings().HebrewToEnglish) return
     let newChatMsg = '';
     for (let i = 0; i < ChatMessage.length; i++) {
         let char = ChatMessage.charAt(i)

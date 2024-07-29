@@ -7,7 +7,7 @@ import { getCurrentRoom } from "../../BloomCore/utils/Utils"
 
 
 function StartOrStop() {
-	return Settings.IcefillSolver && IsInDungeon()
+	return Settings().IcefillSolver && IsInDungeon()
 }
 
 
@@ -132,7 +132,7 @@ function render(path) {
 	for (let i = 0; i < path.length - 1; ++i) {
 		let [x1, y1, z1] = path[i]
 		let [x2, y2, z2] = path[i + 1]
-		const [r, g, b, a] = [ Settings.IcefillSolverColor.getRed()/255, Settings.IcefillSolverColor.getGreen()/255, Settings.IcefillSolverColor.getBlue()/255, Settings.IcefillSolverColor.getAlpha()/255 ]
+		const [r, g, b, a] = [ Settings().IcefillSolverColor[0]/255, Settings().IcefillSolverColor[1]/255, Settings().IcefillSolverColor[2]/255, Settings().IcefillSolverColor[3]/255 ]
 		Render.Line(x1 + 0.5, y1, z1 + 0.5, x2 + 0.5, y2, z2 + 0.5, r, g, b, a, true, 5)
 	}
 }

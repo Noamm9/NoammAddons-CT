@@ -9,7 +9,7 @@ const C0DPacketCloseWindow = Java.type("net.minecraft.network.play.client.C0DPac
 
 
 register(PreGuiRenderEvent, (event) => {
-	if (!IsInDungeon() || !Settings.AutoCloseDungeonChests) return
+	if (!IsInDungeon() || !Settings().AutoCloseDungeonChests) return
 
     try {
 		const Chest = Player.getContainer()

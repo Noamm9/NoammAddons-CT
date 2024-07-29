@@ -63,11 +63,11 @@ registerWhen(register(`postGuiRender`, () => {
     InventoryButtons.forEach(button => button.Draw())
 
     Tessellator.popMatrix()
-}), () => Client.currentGui.getClassName() == "GuiInventory" && Settings.InventoryButtons)
+}), () => Client.currentGui.getClassName() == "GuiInventory" && Settings().InventoryButtons)
 
 
 
 registerWhen(register(`guiMouseClick`, (_, __, btn) => { 
 
     InventoryButtons.forEach(button => button.MouseClick(btn))
-}), () => Client.currentGui.getClassName() == "GuiInventory" && Settings.InventoryButtons)
+}), () => Client.currentGui.getClassName() == "GuiInventory" && Settings().InventoryButtons)

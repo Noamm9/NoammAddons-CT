@@ -7,7 +7,7 @@ import { prefix } from "../utils"
 
 
 register(`chat`, (type) => {
-    if (!Settings.AnnounceDraftsReset) return
+    if (!Settings().AnnounceDraftsReset) return
     
     ChatLib.command(`pc ${prefix.removeFormatting()} Used Draft to Reset ${type}`)
 }).setCriteria(/^You used the Architect's First Draft to reset (Higher Or Lower| Boulder|Three Weirdos|Ice Path|Bomb Defuse)!/)

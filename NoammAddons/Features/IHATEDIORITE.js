@@ -89,7 +89,7 @@ const YellowArray = [
 
 
 function StartOrStop() {
-    return World.isLoaded() && Settings.IHateDiorite && getPhase() == "p2"
+    return World.isLoaded() && Settings().IHateDiorite && getPhase() == "p2"
 }
 
 

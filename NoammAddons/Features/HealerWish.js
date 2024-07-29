@@ -6,8 +6,8 @@ import Settings from "../Settings"
 let showWishMessage = false
 let wishTimer = 0
 let wishTitleComp = new Text(
-        Settings.healerWishTitle,
-        Renderer.screen.getWidth() / 2 - (Renderer.getStringWidth(ChatLib.removeFormatting(Settings.healerWishTitle))*5) / 2,
+        Settings().healerWishTitle,
+        Renderer.screen.getWidth() / 2 - (Renderer.getStringWidth(ChatLib.removeFormatting(Settings().healerWishTitle))*5) / 2,
         Renderer.screen.getHeight() / 2 - Renderer.screen.getHeight() / 4
     )
         .setShadow(true).setFormatted(true).setScale(5)
@@ -26,10 +26,10 @@ const wishMessages = [
 
 wishMessages.forEach((message) => {
     register("chat", () => {
-        if (!Settings.healerWish || ChatLib.removeFormatting(Settings.healerWishTitle) == "") return;
-        ChatLib.command(`pc ${ChatLib.removeFormatting(Settings.healerWishMessage)}`)
-        wishTitleComp.setString(Settings.healerWishTitle)
-        wishTitleComp.setX(Renderer.screen.getWidth() / 2 - (Renderer.getStringWidth(ChatLib.removeFormatting(Settings.healerWishTitle))*5) / 2)
+        if (!Settings().healerWish || ChatLib.removeFormatting(Settings().healerWishTitle) == "") return;
+        ChatLib.command(`pc ${ChatLib.removeFormatting(Settings().healerWishMessage)}`)
+        wishTitleComp.setString(Settings().healerWishTitle)
+        wishTitleComp.setX(Renderer.screen.getWidth() / 2 - (Renderer.getStringWidth(ChatLib.removeFormatting(Settings().healerWishTitle))*5) / 2)
         wishTitleComp.setY(Renderer.screen.getHeight() / 2 - Renderer.screen.getHeight() / 4)
         wishTimer = 10
         showWishMessage = true;

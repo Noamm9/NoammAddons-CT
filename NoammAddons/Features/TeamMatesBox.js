@@ -8,7 +8,7 @@ import { Render, registerWhen, IsInDungeon } from "../utils"
 
 
 function StartOrStop() {
-    return Settings.TeammatesBox && IsInDungeon()
+    return Settings().TeammatesBox && IsInDungeon()
 }
 
 
@@ -21,7 +21,7 @@ const Trigger = register('renderOverlay', () => {
             let Otherplayer = World.getPlayerByName(PlayerName)
 
             if (Otherplayer.getName() !== MyPlayerName) {
-                if (Settings.TeammatesBoxMode == 0) {
+                if (Settings().TeammatesBoxMode == 0) {
             
                     if (PlayerClass.charAt(0) == `M`) Render.TwoDEspBox(Otherplayer.getRenderX(), Otherplayer.getRenderY(), Otherplayer.getRenderZ(), Renderer.color(0, 234, 255), 2) 
                     if (PlayerClass.charAt(0) == `H`) Render.TwoDEspBox(Otherplayer.getRenderX(), Otherplayer.getRenderY(), Otherplayer.getRenderZ(), Renderer.color(255, 0, 209), 2)

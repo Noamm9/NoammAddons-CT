@@ -50,4 +50,4 @@ const doStuff = (value, index) => {
 
 registerWhen(register("renderWorld", () => {
     try {Terminals[GetP3Section()-1].forEach(doStuff)} catch (e) {}
-}), () => IsInBossRoom() && GetP3Section() && Settings.TerminalNumbers)
+}), () => IsInBossRoom() && GetP3Section() && Settings().TerminalNumbers)

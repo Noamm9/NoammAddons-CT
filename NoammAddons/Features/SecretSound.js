@@ -55,9 +55,9 @@ const soundsList = [
 function playSound() {
     
     World.playSound(
-        soundsList[Settings.SecretsSoundType][0], 	// Sound
+        soundsList[Settings().SecretsSoundType][0], 	// Sound
         1,											// Volume
-        soundsList[Settings.SecretsSoundType][1] 	// Pitch
+        soundsList[Settings().SecretsSoundType][1] 	// Pitch
     )
 }
 
@@ -108,7 +108,7 @@ const EntityJoinWorldEventTrigger = register(EntityJoinWorldEvent, (event) => {
 }).unregister()
 
 register(`step`, () => {
-    if (!Settings.SecretsSound) return
+    if (!Settings().SecretsSound) return
 
     if (IsInDungeon()) {
 

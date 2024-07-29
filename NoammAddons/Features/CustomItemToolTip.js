@@ -83,11 +83,11 @@ registerWhen(register(`postGuiRender`, (mx, my) => {
         Tessellator.popMatrix()
 
     } catch (e) {}
-}), () => Settings.CustomItemTooltip)
+}), () => Settings().CustomItemTooltip)
 
 
 
-registerWhen(TriggerRegister.registerItemTooltip((a, b, e) => cancel(e)), () => Settings.CustomItemTooltip)
+registerWhen(TriggerRegister.registerItemTooltip((a, b, e) => cancel(e)), () => Settings().CustomItemTooltip)
 
 function getLongestStringWithinArray(Array) {
     let longestString = Array[0]; // Assume the first string is the longest

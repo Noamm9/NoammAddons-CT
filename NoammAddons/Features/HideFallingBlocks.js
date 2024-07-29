@@ -7,7 +7,7 @@ import { registerWhen } from "../utils"
 
 
 function StartOrStop() {
-    if (Settings.HideFallingBlocks) return true
+    if (Settings().HideFallingBlocks) return true
     else return false
 }
 

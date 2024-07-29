@@ -10,7 +10,7 @@ const WorldBorder = Java.type("net.minecraft.world.border.WorldBorder");
 
 
 register("packetReceived", (packet) => {
-	if (packet.class.getSimpleName() == "S44PacketWorldBorder" && Dungeon.inDungeon && Settings.ShadowAssasianAlert) {
+	if (packet.class.getSimpleName() == "S44PacketWorldBorder" && Dungeon.inDungeon && Settings().ShadowAssasianAlert) {
 		const worldborder = new WorldBorder();
 		packet.func_179788_a(worldborder);
 

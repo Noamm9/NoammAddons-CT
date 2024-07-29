@@ -7,7 +7,7 @@ import { registerWhen } from "../utils"
 
 
 function StartOrStop() {
-    if (Settings.HideLightning) return true
+    if (Settings().HideLightning) return true
     else return false
 }
 

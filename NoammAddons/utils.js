@@ -9,6 +9,7 @@ export const BlockPoss = Java.type("net.minecraft.util.BlockPos")
 export const MouseEvent = Java.type("net.minecraftforge.client.event.MouseEvent")
 export const PreGuiRenderEvent = net.minecraftforge.client.event.GuiScreenEvent.DrawScreenEvent.Pre
 export const C0EPacketClickWindow = Java.type("net.minecraft.network.play.client.C0EPacketClickWindow")
+export const C08PacketPlayerBlockPlacement = Java.type("net.minecraft.network.play.client.C08PacketPlayerBlockPlacement")
 export const gc = (text) => ChatLib.getCenteredText(text) // getCentered
 export const cc = (text) => ChatLib.chat(gc(text)) // centerChat
 export const prefix = "§6§l[§b§lN§d§lA§6§l]§r"
@@ -16,6 +17,8 @@ export const fullName = `§d§l§nNoamm§b§l§nAddons`
 export const Color = Java.type("java.awt.Color")
 const dungeonSecrets = JSON.parse(FileLib.read(`Noammaddons`, "RandomShit/DungeonSecretsItems.json"))
 export const DungeonSecretsItems = dungeonSecrets.items
+export const getModuleVersion = () => JSON.parse(FileLib.read("NoammAddons", "metadata.json")).version
+const PatcherConfig = Java.type("club.sk1er.patcher.config.PatcherConfig")
 const Desktop = Java.type('java.awt.Desktop');
 const JavaRuntime = Java.type("java.lang.Runtime")
 const URI = Java.type('java.net.URI');
@@ -69,23 +72,62 @@ export const WitherDoorsOffsets = [
  * @returns {void}
  */
 export function RickRoll() {
-  if (!Desktop.isDesktopSupported()) {
-    throw new Error("Desktop environment is not supported.");
-  }
+  if (!Desktop.isDesktopSupported()) return
 
-  Desktop.getDesktop().browse(new URI("https://www.youtube.com/watch?v=dQw4w9WgXcQ"));
+  Desktop.getDesktop().browse(new URI("https://www.youtube.com/watch?v=xvFZjo5PgG0"));
 }
 
 
 /**
  * Displays a notification with a custom message and duration.
  * @param {string} string - The message to display in the notification.
- * @param {number} TimeUp - The duration in milliseconds for which the notification should be displayed.
+ * @param {number} TimeUp - The duration in seconds for which the notification should be displayed.
  */
 export function Alert(string, TimeUp) {
   EssentialAPI.getNotifications().push(
-    `${fullName}:`, `${string}`, TimeUp
+    `${fullName}:`, `\n${string}`, TimeUp
   )
+}
+
+
+/**
+ * Searches the player's inventory for an item containing a specified string.
+ *
+ * @param {string} str - The string to search for in the item names.
+ * @returns {Object} - An object containing the search results.
+ * @property {boolean} Object.match - Indicates whether a match was found.
+ * @property {number} Object.slot - The slot number of the matching item in the inventory. If no match is found, this property will be undefined.
+ */
+function invContains(str) {
+  if (str == undefined) throwE("invContains")
+  let val = { match: false, slot: undefined }
+  Player.getInventory().getItems().forEach((item, slot) => {
+    if (item?.getName()?.toLowerCase()?.includes(str?.toLowerCase())) {
+      val.match = true
+      val.slot = slot
+    }
+  })
+  return val
+}
+
+
+/**
+  Returns true/false if the item in the slot contains lore
+  * @param {int} slot - Slot of item to check lore
+  * @param {String} search - Lore to search for
+*/
+export function loreContains(slot, str) {
+  if (slot == undefined || str == undefined) throw new Error(`Invalid value in one of the parameters`)
+
+  let val = false
+  Player.getInventory().getStackInSlot(slot).getLore().forEach((lore, line) => {
+
+    if (lore?.toLowerCase()?.includes(str?.toLowerCase())) val = true
+    
+  })
+
+  return val
+  
 }
 
 
@@ -132,6 +174,27 @@ export function GhostBlock(MCBlockPoss, MCBlockState) {
 
 
 /**
+ * Retrieves the scale factor for the inventory of patcher mod .
+ *
+ * @returns {number} - The scale factor for the inventory patcher. The scale factor determines the size of the inventory GUI.
+ * The function returns a value between 0.5 and 2, representing Small, Normal, Large, Auto.
+ * If the user's configuration is not recognized, the function returns 1 (normal scaling).
+ */
+export function getPatcherScale() {
+  const scale = PatcherConfig?.inventoryScale
+
+  if (scale == 0) return 1 // Normal
+  if (scale == 1) return 0.5 // Small
+  if (scale == 2) return 1 // Normal
+  if (scale == 3) return 1.5 // Large
+  if (scale == 4) return 2 // Auto
+  if (scale == 5) return 2 // Auto
+
+  return 1
+}
+
+
+/**
  * Sends a mod message to the chat with a prefix.
  * @param {string} string - The message to be sent to the chat.
  */
@@ -156,6 +219,26 @@ export function CloseCurrentGui() {
  */
 export function TurnOffPC() {
   JavaRuntime.getRuntime().exec("shutdown -s -t 0")
+}
+
+/**
+ * Adds random color codes to a given input string.
+ *
+ * @param {string} inputString - The input string to add color codes to.
+ * @returns {string} - The input string with random color codes added.
+ * 
+ * The color codes are randomly selected from a predefined list of color codes.
+ */
+export function addRandomColorCodes(inputString) {
+  const colorCodes = ["§6", "§a", "§b", "§c", "§d", "§e", "§f"]
+  let result = ""
+  
+  for (let char of inputString) {
+    let randomColor = colorCodes[Math.floor(Math.random() * colorCodes.length)];
+    result += randomColor + char + "§r";
+  }
+  
+  return result;
 }
 
 
@@ -185,6 +268,44 @@ export function clickSlot(slot, btn, windowID = Player.getContainer().getWindowI
     windowID, slot, btn ? btn : 2, 3, Player.getPlayer()
   )
 }
+
+
+/**
+ * Formats a number by adding commas and abbreviating large numbers.
+ *
+ * @param {number} num - The number to format.
+ * @returns {string} - The formatted number as a string.
+ *
+ * If the number is NaN or zero, the function returns "0".
+ * If the number is less than 1, it is rounded to two decimal places.
+ * For numbers greater than or equal to 1,000, the function abbreviates them using the following prefixes:
+ * - k (thousand)
+ * - m (million)
+ * - b (billion)
+ * - t (trillion)
+ * - q (quadrillion)
+ * - Q (quintillion)
+ *
+ * If the number is an integer and less than 1,000, it is returned as a string without decimals.
+ */
+export function formatNumber(num) {
+  if (isNaN(num) || num === 0) return "0";
+  
+  const sign = Math.sign(num);
+  const absNum = Math.abs(num);
+
+  if (absNum < 1) return (sign === -1 ? '-' : '') + absNum.toFixed(2);
+
+  const abbrev = ["", "k", "m", "b", "t", "q", "Q"];
+  const index = Math.floor(Math.log10(absNum) / 3);
+
+  const formattedNumber = ((sign === -1 ? -1 : 1) * absNum / Math.pow(10, index * 3)).toFixed(1) + abbrev[index];
+
+  if (Number.isInteger(absNum) && absNum < 1_000) return String(parseInt(formattedNumber));
+  return formattedNumber;
+}
+
+
 
 
 /**
@@ -487,6 +608,13 @@ export function intToRGB(color, Alpha = false) {
 
   else return [r, g, b];
 }
+
+
+
+
+
+
+
 
 
 
@@ -958,18 +1086,15 @@ export class Render {
    * @param {number} [yOffset=0] - The vertical offset for the title position. Default is 0.
    * @param {number} [xOffset=0] - The horizontal offset for the title position. Default is 0.
    */
-  static Title(text, scale = 5, time = 3000, sound = "random.orb", yOffset = 0, xOffset = 0) {
+  static Title(text, scale = 5, time = 3000, yOffset = 0, xOffset = 0) {
       let timePast = null
       const titleText = new Text(" ")
 
       const trigger = register("renderOverlay", () => {
         const currentTime = Date.now()
 
-        if (!timePast) {
-          timePast = currentTime
-          World.playSound(sound, 1, 1)
-        }
-
+        if (!timePast) timePast = currentTime
+        
         const remainingTime = time - (currentTime - timePast)
 
         if (remainingTime > 0) {
@@ -982,7 +1107,9 @@ export class Render {
             .setShadow(true)
             .setScale(scale)
             .draw()
-        } else trigger.unregister()
+        } 
+        
+        else trigger.unregister()
 
       })
   }
@@ -1001,6 +1128,7 @@ export class PlayerUtils {
    * @returns {Object} An object containing the x, y, and z coordinates of the player's eye position.
    */
   static getEyePos() {
+    if (!Player) return
     return {
       x: Player.getX(),
       y: Player.getY() + Player.getPlayer().func_70047_e(),
@@ -1070,7 +1198,7 @@ export class PlayerUtils {
    * @param {number} pitch - The new pitch (vertical rotation) value for the player's view.
    * @param {number} time - The duration in milliseconds over which the rotation should occur.
    */
-  static rotateSmoothly(yaw, pitch, time) {
+  static rotateSmoothly(yaw, pitch, time, canselCheck = false) {
     while (yaw >= 180) yaw -= 360
     while (yaw < -180) yaw += 360
 
@@ -1080,6 +1208,8 @@ export class PlayerUtils {
     const initialTime = new Date().getTime()
 
     const trigger = register("step", () => {
+      if (canselCheck) trigger.unregister()
+        
       const progress = time <= 0 ? 1 : Math.max(Math.min((new Date().getTime() - initialTime) / time, 1), 0)
 
       const amount = (1 - progress) * (1 - progress) * (1 - progress) * 0 + 3 * (1 - progress) * (1 - progress) * progress * 1 + 3 * (1 - progress) * progress * progress * 1 + progress * progress * progress * 1
@@ -1100,14 +1230,15 @@ export class PlayerUtils {
    */
   static swapToSlot(SlotIndex) {
     const MCplayer = Player.getPlayer()
-    if (!MCplayer) return
 
+    if (!MCplayer || (SlotIndex < 0 || SlotIndex > 8)) return ModMessage("&cCannot swap to " + SlotIndex + "&c. Not in hotbar.")
+      
     const MCInventory = MCplayer.field_71071_by
     if (!MCInventory) return
 
     MCInventory.field_70461_c = SlotIndex
 
-    ModMessage(`Swapped to item in slot ${SlotIndex}`)
+    ModMessage(`Swapped to ${Player?.getInventory()?.getStackInSlot(SlotIndex)?.getName()}&r in slot &6${SlotIndex}`)
   }
 
 

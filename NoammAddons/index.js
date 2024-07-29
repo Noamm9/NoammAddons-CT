@@ -1,6 +1,32 @@
+import { SettingsGUIHandler} from "./Settings"
+import { cc, getModuleVersion } from "./utils"
+
+
 // FOR ASM SHIT
 new BlockType(144).getDefaultState().func_177230_c().func_149676_a(0, 0, 0, 1, 1 ,1)
 new BlockType(397).getDefaultState().func_177230_c().func_149676_a(0, 0, 0, 1, 1 ,1)
+
+
+register("command",(...args) => {
+
+    switch (args[0]) {
+        case "edit":
+            ChatLib.command(`naeditmaingui`, true)
+            break
+
+        case "help":
+            ChatLib.chat("help message")
+            break
+            
+        default:
+            SettingsGUIHandler.ctGui.open()
+            break
+    }
+        
+}).setName("noamm").setAliases("noam", "noamaddons", "noammaddons", "na")
+
+
+
 
 
 import "./Features/BonzoMaskTimer"
@@ -13,7 +39,6 @@ import "./Features/RemoveSelfieCam"
 import "./Features/CustomFOV"
 import "./Features/IHATEDIORITE" 
 import "./Features/NoSwordBlock"
-import "./Features/M7DragBox"
 import "./Features/M7DragTimer"
 import "./Features/PinkDMs"
 import "./Features/ShortSkyBlockCommands"
@@ -83,13 +108,18 @@ import "./Features/AutoM5UlT"
 import "./Features/TerminalNumbers"
 import "./Features/AutoPotion"
 import "./Features/AutoTwilight"
-import "./Features/CustomScoreboard.js"
+import "./Features/CustomScoreboard"
+import "./Features/CustomDamageSplash"
+import "./Features/CustomBotHitSound"
+import './Features/AutoM4'
+import "./Features/PurplePadTimer"
+
 
 
 import "./AutoUpDater"
 import "./EditGui"
 import "./Features/PingCommand"
-//import "./DebugMode"
+// import "./DebugMode"
 
 
 
@@ -98,10 +128,12 @@ import "./TODO/TestGround"
 //import "./TODO/CustomTablist.js"
 
 // import "./TODO/ExtractMinecraftChat"
-//import "./TODO/AutoReaperArmorSwap"
 // import "./TODO/RoomEdit" // WIP
-// import "./TODO/asm/exposed/toggleSecretHitboxes" // Maybe someday will be toggleable
 
 
-// import "./TODO/NecronDroppingTimer"   // Moved to F7PhaseStartTimers
-// import "./TODO/IHATECARPETS" // thx Hypixel for fixing it ):
+ChatLib.chat(`&6&m${ChatLib.getChatBreak(" ")}`)
+cc("&a&a&b&c&d&e")
+cc("&b&lNoamm&d&lAddons&r &a&lLoaded!")
+cc(`&4&lVersion &6&l${getModuleVersion()}`)
+cc("&a&a&b&c&d&d&e")
+ChatLib.chat(`&6&m${ChatLib.getChatBreak(" ")}`)

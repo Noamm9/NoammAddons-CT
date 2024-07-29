@@ -8,9 +8,8 @@ import { MainGUI } from "../EditGui"
 
 export let Toggle = false 
 export let md = false
-export let Text = new Text(` `).setShadow(true).setFormatted(true) 
+export let Text = new Text(` `).setShadow(true).setFormatted(true)
 
-const LegitGhostPickBind = new KeyBind("Legit Ghost Pickaxe", Keyboard.KEY_Z, "NoammAddons")
 let BreakingSounds = JSON.parse(FileLib.read("NoammAddons", "RandomShit/BreakingSounds.json"))
 
 const ids = [
@@ -39,18 +38,20 @@ const ignoreList = [
 ]
 
 
-
-
-
-LegitGhostPickBind.registerKeyPress(() => {
-	if (!Settings.LegitGhostPickaxe) return
-    if (Settings.PickaxeMode == 0 || Settings.PickaxeMode == 2)
-    Toggle = !Toggle
-})
+let lastTriggered = 0;
+registerWhen(register('tick', () => {
+    if (Keyboard.isKeyDown(Settings().GhostPickaxeKeybind)) {
+        if ((Date.now() - lastTriggered) < 300) return;
+        if (Settings().PickaxeMode == 0 || Settings().PickaxeMode == 2) {
+            Toggle = !Toggle;
+            lastTriggered = Date.now();
+        } 
+    }
+}), () => Settings().LegitGhostPickaxe && !Client.isInChat());
 
 
 register("renderOverlay", () => {
-	if (!Settings.LegitGhostPickaxe) return
+	if (!Settings().LegitGhostPickaxe) return
 
 	
 	Text.setX(LegitGhostPickGUIdata.x)
@@ -69,7 +70,7 @@ register("packetsent", (packet, event) => {
     }
 
     if (packet.class.getSimpleName() !== "C0APacketAnimation" || !IsInDungeon()) return
-    if (Settings.PickaxeMode == 1 || Settings.PickaxeMode == 2) {
+    if (Settings().PickaxeMode == 1 || Settings().PickaxeMode == 2) {
 
         const block = Player.lookingAt()
 

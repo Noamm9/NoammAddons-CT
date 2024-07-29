@@ -7,7 +7,7 @@ import { ModMessage, Render, MyMath } from "../utils"
 
 
 register(`chat`, (type, name, x1, y2, z3, event) => {
-    if (!Settings.ChatCoordsWayPoint) return 
+    if (!Settings().ChatCoordsWayPoint) return 
     const [ x, y, z ] = [ parseFloat(x1), parseFloat(y2), parseFloat(z3) ]
     
     
@@ -16,7 +16,7 @@ register(`chat`, (type, name, x1, y2, z3, event) => {
     const StartTime = new Date().getTime()
     
     const renderWorld = register(`renderWorld`, () => {
-        const [ r, g, b ] = [Settings.ChatCoordsWayPointColor.getRed()/255, Settings.ChatCoordsWayPointColor.getGreen()/255, Settings.ChatCoordsWayPointColor.getBlue()/255]
+        const [ r, g, b ] = [Settings().ChatCoordsWayPointColor[0]/255, Settings().ChatCoordsWayPointColor[1]/255, Settings().ChatCoordsWayPointColor[2]/255]
         const TimeLeft = ((SelfDistractionTimeMs - (new Date().getTime() - StartTime)))
         const distance = MyMath.DistanceIn3dWorld(Player.getX(), Player.getY(), Player.getZ(), x, y, z)
         if ( !World.isLoaded() || distance <= 5 || TimeLeft <= 0 ) renderWorld.unregister()

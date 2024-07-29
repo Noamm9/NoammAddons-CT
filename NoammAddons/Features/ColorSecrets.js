@@ -32,4 +32,4 @@ const renderTrigger = register("renderEntity", (entity, _, partialTicks, event) 
 
 
 
-registerWhen(renderTrigger, () => Settings.ColorSecrets)
+registerWhen(renderTrigger, () => Settings().ColorSecrets)

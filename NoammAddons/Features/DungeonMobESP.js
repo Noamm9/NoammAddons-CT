@@ -24,10 +24,10 @@ const espfilledBox = (x, y, z, r, g, b, a, height) => RenderLib.drawInnerEspBox(
 
 registerWhen(register("renderWorld", pt => {
     let [r, g, b, a,] = [
-        Settings.MobESPColor.getRed()/255, 
-        Settings.MobESPColor.getGreen()/255, 
-        Settings.MobESPColor.getBlue()/255, 
-        Settings.MobESPColor.getAlpha() /255
+        Settings().MobESPColor[0]/255, 
+        Settings().MobESPColor[1]/255, 
+        Settings().MobESPColor[2]/255, 
+        Settings().MobESPColor[3] /255
     ]
 
     try {
@@ -38,8 +38,8 @@ registerWhen(register("renderWorld", pt => {
 
 
         if (name.includes("Shadow Assassin")) {
-            if (Settings.MobESPMode == 1) espfilledBox(entity.getRenderX(), entity.getRenderY()+2, entity.getRenderZ(), r, g, b, a, 1.9)
-            else if (Settings.MobESPMode == 0) espBox(entity.getRenderX(), entity.getRenderY()+2, entity.getRenderZ(), r, g, b, 1.9)
+            if (Settings().MobESPMode == 1) espfilledBox(entity.getRenderX(), entity.getRenderY()+2, entity.getRenderZ(), r, g, b, a, 1.9)
+            else if (Settings().MobESPMode == 0) espBox(entity.getRenderX(), entity.getRenderY()+2, entity.getRenderZ(), r, g, b, 1.9)
             else {
                 espBox(entity.getRenderX(), entity.getRenderY()+2, entity.getRenderZ(), r, g, b, 1.9)
                 espfilledBox(entity.getRenderX(), entity.getRenderY()+2, entity.getRenderZ(), r, g, b, a, 1.9)
@@ -52,8 +52,8 @@ registerWhen(register("renderWorld", pt => {
         if (name.includes("✯")) {
 
             if (name.includes("Fel") || name.includes("Withermancer")) {
-                if (Settings.MobESPMode == 0) espBox(entity.getRenderX(), entity.getRenderY(), entity.getRenderZ(), r, g, b, 2.8);
-                else if (Settings.MobESPMode == 1) espfilledBox(entity.getRenderX(), entity.getRenderY(), entity.getRenderZ(), r, g, b, a, 2.8)
+                if (Settings().MobESPMode == 0) espBox(entity.getRenderX(), entity.getRenderY(), entity.getRenderZ(), r, g, b, 2.8);
+                else if (Settings().MobESPMode == 1) espfilledBox(entity.getRenderX(), entity.getRenderY(), entity.getRenderZ(), r, g, b, a, 2.8)
                 else {
                 espBox(entity.getRenderX(), entity.getRenderY(), entity.getRenderZ(), r, g, b, 2.8)
                 espfilledBox(entity.getRenderX(), entity.getRenderY(), entity.getRenderZ(), r, g, b, a, 2.8)
@@ -61,8 +61,8 @@ registerWhen(register("renderWorld", pt => {
             }
             else {
                 // entity.getEntity().func_82142_c(false);
-                if (Settings.MobESPMode == 1) espfilledBox(entity.getRenderX(), entity.getRenderY(), entity.getRenderZ(), r, g, b, a, 1.9)
-                else if (Settings.MobESPMode == 0) espBox(entity.getRenderX(), entity.getRenderY(), entity.getRenderZ(), r, g, b, 1.9)
+                if (Settings().MobESPMode == 1) espfilledBox(entity.getRenderX(), entity.getRenderY(), entity.getRenderZ(), r, g, b, a, 1.9)
+                else if (Settings().MobESPMode == 0) espBox(entity.getRenderX(), entity.getRenderY(), entity.getRenderZ(), r, g, b, 1.9)
                 else {
                     espBox(entity.getRenderX(), entity.getRenderY(), entity.getRenderZ(), r, g, b, 1.9)
                     espfilledBox(entity.getRenderX(), entity.getRenderY(), entity.getRenderZ(), r, g, b, a, 1.9)
@@ -71,8 +71,8 @@ registerWhen(register("renderWorld", pt => {
         }
     })} catch (e) {}
 
-}), () => Settings.DungeonMobESP && IsInDungeon() && !IsInBossRoom())
+}), () => Settings().DungeonMobESP && IsInDungeon() && !IsInBossRoom())
 
-register(`step`, () => Entities = World.getAllEntities().filter(entity => entity.getName().removeFormatting().includes(`✯`) || entity.getName().removeFormatting().includes(`Shadow Assassin`))).setFps(5)
+register(`step`, () => Entities = World.getAllEntities().filter(entity => entity.getName().match(/^§6✯ (?:§.)*(.+)§r.+§c❤|(Shadow Assassin)$/) || entity.getName().removeFormatting().includes(`Shadow Assassin`))).setFps(5)
 
 //register(`command`, () => Entities.forEach(entity => ChatLib.chat(entity.getName()))).setName(`test`)

@@ -14,4 +14,4 @@ registerWhen(register(`chat`, () => {
         PlayerUtils.UseDungeonClassAbility(true)
     })
     
-}).setCriteria(`[BOSS] Livid: I respect you for making it to here, but I'll be your undoing.`), () => Settings.AutoM5ULT)
+}).setCriteria(`[BOSS] Livid: I respect you for making it to here, but I'll be your undoing.`), () => Settings().AutoM5ULT)

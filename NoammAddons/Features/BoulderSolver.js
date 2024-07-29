@@ -106,7 +106,7 @@ registerWhen(register("worldUnload", () => {
     lastDungIndex = null
     idxTicks = 0
     cachedRotations.clear()
-}), () => Settings.BoulderSolver)
+}), () => Settings().BoulderSolver)
 
 function getDungeonsPosIndex() {
     const xIndex = Math.floor((Player.getX() + 200) / 32)
@@ -154,7 +154,7 @@ function reset() {
 
 
 onPuzzleRotation((rotation, posIndex) => {
-    if (!IsInDungeon() || !Settings.BoulderSolver || enteredRoomAt || puzzleDone) return
+    if (!IsInDungeon() || !Settings().BoulderSolver || enteredRoomAt || puzzleDone) return
     
     const block = World.getBlockAt(...getRealCoord(relativeCoords.ironbar, rotation))
 
@@ -181,7 +181,7 @@ onPuzzleRotation((rotation, posIndex) => {
 function renderSolutions() {
     if (!World.isLoaded() || !renderBlocks.length) return
 
-    const [r, g, b, a] = [ Settings.BoulderSolverColor.getRed()/255, Settings.BoulderSolverColor.getGreen()/255, Settings.BoulderSolverColor.getBlue()/255, Settings.BoulderSolverColor.getAlpha()/255 ]
+    const [r, g, b, a] = [ Settings().BoulderSolverColor[0]/255, Settings().BoulderSolverColor[1]/255, Settings().BoulderSolverColor[2]/255, Settings().BoulderSolverColor[3]/255 ]
 
     renderBlocks?.forEach(block => 
         Render.FilledOutLineBox(
@@ -231,11 +231,11 @@ function onBlockPlacement(block) {
 }
 
 
-registerWhen(register("renderWorld", renderSolutions), () => World.isLoaded() && IsInDungeon() && Settings.BoulderSolver )
+registerWhen(register("renderWorld", renderSolutions), () => World.isLoaded() && IsInDungeon() && Settings().BoulderSolver )
 
 
 register(`step`, () => {
-    if (IsInDungeon() || !World.isLoaded() || !Settings.BoulderSolver) return
+    if (IsInDungeon() || !World.isLoaded() || !Settings().BoulderSolver) return
     const room = getCurrentRoom()
     if (!room) return
 
@@ -249,7 +249,7 @@ registerWhen(register("worldUnload", () => {
     reset()
     hasSolution = false
     puzzleDone = false
-}), () => Settings.BoulderSolver)
+}), () => Settings().BoulderSolver)
 
 
 registerWhen(register("packetSent", (packet, _) => {
@@ -260,4 +260,4 @@ registerWhen(register("packetSent", (packet, _) => {
     const ctBlock = World.getBlockAt(x, y, z)
 
     onBlockPlacement(ctBlock, [x, y, z], blockPosition)
-}).setFilteredClass(net.minecraft.network.play.client.C08PacketPlayerBlockPlacement), () => World.isLoaded() && IsInDungeon() && Settings.BoulderSolver)
+}).setFilteredClass(net.minecraft.network.play.client.C08PacketPlayerBlockPlacement), () => World.isLoaded() && IsInDungeon() && Settings().BoulderSolver)

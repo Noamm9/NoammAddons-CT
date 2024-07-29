@@ -23,5 +23,5 @@ const postGuiRender = register('postGuiRender', (mx, my, gui) => {
 })
 
 
-registerWhen(guiClosed, () => Settings.BlurBackground)
-registerWhen(postGuiRender, () => Settings.BlurBackground)
+registerWhen(guiClosed, () => Settings().BlurBackground)
+registerWhen(postGuiRender, () => Settings().BlurBackground)

@@ -4,7 +4,8 @@
 
 import Dungeon from "../../../BloomCore/dungeons/Dungeon";
 import Settings from "../../Settings"
-import { Render, registerWhen, Color, CoolSound, IsInBossRoom, PreGuiRenderEvent, C0EPacketClickWindow } from "../../utils";
+import { Render, registerWhen, Color, CoolSound, IsInBossRoom, PreGuiRenderEvent, C0EPacketClickWindow, getPatcherScale } from "../../utils";
+import { Darkmode, Lightmode, StartWithTitle } from "./ConstantsVeriables";
 
 
 let inTerminal = false;
@@ -19,15 +20,16 @@ let extra = null;
 
 const clickTrigger = register("guiMouseClick", (x, y, button, _0, event) => {
 	cancel(event);
-	const TermScale = Settings.CustomTerminalMenuScale * 2
+
+	const TermScale = ((Settings().CustomTerminalMenuScale/100) * 4) / getPatcherScale()
 	const screenWidth = Renderer.screen.getWidth();
 	const screenHeight = Renderer.screen.getHeight();
 
 	const width = 9 * 18 * TermScale;
 	const height = windowSize / 9 * 18 * TermScale;
 
-	const globalOffsetX = Number.isNaN(parseInt(Settings.terminalsOffsetX)) ? 0 : parseInt(Settings.terminalsOffsetX);
-	const globalOffsetY = Number.isNaN(parseInt(Settings.terminalsOffsetY)) ? 0 : parseInt(Settings.terminalsOffsetY);
+	const globalOffsetX = 0
+	const globalOffsetY = 0
 
 	const offsetX = screenWidth / 2 - width / 2 + globalOffsetX * TermScale;
 	const offsetY = screenHeight / 2 - height / 2 + globalOffsetY * TermScale;
@@ -51,29 +53,27 @@ const clickTrigger = register("guiMouseClick", (x, y, button, _0, event) => {
 }).unregister();
 
 const renderTrigger = register(PreGuiRenderEvent, event => {
-	cancel(event);
-	const TermScale = Settings.CustomTerminalMenuScale * 2
+	cancel(event)
+
+	const TermScale = ((Settings().CustomTerminalMenuScale/100) * 4) / getPatcherScale()
 	const screenWidth = Renderer.screen.getWidth() / TermScale;
 	const screenHeight = Renderer.screen.getHeight() / TermScale;
 
 	const width = 9 * 18;
 	const height = windowSize / 9 * 18;
 
-	const globalOffsetX = Number.isNaN(parseInt(Settings.terminalsOffsetX)) ? 0 : parseInt(Settings.terminalsOffsetX);
-	const globalOffsetY = Number.isNaN(parseInt(Settings.terminalsOffsetY)) ? 0 : parseInt(Settings.terminalsOffsetY);
+	const globalOffsetX = 0
+	const globalOffsetY = 0
 
 	const offsetX = screenWidth / 2 - width / 2 + globalOffsetX + 1;
 	const offsetY = screenHeight / 2 - height / 2 + globalOffsetY;
 
-	const title = "&6&l&n[&b&l&nN&d&l&nA&6&l&n] &b&l&nT&d&l&ne&b&l&nr&d&l&nm&b&l&ni&d&l&nn&b&l&na&d&l&nl&r:&r &6Starts With";
-	const Lightmode = new Color(203 / 255, 202 / 255, 205 / 255, 80/100)
-    const Darkmode = new Color(33 / 255, 33 / 255, 33 / 255, 80/100)
-	let SolverColor = Settings.CustomTerminalMenuSolutionColor
+
+	let SolverColor = new Color(Settings().CustomTerminalMenuSolutionColor[0]/255, Settings().CustomTerminalMenuSolutionColor[1]/255, Settings().CustomTerminalMenuSolutionColor[2]/255, Settings().CustomTerminalMenuSolutionColor[3]/255)
     let ColorMode = Darkmode
-	if (Settings.CustomTerminalMenuLightMode) ColorMode = Lightmode
+	if (Settings().CustomTerminalMenuLightMode) ColorMode = Lightmode
 
 	Tessellator.pushMatrix()
-
 	Renderer.scale(TermScale)
 
     Render.RoundedRect(
@@ -84,6 +84,7 @@ const renderTrigger = register(PreGuiRenderEvent, event => {
         height + 4 + width / 15, 
         5
     )
+
     Render.RoundedRect(
         ColorMode, 
         offsetX - 2, 
@@ -92,7 +93,8 @@ const renderTrigger = register(PreGuiRenderEvent, event => {
         height + 4, 
         5
     )
-	Renderer.drawStringWithShadow(title, offsetX, offsetY);
+
+	Renderer.drawStringWithShadow(StartWithTitle, offsetX, offsetY);
 
 	for (let i = 0; i < windowSize; ++i) {
 
@@ -134,6 +136,7 @@ function click(slot, button) {
 		if (!inTerminal || initialWindowId !== cwid) return;
 		queue.length = 0
 		solve();
+		clicked = false;
 	}, 1000);
 }
 
@@ -200,14 +203,8 @@ const S2FPacketSetSlot = register("packetReceived", (packet, event) => {
 }).setFilteredClass(net.minecraft.network.play.server.S2FPacketSetSlot).unregister();
 
 
-const S2EPacketCloseWindow = register("packetReceived", () => {
-
-	Reset()
-	CoolSound()
-    
-}).setFilteredClass(net.minecraft.network.play.server.S2EPacketCloseWindow).unregister();
-
-const C0DPacketCloseWindow = register("packetSent", () => setTimeout(Reset, 100)).setFilteredClass(net.minecraft.network.play.client.C0DPacketCloseWindow).unregister();
+const S2EPacketCloseWindow = register("packetReceived", () => Reset()).setFilteredClass(net.minecraft.network.play.server.S2EPacketCloseWindow).unregister();
+const C0DPacketCloseWindow = register("packetSent", () => Reset()).setFilteredClass(net.minecraft.network.play.client.C0DPacketCloseWindow).unregister();
 
 
 function Reset() {
@@ -219,8 +216,10 @@ function Reset() {
 	C0DPacketCloseWindow.unregister()
 	inTerminal = false;
 	queue.length = 0
+	CoolSound()
+
 }
 
 
 
-registerWhen(GuiOpened, () => Settings.CustomTerminalsGui && Settings.CustomStartWithTerminal && Dungeon.floorNumber == 7, IsInBossRoom())
+registerWhen(GuiOpened, () => Settings().CustomTerminalsGui && Settings().CustomStartWithTerminal && Dungeon.floorNumber == 7, IsInBossRoom())

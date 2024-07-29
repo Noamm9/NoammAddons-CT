@@ -10,7 +10,7 @@ export let Text = new Text(` `).setShadow(true)
 
 
 register('renderOverlay', () => {
-    if(!Settings.FPSdisplay) return
+    if(!Settings().FPSdisplay) return
 
     Text.setX(FPSdisplayGUIdata.x)
 	Text.setY(FPSdisplayGUIdata.y)

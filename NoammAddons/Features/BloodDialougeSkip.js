@@ -5,7 +5,7 @@
 import Settings from "../Settings"
 
 const Chat = register("chat", () => {
-    if (!Settings.BloodDialougeSkip) return
+    if (!Settings().BloodDialougeSkip) return
     const StartTime = new Date().getTime()
     const BloodTimer = 24_000
     const BloodTitle = new Text(`&a${BloodTimer}`,

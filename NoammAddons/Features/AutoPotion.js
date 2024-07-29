@@ -30,42 +30,6 @@ const NotFoundGUI = register("renderOverlay", () => {
 
 const CancelKeyRegister = register(`guiKey`, (char, keycode, gui, event) => cancel(event)).unregister()
 
-
-function checkPotionBag(Container) {
-    if (!Container) return
-    
-    const slotCount = Container.getSize() - 36
-
-    for (let i = 0; i < slotCount; i++) {
-        let item = Container.getStackInSlot(i)
-
-        if (item && item.getID() === 373) {
-            Container.click(i, true, "LEFT")
-
-            new Thread(() => {
-                Thread.sleep(200)
-                CloseCurrentGui()
-                CancelGUIRendering.unregister()
-                CancelKeyRegister.unregister()
-            }).start()
-            return
-        }
-    }
-
-    ModMessage("&cNo potion found in the Potion Bag")
-
-    new Thread(() => {
-        NotFoundGUI.register()
-        Thread.sleep(2500)
-        NotFoundGUI.unregister()
-    }).start()
-
-    CloseCurrentGui()
-    CancelKeyRegister.unregister()
-    CancelGUIRendering.unregister()
-}
-
-
 registerWhen(register(`chat`, (event) => {
     try {
         let massage = ChatLib.getChatMessage(event).replace(/-/g, "")
@@ -79,14 +43,48 @@ registerWhen(register(`chat`, (event) => {
     
         if (potionInInv !== -1) return
         
-        CancelGUIRendering.register()
-        CancelKeyRegister.register()
-        ChatLib.command("bp 2");
-    
-        new Thread(() => {
-            Thread.sleep(1000)
-            checkPotionBag(Player.getContainer())
-        }).start()
+        GetPotion.start()
     
     } catch (e) {}
-}), () => Settings.AutoPotion)
+}), () => Settings().AutoPotion)
+
+
+
+const GetPotion = new Thread(() => {
+
+    CancelGUIRendering.register()
+    CancelKeyRegister.register()
+    ChatLib.command("bp 2");
+
+    while (!Client.isInGui()) {}
+    Thread.sleep(300)
+
+    let Container = Player.getContainer()
+
+    const slotCount = Container.getSize() - 36
+
+    for (let i = 0; i < slotCount; i++) {
+        let item = Container.getStackInSlot(i)
+
+        if (item && item.getID() === 373) {
+            Container.click(i, true, "LEFT")
+
+            Thread.sleep(200)
+            CloseCurrentGui()
+            CancelGUIRendering.unregister()
+            CancelKeyRegister.unregister()
+            return
+        }
+    }
+
+    ModMessage("&cNo potion found in the Potion Bag")
+
+
+    CloseCurrentGui()
+    CancelKeyRegister.unregister()
+    CancelGUIRendering.unregister()
+    NotFoundGUI.register()
+    Thread.sleep(2500)
+    NotFoundGUI.unregister()
+
+})

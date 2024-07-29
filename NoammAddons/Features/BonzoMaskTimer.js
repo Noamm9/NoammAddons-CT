@@ -9,7 +9,7 @@ export let md = false
 export var Timer = null; 
 
 register("chat", () => { 
-	if (!Settings.BonzoMaskTimer) return
+	if (!Settings().BonzoMaskTimer) return
 	Timer = 183
 	RenderRegister.register()
 }).setChatCriteria(/Your (?:. )?Bonzo's Mask saved your life!/)

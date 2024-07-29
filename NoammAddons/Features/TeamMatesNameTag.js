@@ -10,12 +10,12 @@ const RenderLivingEventSpecialsPre = net.minecraftforge.client.event.RenderLivin
 const PlayerEntity = net.minecraft.entity.player.EntityPlayer
 
 register(`renderWorld`, () => {
-    if (!Settings.TeammatesNametag || !Dungeon.inDungeon) return
+    if (!Settings().TeammatesNametag || !Dungeon.inDungeon) return
     let DungeonPlayerClasses = Dungeon.classes
     for (let PlayerName in DungeonPlayerClasses) {
         let PlayerClass = DungeonPlayerClasses[PlayerName];
 
-        if (Settings.TeammatesNametagMode == 0) DrawNames(World.getPlayerByName(PlayerName), PlayerName, PlayerClass.charAt(0))
+        if (Settings().TeammatesNametagMode == 0) DrawNames(World.getPlayerByName(PlayerName), PlayerName, PlayerClass.charAt(0))
         else {
             let FormattedName = TabList.getNames().join().match(`§.${PlayerName}`).join()
             DrawNames(World.getPlayerByName(PlayerName), `§e[§d${PlayerClass.charAt(0)}§e] ${FormattedName}`)
@@ -47,7 +47,7 @@ function DrawNames(player, string, PlayerClass) {
 
 
 register(RenderLivingEventSpecialsPre, (event) => {
-    if (!Settings.TeammatesNametag || !IsInDungeon()) return
+    if (!Settings().TeammatesNametag || !IsInDungeon()) return
     if (event.entity instanceof PlayerEntity) {
         const DungeonPlayerClasses = Dungeon.classes
         for (const PlayerName in DungeonPlayerClasses) {

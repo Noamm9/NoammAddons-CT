@@ -4,12 +4,12 @@
 import Settings from "../Settings";
 
 register("command", () => {
-	if (!Settings.ShortSkyBlockCommands) return
+	if (!Settings().ShortSkyBlockCommands) return
 	ChatLib.command("warp hub");
 }).setName("h");
 
 register("command",() => {
-	if (!Settings.ShortSkyBlockCommands) return
+	if (!Settings().ShortSkyBlockCommands) return
 	ChatLib.command("warp hub")
 	setTimeout(() => {
 		ChatLib.command("warp hub")
@@ -17,62 +17,62 @@ register("command",() => {
 }).setName("hh");
 
 register("command", () => {
-	if (!Settings.ShortSkyBlockCommands) return
+	if (!Settings().ShortSkyBlockCommands) return
 	ChatLib.command("warp dungeon_hub");
 }).setName("d");
 
 register("command", () => {
-	if (!Settings.ShortSkyBlockCommands) return
+	if (!Settings().ShortSkyBlockCommands) return
 	ChatLib.command("warp deep");
 }).setName("deep");
 
 register("command", () => {
-	if (!Settings.ShortSkyBlockCommands) return
+	if (!Settings().ShortSkyBlockCommands) return
 	ChatLib.command("warp park");
 }).setName("park");
 
 register("command", () => {
-	if (!Settings.ShortSkyBlockCommands) return
+	if (!Settings().ShortSkyBlockCommands) return
 	ChatLib.command("warp nether");
 }).setName("nether");
 
 register("command", () => {
-	if (!Settings.ShortSkyBlockCommands) return
+	if (!Settings().ShortSkyBlockCommands) return
 	ChatLib.command("warp desert");
 }).setName("desert");
 
 register("command", () => {
-	if (!Settings.ShortSkyBlockCommands) return
+	if (!Settings().ShortSkyBlockCommands) return
 	ChatLib.command("warp spider");
 }).setName("spider");
 
 register("command", () => {
-	if (!Settings.ShortSkyBlockCommands) return
+	if (!Settings().ShortSkyBlockCommands) return
 	ChatLib.command("warp barn");
 }).setName("barn");
 
 register("command", () => {
-	if (!Settings.ShortSkyBlockCommands) return
+	if (!Settings().ShortSkyBlockCommands) return
 	ChatLib.command("warp drag");
 }).setName("end");
 
 register("command", () => {
-	if (!Settings.ShortSkyBlockCommands) return
+	if (!Settings().ShortSkyBlockCommands) return
 	ChatLib.command("recipes");
 }).setName("res");
 
 register("command", () => {
-	if (!Settings.ShortSkyBlockCommands) return
+	if (!Settings().ShortSkyBlockCommands) return
 	ChatLib.command("skills");
 }).setName("skills");
 
 register("command", () => {
-	if (!Settings.ShortSkyBlockCommands) return
+	if (!Settings().ShortSkyBlockCommands) return
 	ChatLib.command("play sb");
 }).setName("sb");
 
 register("command", () => {
-	if (!Settings.ShortSkyBlockCommands) return
+	if (!Settings().ShortSkyBlockCommands) return
 	new Thread(() => {
 		ChatLib.command("l");
 		Thread.sleep(1000);
@@ -83,7 +83,7 @@ register("command", () => {
 }).setName("ldung");
 
 register("command", () => {
-	if (!Settings.ShortSkyBlockCommands) return
+	if (!Settings().ShortSkyBlockCommands) return
 	new Thread(() => {
 		ChatLib.command("l");
 		Thread.sleep(1000)
@@ -94,7 +94,7 @@ register("command", () => {
 }).setName("lend");
 
 register("command", () => {
-	if (!Settings.ShortSkyBlockCommands) return
+	if (!Settings().ShortSkyBlockCommands) return
 	new Thread(() => {
 		ChatLib.command("l");
 		Thread.sleep(1000);
@@ -105,7 +105,7 @@ register("command", () => {
 }).setName("ldeep");
 
 register("command", () => {
-	if (!Settings.ShortSkyBlockCommands) return
+	if (!Settings().ShortSkyBlockCommands) return
 	new Thread(() => {
 		ChatLib.command("l");
 		Thread.sleep(1000);
@@ -116,7 +116,7 @@ register("command", () => {
 }).setName("lpark");
 
 register("command", () => {
-	if (!Settings.ShortSkyBlockCommands) return
+	if (!Settings().ShortSkyBlockCommands) return
 	new Thread(() => {
 		ChatLib.command("l");
 		Thread.sleep(1000);
@@ -127,7 +127,7 @@ register("command", () => {
 }).setName("lnether");
 
 register("command", () => {
-	if (!Settings.ShortSkyBlockCommands) return
+	if (!Settings().ShortSkyBlockCommands) return
 	new Thread(() => {
 		ChatLib.command("l");
 		Thread.sleep(1000);
@@ -138,7 +138,7 @@ register("command", () => {
 }).setName("ldesert");
 
 register("command", () => {
-	if (!Settings.ShortSkyBlockCommands) return
+	if (!Settings().ShortSkyBlockCommands) return
 	new Thread(() => {
 		ChatLib.command("l");
 		Thread.sleep(1000);
@@ -149,7 +149,7 @@ register("command", () => {
 }).setName("lspider");
 
 register("command", () => {
-	if (!Settings.ShortSkyBlockCommands) return
+	if (!Settings().ShortSkyBlockCommands) return
 	new Thread(() => {
 		ChatLib.command("l");
 		Thread.sleep(1000);
@@ -162,7 +162,7 @@ register("command", () => {
 
 //help command
 register("command", () => {
-	if (!Settings.ShortSkyBlockCommands) return
+	if (!Settings().ShortSkyBlockCommands) return
 	ChatLib.chat("§e §l--------------------------");
 	ChatLib.chat("§e §lAll Short SkyBlock Commands");
 	ChatLib.chat("§b/h     (Warp you to  The Hub)");

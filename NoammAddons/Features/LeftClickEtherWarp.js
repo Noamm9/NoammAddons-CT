@@ -9,7 +9,7 @@ const sneakKey = new KeyBind(Client.getMinecraft().field_71474_y.field_74311_E)
 
 
 function StartOrStop() {
-    return Settings.LeftClickEtherwarp
+    return Settings().LeftClickEtherwarp
 }
 
 

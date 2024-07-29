@@ -19,12 +19,12 @@ register('worldLoad', () => {
 })
 
 register('step', () => {
-    if (Settings.CustomScoreboard) Scoreboard.setShouldRender(false)
+    if (Settings().CustomScoreboard) Scoreboard.setShouldRender(false)
     else Scoreboard.setShouldRender(true)
 }).setFps(1)
 
 register('step', () => {
-    if (!Settings.CustomScoreboard || loading) return
+    if (!Settings().CustomScoreboard || loading) return
 
     // Reset values
     width = 0;
@@ -72,4 +72,4 @@ registerWhen(register('renderOverlay', () => {
     )
 
     text.draw(Renderer.screen.getWidth() - width + 2, (Renderer.screen.getHeight() / 2) - (text.getHeight() / 2) + 2)
-}), () => Settings.CustomScoreboard)
+}), () => Settings().CustomScoreboard)

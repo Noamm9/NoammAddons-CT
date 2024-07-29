@@ -7,22 +7,22 @@ import Settings from "../Settings"
 import { registerWhen } from "../utils"
 
 let claySlots = new Map([
-    [25, `pc ${Settings.MelodyAlert.removeFormatting()} 1/4`],
-    [34, `pc ${Settings.MelodyAlert.removeFormatting()} 2/4`],
-    [43, `pc ${Settings.MelodyAlert.removeFormatting()} 3/4`]
+    [25, `pc ${Settings().MelodyAlert.removeFormatting()} 1/4`],
+    [34, `pc ${Settings().MelodyAlert.removeFormatting()} 2/4`],
+    [43, `pc ${Settings().MelodyAlert.removeFormatting()} 3/4`]
 ])
 
 
 const StartMSG = register('guiOpened', () => {
     claySlots = new Map([
-        [25, `pc ${Settings.MelodyAlert.removeFormatting()} 1/4`],
-        [34, `pc ${Settings.MelodyAlert.removeFormatting()} 2/4`],
-        [43, `pc ${Settings.MelodyAlert.removeFormatting()} 3/4`]
+        [25, `pc ${Settings().MelodyAlert.removeFormatting()} 1/4`],
+        [34, `pc ${Settings().MelodyAlert.removeFormatting()} 2/4`],
+        [43, `pc ${Settings().MelodyAlert.removeFormatting()} 3/4`]
     ])
 
     setTimeout(() => {
         if (Player?.getContainer()?.getName() !== 'Click the button on time!') return 
-        Client.scheduleTask(2, () => ChatLib.command(`pc ${Settings.MelodyAlert.removeFormatting()}`))
+        Client.scheduleTask(2, () => ChatLib.command(`pc ${Settings().MelodyAlert.removeFormatting()}`))
     }, 100)
 })
 
@@ -38,9 +38,9 @@ const ProgressMSG = register('step', () => {
 
 }).setFps(5)
 
-//const EndMSG = register(`guiClosed`, () => Client.scheduleTask(2, () => ChatLib.command(`pc ${Settings.MelodyAlert.removeFormatting()} 4/4`)))
+//const EndMSG = register(`guiClosed`, () => Client.scheduleTask(2, () => ChatLib.command(`pc ${Settings().MelodyAlert.removeFormatting()} 4/4`)))
 
 
 
-registerWhen(StartMSG, () => Settings.MelodyAlert.removeFormatting() && Dungeon.floorNumber == 7)
-registerWhen(ProgressMSG, () => Player?.getContainer()?.getName() == 'Click the button on time!' && Settings.MelodyAlert.removeFormatting() && Dungeon.floorNumber == 7)
+registerWhen(StartMSG, () => Settings().MelodyAlert.removeFormatting() && Dungeon.floorNumber == 7)
+registerWhen(ProgressMSG, () => Player?.getContainer()?.getName() == 'Click the button on time!' && Settings().MelodyAlert.removeFormatting() && Dungeon.floorNumber == 7)

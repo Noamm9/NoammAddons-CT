@@ -6,7 +6,7 @@ import Settings from "../Settings";
 
 
 register("chat", (player, event) => { 
-    if (!Settings.AutoRefillEnderPearls) return
+    if (!Settings().AutoRefillEnderPearls) return
 		const inventory = Player.getInventory()
 		const PearlSlot = inventory.indexOf(368)
 

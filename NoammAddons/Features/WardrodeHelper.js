@@ -14,15 +14,15 @@ const keyTrigger = register("guiKey", (char, key, gui, event) => {
 	
 
 	const keyMapping = {
-		[Keyboard.getKeyIndex(Settings.wd_1.charAt(0).toUpperCase())]: 36,
-		[Keyboard.getKeyIndex(Settings.wd_2.charAt(0).toUpperCase())]: 37,
-		[Keyboard.getKeyIndex(Settings.wd_3.charAt(0).toUpperCase())]: 38,
-		[Keyboard.getKeyIndex(Settings.wd_4.charAt(0).toUpperCase())]: 39,
-		[Keyboard.getKeyIndex(Settings.wd_5.charAt(0).toUpperCase())]: 40,
-		[Keyboard.getKeyIndex(Settings.wd_6.charAt(0).toUpperCase())]: 41,
-		[Keyboard.getKeyIndex(Settings.wd_7.charAt(0).toUpperCase())]: 42,
-		[Keyboard.getKeyIndex(Settings.wd_8.charAt(0).toUpperCase())]: 43,
-		[Keyboard.getKeyIndex(Settings.wd_9.charAt(0).toUpperCase())]: 44,
+		[Settings().wd_1]: 36,
+		[Settings().wd_2]: 37,
+		[Settings().wd_3]: 38,
+		[Settings().wd_4]: 39,
+		[Settings().wd_5]: 40,
+		[Settings().wd_6]: 41,
+		[Settings().wd_7]: 42,
+		[Settings().wd_8]: 43,
+		[Settings().wd_9]: 44,
 	}
 
 	cancel(event)
@@ -33,4 +33,4 @@ const keyTrigger = register("guiKey", (char, key, gui, event) => {
 
 
 
-registerWhen(keyTrigger, () => Settings.WardrobeHelper)
+registerWhen(keyTrigger, () => Settings().WardrobeHelper)

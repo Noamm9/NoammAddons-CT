@@ -7,7 +7,7 @@ import { getSkyblockItemID } from "../../BloomCore/utils/Utils"
 
 
 function StartOrStop() {
-    if (getSkyblockItemID(Player.getHeldItem()) == "GYROKINETIC_WAND" && Settings.GyroCircle) return true
+    if (getSkyblockItemID(Player.getHeldItem()) == "GYROKINETIC_WAND" && Settings().GyroCircle) return true
     else return false
 }
 

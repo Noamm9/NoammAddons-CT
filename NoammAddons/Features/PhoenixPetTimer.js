@@ -11,7 +11,7 @@ export let md = false
 
 
 register("chat", () => { 
-	if (!Settings.PhoenixPetTimer) return
+	if (!Settings().PhoenixPetTimer) return
 	Timer = 60
 	RenderRegister.register()
 }).setChatCriteria("Your Phoenix Pet saved you from certain death!")

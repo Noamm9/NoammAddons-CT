@@ -8,7 +8,7 @@ import { getSkyblockItemID } from "../../BloomCore/utils/Utils";
 
 
 function StartOrStop() {
-    return (Settings.BlockGloomlockDeath && isHoldingGloomlockGrimoire())
+    return (Settings().BlockGloomlockDeath && isHoldingGloomlockGrimoire())
 }
 
 

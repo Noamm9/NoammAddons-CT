@@ -102,7 +102,7 @@ const HideTitles = register(`renderTitle`, (t, subt, event) => cancel(event)).un
 
 
 register(`chat`, (e) => {
-	if (!Settings.CleanTitles) return
+	if (!Settings().CleanTitles) return
 
 	const ChatMessage = ChatLib.getChatMessage(e, false)
 

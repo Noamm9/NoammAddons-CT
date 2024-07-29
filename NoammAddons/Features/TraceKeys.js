@@ -15,4 +15,4 @@ const Trigger = register(`renderWorld`, () => {
 })
 
 
-registerWhen(Trigger, () => Settings.TraceKeys && !IsInBossRoom() && IsInDungeon())
+registerWhen(Trigger, () => Settings().TraceKeys && !IsInBossRoom() && IsInDungeon())

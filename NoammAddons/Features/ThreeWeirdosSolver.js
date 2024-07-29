@@ -87,7 +87,7 @@ function doChestStuff(entityName, mapToAddTo) {
 
 
 register("chat", (event) => {
-    if (!IsInDungeon() || !Settings.ThreeWeirdosSolver|| !inWeirdos) return
+    if (!IsInDungeon() || !Settings().ThreeWeirdosSolver|| !inWeirdos) return
 
     const message = ChatLib.getChatMessage(event).removeFormatting()
 
@@ -130,7 +130,7 @@ function highlightChest(coord, red, green, blue, alpha) {
 
 registerWhen(register("renderWorld", () => {
     correctChests.forEach((v) => {
-        let [r, g, b, a] = intToRGB(Settings.ThreeWeirdosSolverColor.getRGB(), true)
+        let [r, g, b, a] = Settings().ThreeWeirdosSolverColor
         highlightChest(v, r/255, g/255, b/255, a/255)
         Render.StringWithShadow("CLICK ME!", v[0]+0.5, v[1] + 1.75, v[2]+0.5, Renderer.color(r, g, b, a), 2, true)
     })
@@ -141,4 +141,4 @@ registerWhen(register("renderWorld", () => {
 registerWhen(register("worldUnload", () => {
     correctChests.clear()
     incorrectChests.clear()
-}), () => Settings.ThreeWeirdosSolver)
+}), () => Settings().ThreeWeirdosSolver)

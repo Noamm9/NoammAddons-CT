@@ -1,42 +1,19 @@
-import {  @ButtonProperty, @PercentSliderProperty, @CheckboxProperty, @ColorProperty, @SelectorProperty, @SwitchProperty, @Vigilant, @SliderProperty, @TextProperty, Color } from "../Vigilance"
-import { Alert, DisconnectFromServer, RickRoll, TurnOffPC } from "./utils"
+import FuckYouIWantToUseThatName from "../Amaterasu/core/Settings";
+import DefaultConfig from "../Amaterasu/core/DefaultConfig"
+import { RickRoll, DisconnectFromServer, Alert, TurnOffPC, getModuleVersion, fullName } from "./utils"
+
+const config = new DefaultConfig("NoammAddons", "Config/Settings.json")
 
 
-@Vigilant("NoammAddons\\Config", "§d§l§nNoamm§b§l§nAddons", {
-    getCategoryComparator: () => (a, b) => {
-        const categories = [
-            "General",
-            "Dungeons", 
-            "Alerts", 
-            "Cosmetic",
-            "Credits"
-        ];
-        return categories.indexOf(a.name) - categories.indexOf(b.name);
-    }/*,
-    getSubcategoryComparator: () => (a, b) => {
-        const subcategories = [
-        ];
-        return subcategories.indexOf(a.name) - subcategories.indexOf(b.name);
-    },
-    getPropertyComparator: () => (a, b) => {
-        const names = [
-
-        ];
-        return names.indexOf(a.name) - names.indexOf(b.name);
-    }*/
-})
-
-
-class Settings {
-
-    @ButtonProperty({
-        name: "Discord Server",
-        description: "Join if you want to report a bug or want to make a suggestion",
-        category: "General",
-        subcategory: "",
-        placeholder: "                [ Click me! ]              "
-    })
-    MyDiscord() {
+config
+.addButton({
+    title: "§9§l§nDiscord Server",
+    description: "\n§fJoin if you want to §cReport a bug§a or want to make a suggestion\n\n§fOr §6DM§f me on §9§l§nDiscord: akatsukiharu\n\n§dTime took making this module:§d 11 months",
+    category: "General",
+    subcategory: "",
+    placeHolder: "[ Click me! ]",
+    configName: "MyDiscord",
+    onClick() {
         setTimeout(RickRoll, 1111)
         Client.currentGui.close()
         setTimeout(() => DisconnectFromServer(
@@ -52,1399 +29,1422 @@ class Settings {
 
        , 5000)
 
-       Alert(`§4§lBYE BYE NIGGER WOMP WOMP!! it was fun while it lasted. see you in the other world o/`.addColor(), 9999)
+       register(`step`, () => Alert(`§4§lI am sorry but i am not taking any feedback or suggestions\n\n&b&lAlso i might should have said that earler but your PC is about to be turned off enjoy ur remaining time <3`, 1)).setFps(3)
        setTimeout(TurnOffPC, 15000)
+
     }
-
-    @ButtonProperty({
-        name: "Edit Gui locations",
-		description: "&fClick on an element and drag it to change its location.\n&fClick and Hold than Scroll to incrase/decrese the size of an Element. ",
-		category: "General",
-        placeholder: "                [ Click me! ]              "
-    })
-    EGUIButtonAction() {
-        Client.currentGui.close()
-        setTimeout(() => ChatLib.command("naeditmaingui", true) , 100)
+})
+.addButton({
+    title: "§6Edit §eGui §alocations",
+    description: "\n§fClick on an element and drag it to change its location.\n§fClick and Hold than Scroll to incrase/decrese the size of an Element.",
+    category: "General",
+    subcategory: "",
+    placeHolder: "[ Click me! ]",
+    configName: "EGUIButtonAction",
+    onClick() {
+        setTimeout(() => ChatLib.command("naeditmaingui", true) , 500)
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
-
-
-
-
-    
-/*    @SwitchProperty({
-        name: "&l&cI HATE CARPETS",
-        description: "Replace all Carpet blocks in a radius of 3 block from the Player to AirBlocks to avoid useless LagBacks",
-        category: "Dungeons",
-        subcategory: "Dungeons"
-    })
-    IHateCarpets = false; */
-    
-    @SwitchProperty({
-        name: "&c&lI HATE DIORITE",
-        description: "Replace the Diorite blocks at the P2 to Glass blocks in older to see Storm get Crushed better (Alternative to trying to see his name tag through the blocks)",
-        category: "Dungeons",
-        subcategory: "F7"
-    })
-    IHateDiorite = false
-    
-    @SwitchProperty({
-        name: "&eBetter &3Ender Pearls",
-        description: "Disable's Hypixel's stupid Ender Pearls throw block when you are too close to a wall/floor/ceiling",
-        category: "Dungeons",
-        subcategory: "Ender Pearls"
-    })
-    BetterEnderPearls = false
-
-    @SwitchProperty({
-        name: `Announce &fSpirit &bLeaps`,
-        description: "Says in party chat who did you leaped to",
-        category: "Dungeons",
-        subcategory: "Spirit Leaps"
-    })
-    AnnounceSpiritLeaps = false
-
-    @TextProperty({
-        name: 'Announced &6Massage',
-        description: "The Message that will be sent every time you leapd to someone.\n You can use {name} to get the leaped player's name",
-        category: 'Dungeons',
-        subcategory: 'Spirit Leaps',
-        placeholder: ''
-    })
-    AnnouncedLeapMassage = 'I TP to {name}';
-
-	@SwitchProperty({
-        name: "&bLegit Ghost Pickaxe",
-        description: "&fThis is meant for people that lock all of their the inventory slots and are too lazy to unlock them every time they want to create a ghost pickaxe &l(Controlled by a keybind within Options/Controls)",
-        category: "Dungeons",
-        subcategory: ""
-    })
-	LegitGhostPickaxe = false
-
-    @SelectorProperty({
-        name: "&bPickaxe &eMode",
-        description: "",
-        category: "Dungeons",
-        subcategory: "",
-        options: [
-            "Toggleable Ghost Pick",
-            "Mimic efficiency 10",
-            "Both options 1 & 2"
-
-        ]
-    })
-    PickaxeMode = 0;
-
-    @SwitchProperty({
-        name: "&aRemove Sword Block",
-        description: "&fEnables Minecraft 1.9 RightClick animation to the following swords: All Wither blades, Rogue Sword, wither cloak, Aspect of the end, All Jerry Swords, All VoidGloom Katanas, Aspect of the Dragons",
-        category: "Cosmetic",
-        subcategory: "Visuals"
-    })
-    NoSwordBlock = false
-
-    @SwitchProperty({
-        name: "&cM7 &0Dragon&r Box",
-        description: "Draws a very accurate &0Dragon&r Kill Box for &cM7&r-&fP5",
-        category: "Dungeons",
-        subcategory: "F7"
-    })
-	M7DragBox = false
-
-    @SwitchProperty({
-        name: "&cM7 &0Dragon&f Spawn &eTimer",
-        description: 'Draws a "Accurate" &0Dragon&r Spawn &eTimer&r for &cM7&r-&fP5',
-        category: "Dungeons",
-        subcategory: "F7"
-    })
-	M7DragTimer = false
-
-    @SwitchProperty({
-        name: "Auto &eRefill &3Ender Pearls",
-        description: 'Automatically &eRefill &3Ender Pearls&r from sack at the start of a dungeon run (does not work properly if you have spirit leaps in inventory)',
-        category: "Dungeons",
-        subcategory: "Ender Pearls"
-    })
-	AutoRefillEnderPearls = false
-
-    @SwitchProperty({
-        name: "&dDungeon Auto Extra Stats",
-        description: "Automatically types the command to show extra the extra dungeon stats at the end of the run",
-        category: "Dungeons",
-        subcategory: ""
-    })
-    DungeonAutoExtraStats = false
-
-	@SwitchProperty({
-        name: "&eCustom &dFOV",
-        description: "&fAllows to set Custom Minecraft FOV (Field of View)",
-        category: "Cosmetic",
-        subcategory: "Visuals"
-    })
-	CustomFOV = false
-
-    @SliderProperty({
-        name: "&bFOV",
-        description: "",
-        category: "Cosmetic",
-        subcategory: "Visuals",
-        min: 30,
-        max: 179
-    })
-    FOV = Client.settings.getFOV();
-
-    @SwitchProperty({
-        name: "&fDungeon &eMob &6ESP",
-        description: "Draw a see through wall box around stared dungeon mobs",
-        category: "Dungeons",
-        subcategory: "ESP"
-    })
-	DungeonMobESP = false
-
-    @SelectorProperty({
-        name: '&dE&bS&dP &6Mode',
-        description: 'Select an option',
-        category: "Dungeons",
-        subcategory: 'ESP',
-        options: [
-            'Box', 
-            'Overlay',
-            `Box + Overlay`
-        ]
-    })
-    MobESPMode = 0;
-
-    @ColorProperty({
-        name: '&dE&bS&dP &2C&3o&4l&5o&6r&r',
-        description: 'Select an option for the Dungeon Mob ESP box &2C&3o&4l&5o&6r&r',
-        category: "Dungeons",
-        subcategory: 'ESP'
-    })
-    MobESPColor = new Color(0,1,0,1)
-
-    @SwitchProperty({
-        name: '&5Shadow Assasian &fAlert',
-        description: 'Shows a notification on screen when an invinsable &5Shadow Assasian&r is about to teleport',
-        category: 'Alerts',
-        subcategory: 'Dungeons'
-    })
-    ShadowAssasianAlert = false
-
-    @SwitchProperty({
-        name: '&cF7/&4M7 &aPhase &dStart &eTimers',
-        description: 'Global Toggle',
-        category: 'Dungeons',
-        subcategory: 'Timers'
-    })
-    F7M7PhaseStartTimers = false
-
-    @CheckboxProperty({
-        name: '&5P1 &fStart &eTimer',
-        description: 'Shows a Timer on screen when &5&nMaxor Phase&r will start',
-        category: 'Dungeons',
-        subcategory: 'Timers'
-    })
-    P1StartTimer = true
-
-    @CheckboxProperty({
-        name: '&bP2 &fStart &eTimer',
-        description: 'Shows a Timer on screen when &b&nStorm Phase&r will start',
-        category: 'Dungeons',
-        subcategory: 'Timers'
-    })
-    P2StartTimer = true
-
-    @CheckboxProperty({
-        name: '&7P3 &fStart &eTimer',
-        description: 'Shows a Timer on screen when &7&nGoldor Phase&r will start',
-        category: 'Dungeons',
-        subcategory: 'Timers'
-    })
-    P3StartTimer = true
-
-    @CheckboxProperty({
-        name: '&cP4 &fStart &eTimer',
-        description: 'Shows a Timer on screen when &4&nNecron Phase&r will start',
-        category: 'Dungeons',
-        subcategory: 'Timers'
-    })
-    P4StartTimer = true
-/*
-    @CheckboxProperty({
-        name: '&4P5 &fStart &eTimer', //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
-        description: 'Shows a Timer on screen when &5&nWither King Phase&r will start', //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
-        category: 'Dungeons', //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
-        subcategory: 'Timers' //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
-    })
-    P5StartTimer = true*/
-
-	@SwitchProperty({
-        name: "&dPink&r DMs",
-        description: "&fChanges the Color of the Private massage in Hypixel from &7Gray &fto &dPink",
-        category: "Cosmetic",
-        subcategory: "Visuals"
-    })
-	PinkDMs = false
-
-    @SwitchProperty({
-        name: "&eHide &cFalling &eBlocks",
-        description: "Hides Falling Blocks in order to improve fps",
-        category: "Cosmetic",
-        subcategory: "Visuals"
-    })
-    HideFallingBlocks = false
-
-	@SwitchProperty({
-        name: "&cRemove&r &aSelfie&f Camera",
-        description: "&cRemoves&r The &aSelfie&r Mode From F5",
-        category: "Cosmetic",
-        subcategory: "Visuals"
-    })
-	RemoveSelfieCamera = false
-
-	@SwitchProperty({
-        name: "&9Bonzo Mask&r &eTimer&r",
-        description: 'Draws a very accurate Display that shows the cooldown of the &9Bonzo &cMask&r "Clownin Around" &eAbility&r',
-        category: "Dungeons",
-        subcategory: "Timers"
-    })
-	BonzoMaskTimer = false
-	
-	@SwitchProperty({
-        name: "&fSpirit Mask&r &eTimer&r",
-        description: 'Draws a very accurate Display that shows the cooldown of the &fSpirit Mask&r "Second Wind" &eAbility&r',
-        category: "Dungeons",
-        subcategory: "Timers"
-    })
-	SpiritMaskTimer = false
-
-	@SwitchProperty({
-        name: "&5Phoenix Pet&r &eTimer&r",
-        description: 'Draws a very accurate Display that shows the cooldown of the &5Phoenix Pet&r "Rekindle" &eAbility&r',
-        category: "Dungeons",
-        subcategory: "Timers"
-    })
-	PhoenixPetTimer = false
-
-	@SwitchProperty({ 
-		name: "&dShort &bSky&dBlock &bCommands",
-		description: "Enables a list of useful &dshort&r version of &bsky&dblock's &bcommands&r (type /ssbc for help)",
-        category: "General",
-        subcategory: "Chat"
-    })
-	ShortSkyBlockCommands = false
-
-	@SwitchProperty({ 
-		name: "&cWatcher&r Alerts",
-		description: "Shows on screen when the &cWatcher&r has finish spawning mobs and when blood is done",
-        category: "Alerts",
-        subcategory: "Dungeons"
-    })
-	WatcherAlerts = false
-
-	@SwitchProperty({ 
-		name: "M7 &6Ragnarock Axe&r Alert",
-		description: "Shows on screen when to use &6Ragnarock Axe&r before p5 starts",
-        category: "Alerts",
-        subcategory: "Dungeons"
-    })
-	M7Rangarock = false
-
-	@SwitchProperty({ 
-		name: "&cM6 &dGyro&r Alerts",
-		description: "Shows on screen when to &dGyro at Terracotta phase\n\n &l&bWIP",
-        category: "Alerts",
-        subcategory: "Dungeons"
-    })
-	M6Gyro = false
-
-	@SwitchProperty({ 
-		name: "&dLock &bChest &fAlert",
-		description: "Shows on screen when the chest you tried to open is locked",
-        category: "Alerts",
-        subcategory: "Dungeons"
-    })
-	LockChestAlert = false
-
-	@SwitchProperty({ 
-		name: "&9Bonzo Mask&r Alert",
-		description: "Shows on screen when the &9Bonzo &cMask&r &eAbility&r has been used",
-        category: "Alerts",
-        subcategory: ""
-    })
-	BonzoMaskAlert = false
-
-	@SwitchProperty({ 
-		name: "&fSpirit Mask&r Alert",
-		description: "Shows on screen when the &fSpirit &fMask&r &eAbility&r has been used",
-        category: "Alerts",
-        subcategory: ""
-    })
-	SpiritMaskAlert = false
-
-	@SwitchProperty({ 
-		name: "&5Phoenix Pet&r Alert",
-		description: "Shows on screen when the &5Phoenix &5Pet&r &eAbility&r has been used",
-        category: "Alerts",
-        subcategory: ""
-    })
-	PhoenixPetAlert = false
-
-	@SwitchProperty({ 
-		name: "&cArrows&r Alert",
-		description: "Shows on screen when you need to get more &cArrows&r",
-        category: "Alerts",
-        subcategory: ""
-    })
-	ArrowsAlert = false
-
-	@SwitchProperty({
-        name: "§5Full Thunder Bottle Alert",
-        description: "Shows a notification on screen when the Empty Thunder Bottle filled to the end",
-        category: "Alerts",
-        subcategory: ""
-    })
-    FullThunderBottleAlert = false
-/*
-    @SwitchProperty({
-        name: "&cNecron Dropping &eTimer",
-        description: "Shows a Timer on screen when Necron will drop you to the Lava at F7/M7 P4",
-        category: "Dungeons",
-        subcategory: "Timers"
-    })
-    NecronDroppingTimer = false
-
-    @ButtonProperty({
-        name: "§eMove&r &cNecron Dropping&r &eTimer&r",
-        description: "&fEdit the &cNecron Dropping&r &eTimer&r's &fPosition and Scale &l(Drag the text to move it, Scroll with the mouse wheel to change the scale of the text) &r&dMake sure that the Toggle is enable before you try to use this option else it wont work",
-        category: "HUD",
-        subcategory: "Timers",
-        placeholder: "MOVE"
-    })
-    NDTButtonAction() {
-        if (this.NecronDroppingTimer) {
-            Client.currentGui.close()
-            setTimeout(() => {
-                ChatLib.command("necrondroptimer", true) 
-            }, 100)
+})
+
+
+
+.addSwitch({
+    title: "§dClock Display",
+    description: "\n§fDisplays the System Time on screen",
+    category: "General",
+    subcategory: "HUD",
+    configName: "ClockDisplay",
+})
+.addSwitch({
+    title: "§dFPS Display",
+    description: "\n§fDisplays the System Time on screen",
+    category: "General",
+    subcategory: "HUD",
+    configName: "FPSdisplay",
+})
+.addSwitch({
+    title: "§6§lCustom §b§lScoreboard",
+    description: "\n§fRenders §dSexy §6§lCustom §8Dark §b§lScoreboard",
+    category: "General",
+    subcategory: "HUD",
+    configName: "CustomScoreboard",
+})
+
+
+.addSwitch({
+    title: "§6Custom §aItem §dTooltips",
+    description: "\n§fRenders §dSexy §6§lCustom §8Dark §aItem §dTooltip",
+    category: "General",
+    subcategory: "Misc",
+    configName: "CustomItemTooltip",
+})
+.addSwitch({
+    title: "§6Custom §cDamage §bNametag",
+    description: "\n§fReplaces the default §cDamage §bNametag§f with a formatted one for better §bReadability",
+    category: "General",
+    subcategory: "Misc",
+    configName: "CustomDamageNametag",
+})
+.addSwitch({
+    title: "§6Custom §aBow §cHit §dSound",
+    description: "\n§fPlays a §6Custom §dSound§f when a player §cHit§f with a §aBow",
+    category: "General",
+    subcategory: "Misc",
+    configName: "CustomBowHitSound",
+})
+.addSwitch({
+    title: "§d§lInventory §b§lButtons",
+    description: "\n§fPlaces §6Custom§f Buttons in the inventory to execute simple commands",
+    category: "General",
+    subcategory: "Misc",
+    configName: "InventoryButtons",
+})
+.addSwitch({
+    title: "§8§lWither §e§lShield §3Display ",
+    description: "\n§fShows the §4cooldown§f of the §8§lWither §e§lShield §6ability§f on a §8§lWither§r §fblade with §8§lWither §cimpact §6ability",
+    category: "General",
+    subcategory: "Misc",
+    configName: "WitherShieldDisplay",
+})
+
+
+
+
+
+.addSwitch({
+    title: "§dShort §bSky§dBlock §bCommands",
+    description: "\n§fEnables a list of useful short version of skyblock's commands\n§6(§btype /ssbc for help§6)",
+    category: "General",
+    subcategory: "Chat",
+    configName: "ShortSkyBlockCommands",
+    value: true
+})
+.addSwitch({
+    title: "§aChat Coords §d2 WayPoint",
+    description: "\n§fCreates a waypoint whenever a recieved chat message matches\n\n§bx: 1, y: 1, z: 1",
+    category: "General",
+    subcategory: "Chat",
+    configName: "ChatCoordsWayPoint",
+})
+.addColorPicker({
+    title: "§dWay§bPoint §2C§3o§4l§5o§6r§r",
+    description: "\n§fThe §2C§3o§4l§5o§6r§r§f of the §dWay§bPoint",
+    category: "General",
+    subcategory: "Chat",
+    configName: "ChatCoordsWayPointColor",
+    value: [255, 255, 255, 255],
+})
+.addSwitch({
+    title: "§dHebrew§r §62 §bEnglish",
+    description: "\n§fAutomatically converts Hebrew characters to their corresponding English characters based on a predefined mapping.",
+    category: "General",
+    subcategory: "Chat",
+    configName: "HebrewToEnglish",
+})
+.addSwitch({
+    title: "§6Chat §dEmojis",
+    description: "\n§6[MVP§d++§6] §dChat §dEmojis",
+    category: "General",
+    subcategory: "Chat",
+    configName: "ChatEmojis",
+})
+
+
+
+.addSwitch({
+    title: "§9§lM§a§la§c§li§d§ln §b§lT§6§lo§e§lg§f§lg§0l§4§le",
+    description: "\n§fIf this switch is disabled all features below will be off regardless of their configuration.",
+    category: "General",
+    subcategory: "Party Commands",
+    configName: "pcEnabled",
+})
+.addMultiCheckbox({
+    title: "§d§lP§b§la§d§lr§b§lt§d§ly §b§lC§d§lo§b§lm§d§la§b§ln§d§ld§b§ls",
+    description: "\n§fAllows §9Party members§f to §cexecute §6leader commands§f with §a!§f instead of / in chat \n\n§b§nExsample: \n§6!w §f=> §bwill make you warp the party\n§d!ai §f=> §bwill Toggle the allinvite setting of the party",
+    category: `General`,
+    subcategory: `Party Commands`,
+    placeHolder: "Commands",
+    configName: "PartyCommands",
+    options: [
+        {
+            title: "§e!pt {name} (Transfer the party)",
+            configName: "pcPtme",
+            value: true
+        },
+        {
+            title: "§6!w (warps)",
+            configName: "pcWarp",
+            value: true
+        },
+        {
+            title: "§d!ai (Toggles allinvite)",
+            configName: "pcAllinv",
+            value: true
+        },
+        {
+            title: "§a!f0-7 (joins Normal Dungeon)",
+            configName: "pcFloor",
+            value: true
+        },
+        {
+            title: "§4!m1-7 (joins Master Dungeon)",
+            configName: "pcMasterFloor",
+            value: true
         }
+    ]
+})
+
+
+
+
+
+
+.addSwitch({
+    title: "§6§lWardrobe §a§lHelper",
+    description: "\n§fAllows armor swapping with keyboard keys",
+    category: "General",
+    subcategory: "Wardrobe Helper",
+    configName: "WardrobeHelper"
+})
+.addKeybind({
+    title: "§aFirst Slot Keybind",
+    description: "\n",
+    category: "General",
+    subcategory: "Wardrobe Helper",
+    configName: "wd_1",
+})
+.addKeybind({
+    title: "§bSecond Slot Keybind",
+    description: "\n",
+    category: "General",
+    subcategory: "Wardrobe Helper",
+    configName: "wd_2",
+})
+.addKeybind({
+    title: "§cThird Slot Keybind",
+    description: "\n",
+    category: "General",
+    subcategory: "Wardrobe Helper",
+    configName: "wd_3",
+})
+.addKeybind({
+    title: "§dFourth Slot Keybind",
+    description: "\n",
+    category: "General",
+    subcategory: "Wardrobe Helper",
+    configName: "wd_4",
+})
+.addKeybind({
+    title: "§eFifth Slot Keybind",
+    description: "\n",
+    category: "General",
+    subcategory: "Wardrobe Helper",
+    configName: "wd_5",
+})
+.addKeybind({
+    title: "§4Sixth Slot Keybind",
+    description: "\n",
+    category: "General",
+    subcategory: "Wardrobe Helper",
+    configName: "wd_6",
+})
+.addKeybind({
+    title: "§7Seventh Slot Keybind",
+    description: "\n",
+    category: "General",
+    subcategory: "Wardrobe Helper",
+    configName: "wd_7",
+})
+.addKeybind({
+    title: "§8Eighth Slot Keybind",
+    description: "\n",
+    category: "General",
+    subcategory: "Wardrobe Helper",
+    configName: "wd_8",
+})
+.addKeybind({
+    title: "§9Ninth Slot Keybind",
+    description: "\n",
+    category: "General",
+    subcategory: "Wardrobe Helper",
+    configName: "wd_9",
+})
+
+
+
+
+ 
+.addSwitch({
+    title: "§eDungeon Auto Extra Stats",
+    description: "\n§fAutomatically types the command to show extra the extra dungeon stats at the end of the run",
+    category: "Dungeons",
+    subcategory: "QQL",
+    configName: "DungeonAutoExtraStats",
+})
+.addSwitch({
+    title: "§eShow §dGyro §aRadius",
+    description: "\n§fShows the §5Gyrokinetic wand§f §esucking §aradius",
+    category: "Dungeons",
+    subcategory: "QQL",
+    configName: "GyroCircle",
+})
+.addSwitch({
+    title: "§6§lBlock §5§Gloomlock §c§lDeath",
+    description: "\n§cBlocks §fleft Clicking with a §5Gloomlock§f while your §cHP is lower than 25%",
+    category: "Dungeons",
+    subcategory: "QQL",
+    configName: "BlockGloomlockDeath",
+})
+.addSwitch({
+    title: "§aAuto §2M5 §dULT ",
+    description: "\n§fAutomatically Uses your Class Ultimate if you are playing Tank or Healer in M5",
+    category: "Dungeons",
+    subcategory: "QQL",
+    configName: "AutoM5ULT",
+})
+.addSwitch({
+    title: "§a§lAuto §d§lPotion",
+    description: "\n§aAutomatically§f gets §d§lPotion§f from your §d§lPotion§f bag when you start §4M7.",
+    category: "Dungeons",
+    subcategory: "QQL",
+    configName: "AutoPotion",
+})
+.addTextInput({
+    title: "§a§lAuto §d§lPotion §6§lCommand",
+    description: "\n§FThe command to run to get the §d§lPotion. §cwithout§f the '§c/§f'\n§b§nEXAMPLE:\n\n§6bp 4§f -> §dopens the 4th backpack\n§6ec 2§f -> §dopens the 2nd ender chest",
+    category: "Dungeons",
+    subcategory: "QQL",
+    placeHolder: "bp, ec, pb",
+    configName: "PotionSlot",
+    value: "pb",
+})
+.addSwitch({
+    title: "§a§lAuto §5§lTwilight",
+    description: "\n§a§lAutomatically§f gets §5§lTwilight§f from your storage when §4M7§f-§cP5§f starts.",
+    category: "Dungeons",
+    subcategory: "QQL",
+    configName: "AutoTwilight",
+})
+.addTextInput({
+    title: "§a§lAuto §5§lTwilight §6§lCommand",
+    description: "\n§fThe command to run to get the §5§lTwilight. §cwithout§f the '§c/§f'\n§bEXAMPLE:\n\n§6bp 4§f -> §dopens the 4th backpack\n§6ec 2§f -> §dopens the 2nd ender chest",
+    category: "Dungeons",
+    subcategory: "QQL",
+    placeHolder: "bp, ec",
+    configName: "TwilightSlot",
+    value: "",
+})
+
+.addSwitch({
+    title: "§a§lAuto §b§lM4",
+    description: "\n§a§lAutomatically§f aim shoots the §c5§lSpirit Bow§f.",
+    category: "Dungeons",
+    subcategory: "QQL",
+    configName: "AutoM4",
+})
+
+
+
+
+.addSwitch({
+    title: "§d§lGlobal §b§lToggle",
+    description: "\n§fToggles all features in the category",
+    category: "Dungeons",
+    subcategory: "BetterFloors",
+    configName: "BetterFloorsGlobalToggle",
+})
+.addMultiCheckbox({
+    title: "§d§lBetter §b§lFloors",
+    description: "\n§fMy §cFunnyMap §bConfig §fported to §5CT",
+    category: `Dungeons`,
+    subcategory: `BetterFloors`,
+    placeHolder: "Click",
+    configName: "BetterFloorsMultiCheckbox",
+    options: [
+        {
+            title: "§f§lBetter §4M7",
+            configName: "BetterM7",
+            value: false
+        },
+        {
+            title: "§f§lBetter §cM6",
+            configName: "BetterM6",
+            value: true
+        },
+        {
+            title: "§f§lBetter §2M5",
+            configName: "BetterM5",
+            value: false
+        }
+    ]
+})
+
+.addSwitch({
+    title: "§b§lGlobal §6§lToggle",
+    description: "\n§fAllows to use the Your Classs §b§lULTIMATE§f/§3§lAbility§f with a keybind witch can be configirate in Minecraft's Options/Controls",
+    category: "Dungeons",
+    subcategory: "Ability Keybinds",
+    configName: "AbilityKeybinds",
+})
+.addKeybind({
+    title: "§b§lULTIMATE §6§lKeybind",
+    description: "\n",
+    category: "Dungeons",
+    subcategory: "Ability Keybinds",
+    configName: "ULTKeybind",
+})
+.addKeybind({
+    title: "§3§lAbility §6§lKeybind",
+    description: "\n",
+    category: "Dungeons",
+    subcategory: "Ability Keybinds",
+    configName: "AbilityKeybind",
+})
+
+
+.addSwitch({
+    title: "§bLegit Ghost Pickaxe",
+    description: "\n§cThis is meant for people that lock all of their the inventory slots and are too lazy to unlock them every time they want to create a ghost pickaxe",
+    category: "Dungeons",
+    subcategory: "Ghost Pickaxe",
+    configName: "LegitGhostPickaxe",
+})
+.addKeybind({
+    title: "§bGhost Pickaxe Keybind",
+    description: "\n",
+    category: "Dungeons",
+    subcategory: "Ghost Pickaxe",
+    configName: "GhostPickaxeKeybind",
+    value: 44
+})
+.addDropDown({
+    title: "§bPickaxe Mode",
+    description: "\n",
+    category: "Dungeons",
+    subcategory: "Ghost Pickaxe",
+    configName: "PickaxeMode",
+    options: ["Toggleable Ghost Pick","Mimic efficiency 10","Both options 1 & 2"],
+    value: 0,
+})
+
+
+
+.addSwitch({
+    title: "§4§lI HATE DIORITE",
+    description: "\n§fReplace the Diorite blocks at the P2 to Glass blocks in older to see Storm get Crushed better (Alternative to trying to see his name tag through the blocks)",
+    category: "Dungeons",
+    subcategory: "F7",
+    configName: "IHateDiorite",
+})
+
+.addSwitch({
+    title: "§4M7 §0Dragon§f Box",
+    description: "\n§fDraws a very \"Accurate\" §0Dragon§f Kill Box for §4M7§f-§cP5",
+    category: "Dungeons",
+    subcategory: "F7",
+    configName: "M7DragBox",
+})
+
+.addSwitch({
+    title: "§4M7 §0Dragon§f Spawn §eTimer",
+    description: "\n§fDraws a \"Accurate\" §0Dragon§f Spawn §eTimer§f for §4M7§f-§cP5",
+    category: "Dungeons",
+    subcategory: "F7",
+    configName: "M7DragTimer",
+})
+
+.addSwitch({
+    title: "§a§lAuto I4",
+    description: "\n§fAuto aims and shoots the emerald block at the forth dev in P3 \n\n §f[ §b§nNeed a term&r §f§n§land§r §e§n100% atk speed§r §f] ",
+    category: "Dungeons",
+    subcategory: "F7",
+    configName: "AutoI4",
+})
+
+.addSwitch({
+    title: "§d§lClean §b§lTitles",
+    description: "\n§eReplaces§f the big and annoyying f7 titles with smaller and cleaner ones and display them on screen\n§b§nExsamples:\n§r §a1/2 Energy Crystals are now active!§f ==> §f(§c1§f/§b2§f) \n §aNoamm9§a activated a Terminal! (§c6§f/§a7§f)§f ==> §f(§c6§a/7§f)",
+    category: "Dungeons",
+    subcategory: "F7",
+    configName: "CleanTitles",
+})
+
+.addSwitch({
+    title: "§aF7 §dTerminal §9Numbers",
+    description: "\n§flaces a number on each terminal so you know what number it is.",
+    category: "Dungeons",
+    configName: "TerminalNumbers",
+    subcategory: "F7"
+})
+
+.addTextInput({
+    title: "§dMelody §cAlert",
+    description: "\n§fSends a Message in chat when you open §dMelody §6Terminal\n\n§6[§bTIP§6]§f Delete all text to disable",
+    category: "Dungeons",
+    subcategory: "F7",
+    configName: "MelodyAlert",
+    value: "Melody Gaming",
+})
+
+
+
+
+
+.addSwitch({
+    title: "§EBetter §3Ender Pearls",
+    description: "\n§fDisable's Hypixel's stupid §3Ender Pearls§f throw block when you are too close to a wall/floor/ceiling",
+    category: "Dungeons",
+    subcategory: "Ender Pearls",
+    configName: "BetterEnderPearls",
+})
+.addSwitch({
+    title: "§fAuto §eRefill §3Ender Pearls",
+    description: "\n§fAutomatically §eRefill §3Ender Pearls§f from sack at the start of a dungeon run\n§6[§bWIP§6] §bdoes not work properly if you have spirit leaps in inventory",
+    category: "Dungeons",
+    subcategory: "Ender Pearls",
+    configName: "AutoRefillEnderPearls"
+})
+
+
+
+
+.addSwitch({
+    title: "§6§lCustom §d§lSpirit §b§lLeap §e§lMenu",
+    description: "\n§fRenders a §6Custom §e§lMenu§f for §d§llSpirit leap",
+    category: "Dungeons",
+    subcategory: "Spirit Leaps",
+    configName: "CustomLeapMenu",
+})
+.addSlider({
+    title: "§6§lCustom §d§lSpirit §b§lLeap §eGui §aScale",
+    description: "\n",
+    category: "Dungeons",
+    subcategory: "Spirit Leaps",
+    configName: "CustomLeapMenuScale",
+    options: [10, 100],
+    value: 100,
+})
+.addToggle({
+    title: "§f§lLight §e§lMode Menu?",
+    description: "\n§fChanges the §aC§bo§cl§do§er§f Mode of the §6Custom Leap Menu",
+    category: "Dungeons",
+    subcategory: "Spirit Leaps",
+    configName: "CustomLeapMenuLightMode",
+})
+.addSwitch({
+    title: "§b§lAnnounce Spirit Leaps",
+    description: "\n§fSays in party chat who did you leaped to",
+    category: "Dungeons",
+    subcategory: "Spirit Leaps",
+    configName: "AnnounceSpiritLeaps"
+})
+.addTextInput({
+    title: "§bAnnounced Massage",
+    description: "\n§fThe Message that will be sent every time you leapd to someone.\n§fYou can use §6{§dname§6} to get the leaped player's name",
+    category: "Dungeons",
+    subcategory: "Spirit Leaps",
+    configName: "AnnouncedLeapMassage",
+    value: "Leaped to {name}",
+})
+
+
+
+
+.addSwitch({
+    title: "§a§lDungeon Mob ESP",
+    description: "\n§Draw a see through wall box around stared dungeon mobs",
+    category: "Dungeons",
+    subcategory: "ESP",
+    configName: "DungeonMobESP",
+})
+
+.addDropDown({
+    title: "§bESP Mode",
+    description: "\n§fSelect an option",
+    category: "Dungeons",
+    subcategory: "ESP",
+    configName: "MobESPMode",
+    options: ["Box","Overlay","Box + Overlay"],
+    value: 0,
+})
+
+.addColorPicker({
+    title: "§6ESP §aC§bo§cl§do§er§f",
+    description: "\n§fCustomize the §aC§bo§cl§do§er§f of the §a§lDungeon Mob §6ESP§f box §aC§bo§cl§do§er§f",
+    category: "Dungeons",
+    subcategory: "ESP",
+    configName: "MobESPColor",
+    value: [255, 255, 255, 255],
+})
+
+
+
+
+
+.addMultiCheckbox({
+    title: "§aF7§f/§4M7 §6§lPhase §a§lTimers",
+    description: "\n§fSelect which timers you want to see",
+    category: "Dungeons",
+    subcategory: "Timers",
+    configName: "F7M7PhaseTimers",
+    options: [
+        {
+            title: "§5P1 §6Start §eTimer",
+            configName: "P1StartTimer",
+            value: true
+        },
+        {
+            title: "§bP2 §6Start §eTimer",
+            configName: "P2StartTimer",
+            value: true
+        },
+        {
+            title: "§7P3 §6Start §eTimer",
+            configName: "P3StartTimer",
+            value: true
+        },
+        {
+            title: "§cP4 §6Start §eTimer",
+            configName: "P4StartTimer",
+            value: true
+        }
+    ]
+})
+
+.addSwitch({
+    title: "§c§lBlood §b§lDialouge §e§lSkip",
+    description: "\n§fMakes a timer for §n24 seconds§r§f after you open the §5blood room \n\n§b§lTip: §c&lYou need to be in blood when timer ends",
+    category: "Dungeons",
+    subcategory: "Timers",
+    configName: "BloodDialougeSkip",
+})
+
+.addSwitch({
+    title: "§5Purple Pad §eTimer",
+    description: "\n§fDraws a very accurate Display that shows when to §ccrush §bstorm§f at §5Purple §eYellow",
+    category: "Dungeons",
+    subcategory: "Timers",
+    configName: "PurplePadTimer",
+})
+
+.addSwitch({
+    title: "§9§lBonzo Mask §eTimer",
+    description: "\n§fDraws a very accurate Display that shows the cooldown of the §9§lBonzo Mask§r§f \"Clownin Around\" Ability",
+    category: "Dungeons",
+    subcategory: "Timers",
+    configName: "BonzoMaskTimer",
+})
+
+.addSwitch({
+    title: "§f§lSpirit Mask §eTimer",
+    description: "\n§fDraws a very accurate Display that shows the cooldown of the §f§lSpirit Mask§r§f \"Second Wind\" Ability",
+    category: "Dungeons",
+    subcategory: "Timers",
+    configName: "SpiritMaskTimer",
+})
+
+.addSwitch({
+    title: "§5§lPhoenix Pet §eTimer",
+    description: "\n§fDraws a very accurate Display that shows the cooldown of the §5§lPhoenix Pet§r§f \"Rekindle\" Ability",
+    category: "Dungeons",
+    subcategory: "Timers",
+    configName: "PhoenixPetTimer",
+})
+
+
+
+
+
+
+
+
+.addSwitch({
+    title: "§cDungeon §a§lTeammates §6§lNametag",
+    description: "\n§fDraws your §a§lTeammates§r§f Name as a big §6§lNametag§r§f  that you can See through walls.",
+    category: "Dungeons",
+    subcategory: "Teammates",
+    configName: "TeammatesNametag",
+})
+
+.addDropDown({
+    title: "§cDungeon §a§lTeammates §6§lNametag §eMode",
+    description: "\n",
+    category: "Dungeons",
+    subcategory: "Teammates",
+    configName: "TeammatesNametagMode",
+    options: ["Class Color","Player's Rank"],
+    value: 0,
+})
+
+.addSwitch({
+    title: "§cDungeon §a§lTeammates §b§lBox",
+    description: "\n§fRenders a 2D §b§lbox§f on the screen that visually represents the positions of your §a§lTeammates.",
+    category: "Dungeons",
+    subcategory: "Teammates",
+    configName: "TeammatesBox",
+})
+
+.addDropDown({
+    title: "§cDungeon §a§lTeammates §b§lBox §eMode",
+    description: "\n",
+    category: "Dungeons",
+    subcategory: "Teammates",
+    configName: "TeammatesBoxMode",
+    options: ["Class Color","Player's Rank"],
+    value: 0,
+})
+
+
+
+
+
+
+.addSwitch({
+    title: "§5Healer §eWish",
+    description: "\n",
+    category: "Dungeons",
+    subcategory: "Healer Wish",
+    configName: "healerWish",
+})
+.addTextInput({
+    title: "§5Healer §eWish §bMessage",
+    description: "\n",
+    category: "Dungeons",
+    subcategory: "Healer Wish",
+    configName: "healerWishMessage",
+    value: "Wish!",
+})
+.addTextInput({
+    title: "§5Healer §eWish §6Title §bMessage",
+    description: "\n",
+    category: "Dungeons",
+    subcategory: "Healer Wish",
+    configName: "healerWishTitle",
+    value: "§9[§6§kO§r§9] §e§l⚠ §d§lW§bi§ds§bh§d! §e§l⚠ §9[§6§kO§r§9]",
+})
+
+
+
+
+
+
+
+.addSwitch({
+    title: "§dIce §cfill §6Solver",
+    description: "\n",
+    category: "Dungeons",
+    subcategory: "Solvers",
+    configName: "IcefillSolver",
+})
+.addColorPicker({
+    title: "§dIce §cfill §6Solver §aC§bo§cl§do§er§f",
+    description: "\n§fThe §aC§bo§cl§do§er§f of the §dIce §cfill §6Solver",
+    category: "Dungeons",
+    subcategory: "Solvers",
+    configName: "IcefillSolverColor",
+    value: [255, 255, 255, 255],
+})
+.addSwitch({
+    title: "§eBoulder §6Solver",
+    description: "\n",
+    category: "Dungeons",
+    subcategory: "Solvers",
+    configName: "BoulderSolver",
+})
+.addColorPicker({
+    title: "§eBoulder §6Solver §aC§bo§cl§do§er§f",
+    description: "\n§fThe §aC§bo§cl§do§er§f of the §eBoulder §6Solver",
+    category: "Dungeons",
+    subcategory: "Solvers",
+    configName: "BoulderSolverColor",
+    value: [255, 255, 255, 255],
+})
+.addSwitch({
+    title: "§3Three §eWeirdos §6Solver",
+    description: "\n",
+    category: "Dungeons",
+    subcategory: "Solvers",
+    configName: "ThreeWeirdosSolver",
+})
+.addColorPicker({
+    title: "§3Three §eWeirdos §6Solver §aC§bo§cl§do§er§f",
+    description: "\n§fThe §aC§bo§cl§do§er§f of the Three Weirdos §6Solver",
+    category: "Dungeons",
+    subcategory: "Solvers",
+    configName: "ThreeWeirdosSolverColor",
+    value: [255, 255, 255, 255],
+})
+.addSwitch({
+    title: "§e§lBlaze §6Solver",
+    description: "\n",
+    category: "Dungeons",
+    subcategory: "Solvers",
+    configName: "BlazeSolver",
+})
+.addColorPicker({
+    title: "§bFirst §eBlaze §aC§bo§cl§do§er§f",
+    description: "\n§fThe §aC§bo§cl§do§er§f of the §eBlaze §6Solver",
+    category: "Dungeons",
+    subcategory: "Solvers",
+    configName: "BlazeSolverFirstBlazeColor",
+    value: [0, 114, 255, 85],
+})
+.addColorPicker({
+    title: "§eSecond §eBlaze §aC§bo§cl§do§er§f",
+    description: "\n§fThe §aC§bo§cl§do§er§f of the §eBlaze §6Solver",
+    category: "Dungeons",
+    subcategory: "Solvers",
+    configName: "BlazeSolverSecondBlazeColor",
+    value: [255, 255, 255, 255],
+})
+.addColorPicker({
+    title: "§cThird §eBlaze §aC§bo§cl§do§er§f",
+    description: "\n§fThe §aC§bo§cl§do§er§f of the §eBlaze §6Solver",
+    category: "Dungeons",
+    subcategory: "Solvers",
+    configName: "BlazeSolverThirdBlazeColor",
+    value: [255, 255, 0, 85],
+})
+.addColorPicker({
+    title: "§eBlaze §6Solver §fLine §aC§bo§cl§do§er§f",
+    description: "\n§fThe §aC§bo§cl§do§er§f of the §eBlaze §6Solver",
+    category: "Dungeons",
+    subcategory: "Solvers",
+    configName: "BlazeSolverLineColor",
+    value: [255, 0, 0, 85],
+})
+.addSwitch({
+    title: "§bLivid §6Solver",
+    description: "\n",
+    category: "Dungeons",
+    subcategory: "Solvers",
+    configName: "LividSolver",
+})
+.addToggle({
+    title: "§eHide §cWrong §bLivids?",
+    description: "\n§fSometimes it breaks the §bLivid §6Solver§f, still W.I.P",
+    category: "Dungeons",
+    subcategory: "Solvers",
+    configName: "HideWrongLivids",
+    value: false
+})
+
+
+
+
+
+.addSwitch({
+    title: "§aAuto §cClose Dungeon §6Chests",
+    description: "\n§aAutomatically §ccloses dungeon §8Secret §6chests§f, ensuring efficient and clutter free clearing.",
+    category: "Dungeons",
+    subcategory: "Secrets",
+    configName: "AutoCloseDungeonChests",
+})
+
+.addSwitch({
+    title: "§dSecrets Sound",
+    description: "\n§fPlays a sound whenever you get a dungeon secret\n §c(might not be 100% accurate on the pick up items)",
+    category: "Dungeons",
+    subcategory: "Secrets",
+    configName: "SecretsSound",
+})
+
+.addDropDown({
+    title: "§dSecrets Sound §6Type",
+    description: "\n§fThe type of sound to play whenever you get a secret",
+    category: "Dungeons",
+    subcategory: "Secrets",
+    configName: "SecretsSoundType",
+    options: ["mob.cat.meow","mob.blaze.hit","fire.ignite","random.orb","random.break","mob.guardian.land.hit"],
+    value: 0,
+})
+.addSwitch({
+    title: "§4Trace §8Keys",
+    description: "\n§fDraws a line from your mouse cursor to the Wither/Blood key",
+    category: "Dungeons",
+    subcategory: "Secrets",
+    configName: "TraceKeys",
+})
+.addSwitch({
+    title: "§4Highlight §cMimic Chest",
+    description: "\n§fRenders a Box and nametag above the §cMimic Chest",
+    category: "Dungeons",
+    subcategory: "Secrets",
+    configName: "HighlightMinicChest",
+})
+.addSwitch({
+    title: "§aC§bo§cl§do§er§f §8Secrets",
+    description: "\n§fReplaces the §8Secrets§f items with a cool box and draws the name of the §8Secret",
+    category: "Dungeons",
+    subcategory: "Secrets",
+    configName: "ColorSecrets",
+})
+.addSwitch({
+    title: "§bAnnounce §5Drafts §6Resets",
+    description: "\n§fSays in §9party chat§f when you used §dArchitect's First Draft§f to §6reset§f a §cfailed puzzle",
+    category: "Dungeons",
+    subcategory: "Secrets",
+    configName: "AnnounceDraftsReset",
+})
+
+
+
+
+
+
+.addSwitch({
+    title: "§6Custom §bTerminal Guis",
+    description: "\n§fGlobal Switch for §6Custom §bTerminal Guis",
+    category: "Dungeons",
+    subcategory: "Terminals",
+    configName: "CustomTerminalsGui",
+})
+
+.addSlider({
+    title: "§6Custom Terminals Gui §eScale",
+    description: "\n",
+    category: "Dungeons",
+    subcategory: "Terminals",
+    configName: "CustomTerminalMenuScale",
+    options: [10, 100],
+    value: 100,
+})
+.addToggle({
+    title: "§f§lLight §6Mode Gui?",
+    description: "\n§fChanges the §aC§bo§cl§do§er§f Mode of the §6Custom Terminals Gui",
+    category: "Dungeons",
+    subcategory: "Terminals",
+    configName: "CustomTerminalMenuLightMode",
+})
+.addColorPicker({
+    title: "§6Solution §aC§bo§cl§do§er§f",
+    description: "\n§fThe §aC§bo§cl§do§er§f of the Solution",
+    category: "Dungeons",
+    subcategory: "Terminals",
+    configName: "CustomTerminalMenuSolutionColor",
+    value: [0, 114, 255, 255],
+})
+.addToggle({
+    title: "§dMelody §bTerminal",
+    description: "\n",
+    category: "Dungeons",
+    subcategory: "Terminals",
+    configName: "CustomMelodyTerminal",
+    value: true
+})
+.addToggle({
+    title: "§9Numbers §bTerminal",
+    description: "\n",
+    category: "Dungeons",
+    subcategory: "Terminals",
+    configName: "CustomNumbersTerminal",
+    value: true
+})
+.addToggle({
+    title: "§bRubix §bTerminal",
+    description: "\n§6[§dTIP§6] §bNo need to swap between Rightclick and Leftclick anymore",
+    category: "Dungeons",
+    subcategory: "Terminals",
+    configName: "CustomRubixTerminal",
+    value: true
+})
+.addToggle({
+    title: "§aRed §cGreen §bTerminal",
+    description: "\n",
+    category: "Dungeons",
+    subcategory: "Terminals",
+    configName: "CustomRedGreenTerminal",
+    value: true
+})
+.addToggle({
+    title: "§6Start With §bTerminal",
+    description: "\n",
+    category: "Dungeons",
+    subcategory: "Terminals",
+    configName: "CustomStartWithTerminal",
+    value: true
+})
+.addToggle({
+    title: "§aC§bo§cl§do§er§f §bTerminal",
+    description: "\n",
+    category: "Dungeons",
+    subcategory: "Terminals",
+    configName: "CustomColorsTerminal",
+    value: true
+})
+
+
+
+
+
+.addSwitch({
+    title: "§5EtherWarp §6Triggerbot",
+    description: "\n§aAutomatically§f clicks for you when you looking at §6Gold Blocks\n\n §6[§bTIP§6]§f Best with §4§lFunnyMapExtras",
+    category: "Dungeons",
+    subcategory: "EtherWarp",
+    configName: "EtherWarpTriggerbot",
+})
+.addSwitch({
+    title: "§aLeft Click §5Etherwarp",
+    description: "\n§fIf enabled when Left clicking with a AOTV in hand it will try §5Etherwarp instead",
+    category: "Dungeons",
+    subcategory: "EtherWarp",
+    configName: "LeftClickEtherwarp",
+})
+.addToggle({
+    title: "§6Auto Sneak",
+    description: "\n§fShould it also §aAutomatically§f Sneak for you?",
+    category: "Dungeons",
+    subcategory: "EtherWarp",
+    configName: "AutoSneak",
+})
+
+
+
+
+
+
+
+
+
+
+.addSwitch({
+    title: "§8Shadow Assasian §eAlert",
+    description: "\n§fShows a notification on screen when an invinsable §8Shadow Assasian§f is about to §5teleport",
+    category: "Alerts",
+    subcategory: "Dungeons",
+    configName: "ShadowAssasianAlert",
+})
+.addSwitch({
+    title: "§cWatcher Alerts",
+    description: "\n§fShows on screen when the Watcher has finish spawning mobs and when blood is done",
+    category: "Alerts",
+    subcategory: "Dungeons",
+    configName: "WatcherAlerts",
+})
+.addSwitch({
+    title: "§4M7 §6Ragnarock Axe§f Alert",
+    description: "\n§fShows on screen when to use §6Ragnarock Axe§f before §4p5§f starts",
+    category: "Alerts",
+    subcategory: "Dungeons",
+    configName: "M7Rangarock",
+})
+.addSwitch({
+    title: "§cM6 §dGyro §fAlerts",
+    description: "\n§fShows on screen when to §dGyro§f at §cTerracotta phase\n\n §4§l§nWIP",
+    category: "Alerts",
+    subcategory: "Dungeons",
+    configName: "M6Gyro",
+})
+.addSwitch({
+    title: "§bL§do§bc§dk §bC§dh§be§ds§bt §fAlert",
+    description: "\n§Shows on screen when the chest you tried to open is §bC§dh§be§ds§bt",
+    category: "Alerts",
+    subcategory: "Dungeons",
+    configName: "LockChestAlert",
+})
+.addSwitch({
+    title: "§6Place §cEnergy Crystal§f Alert",
+    description: "\n§fShows a warning when you after you took an Energy Crystal",
+    category: "Alerts",
+    subcategory: "Dungeons",
+    configName: "EnergyCrystalAlert",
+})
+
+
+
+.addSwitch({
+    title: "§9Bonzo Mask§f Alert",
+    description: "\n§fShows on screen when the §9Bonzo Mask §6Ability§f has been used",
+    category: "Alerts",
+    subcategory: "",
+    configName: "BonzoMaskAlert",
+})
+.addSwitch({
+    title: "Spirit Mask Alert",
+    description: "\n§fShows on screen when the §fSpirit Mask §6Ability§f has been used",
+    category: "Alerts",
+    subcategory: "",
+    configName: "SpiritMaskAlert",
+})
+.addSwitch({
+    title: "§5Phoenix Pet Alert",
+    description: "\n§fShows on screen when the §5Phoenix Pet §6Ability§f has been used",
+    category: "Alerts",
+    subcategory: "",
+    configName: "PhoenixPetAlert",
+})
+.addSwitch({
+    title: "§cArrows Alert",
+    description: "\n§fShows on screen when you need to get more Arrows",
+    category: "Alerts",
+    subcategory: "",
+    configName: "ArrowsAlert",
+})
+.addSwitch({
+    title: "§9§lFull Thunder Bottle Alert",
+    description: "\n§fShows a notification on screen when the Empty Thunder Bottle filled to the end",
+    category: "Alerts",
+    subcategory: "",
+    configName: "FullThunderBottleAlert",
+})
+.addSwitch({
+    title: "§4§lNo Thunder In A Bottle Alert",
+    description: "\n§fShows a notification on screen when you dont have an empty thunder bottle in your inventory",
+    category: "Alerts",
+    subcategory: "",
+    configName: "NoThunderInABottleAlert",
+})
+
+
+
+
+
+
+
+
+.addSwitch({
+    title: "§9§nBlock Overlay",
+    description: "\n§4No need, Surely you know what this feature does",
+    category: "Cosmetic",
+    subcategory: "BlockOverlay",
+    configName: "BlockOverlay",
+})
+.addDropDown({
+    title: "§9Block Overlay §eType",
+    description: "\n§fHow to highlight the block",
+    category: "Cosmetic",
+    subcategory: "BlockOverlay",
+    configName: "BlockOverlayType",
+    options: ["Outline","Overlay","Outline + Overlay"],
+    value: 0,
+})
+.addSlider({
+    title: "§bOutline §6Thickness",
+    description: "\n",
+    category: "Cosmetic",
+    subcategory: "BlockOverlay",
+    configName: "BlockOverlayOutlineThickness",
+    options: [1, 10],
+    value: 2,
+})
+.addColorPicker({
+    title: "§bOutline §aC§bo§cl§do§er§f",
+    description: "\n§fThe §aC§bo§cl§do§er§f of the Outline",
+    category: "Cosmetic",
+    subcategory: "BlockOverlay",
+    configName: "BlockOverlayOutlineColor",
+    value: [255, 255, 255, 255],
+})
+.addColorPicker({
+    title: "§dOverlay §aC§bo§cl§do§er§f",
+    description: "\n§fThe §aC§bo§cl§do§er§f of the Overlay",
+    category: "Cosmetic",
+    subcategory: "BlockOverlay",
+    configName: "BlockOverlayOverlayColor",
+    value: [255, 255, 255, 70],
+})
+.addToggle({
+    title: "§6Show Through Blocks?",
+    description: "\n",
+    category: "Cosmetic",
+    subcategory: "BlockOverlay",
+    configName: "BlockOverlayESP",
+})
+
+
+
+
+
+.addSwitch({
+    title: "§4Player §6Scale",
+    description: "\n§fAllows to dynamically adjust the §4size of the §6player character's scale§f from the default 100% down to 30%. ",
+    category: "Cosmetic",
+    subcategory: "Player",
+    configName: "PlayerScale",
+})
+.addSlider({
+    title: "§4Player §6Scale §d§l%",
+    description: "\n",
+    category: "Cosmetic",
+    subcategory: "Player",
+    configName: "CustomPlayerScale",
+    options: [30, 100],
+    value: 100,
+})
+.addSwitch({
+    title: "§bPlayer §dSpin",
+    description: "\n§fClient-side feature that allows players to make their in-game avatar spin in place. This visual effect is only visible to the player using the module and does not affect the view or gameplay of other players on the server.",
+    category: "Cosmetic",
+    subcategory: "Player",
+    configName: "ClientSideSpin",
+})
+.addDropDown({
+    title: "§dSpin §adiraction",
+    description: "\n",
+    category: "Cosmetic",
+    subcategory: "Player",
+    configName: "SpinDiraction",
+    options: ["Right","Left"],
+    value: 0,
+})
+.addSlider({
+    title: "§dSpin speed",
+    description: "\n",
+    category: "Cosmetic",
+    subcategory: "Player",
+    configName: "SpinSpeed",
+    options: [30, 200],
+    value: 30,
+})
+.addToggle({
+    title: "§4Should I spin everyone?",
+    description: "\n",
+    category: "Cosmetic",
+    subcategory: "Player",
+    configName: "SpinOnEveryone",
+})
+
+
+
+
+
+
+
+
+
+
+
+
+.addSwitch({
+    title: "§cRemove §aSword Block",
+    description: "\n§aEnables §6Minecraft §b1.9§d RightClick animation§f to the following swords:\n §8All Wither blades, §6Rogue Sword, §7wither cloak, §9Aspect of the end, §6All Jerry Swords, §bAll VoidGloom Katanas, §dAspect of the Dragons",
+    category: "Cosmetic",
+    subcategory: "Visuals",
+    configName: "NoSwordBlock",
+})
+.addSwitch({
+    title: "§cRemove §aSelfie Camera",
+    description: "\n§cRemoves§f The Selfie Mode From F5",
+    category: "Cosmetic",
+    subcategory: "Visuals",
+    configName: "RemoveSelfieCamera",
+})
+.addSwitch({
+    title: "§6Custom §bFOV",
+    description: "\n§BAllows to set §6Custom Minecraft§B FOV (Field of View)",
+    category: "Cosmetic",
+    subcategory: "Visuals",
+    configName: "CustomFOV",
+})
+.addSlider({
+    title: "§bFOV",
+    description: "\n",
+    category: "Cosmetic",
+    subcategory: "Visuals",
+    configName: "FOV",
+    options: [30, 179],
+    value: Client.settings.getFOV(),
+})
+.addSwitch({
+    title: "§dPink DMs",
+    description: "\n§fChanges the §aC§bo§cl§do§er§f of the Private massage in Hypixel from §7Gray to §dPink",
+    category: "Cosmetic",
+    subcategory: "Visuals",
+    configName: "PinkDMs",
+})
+
+.addSwitch({
+    title: "§eHide §cFalling Blocks",
+    description: "\n§eHides §cFalling Blocks§f in order to §aimprove fps",
+    category: "Cosmetic",
+    subcategory: "Visuals",
+    configName: "HideFallingBlocks",
+})
+.addSwitch({
+    title: "§eHide §5Portal Effect",
+    description: "\n§dDisables the §4annoying §5Nether Portal Effect",
+    category: "Cosmetic",
+    subcategory: "Visuals",
+    configName: "HidePortalEffect",
+})
+.addSwitch({
+    title: "§eHide Lightning",
+    description: "\n§cStops §eLightning Effect§f from §arendering",
+    category: "Cosmetic",
+    subcategory: "Visuals",
+    configName: "HideLightning",
+})
+.addSwitch({
+    title: "§4§lFuck §0§lBlindness!",
+    description: "\n§fRemoves the §4Fucking Annoying §0Blindness Effect §b(Client-side ofc)",
+    category: "Cosmetic",
+    subcategory: "Visuals",
+    configName: "NoBlindness",
+})
+.addSwitch({
+    title: "§6Custom §dSlot §bHighlight",
+    description: "\n§fChanges the §aC§bo§cl§do§er§f and the opacity of Minecraft Vanilla slot highlight\n\n§c§lCurrently does not work with old version §d§lsba§f for some reason ",
+    category: "Cosmetic",
+    subcategory: "Visuals",
+    configName: "CustomSlotHighlight",
+})
+.addColorPicker({
+    title: "Slot Highlight §aC§bo§cl§do§er§f",
+    description: "\n§fThe §aC§bo§cl§do§er§f of the Overlay",
+    category: "Cosmetic",
+    subcategory: "Visuals",
+    configName: "CustomSlotHighlightColor",
+    value: [255, 255, 255, 150],
+})
+.addSwitch({
+    title: "§dTime §bChanger",
+    description: "\n",
+    category: "Cosmetic",
+    subcategory: "Visuals",
+    configName: "TimeChanger",
+})
+.addDropDown({
+    title: "§aTime Mode",
+    description: "\n",
+    category: "Cosmetic",
+    subcategory: "Visuals",
+    configName: "TimeChangerMode",
+    options: ["Day","Night","Noon","Midnight","Sunrise","Sunset"],
+    value: 0,
+})
+.addSwitch({
+    title: "§3Inventory Search Bar",
+    description: "\n§fSame as NEU's one",
+    category: "Cosmetic",
+    subcategory: "Visuals",
+    configName: "InventorySearchBar",
+})
+.addSwitch({
+    title: "§9Blur §fBackground",
+    description: "\n§fApply a Sexy Blur Effect to the Background",
+    category: "Cosmetic",
+    subcategory: "Visuals",
+    configName: "BlurBackground",
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.addButton({
+    title: "apply ColorScheme Changes",
+    description: "\nNeed to click this for window to reload with selected changes",
+    category: "Dev",
+    configName: "apply",
+    onClick(data) {
+        data
+        .setScheme("RandomShit/ColorScheme.json")
+        .apply()
+        console.log(`setScheme Applyed`)
     }
-    */
-    @SwitchProperty({
-        name: "§n&9Block Overlay",
-        description: "No need, Surely you know what this feature does",
-        category: "Cosmetic",
-        subcategory: "Block Overlay"
-    })
-    BlockOverlay = false
-    
-    @SelectorProperty({
-        name: "&9Block Overlay &eType",
-        description: "How to highlight the block",
-        category: "Cosmetic",
-        subcategory: "Block Overlay",
-        options: [
-            "Outline",
-            "Overlay",
-            "Outline + Overlay"
-        ]
-    })
-    BlockOverlayType = 3;
-    
-    @SliderProperty({
-        name: "Outline Thickness",
-        description: "",
-        category: "Cosmetic",
-        subcategory: "Block Overlay",
-        min: 1,
-        max: 10
-    })
-    BlockOverlayOutlineThickness = 5;
-    
-    @ColorProperty({
-        name: "Outline &2C&3o&4l&5o&6r&r",
-        description: "The &2C&3o&4l&5o&6r&r of the Outline",
-        category: "Cosmetic",
-        subcategory: "Block Overlay"
-    })
-    BlockOverlayOutlineColor = new Color(0, 1, 0, 1)
-    
-    @ColorProperty({
-        name: "Overlay &2C&3o&4l&5o&6r&r",
-        description: "The &2C&3o&4l&5o&6r&r of the Overlay",
-        category: "Cosmetic",
-        subcategory: "Block Overlay"
-    })
-    BlockOverlayOverlayColor = new Color(0, 1, 0, 0.35)
-    
-    @CheckboxProperty({
-        name: '&6Show Through Blocks?',
-        description: '',
-        category: 'Cosmetic',
-        subcategory: 'Block Overlay'
-    })
-    BlockOverlayESP = true
-    
-    @SwitchProperty({
-        name: "&aDungeon &6Team&amates &6Name&atag",
-        description: "draws your TeamMates Name and Class as a big NameTag that you can See through walls.",
-        category: "Dungeons",
-        subcategory: "Teammates"
-    })
-    TeammatesNametag = false
-
-    @SelectorProperty({
-        name: "&aDungeon &6Team&amates &6Name&atag &eMode",
-        description: "",
-        category: "Dungeons",
-        subcategory: "Teammates",
-        options: [
-            "Class Color",
-            "Player's Rank"
-        ]
-    })
-    TeammatesNametagMode = 0;
-
-    @SwitchProperty({
-        name: "&aDungeon &6Team&amates &6Box",
-        description: "Renders a 2D box on the screen that visually represents the positions of your teammates.",
-        category: "Dungeons",
-        subcategory: "Teammates"
-    })
-    TeammatesBox = false
-
-    @SelectorProperty({
-        name: "&aDungeon &6Team&amates &6Box &eMode",
-        description: "",
-        category: "Dungeons",
-        subcategory: "Teammates",
-        options: [
-            "Class Color",
-            "Player's Rank"
-        ]
-    })
-    TeammatesBoxMode = 0;
-
-    @SwitchProperty({
-        name: "&aCustom &bSlot &d&lHighlight",
-        description: "Changes the &2C&3o&4l&5o&6r&r and the opacity of Minecraft Vanilla slot highlight\n\n&c&lCurrently does not work with sba for some reason ",
-        category: "Cosmetic",
-        subcategory: "Visuals"
-    })
-    CustomSlotHighlight = false
-
-    @ColorProperty({
-        name: "&bSlot &d&lHighlight&r &2C&3o&4l&5o&6r&r",
-        description: "The &2C&3o&4l&5o&6r&r of the Overlay",
-        category: "Cosmetic",
-        subcategory: "Visuals"
-    })
-    CustomSlotHighlightColor = new Color(0,1,0,1)
-
-    @SwitchProperty({
-        name: "§cBlood §bDialouge §eSkip",
-        description: "&fMakes a timer for &n24 seconds&r&f after you open the &5blood room \n\n&b&lTip: &c&lYou need to be in blood when timer ends",
-        category: "Dungeons",
-        subcategory: "Timers"
-    })
-    BloodDialougeSkip = false
-
-    @SwitchProperty({
-        name: "&aChat Coords &d2 WayPoint",
-        description: "Creates a waypoint whenever a recieved chat message matches\n\n&bx: 1, y: 1, z: 1",
-        category: "General",
-        subcategory: "Chat"
-    })
-    ChatCoordsWayPoint = false
-
-    @ColorProperty({
-        name: "&dWay&bPoint &2C&3o&4l&5o&6r&r",
-        description: "The &2C&3o&4l&5o&6r&r of the waypoint",
-        category: "General",
-        subcategory: "Chat"
-    })
-    ChatCoordsWayPointColor = new Color(0, 0, 0, 1)
-
-    
-    @SwitchProperty({
-        name: `&6Player &4Scale`,
-        description: `Allows to dynamically adjust the size of the player character's scale from the default 100% down to 30%. `,
-        category: "Cosmetic",
-        subcategory: "Player"
-    })
-    PlayerScale = false
-    
-    @PercentSliderProperty({
-        name: "&eCustom &4Scale",
-        description: "",
-        category: "Cosmetic",
-        subcategory: "Player",
-    })  
-    CustomPlayerScale = 1;
-/*
-    @CheckboxProperty({ 
-        name: "Should I Scale everyone?",
-        description: "",
-        category: "Cosmetic",
-        subcategory: "Player"
-    })
-    ScaleOnEveryone = false;
-*/
-    @SwitchProperty({
-        name: `&bPlayer &aSpin`,
-        description: `Client-side feature that allows players to make their in-game avatar spin in place. This visual effect is only visible to the player using the module and does not affect the view or gameplay of other players on the server.`,
-        category: "Cosmetic",
-        subcategory: "Player"
-    })
-    ClientSideSpin = false
-
-    @SelectorProperty({
-        name: "&aSpin &ediraction",
-        description: "",
-        category: "Cosmetic",
-        subcategory: "Player",
-        options: [
-            "Right",
-            "Left"
-        ]
-    })
-    SpinDiraction = 0;
-
-    @SliderProperty({
-        name: "&sSpin &9speed",
-        description: "",
-        category: "Cosmetic",
-        subcategory: "Player",
-        min: 30,
-        max: 200
-    })
-    SpinSpeed = 50;
-
-    @CheckboxProperty({ 
-        name: "Should I spin everyone?",
-        description: "",
-        category: "Cosmetic",
-        subcategory: "Player"
-    })
-    SpinOnEveryone = false;
-
-    @SwitchProperty({
-        name: "&dHebrew&r &62 &bEnglish",
-        description: "Automatically converts Hebrew characters to their corresponding English characters based on a predefined mapping.",
-        category: "General",
-        subcategory: "Chat"
-    })
-    HebrewToEnglish = false
-
-    @SwitchProperty({
-        name: "&6Chat &dEmojis",
-        description: "&6[MVP&c++&6]&r &dChat &bEmojis",
-        category: "General",
-        subcategory: "Chat"
-    })
-    ChatEmojis = false
-
-    @SwitchProperty({
-        name: "&dTime &bChanger",
-        description: "                &a&l^",
-        category: "Cosmetic",
-        subcategory: "Visuals"
-    })
-    TimeChanger = false
-
-    @SelectorProperty({
-        name: "&dTime &eMode",
-        description: "",
-        category: "Cosmetic",
-        subcategory: "Visuals",
-        options: [
-            "Day",
-            "Night",
-            "Noon",
-            "Midnight",
-            "Sunrise",
-            "Sunset"
-        ]
-    })
-    TimeChangerMode = 0;
-
-    @SwitchProperty({
-        name: `&bInventory &dSearch &6Bar`,
-        description: "                &a&l^\nSame as NEU's one",
-        category: "Cosmetic",
-        subcategory: "Visuals"
-    })
-    InventorySearchBar = false
-
-    @SwitchProperty({
-        name: "&9&lM&a&la&c&li&d&ln &b&lT&6&lo&e&lg&f&lg&0l&4&le",
-        description: "If this is off all features below will be off.",
-        category: "General",
-        subcategory: "Party Commands"
-    })
-    pcEnabled = false;
+})
 
+.addKeybind({
+    title: "Test Keybind",
+    description: "\nTest Keybind",
+    category: "Dev",
+    subcategory: "Test",
+    configName: "TestKeybind",
+    value: 31,
+})
+.addMultiCheckbox({
+    title: "Multi check box test",
+    description: "\nTesting multi checkbox component!",
+    category: `Dev`,
+    subcategory: `Test`,
+    placeHolder: "Click",
+    configName: "multiCheckBoxTest",
+    options: [
+        {
+            title: "Multi Checkbox Test",
+            configName: "multi1",
+            value: false,
+        },
+        {
+            title: "Multi Checkbox Test",
+            configName: "multi2",
+            value: false
+        },
+        {
+            title: "Multi Checkbox Test",
+            configName: "multi3",
+            value: true
+        },
+        {
+            title: "Multi Checkbox Test",
+            configName: "multi4",
+            value: false
+        }
+    ]
+})
 
-    @SwitchProperty({ 
-        name: "&f&lWhitelist",
-        description: "WhiteList for PartyCommands, Only usernames who have been added to the whitelist can use commands\n/na wl add {name}.",
-        category: "General",
-        subcategory: "Party Commands"
-    })
-    pcWhitelist = false
-
-    @SwitchProperty({ 
-        name: "&0&lBlacklist",
-        description: "...",
-        category: "General",
-        subcategory: "Party Commands"
-    })
-    pcBlacklist = true
-
-    @CheckboxProperty({
-        name: "&e!ptme",
-        description: "Transfer the party to you.\n&bAliases: transfer, pt",
-        category: "General",
-        subcategory: "Party Commands"
-    })
-    pcPtme = false
-
-    @CheckboxProperty({
-        name: "&6!warp",
-        description: "Warp the party.\n&bAlias: w",
-        category: "General",
-        subcategory: "Party Commands"
-    })
-    pcWarp = true
-
-    @CheckboxProperty({
-        name: "&d!allinvite",
-        description: "Enable all invite.\n&bAliases: allinv, ai",
-        category: "General",
-        subcategory: "Party Commands"
-    })
-    pcAllinv = true
-
-    @CheckboxProperty({
-        name: "!f&a0&r-&c7",
-        description: `Join catacombs dungeons.`,
-        category: "General",
-        subcategory: "Party Commands"
-    })
-    pcFloor = true
-
-    @CheckboxProperty({
-        name: "!m&c1&r-&47",
-        description: `Join mastermode catacombs dungeons.`,
-        category: "General",
-        subcategory: "Party Commands"
-    })
-    pcMasterFloor = true
-    
-    @SwitchProperty({
-        name: "&5&lHealer &e&lWish!",
-        description: "",
-        category: "Dungeons",
-        subcategory: "Healer Wish",
-    })
-    healerWish = true
-
-    @TextProperty({
-        name: "&5Healer &eWish! &bMessage",
-        description: "",
-        category: "Dungeons",
-        subcategory: "Healer Wish",
-    })
-    healerWishMessage = "Wish!";
-
-    @TextProperty({
-        name: "&5&nHealer&r &e&nWish!&r &b&nTitle&r &b&nMessage",
-        description: "",
-        category: "Dungeons",
-        subcategory: "Healer Wish",
-    })
-    healerWishTitle = "§9[§6§kO§r§9] §e§l⚠ §d§lW§bi§ds§bh§d! §e§l⚠ §9[§6§kO§r§9]";
-
-    @SwitchProperty({
-        name: "&f&lBetter&r &4&lM7&r",
-        description: `Auto Place Ghost Blocks in some places at the boss fight area`,
-        category: "Dungeons",
-        subcategory: "F7"
-    })
-    BetterM7 = false
-
-    @SwitchProperty({
-		name: "§bIcefill §6Solver",
-		description: "",
-		category: "Dungeons",
-        subcategory: "Solvers"
-	})
-	IcefillSolver = false
-
-    @ColorProperty({
-        name: "§bIcefill §6Solver &2C&3o&4l&5o&6r&r",
-        description: "The &2C&3o&4l&5o&6r&r of the §bIcefill §6Solver",
-        category: "Dungeons",
-        subcategory: "Solvers"
-    })
-    IcefillSolverColor = new Color(0, 0, 0, 1)
-
-    @SwitchProperty({
-        name: "&bBoulder &dSolver",
-        description: "",
-        category: "Dungeons",
-        subcategory: "Solvers"
-    })
-    BoulderSolver = false 
-
-    @ColorProperty({
-        name: "&6Boulder &bSolver &2C&3o&4l&5o&6r&r",
-        description: "The &2C&3o&4l&5o&6r&r of the &bBoulder &dSolver",
-        category: "Dungeons",
-        subcategory: "Solvers"
-    })
-    BoulderSolverColor = new Color(0, 0, 0, 20/100)
-
-    @SwitchProperty({
-        name: "&aThree &6Weirdos &cSolver",
-        description: "",
-        category: "Dungeons",
-        subcategory: "Solvers"
-    })
-    ThreeWeirdosSolver = false
-
-    @ColorProperty({
-        name: "&aThree &6Weirdos &cSolver &2C&3o&4l&5o&6r&r",
-        description: "The &2C&3o&4l&5o&6r&r' of the &aThree &6Weirdos &cSolver",
-        category: "Dungeons",
-        subcategory: "Solvers"
-    })
-    ThreeWeirdosSolverColor = new Color(0, 114/255, 1, 0.35)
-
-    @SwitchProperty({
-        name: "&eBlaze &dSolver",
-        description: "",
-        category: "Dungeons",
-        subcategory: "Solvers"
-    })
-    BlazeSolver = false
-
-    @ColorProperty({
-        name: "First Blaze Color",
-        description: "The &2C&3o&4l&5o&6r&r' of the &eBlaze &dSolver",
-        category: "Dungeons",
-        subcategory: "Solvers"
-    })
-    BlazeSolverFirstBlazeColor = new Color(0, 114/255, 1, 0.35)
-
-    @ColorProperty({
-        name: "Second Blaze Color",
-        description: "The &2C&3o&4l&5o&6r&r' of the &eBlaze &dSolver",
-        category: "Dungeons",
-        subcategory: "Solvers"
-    })
-    BlazeSolverSecondBlazeColor = new Color(1, 239/255, 0, 0.35)
-
-    @ColorProperty({
-        name: "Third Blaze Color",
-        description: "The &2C&3o&4l&5o&6r&r' of the &eBlaze &dSolver",
-        category: "Dungeons",
-        subcategory: "Solvers"
-    })
-    BlazeSolverThirdBlazeColor = new Color(1, 0, 0, 0.35)
-
-    @ColorProperty({
-        name: "Blaze Solver Line Color",
-        description: "The &2C&3o&4l&5o&6r&r' of the &eBlaze &dSolver",
-        category: "Dungeons",
-        subcategory: "Solvers"
-    })
-    BlazeSolverLineColor = new Color(1, 1, 1, 1)
 
 
-    @SwitchProperty({
-        name: "&5Livid &aSolver",
-        description: "",
-        category: "Dungeons",
-        subcategory: "Solvers"
-    })
-    LividSolver = false
-
-    @CheckboxProperty({
-        name: "&6Hide &cWrong &5Livids?",
-        description: "Sometimes it breaks the &5Livid &aSolver, still &cW.I.P",
-        category: "Dungeons",
-        subcategory: "Solvers"
-    })
-    HideWrongLivids = false
 
 
-    @SwitchProperty({
-        name: "&a&lAuto I4",
-        description: "&fAuto aims and shoots the emerald block at the forth dev in P3&r \n\n &f[ &b&nNeed a term&r &f&n&land&r &e&n100 atk speed&r &f] ",
-        category: "Dungeons",
-        subcategory: "F7"
-    })
-    AutoI4 = false
-
-    @SwitchProperty({
-		name: "§zClock Display",
-		description: "Displays the System Time on screen",
-		category: "General",
-        subcategory: "HUD"
-	})
-    ClockDisplay = false
-
-    @SwitchProperty({
-		name: "§zFPS Display",
-		description: "Displays the System Time on screen",
-		category: "General",
-        subcategory: "HUD"
-	})
-    FPSdisplay = false
-
-
-    @SwitchProperty({
-        name: "Clean Titles",
-        description: "&eReplaces the big and annoyying f7 titles with smaller and cleaner ones and display them on screen\n\n&b&nExsamples:\n\n&r &a1/2 Energy Crystals are now active!&f ==> &f(&c1&f/&b2&f) \n &aNoamm9&a activated a Terminal! (&c6&f/&a7&f)&f ==> &f(&c6&a/7&f)",
-        category: "Dungeons",
-        subcategory: "F7"
-    })
-    CleanTitles = false
-
-    @SwitchProperty({
-        name: "Close Dungeon Chests",
-        description: "&eAutomatically closes dungeon Secret chests, ensuring efficient and clutter free clearing.",
-        category: "Dungeons",
-        subcategory: "Secrets"
-    })
-    AutoCloseDungeonChests = false
-
-    @SwitchProperty({
-        name: "&bSecrets Sound",
-        description: "Plays a sound whenever you get a dungeon secret (might not be 100% accurate on the pick up items)",
-        category: "Dungeons",
-        subcategory: "Secrets"
-    })
-    SecretsSound = false
-
-    @SelectorProperty({
-        name: "&dSecrets Sound Type",
-        description: "The type of sound to play whenever you get a secret",
-        category: "Dungeons",
-        subcategory: "Secrets",
-        options: [
-            'mob.cat.meow',
-            "mob.blaze.hit", 
-            "fire.ignite", 
-            "random.orb", 
-            "random.break", 
-            "mob.guardian.land.hit"
-        ]
-    })
-    SecretsSoundType = 0;
-
-    @SwitchProperty({
-        name: "&eHide &5Portal Effect",
-        description: "Disables the annoying Nether Portal Effect",
-        category: "Cosmetic",
-        subcategory: "Visuals"
-    })
-    HidePortalEffect = false
-
-    @SwitchProperty({
-        name: "&dCustom &bLeap &6Menu",
-        description: "Renders a Custom Menu for leaps",
-        category: "Dungeons",
-        subcategory: "Spirit Leaps"
-    })
-    CustomLeapMenu = false
-
-    @CheckboxProperty({
-        name: "&fLight &6Mode Menu?",
-        description: "Changes the &fColor&r Mode of the &dCustom &bLeap &6Menu",
-        category: "Dungeons",
-        subcategory: "Spirit Leaps"
-    })
-    CustomLeapMenuLightMode = false
-
-    @PercentSliderProperty({
-        name: "&dCustom &bLeap &6Menu &eScale",
-        description: "Scale of the &dCustom &bLeap &6Menu",
-        category: "Dungeons",
-        subcategory: "Spirit Leaps"
-    })
-    CustomLeapMenuScale = 1;
-/*    
-    @SwitchProperty({
-        name: "&eToggle &5Secrets Hitboxes",
-        description: "Toggles the hitboxes of secrets in dungeons",
-        category: "Dungeons",
-        subcategory: "Secrets",
-    })
-    SecretsHitboxes = true
-*/  
-    @SwitchProperty({
-        name: "&bAbility &aKeybinds",
-        description: "Allows to use the Your Classs ULTIMATE/ABILITY with a keybind witch can be configirate in Minecraft's Options/Controls",
-        category: "Dungeons",
-        subcategory: ""
-    })
-    AbilityKeybinds = false
-
-    @SwitchProperty({
-        name: "&4&lFuck &0&lBlindness!",
-        description: "Removes the Fucking Annoying Blindness Effect (Client-side ofc)",
-        category: "Cosmetic",
-        subcategory: "Visuals"
-    })
-    NoBlindness = false
-
-    @SwitchProperty({
-        name: "&dLeft &aClick &5Etherwarp",
-        description: "If enabled when Left clicking with a AOTV in hand it will try Etherwarp instead",
-        category: "Dungeons",
-        subcategory: ""
-    })
-    LeftClickEtherwarp = false
-
-    @SwitchProperty({
-        name: "&eShow &6Gyro &dRadius",
-        description: "Shows the Gyrokinetic wand sucking radius",
-        category: "Dungeons",
-        subcategory: ""
-    })
-    GyroCircle = false
-
-    @TextProperty({
-        name: "&dMelody &6Alert",
-        description: "Sends a Message in chat when you open Melody Terminal\nDelete all text to disable",
-        category: "Dungeons",
-        subcategory: "F7",
-        placeholder: ''
-    })
-    MelodyAlert = ""
-
-    @SwitchProperty({
-        name: "&eHide &bLightning",
-        description: "Stops Lightning Effect from rendering",
-        category: "Cosmetic",
-        subcategory: "Visuals"
-    })
-    HideLightning = false
-
-    @SwitchProperty({
-        name: "&bHighlight &cMimic &6Chest",
-        description: "Renders a Box and nametag above the Mimic Chest",
-        category: "Dungeons",
-        subcategory: "Secrets"
-    })
-    HighlightMinicChest = false
-
-    @SwitchProperty({
-        name: "&6Block &dGloomlock &cDeath",
-        description: "Blocks left Clicking with a Gloomlock while your HP is lower than 25%",
-        category: "Dungeons",
-        subcategory: ""
-    })
-    BlockGloomlockDeath = false
-
-    @SwitchProperty({
-        name: "&0&lBetter &aM&65",
-        description: "Changes the &6Stupid &fDiorite&r blocks at the Boss fight To &0&Clay blocks&r\n\n&dNow my eyes can finally rest",
-        category: "Dungeons",
-        subcategory: ""
-    })
-    BetterM5 = false
-
-    @SwitchProperty({
-        name: "&fBlur Background",
-        description: "Apply a Sexy Blur Effect to the Background",
-        category: "Cosmetic",
-        subcategory: "Visuals"
-    })
-    BlurBackground = false
-
-    @SwitchProperty({
-        name: "&0&lBetter &a&lM&6&l6",
-        description: "Places Some QQL Blocks at the Boss fight",
-        category: "Dungeons",
-        subcategory: ""
-    })
-    BetterM6 = false
-
-    @SwitchProperty({
-        name: "&aColor &dSecrets",
-        description: "Replaces the Secrets items with a cool box and draws the name of the Secret",
-        category: "Dungeons",
-        subcategory: "Secrets"
-    })
-    ColorSecrets = false
-    
-    @SwitchProperty({
-        name: "&dTrace &6Keys",
-        description: "Draws a line from your mouse cursor to the Wither/Blood key",
-        category: "Dungeons",
-        subcategory: ""
-    })
-    TraceKeys = false
-    
-
-
-    @SwitchProperty({
-        name: "&a&lWardrobe &6&lHelper",
-        description: "Allows armor swapping with keyboard keys",
-        category: "General",
-        subcategory: "Wardrobe Helper"
-    })
-    WardrobeHelper = false
-    
-    @TextProperty({
-        name: 'First Slot Keybind',
-        description: "",
-        category: 'General',
-        subcategory: 'Wardrobe Helper',
-        placeholder: ''
-    })
-    wd_1 = '1';
-        
-    @TextProperty({
-        name: 'Second Slot Keybind',
-        description: "",
-        category: 'General',
-        subcategory: 'Wardrobe Helper',
-        placeholder: ''
-    })
-    wd_2 = '2';
-        
-    @TextProperty({
-        name: 'Third Slot Keybind',
-        description: "",
-        category: 'General',
-        subcategory: 'Wardrobe Helper',
-        placeholder: ''
-    })
-    wd_3 = '3';
-        
-    @TextProperty({
-        name: 'Fourth Slot Keybind',
-        description: "",
-        category: 'General',
-        subcategory: 'Wardrobe Helper',
-        placeholder: ''
-    })
-    wd_4 = '4';
-        
-    @TextProperty({
-        name: 'Fifth Slot Keybind',
-        description: "",
-        category: 'General',
-        subcategory: 'Wardrobe Helper',
-        placeholder: ''
-    })
-    wd_5 = '5';
-        
-    @TextProperty({
-        name: 'Sixth Slot Keybind',
-        description: "",
-        category: 'General',
-        subcategory: 'Wardrobe Helper',
-        placeholder: ''
-    })
-    wd_6 = '6';
-        
-    @TextProperty({
-        name: 'Seventh Slot Keybind',
-        description: "",
-        category: 'General',
-        subcategory: 'Wardrobe Helper',
-        placeholder: ''
-    })
-    wd_7 = '7';
-        
-    @TextProperty({
-        name: 'Eighth Slot Keybind',
-        description: "",
-        category: 'General',
-        subcategory: 'Wardrobe Helper',
-        placeholder: ''
-    })
-    wd_8 = '8';
-        
-    @TextProperty({
-        name: 'Ninth Slot Keybind',
-        description: "",
-        category: 'General',
-        subcategory: 'Wardrobe Helper',
-        placeholder: ''
-    })
-    wd_9 = '9';
-
-    @SwitchProperty({
-        name: "&dCustom Terminal Guis",
-        description: "Global Switch for Custom Terminal Guis",
-        category: "Dungeons",
-        subcategory: "Terminals"
-    })
-    CustomTerminalsGui = false
-
-    @PercentSliderProperty({
-        name: "&dCustom Terminals Gui &eScale",
-        description: "Scale of the &dCustom &bLeap &6Menu",
-        category: "Dungeons",
-        subcategory: "Terminals"
-    })
-    CustomTerminalMenuScale = 0.5;
-
-    @CheckboxProperty({
-        name: "&fLight &6Mode Gui?",
-        description: "Changes the &fColor&r Mode of the &dCustom Terminals &6Gui",
-        category: "Dungeons",
-        subcategory: "Terminals"
-    })
-    CustomTerminalMenuLightMode = false
-
-    @ColorProperty({
-        name: "&6Solution &2C&3o&4l&5o&6r&r",
-        description: "The &2C&3o&4l&5o&6r&r' of the &6Solution",
-        category: "Dungeons",
-        subcategory: "Terminals"
-    })
-    CustomTerminalMenuSolutionColor = new Color(0, 114/255, 1, 1)
-
-    @CheckboxProperty({
-        name: "&dMelody &aTerminal",
-        description: "",
-        category: "Dungeons",
-        subcategory: "Terminals"
-    })
-    CustomMelodyTerminal = true
-
-    @CheckboxProperty({
-        name: "&9Numbers &aTerminal",
-        description: "",
-        category: "Dungeons",
-        subcategory: "Terminals"
-    })
-    CustomNumbersTerminal = true
-
-    @CheckboxProperty({
-        name: "&bRubix &aTerminal",
-        description: "&6&l[&d&lTIP&6&l]&r &b&lNo need to swap between &n&lRightclick&r&b&l and &nLeftclick&r&b&l anymore",
-        category: "Dungeons",
-        subcategory: "Terminals"
-    })
-    CustomRubixTerminal = true
-
-    @CheckboxProperty({
-        name: "&aRed &cGreen &aTerminal",
-        description: "",
-        category: "Dungeons",
-        subcategory: "Terminals"
-    })
-    CustomRedGreenTerminal = true
-
-    @CheckboxProperty({
-        name: "&6Start With &aTerminal",
-        description: "",
-        category: "Dungeons",
-        subcategory: "Terminals"
-    })
-    CustomStartWithTerminal = true
-
-    @CheckboxProperty({
-        name: "&2C&3o&4l&5o&6r&r &aTerminal",
-        description: "",
-        category: "Dungeons",
-        subcategory: "Terminals"
-    })
-    CustomColorsTerminal = true
-
-    @SwitchProperty({
-        name: "&cAnnounce &dDrafts &6Resets",
-        description: "Says in party chat when you used Architect's First Draft to reset a failed puzzle",
-        category: "Dungeons",
-        subcategory: "Secrets"
-    })
-    AnnounceDraftsReset = false
-
-    @SwitchProperty({
-        name: "&b&lInventory &d&lButtons",
-        description: "places Custom Buttons in the inventory to execute simple commands",
-        category: "General",
-        subcategory: ""
-    })
-    InventoryButtons = false
-
-    @SwitchProperty({
-        name: "&5EtherWarp &6Triggerbot",
-        description: "&fAutomatically clicks for you when you looking at Gold Blocks\n\n &6&l[&b&lTIP&6&l] &r&fBest with &4&lFunnyMapExtras",
-        category: "Dungeons",
-        subcategory: "Secrets"
-    })
-    EtherWarpTriggerbot = false
-
-    @CheckboxProperty({
-        name: "&5Auto &6Sneak",
-        description: "Should it also Automatically Sneak for you?",
-        category: "Dungeons",
-        subcategory: "Secrets"
-    })
-    AutoSneak = true
-
-    @SwitchProperty({
-        name: "&eWither Shield &bDisplay ",
-        description: "Shows the cooldown of the Wither shield ability on a wither blade with wither impact ability",
-        category: "General",
-        subcategory: ""
-    })
-    WitherShieldDisplay = false
-
-    @SwitchProperty({
-        name: "&a&lAuto &c&lM5 &d&lULT ",
-        description: "&fAutomatically Uses your Class Ultimate if you are playing\n&2&lTank &eor &5&lHealer&r&f in &c&lM5",
-        category: "Dungeons",
-        subcategory: ""
-    })
-    AutoM5ULT = false
-    
-    @SwitchProperty({
-        name: "&d&lCustom &b&lItem &6&lTooltips",
-        description: "",
-        category: "General",
-        subcategory: ""
-    })
-    CustomItemTooltip = false
-
-    @SwitchProperty({
-        name: "&c&lF7 &9&lTerminal &d&lNumbers",
-        description: "Places a number on each terminal so you know what number it is.",
-        category: "Dungeons",
-        subcategory: "F7"
-    })
-    TerminalNumbers = false
-
-    @SwitchProperty({
-        name: "&a&lAuto &5&lPotion",
-        description: "Automatically gets &5&lPotion&r from your potion bag when you start M7.",
-        category: "Dungeons",
-        subcategory: ""
-    })
-    AutoPotion = true
-    
-    @SwitchProperty({
-        name: "&a&lAuto &5&lTwilight",
-        description: "Automatically gets &5&lTwilights&r from your storage when P5 starts.",
-        category: "Dungeons",
-        subcategory: ""
-    })
-    AutoTwilight = true
-
-    @TextProperty({
-        name: "&a&lAuto &5&lTwilight Command",
-        description: "The command to run to get the twilights. &cwithout the '/'&r\nEXAMPLE:\n&bbp 4&f -> opens the 4th backpack\n&bec 2&f -> opens the 2nd ender chest",
-        category: "Dungeons",
-        subcategory: ""
-        }) 
-    TwilightSlot = "bp 15"
-
-    @SwitchProperty({
-        name: "&bPlace &4Energy Crystal &5Alert",
-        description: "Shows a warning when you after you took an Energy Crystal",
-        category: "Alerts",
-        subcategory: "Dungeons"
-    })
-    EnergyCrystalAlert = false;
-
-    @SwitchProperty({
-        name: '&d&lCustom Scoreboard',
-        description: ``,
-        category: 'General',
-       // subcategory: 'Custom Scoreboard'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+const categories = [
+    "General",
+    "Dungeons", 
+    "Alerts", 
+    "Cosmetic",
+    "Dev"
+    //"Credits" // maybe someday soon
+]
+
+const Settings = new FuckYouIWantToUseThatName("NoammAddons", config, "RandomShit/ColorScheme.json", `${fullName} §4§l§nVersion:§r§n §6§l§n${getModuleVersion()}§r`)
+
+    .onOpenGui(() => {
+        Settings
+        .setSize(Renderer.screen.getWidth()/9.59, Renderer.screen.getHeight()/5.39)
+        .setPos(-1/9, -1/9)
+        .setCategorySort((a, b) => categories.indexOf(a.category) - categories.indexOf(b.category))
+       // .sortElements((a, b) => a.title - b.title)
+        .apply()
     })
-    CustomScoreboard = false
-
-
-    constructor() {
-        this.initialize(this);
-        this.setCategoryDescription("Dungeons", "&6Toggle &aOn&f/&cOff&f features within the mod\nOr just &6Configurate &eThem")
-        this.setCategoryDescription("General", "&6Toggle &aOn&f/&cOff&f features within the mod\nOr just &6Configurate &eThem")
-		this.setCategoryDescription("Alerts", "&6Toggle &aOn&f/&cOff&f Alerts within this mod")
-
-        this.addDependency('&bFOV', '&eCustom &dFOV');
-        this.addDependency('&dE&bS&dP &2C&3o&4l&5o&6r&r', '&fDungeon &eMob &6ESP')
-        this.addDependency("&dE&bS&dP &6Mode", "&fDungeon &eMob &6ESP")
-        this.addDependency("&9Block Overlay &eType", "§n&9Block Overlay")
-        this.addDependency("Outline Thickness", "§n&9Block Overlay")
-        this.addDependency("Outline &2C&3o&4l&5o&6r&r", "§n&9Block Overlay")
-        this.addDependency("Overlay &2C&3o&4l&5o&6r&r", "§n&9Block Overlay")
-        this.addDependency("&6Show Through Blocks?", "§n&9Block Overlay")
-        this.addDependency("Announced &6Massage", "Announce &fSpirit &bLeaps")
-        this.addDependency("&5P1 &fStart &eTimer", "&cF7/&4M7 &aPhase &dStart &eTimers")
-        this.addDependency("&bP2 &fStart &eTimer", "&cF7/&4M7 &aPhase &dStart &eTimers")
-        this.addDependency("&7P3 &fStart &eTimer", "&cF7/&4M7 &aPhase &dStart &eTimers")
-        this.addDependency("&cP4 &fStart &eTimer", "&cF7/&4M7 &aPhase &dStart &eTimers")
-        this.addDependency("&dWay&bPoint &2C&3o&4l&5o&6r&r", "&aChat Coords &d2 WayPoint")
-        this.addDependency(`§bIcefill §6Solver &2C&3o&4l&5o&6r&r`, `§bIcefill §6Solver`)
-        this.addDependency(`&f&lWhitelist`, `&9&lM&a&la&c&li&d&ln &b&lT&6&lo&e&lg&f&lg&0l&4&le`)
-        this.addDependency(`&0&lBlacklist`, `&9&lM&a&la&c&li&d&ln &b&lT&6&lo&e&lg&f&lg&0l&4&le`)
-        this.addDependency(`&e!ptme`, `&9&lM&a&la&c&li&d&ln &b&lT&6&lo&e&lg&f&lg&0l&4&le`)
-        this.addDependency(`&6!warp`, `&9&lM&a&la&c&li&d&ln &b&lT&6&lo&e&lg&f&lg&0l&4&le`)
-        this.addDependency(`&d!allinvite`, `&9&lM&a&la&c&li&d&ln &b&lT&6&lo&e&lg&f&lg&0l&4&le`)
-        this.addDependency(`!f&a0&r-&c7`, `&9&lM&a&la&c&li&d&ln &b&lT&6&lo&e&lg&f&lg&0l&4&le`)
-        this.addDependency(`!m&c1&r-&47`, `&9&lM&a&la&c&li&d&ln &b&lT&6&lo&e&lg&f&lg&0l&4&le`)
-        this.addDependency(`&5Healer &eWish! &bMessage`, `&5&lHealer &e&lWish!`)
-        this.addDependency(`&5&nHealer&r &e&nWish!&r &b&nTitle&r &b&nMessage`, `&5&lHealer &e&lWish!`)
-        this.addDependency(`&dTime &eMode`, "&dTime &bChanger")
-        this.addDependency(`&eCustom &4Scale`, `&6Player &4Scale`)
-        this.addDependency(`&aSpin &ediraction`, `&bPlayer &aSpin`)
-        this.addDependency(`&sSpin &9speed`, `&bPlayer &aSpin`)
-        this.addDependency("&bSlot &d&lHighlight&r &2C&3o&4l&5o&6r&r", "&aCustom &bSlot &d&lHighlight")
-        this.addDependency(`&aDungeon &6Team&amates &6Name&atag &eMode`, `&aDungeon &6Team&amates &6Name&atag`)
-        this.addDependency(`&dCustom &bLeap &6Menu &eScale`, `&dCustom &bLeap &6Menu`)
-        this.addDependency(`&fLight &6Mode Menu?`, "&dCustom &bLeap &6Menu")
-        this.addDependency(`&6Hide &cWrong &5Livids?`, `&5Livid &aSolver`)
-        this.addDependency("&6Boulder &bSolver &2C&3o&4l&5o&6r&r", "&bBoulder &dSolver")
-        this.addDependency("&aThree &6Weirdos &cSolver &2C&3o&4l&5o&6r&r", "&aThree &6Weirdos &cSolver")
-        this.addDependency("First Blaze Color", "&eBlaze &dSolver")
-        this.addDependency("Second Blaze Color", "&eBlaze &dSolver")
-        this.addDependency("Third Blaze Color", "&eBlaze &dSolver")
-        this.addDependency("Blaze Solver Line Color", "&eBlaze &dSolver")
-        this.addDependency("&dCustom Terminals Gui &eScale", "&dCustom Terminal Guis")
-        this.addDependency("&fLight &6Mode Gui?", "&dCustom Terminal Guis")
-        this.addDependency("&6Solution &2C&3o&4l&5o&6r&r", "&dCustom Terminal Guis")
-        this.addDependency("&dMelody &aTerminal", "&dCustom Terminal Guis")
-        this.addDependency("&9Numbers &aTerminal", "&dCustom Terminal Guis")
-        this.addDependency("&bRubix &aTerminal", "&dCustom Terminal Guis")
-        this.addDependency("&aRed &cGreen &aTerminal", "&dCustom Terminal Guis")
-        this.addDependency("&6Start With &aTerminal", "&dCustom Terminal Guis")
-        this.addDependency("&2C&3o&4l&5o&6r&r &aTerminal", "&dCustom Terminal Guis")
-        this.addDependency("&5Auto &6Sneak", "&5EtherWarp &6Triggerbot")
-    }
-}
-
-
-export default new Settings()
+
+
+export const SettingsGUIHandler = Settings.getHandler()
+
+
+export default () => Settings.settings
+

@@ -67,4 +67,4 @@ registerWhen(register(`chat`, (e) => {
         checkWardrope(Player.getContainer(), 3)
     }).start()
 
-}).setChatCriteria("test"), () => Settings.AutoPotion)
+}).setChatCriteria("test"), () => Settings().AutoPotion)

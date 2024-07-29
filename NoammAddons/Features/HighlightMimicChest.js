@@ -32,4 +32,4 @@ const trigger = register(`renderWorld`, () => {
 
 
 
-registerWhen(trigger, () => Settings.HighlightMinicChest && IsInDungeon())
+registerWhen(trigger, () => Settings().HighlightMinicChest && IsInDungeon())

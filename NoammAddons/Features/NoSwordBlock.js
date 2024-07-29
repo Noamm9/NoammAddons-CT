@@ -23,7 +23,7 @@ const enabledSwords = [
 
 register("playerInteract", (action, _, event) => { 
     try {
-        if (action.toString() !== "RIGHT_CLICK_EMPTY" || !Settings.NoSwordBlock) return
+        if (action.toString() !== "RIGHT_CLICK_EMPTY" || !Settings().NoSwordBlock) return
         let item = Player?.getHeldItem()
         if (!item) return
         let isEnabledSword = false    

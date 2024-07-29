@@ -40,9 +40,9 @@ const hitBlock = register("hitBlock", (EventBlock, event) => {
 
 
 register("step", () => {
-    if (Settings.BetterM5 && IsInBossRoom() && Dungeon.floorNumber == 5)
+    if (Settings().BetterM5 && IsInBossRoom() && Dungeon.floorNumber == 5)
         DioriteToClay()
 }).setDelay(5)
 
-registerWhen(packetReceived, () => Settings.BetterM5 && IsInBossRoom() && Dungeon.floorNumber == 5)
-registerWhen(hitBlock, () => Settings.BetterM5 && IsInBossRoom() && Dungeon.floorNumber == 5)
+registerWhen(packetReceived, () => Settings().BetterFloorsMultiCheckbox && Settings().BetterM5 && IsInBossRoom() && Dungeon.floorNumber == 5)
+registerWhen(hitBlock, () => Settings().BetterFloorsMultiCheckbox && Settings().BetterM5 && IsInBossRoom() && Dungeon.floorNumber == 5)

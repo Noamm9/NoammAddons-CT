@@ -10,9 +10,9 @@ const renderTrigger = register("renderEntity", (entity) => {
     if (Player && entity.getEntity() instanceof net.minecraft.entity.player.EntityPlayer) {
         Tessellator.pushMatrix()
 
-       /* if (Settings.ScaleOnEveryone) Tessellator.scale(Settings.CustomPlayerScale, Settings.CustomPlayerScale, Settings.CustomPlayerScale)
+       /* if (Settings().ScaleOnEveryone) Tessellator.scale(Settings().CustomPlayerScale, Settings().CustomPlayerScale, Settings().CustomPlayerScale)
 
-        else */if (entity.getName() == Player.getName()) Tessellator.scale(Settings.CustomPlayerScale, Settings.CustomPlayerScale, Settings.CustomPlayerScale)
+        else */if (entity.getName() == Player.getName()) Tessellator.scale(Settings().CustomPlayerScale/100, Settings().CustomPlayerScale/100, Settings().CustomPlayerScale/100)
 
     }
 })
@@ -24,5 +24,5 @@ const renderTriggerPost = register("postRenderEntity", (entity) => {
 
 
 
-registerWhen(renderTrigger, () => Settings.PlayerScale)
-registerWhen(renderTriggerPost, () => Settings.PlayerScale)
+registerWhen(renderTrigger, () => Settings().PlayerScale)
+registerWhen(renderTriggerPost, () => Settings().PlayerScale)
