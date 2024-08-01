@@ -1,4 +1,4 @@
-import { fullName, ModMessage } from "./utils"
+import { fullName, ModMessage, cc} from "./utils"
 
 const File = Java.type("java.io.File")
 const URL = Java.type("java.net.URL")
@@ -32,12 +32,13 @@ const UpdateThread = new Thread(() => {
         
         Thread.sleep(5000)
 
-        ModMessage(`${fullName} &cDeleted:&6 ${FileLib.deleteDirectory("config/ChatTriggers/modules/NoammAddons")}`)
+        ModMessage(`${fullName}§r §cDeleted:§6 ${FileLib.deleteDirectory("config/ChatTriggers/modules/NoammAddons")}`)
+        cc("§a§a§b§c§d§d§e")
         FileLib.unzip(`config/ChatTriggers/modules/NoammAddonsAutoUpDate.zip`, `config/ChatTriggers/modules`)
 
         Thread.sleep(5000)
 
-        ModMessage(`&4[TEMP FILE] &6NoammAddons.zip &cDeleted:&6 ${FileLib.delete("config/ChatTriggers/modules/NoammAddonsAutoUpDate.zip")}`)
+        ModMessage(`§4[TEMP FILE]§r NoammAddons.zip §cDeleted:§6 ${FileLib.delete("config/ChatTriggers/modules/NoammAddonsAutoUpDate.zip")}`)
 
-    } catch (e) {ModMessage(`&bError Updating ${fullName}\n\n&c${e}`)}
+    } catch (e) {ModMessage(`§bError Updating ${fullName}\n\n§c${e}`)}
 })
