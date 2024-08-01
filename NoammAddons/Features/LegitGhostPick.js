@@ -4,13 +4,12 @@
 
 import Settings from "../Settings"
 import { BlockPoss, setAir, IsInDungeon, LegitGhostPickGUIdata, registerWhen } from "../utils"
-import { MainGUI } from "../EditGui"
+import { GuiElement, MainGUI } from "../EditGui"
 
-export let Toggle = false 
-export let md = false
-export let Text = new Text(` `).setShadow(true).setFormatted(true)
 
-let BreakingSounds = JSON.parse(FileLib.read("NoammAddons", "RandomShit/BreakingSounds.json"))
+const BreakingSounds = JSON.parse(FileLib.read("NoammAddons", "RandomShit/BreakingSounds.json"))
+const LegitGhostPickGuiElement = new GuiElement(LegitGhostPickGUIdata, "&b&lLegitGhostPick: &a&lEnabled")
+let Toggle = false 
 
 const ids = [
     257,  // Iron Pickaxe
@@ -41,28 +40,16 @@ const ignoreList = [
 let lastTriggered = 0;
 registerWhen(register('tick', () => {
     if (Keyboard.isKeyDown(Settings().GhostPickaxeKeybind)) {
-        if ((Date.now() - lastTriggered) < 300) return;
+        if ((Date.now() - lastTriggered) < 200) return;
         if (Settings().PickaxeMode == 0 || Settings().PickaxeMode == 2) {
             Toggle = !Toggle;
             lastTriggered = Date.now();
         } 
     }
-}), () => Settings().LegitGhostPickaxe && !Client.isInChat());
+}), () => Settings().LegitGhostPickaxe && !Client.isInGui);
 
 
-register("renderOverlay", () => {
-	if (!Settings().LegitGhostPickaxe) return
-
-	
-	Text.setX(LegitGhostPickGUIdata.x)
-	Text.setY(LegitGhostPickGUIdata.y)
-	Text.setScale(LegitGhostPickGUIdata.s/100)
-	Text.setString("&b&lLegitGhostPick: &a&lEnabled")
-	
-	if (Toggle || MainGUI.isOpen()) Text.draw()
-	
-	
-})
+registerWhen(register("renderOverlay", () => LegitGhostPickGuiElement.Draw()), () => Settings().LegitGhostPickaxe && Toggle)
 
 register("packetsent", (packet, event) => {
     if (packet.class.getSimpleName() == "C07PacketPlayerDigging" && Toggle) {

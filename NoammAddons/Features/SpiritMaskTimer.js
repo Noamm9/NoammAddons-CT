@@ -1,32 +1,30 @@
-
 /// <reference types="../../CTAutocomplete" />
 /// <reference lib="es2015" />
 
-import { SpiritMaskGUIdata } from "../utils";
+
 import Settings from "../Settings";
+import { registerWhen, SpiritMaskGUIdata } from "../utils";
+import { GuiElement } from "../EditGui";
 
-export var Timer = null; 
-export let Text = new Text(` `).setShadow(true).setFormatted(true) 
-export let md = false
 
-register("chat", () => { 
-	if (!Settings().SpiritMaskTimer) return
-	Timer = 30
+const SpiritMaskElement = new GuiElement(SpiritMaskGUIdata, "&fSpirit Mask: &aREADY")
+let Timer
+
+
+registerWhen(register("chat", () => {
+	Timer = Date.now()
 	RenderRegister.register()
-}).setChatCriteria("Second Wind Activated! Your Spirit Mask saved your life!")
+
+}).setChatCriteria("Second Wind Activated! Your Spirit Mask saved your life!"), () => Settings().SpiritMaskTimer)
 
 
-export const RenderRegister = register("renderOverlay", () => {
+const RenderRegister = register("renderOverlay", () => {
+	let TimerText = ((30_000 + (Timer - Date.now()))/1000).toFixed(1)
 
-	Text.setX(SpiritMaskGUIdata.x)
-	Text.setY(SpiritMaskGUIdata.y)
-	Text.setScale(SpiritMaskGUIdata.s/100)
-	Text.draw()
 
-	if (Timer > 0) Text.setString("&fSpirit Mask: &a" + Timer)
-	else if (Timer == 0 || Timer > -30) Text.setString("&fSpirit Mask: &aREADY")
+	if (TimerText > 0) SpiritMaskElement.setText("&fSpirit Mask: &a" + TimerText)
+	else if (TimerText == 0 || TimerText > -30) SpiritMaskElement.setText("&fSpirit Mask: &aREADY")
 	else RenderRegister.unregister()
 
+	SpiritMaskElement.Draw()
 }).unregister()
-
-register("step", () => Timer -= 1 ).setFps(1)

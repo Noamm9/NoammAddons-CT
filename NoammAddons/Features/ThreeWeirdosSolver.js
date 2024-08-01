@@ -4,7 +4,7 @@
 
 import Settings from "../Settings"
 import { EntityArmorStand, getRoomCenter, getObjectXYZ } from "../../BloomCore/utils/Utils"
-import { Render, registerWhen, convertToRealCoords, IsInDungeon, IsInBossRoom, ModMessage, WitherDoorsOffsets, intToRGB } from "../utils";
+import { Render, registerWhen, convertToRealCoords, IsInDungeon, IsInBossRoom, ModMessage, WitherDoorsOffsets, PlayerUtils } from "../utils";
 
 
 const solutions = [
@@ -127,18 +127,29 @@ function highlightChest(coord, red, green, blue, alpha) {
     Render.FilledOutLineBox(x+0.5, y-0.1, z+0.5, 1, 1, red, green, blue, alpha, true)
 }
 
-
+let rotated = false
 registerWhen(register("renderWorld", () => {
     correctChests.forEach((v) => {
         let [r, g, b, a] = Settings().ThreeWeirdosSolverColor
         highlightChest(v, r/255, g/255, b/255, a/255)
         Render.StringWithShadow("CLICK ME!", v[0]+0.5, v[1] + 1.75, v[2]+0.5, Renderer.color(r, g, b, a), 2, true)
+
+        if ((incorrectChests.size + correctChests.size) == 3 && !rotated) {
+            rotated = true
+            let [yaw, pitch] = PlayerUtils.calcYawPitch({x: v[0]+0.5, y: v[1]+0.7, z: v[2]+0.5})
+            PlayerUtils.rotateSmoothly(yaw, pitch, 200)
+            setTimeout(() => PlayerUtils.Click(`right`), 220);
+        }
+
     })
     incorrectChests.forEach((v) => highlightChest(v, 1, 0, 0, 0.20))
+
+
 }), () => inWeirdos)
 
 
 registerWhen(register("worldUnload", () => {
     correctChests.clear()
     incorrectChests.clear()
+    rotated = false
 }), () => Settings().ThreeWeirdosSolver)

@@ -1,31 +1,29 @@
 /// <reference types="../../CTAutocomplete" />
 /// <reference lib="es2015" />
 
-import { BonzoMaskGUIdata } from "../utils";
+
 import Settings from "../Settings";
+import { BonzoMaskGUIdata, registerWhen } from "../utils";
+import { GuiElement } from "../EditGui";
 
-export let Text = new Text(` `).setShadow(true).setFormatted(true) 
-export let md = false
-export var Timer = null; 
+const BonzoMaskElement = new GuiElement(BonzoMaskGUIdata, "&9Bonzo Mask: &aREADY", true)
+let Timer
 
-register("chat", () => { 
-	if (!Settings().BonzoMaskTimer) return
-	Timer = 183
+
+registerWhen(register("chat", () => { 
+	Timer = Date.now()
 	RenderRegister.register()
-}).setChatCriteria(/Your (?:. )?Bonzo's Mask saved your life!/)
+
+}).setChatCriteria(/Your (?:. )?Bonzo's Mask saved your life!/), () => Settings().BonzoMaskTimer)
 
 
-export const RenderRegister = register("renderOverlay", () => {
+const RenderRegister = register("renderOverlay", () => {
+	let TimerText = ((183_000 + (Timer - Date.now()))/1000).toFixed(1)
 
-	Text.setX(BonzoMaskGUIdata.x)
-	Text.setY(BonzoMaskGUIdata.y)
-	Text.setScale(BonzoMaskGUIdata.s/100)
-	Text.draw()
 
-	if (Timer > 0) Text.setString("&9Bonzo Mask: &a" + Timer)
-	else if (Timer === 0 || Timer > -30) Text.setString("&9Bonzo Mask: &aREADY")
+	if (TimerText > 0) BonzoMaskElement.setText("&9Bonzo Mask: &a" + TimerText)
+	else if (TimerText === 0 || TimerText > -30) BonzoMaskElement.setText("&9Bonzo Mask: &aREADY")
 	else RenderRegister.unregister()
-
+	
+	BonzoMaskElement.Draw()
 }).unregister()
-
-register("step", () => Timer -= 1 ).setFps(1)

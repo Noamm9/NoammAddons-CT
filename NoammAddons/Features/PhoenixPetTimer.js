@@ -2,32 +2,28 @@
 /// <reference types="../../CTAutocomplete" />
 /// <reference lib="es2015" />
 
-import { PhoenixPetGUIdata } from "../utils";
 import Settings from "../Settings";
-
-export var Timer = null; 
-export let Text = new Text(` `).setShadow(true).setFormatted(true) 
-export let md = false
+import { PhoenixPetGUIdata, registerWhen } from "../utils";
+import { GuiElement } from "../EditGui";
 
 
-register("chat", () => { 
-	if (!Settings().PhoenixPetTimer) return
-	Timer = 60
+const PhoenixGuiElement = new GuiElement(PhoenixPetGUIdata, "&5Phoenix Pet: &aREADY")
+let Timer 
+
+
+
+registerWhen(register("chat", () => { 
+	Timer = Date.now()
 	RenderRegister.register()
-}).setChatCriteria("Your Phoenix Pet saved you from certain death!")
+}).setChatCriteria("Your Phoenix Pet saved you from certain death!"), () => Settings().PhoenixPetTimer)
 
 
 export const RenderRegister = register("renderOverlay", () => {
-	
-	Text.setX(PhoenixPetGUIdata.x)
-	Text.setY(PhoenixPetGUIdata.y)
-	Text.setScale(PhoenixPetGUIdata.s/100)
-	Text.draw()
+	let TimerText = ((60_000 + (Timer - Date.now()))/1000).toFixed(1)
 
-	if (Timer > 0) Text.setString("&5Phoenix Pet: &a" + Timer)
-	else if (Timer == 0 || Timer > -30) Text.setString("&5Phoenix Pet: &aREADY")
+	if (TimerText > 0) PhoenixGuiElement.setText("&5Phoenix Pet: &a" + TimerText)
+	else if (TimerText == 0 || TimerText > -30) PhoenixGuiElement.setText("&5Phoenix Pet: &aREADY")
 	else RenderRegister.unregister()
 
+	PhoenixGuiElement.Draw()
 }).unregister()
-
-register("step", () => Timer -= 1 ).setFps(1)

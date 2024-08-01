@@ -157,12 +157,12 @@ register(`step`, () => {
             SetState(keybinds.sneak, false)
             Thread.sleep(300)
 
-            [ yaw, pitch ] = PlayerUtils.calcYawPitch({ x: -0.5, y: 69+3, z: 34.5 })
-            PlayerUtils.rotateSmoothly(yaw, pitch, 450)
+            let [ yaww, pitchh ] = PlayerUtils.calcYawPitch({ x: -0.5, y: 69+3, z: 34.5 })
+            PlayerUtils.rotateSmoothly(yaww, pitchh, 450)
             PlayerUtils.swapToSlot(1)
             IsOnSpawn = true
-            Reset()
 
+            Reset()
 
         }).start()
     }

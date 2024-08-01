@@ -1,7 +1,10 @@
+import { fullName, ModMessage } from "./utils"
+
 const File = Java.type("java.io.File")
 const URL = Java.type("java.net.URL")
 const PrintStream = Java.type("java.io.PrintStream")
 const Byte = Java.type("java.lang.Byte")
+
 
 function urlToFile(url, destination, connecttimeout, readtimeout) {
     const d = new File(destination)
@@ -12,7 +15,7 @@ function urlToFile(url, destination, connecttimeout, readtimeout) {
     connection.setReadTimeout(readtimeout)
     const IS = connection.getInputStream()
     const FilePS = new PrintStream(destination)
-    let buf = Java.type("byte[]").newInstance(65536)
+    let buf = new Packages.java.lang.reflect.Array.newInstance(Byte.TYPE, 65536)
     let len
     while ((len = IS.read(buf)) > 0) {
         FilePS.write(buf, 0, len)
@@ -21,20 +24,20 @@ function urlToFile(url, destination, connecttimeout, readtimeout) {
     FilePS.close()
 }
 
-register("command", () => {
+register("command", () => UpdateThread.start()).setName(`namoduleupdatetestxd`)
+
+const UpdateThread = new Thread(() => {
     try {
-        urlToFile("https://github.com/Noamm9/NoammAddons/releases/download/NoammAddons/NoammAddons.zip", "config/ChatTriggers/modules/NoammAddonsAutoUpDate.zip", 1000, 2000)
+        urlToFile("https://github.com/Noamm9/NoammAddons/releases/download/Release/NoammAddons.zip", "config/ChatTriggers/modules/NoammAddonsAutoUpDate.zip", 1000, 2000)
         
-        setTimeout(() => {
-            ChatLib.chat(`NoammAddons Deleted? ${!FileLib.deleteDirectory("config/ChatTriggers/modules/NoammAddons")}`)
-            FileLib.unzip(`config/ChatTriggers/modules/NoammAddonsAutoUpDate.zip`, `config/ChatTriggers/modules`)
-        }, 5_000)
+        Thread.sleep(5000)
 
-        setTimeout(() => {
-            ChatLib.chat(`NoammAddons.zip Deleted? ${FileLib.delete("config/ChatTriggers/modules/NoammAddonsAutoUpDate.zip")}`)
-        }, 10_000)
-        
-    } catch (Error) {ChatLib.chat(Error)}
-    
-}).setName(`update`)
+        ModMessage(`${fullName} &cDeleted:&6 ${FileLib.deleteDirectory("config/ChatTriggers/modules/NoammAddons")}`)
+        FileLib.unzip(`config/ChatTriggers/modules/NoammAddonsAutoUpDate.zip`, `config/ChatTriggers/modules`)
 
+        Thread.sleep(5000)
+
+        ModMessage(`&4[TEMP FILE] &6NoammAddons.zip &cDeleted:&6 ${FileLib.delete("config/ChatTriggers/modules/NoammAddonsAutoUpDate.zip")}`)
+
+    } catch (e) {ModMessage(`&bError Updating ${fullName}\n\n&c${e}`)}
+})

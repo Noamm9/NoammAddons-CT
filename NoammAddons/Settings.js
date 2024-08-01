@@ -106,7 +106,13 @@ config
     subcategory: "Misc",
     configName: "WitherShieldDisplay",
 })
-
+.addSwitch({
+    title: "§d§lParty §b§lFinder §6§lOverlay",
+    description: "\n§fDisplays the §ccata§f §elvl§f of each §9party along with its §cmissing §bclasses§f and whether you can join it",
+    category: "General",
+    subcategory: "Chat",
+    configName: "PartyFinderOverlay",
+})
 
 
 
@@ -278,42 +284,42 @@ config
     title: "§eDungeon Auto Extra Stats",
     description: "\n§fAutomatically types the command to show extra the extra dungeon stats at the end of the run",
     category: "Dungeons",
-    subcategory: "QQL",
+    subcategory: "QOL",
     configName: "DungeonAutoExtraStats",
 })
 .addSwitch({
     title: "§eShow §dGyro §aRadius",
     description: "\n§fShows the §5Gyrokinetic wand§f §esucking §aradius",
     category: "Dungeons",
-    subcategory: "QQL",
+    subcategory: "QOL",
     configName: "GyroCircle",
 })
 .addSwitch({
-    title: "§6§lBlock §5§Gloomlock §c§lDeath",
+    title: "§6§lBlock §5§lGloomlock §c§lDeath",
     description: "\n§cBlocks §fleft Clicking with a §5Gloomlock§f while your §cHP is lower than 25%",
     category: "Dungeons",
-    subcategory: "QQL",
+    subcategory: "QOL",
     configName: "BlockGloomlockDeath",
 })
 .addSwitch({
-    title: "§aAuto §2M5 §dULT ",
-    description: "\n§fAutomatically Uses your Class Ultimate if you are playing Tank or Healer in M5",
+    title: "§aAuto §dULT ",
+    description: "\n§fAutomatically Uses your Class Ultimate when you should",
     category: "Dungeons",
-    subcategory: "QQL",
-    configName: "AutoM5ULT",
+    subcategory: "QOL",
+    configName: "AutoULT",
 })
 .addSwitch({
     title: "§a§lAuto §d§lPotion",
     description: "\n§aAutomatically§f gets §d§lPotion§f from your §d§lPotion§f bag when you start §4M7.",
     category: "Dungeons",
-    subcategory: "QQL",
+    subcategory: "QOL",
     configName: "AutoPotion",
 })
 .addTextInput({
     title: "§a§lAuto §d§lPotion §6§lCommand",
     description: "\n§FThe command to run to get the §d§lPotion. §cwithout§f the '§c/§f'\n§b§nEXAMPLE:\n\n§6bp 4§f -> §dopens the 4th backpack\n§6ec 2§f -> §dopens the 2nd ender chest",
     category: "Dungeons",
-    subcategory: "QQL",
+    subcategory: "QOL",
     placeHolder: "bp, ec, pb",
     configName: "PotionSlot",
     value: "pb",
@@ -322,14 +328,14 @@ config
     title: "§a§lAuto §5§lTwilight",
     description: "\n§a§lAutomatically§f gets §5§lTwilight§f from your storage when §4M7§f-§cP5§f starts.",
     category: "Dungeons",
-    subcategory: "QQL",
+    subcategory: "QOL",
     configName: "AutoTwilight",
 })
 .addTextInput({
     title: "§a§lAuto §5§lTwilight §6§lCommand",
     description: "\n§fThe command to run to get the §5§lTwilight. §cwithout§f the '§c/§f'\n§bEXAMPLE:\n\n§6bp 4§f -> §dopens the 4th backpack\n§6ec 2§f -> §dopens the 2nd ender chest",
     category: "Dungeons",
-    subcategory: "QQL",
+    subcategory: "QOL",
     placeHolder: "bp, ec",
     configName: "TwilightSlot",
     value: "",
@@ -337,9 +343,9 @@ config
 
 .addSwitch({
     title: "§a§lAuto §b§lM4",
-    description: "\n§a§lAutomatically§f aim shoots the §c5§lSpirit Bow§f.",
+    description: "\n§a§lAutomatically§f aim shoots the §5§lSpirit Bow§f.",
     category: "Dungeons",
-    subcategory: "QQL",
+    subcategory: "QOL",
     configName: "AutoM4",
 })
 
@@ -1038,14 +1044,14 @@ config
 })
 .addSwitch({
     title: "§bL§do§bc§dk §bC§dh§be§ds§bt §fAlert",
-    description: "\n§Shows on screen when the chest you tried to open is §bC§dh§be§ds§bt",
+    description: "\n§fShows on screen when the chest you tried to open is §4LOCKED",
     category: "Alerts",
     subcategory: "Dungeons",
     configName: "LockChestAlert",
 })
 .addSwitch({
     title: "§6Place §cEnergy Crystal§f Alert",
-    description: "\n§fShows a warning when you after you took an Energy Crystal",
+    description: "\n§fShows a warning when after you took an Energy Crystal",
     category: "Alerts",
     subcategory: "Dungeons",
     configName: "EnergyCrystalAlert",
@@ -1435,7 +1441,7 @@ const Settings = new FuckYouIWantToUseThatName("NoammAddons", config, "RandomShi
 
     .onOpenGui(() => {
         Settings
-        .setSize(Renderer.screen.getWidth()/9.59, Renderer.screen.getHeight()/5.39)
+        .setSize(100, 100)
         .setPos(-1/9, -1/9)
         .setCategorySort((a, b) => categories.indexOf(a.category) - categories.indexOf(b.category))
        // .sortElements((a, b) => a.title - b.title)

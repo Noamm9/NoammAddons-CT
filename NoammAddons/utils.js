@@ -469,8 +469,6 @@ export function IsInBossRoom() {
 }
 
 
-
-
 const P3Sections = [
   { corner1: { x: 91, y: 158, z: 123 }, corner2: { x: 110, y: 105, z: 32 } }, // 1
   { corner1: { x: 16, y: 158, z: 122 }, corner2: { x: 110, y: 105, z: 142 } }, // 2
@@ -493,31 +491,13 @@ export function GetP3Section() {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /**
  * Checks if the player is currently in a dungeon.
  *
  * @returns {boolean} True if the player is in a dungeon, false otherwise.
  */
 export function IsInDungeon() {
-  return Dungeon.inDungeon
+  return LocationUtils.IsInDungeon()
 }
 
 
@@ -1325,42 +1305,100 @@ export class PlayerUtils {
 
 
 
+
+
+
+export class LocationUtils {
+
+
+  static getTablist() {
+    if (!World.isLoaded()) return []
+
+    return TabList.getNames().map(name => name.removeFormatting())
+  }
+
+
+  static getScoreboard(descending = false, removeFormatting = true) {
+    return Scoreboard.getLines(descending).map(line => removeFormatting ? line.getName()?.removeFormatting()?.replace(/[^\u0000-\u007F]/g, "") : line.getName()?.replace(/[^\u0000-\u007F]/g, ""))
+  }
+
+
+  static inTab(string) {
+    return this.getTablist().find(name => name.match(/^(Area|Dungeon): ([\w\d ]+)$/))?.includes(string)
+  }
+
+
+  static getCurrentWorld() {
+    if (!World.isLoaded()) return
+    
+    for (tabName of this.getTablist()) {
+      let worldName = tabName.match(/^(Area|Dungeon): ([\w\d ]+)$/)?.[2]
+      
+      if (!worldName) continue
+      return worldName
+    }
+  }
+  
+  
+  static getCurrentArea() {
+    if (!World.isLoaded()) return
+    
+    for (score of this.getScoreboard()) {
+      let areaName = score.match(/^  (.+)$/)?.[1]
+
+      if (!areaName) continue
+      return areaName
+    }
+  }
+      
+
+  static IsInDungeon() {
+    return this.inTab("Catacombs")
+  }
+
+
+}
+    
+    
+  
+
+
 export const guiData = new PogObject("Noammaddons", {
 
 	BonzoMaskGUIdata: {
 		x: 10,
 		y: 90,
-		s: 100,
+		s: 1,
 	},
 
 	SpiritMaskGUIdata: {
 		x: 10,
 		y: 110,
-		s: 100,
+		s: 1,
 	},
 
 	PhoenixPetGUIdata: {
 		x: 10,
 		y: 130,
-		s: 100,
+		s: 1,
 	},
 
 	LegitGhostPickGUIdata: {
 		x: 10,
 		y: 150,
-		s: 100,
+		s: 1,
 	},
 
 	ClockDisplayGUIdata: {
 		x: 10,
-		y: 90,
-		s: 100,
+		y: 170,
+		s: 1,
 	},
     
 	FPSdisplayGUIdata: {
 		x: 10,
-		y: 90,
-		s: 100,
+		y: 190,
+		s: 1,
 	}
 		
 }, "Config/GuiData.json")

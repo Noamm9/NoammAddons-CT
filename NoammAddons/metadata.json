@@ -2,7 +2,7 @@
     "$schema": "../CTAutocomplete/schema.json",
     "name": "&bNoamm&dAddons",
     "description": "A cool mod that add the features i like the game to have.",
-    "version": "3.8.3",
+    "version": "3.9.7",
     "author": "Noamm9",
     "entry": "index.js",
     "requires": [

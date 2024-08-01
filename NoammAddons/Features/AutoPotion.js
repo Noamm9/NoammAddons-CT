@@ -9,8 +9,10 @@ import { ModMessage, PreGuiRenderEvent, registerWhen, CloseCurrentGui } from "..
 const CancelGUIRendering = register(PreGuiRenderEvent, event => {
     cancel(event)
 
+    let slotName = Settings().PotionSlot.replace("ec", "Ender Chest").replace("bp", "Backpack").replace(`pb`, `PotionBag`)
+
     Renderer.drawStringWithShadow(
-        `&5&l[&d&lTaking Potion From PotionBag...&5&l]`, 
+        `&5&l[&d&lTaking Potion From ${slotName}...&5&l]`, 
         (Renderer.screen.getWidth()/2) - Renderer.getStringWidth(`&5&l[&d&lTaking Potion From PotionBag...&5&l]`)/2, 
         Renderer.screen.getHeight() - Renderer.screen.getHeight()/3
     )
@@ -54,7 +56,7 @@ const GetPotion = new Thread(() => {
 
     CancelGUIRendering.register()
     CancelKeyRegister.register()
-    ChatLib.command("bp 2");
+    ChatLib.command(Settings().PotionSlot)
 
     while (!Client.isInGui()) {}
     Thread.sleep(300)

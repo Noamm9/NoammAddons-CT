@@ -7,11 +7,12 @@ import { registerWhen } from "../utils"
 
 
 registerWhen(register("soundPlay", (vec, name, vol, pitch, _3, event) => {
-    if (name == "random.successful_hit"){
-        cancel(event);
-        World.playSound(`note.harp`, vol, pitch);
-        World.playSound(`note.harp`, vol, pitch);
-        World.playSound(`note.harp`, vol, pitch);
-        World.playSound(`note.harp`, vol, pitch);
-    }
+    if (name !== "random.successful_hit") return
+
+    cancel(event);
+    World.playSound(`note.harp`, vol, pitch);
+    World.playSound(`note.harp`, vol, pitch);
+    World.playSound(`note.harp`, vol, pitch);
+    World.playSound(`note.harp`, vol, pitch);
+    
 }), () => Settings().CustomBowHitSound)

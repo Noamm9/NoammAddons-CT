@@ -79,15 +79,15 @@ let RenderTrigger = TriggerRegister.registerRenderOverlay(() => {
   	let TitleString = `&r(${ColorTerminalInfo(Progress)}&r)`;
 	
 
+	InfoText.setString(TitleString)
 	InfoText.setX(Renderer.screen.getWidth() / 2 - Renderer.getStringWidth(TitleString.removeFormatting()))
 	InfoText.setY(Renderer.screen.getHeight() / 2 - Renderer.screen.getHeight() / 13)
-	InfoText.setString(TitleString)
 	InfoText.draw()
 
+	TypeText.setString(`&d${Type} ${TimeMsgToDisplay}&r`)
 	TypeText.setX(Renderer.screen.getWidth() / 2 - Renderer.getStringWidth(Type))
 	TypeText.setY(Renderer.screen.getHeight() / 2 - Renderer.screen.getHeight() / 25)
-	TypeText.setString(`&d${Type}&r`)
-	TypeText.draw()	
+	TypeText.draw()
 	
 
     if (TimeLeft <= 0) {
@@ -121,4 +121,85 @@ register(`chat`, (e) => {
 register(`worldLoad`, () => {
 	HideTitles.unregister()
 	StartRegister.unregister()
+
+	phase = 1
+    lastCompleted = [0, 7]
+    gateBlown = false
+    phaseStartTime = 0;
+    termsStartTime = 0;
 })
+
+
+
+// 	its ok to steal some code XD
+
+
+import { onChatPacket } from "../../BloomCore/utils/Events"
+
+let terminalMessagePattern = /^(.*) completed a device! (.*)$|^(.*) activated a terminal! (.*)|^(.*) activated a lever! (.*)/
+let currentTime, elapsedTimeInTerms, elapsedTimeInTermPhase, gateBlown, TimeMsgToDisplay, lastCompleted, timerRunning
+let phaseStartTime = 0
+let termsStartTime = 0
+let phase = 1
+
+
+
+register("chat", function (message) {
+    if (terminalMessagePattern.test(message) && timerRunning) {
+
+    	currentTime = new Date().getTime()
+    	elapsedTimeInTerms = ((currentTime - termsStartTime) / 1000).toFixed(2)
+    	elapsedTimeInTermPhase = ((currentTime - phaseStartTime) / 1000).toFixed(2)
+
+        if (phase === 1) TimeMsgToDisplay = " &8(&7" + elapsedTimeInTerms + "s&8)";
+        else TimeMsgToDisplay = " &8(&b" + elapsedTimeInTermPhase + "s &8|&b " + elapsedTimeInTerms + "s&8)"
+
+    }
+    else if (message.includes("The gate has been destroyed!") && timerRunning) {
+
+    	currentTime = new Date().getTime();
+    	elapsedTimeInTerms = ((currentTime - termsStartTime) / 1000).toFixed(2)
+    	elapsedTimeInTermPhase = ((currentTime - phaseStartTime) / 1000).toFixed(2)
+
+        if (phase === 1) TimeMsgToDisplay = " &8(&7" + elapsedTimeInTerms + "s&8)"
+        else TimeMsgToDisplay = " &8(&b" + elapsedTimeInTermPhase + "s &8|&b " + elapsedTimeInTerms + "s&8)"
+
+    }
+}).setChatCriteria("${message}")
+
+
+function transitionTermPhases() {
+    phaseStartTime = new Date().getTime();
+    timerRunning = true;
+    phase++
+    gateBlown = false
+    lastCompleted = [0, 7]
+}
+
+const newPhase = () => setTimeout(transitionTermPhases, 25)
+
+
+onChatPacket((completed, total) => {
+   // if (!Settings.terminalPhaseTimersEnabled) return;
+    completed = parseInt(completed)
+    total = parseInt(total)
+    if (completed < lastCompleted[0] || (completed == total && gateBlown)) return newPhase()
+    lastCompleted = [completed, total]
+}).setCriteria(/.+ [activated|completed]+ a .+! \((\d)\/(\d)\)/)
+
+onChatPacket(() => {
+   // if (!Settings.terminalPhaseTimersEnabled) return;
+    if (lastCompleted[0] == lastCompleted[1]) newPhase()
+    else gateBlown = true
+}).setCriteria("The gate has been destroyed!")
+
+onChatPacket(() => {
+  //  if (!Settings.terminalPhaseTimersEnabled) return;
+    newPhase()
+}).setCriteria("The Core entrance is opening!")
+
+onChatPacket(() => {
+    termsStartTime = new Date().getTime();
+    phaseStartTime = termsStartTime // Get both because terms just started
+    timerRunning = true;
+}).setCriteria("[BOSS] Goldor: Who dares trespass into my domain?")
