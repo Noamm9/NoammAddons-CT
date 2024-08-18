@@ -25,7 +25,7 @@ export default class Command {
 
 
 register("command", (...args) => {
-    if (!args.length) return SettingsGUIHandler.ctGui.open(); 
+    if (typeof args  == "undefined") return SettingsGUIHandler.ctGui.open(); 
 
     const commandName = args[0].toLowerCase()
     args.shift()
