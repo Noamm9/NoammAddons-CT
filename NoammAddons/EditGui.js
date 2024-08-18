@@ -135,11 +135,7 @@ const registerClicked = MainGUI.registerClicked((mx, my, button) => {
 
 
 const registerMouseReleased = MainGUI.registerMouseReleased((mx,my, button) => {
-	if (button == 0) { 
-		ElementList.forEach(element => {
-			if (element.isHovered(mx, my)) element.MouseDown = false
-		})
-	}
+	if (button == 0) ElementList.forEach(element => element.MouseDown = false)
 }).unregister()
 
 
