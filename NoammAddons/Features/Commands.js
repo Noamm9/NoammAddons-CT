@@ -6,7 +6,7 @@ const isValidMouseButton = (button) => ["left", "right", "middle"].includes(butt
 new Command("edit", () => ChatLib.command("naeditmaingui", true));
 
 new Command("holdclick", (...args) => {
-    if (!args.length || !isValidMouseButton(args[0])) {
+    if (!args || !isValidMouseButton(args[0])) {
         ModMessage('&c[ERROR]: Specify a valid mouse click type: &f"LEFT", "RIGHT", or "MIDDLE".');
         return;
     }
@@ -20,7 +20,7 @@ new Command("ping", () => ModMessage(`§bYour ping is:§r &d&l${getPing()}&6ms`)
 new Command("tps", () => getTPS((tps) => ModMessage(`§bServer TPS is:§r &d&l${tps}`)));
 
 new Command("blacklist", (...args) => {
-    if (!args.length || !args[0]) {
+    if (!args|| !args[0]) {
         return ModMessage("Usage: &b/na blacklist <add/remove> <username>&r | &b/na blacklist list (page)&r");
     }
 
@@ -78,7 +78,7 @@ new Command("blacklist", (...args) => {
 });
 
 new Command("whitelist", (...args) => {
-    if (!args.length || !args[0]) {
+    if (!args|| !args[0]) {
         return ModMessage("Usage: &b/na whitelist <add/remove> <username>&r | &b/na whitelist list (page)&r");
     }
 
