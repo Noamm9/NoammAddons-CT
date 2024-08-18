@@ -3,7 +3,7 @@
 
 
 import Settings from "../Settings"
-import { ModMessage, PreGuiRenderEvent, registerWhen, CloseCurrentGui } from "../utils"
+import { ModMessage, PreGuiRenderEvent, registerWhen, CloseCurrentGui, getPatcherScale } from "../utils"
 
 
 const CancelGUIRendering = register(PreGuiRenderEvent, event => {
@@ -21,6 +21,7 @@ const CancelGUIRendering = register(PreGuiRenderEvent, event => {
 
 const NotFoundGUI = register("renderOverlay", () => {
 
+    Renderer.scale(getPatcherScale())
     Renderer.drawStringWithShadow(
         `&5&l[&c&lNO POTIONS FOUND&5&l]`, 
         (Renderer.screen.getWidth()/2) - Renderer.getStringWidth(`&5&l[&c&lNO POTIONS FOUND&5&l]`)/2, 
@@ -32,23 +33,16 @@ const NotFoundGUI = register("renderOverlay", () => {
 
 const CancelKeyRegister = register(`guiKey`, (char, keycode, gui, event) => cancel(event)).unregister()
 
-registerWhen(register(`chat`, (event) => {
-    try {
-        let massage = ChatLib.getChatMessage(event).replace(/-/g, "")
-        massage = massage.replace(new RegExp(`${massage.charAt(0)}`, "g"), "")
-    
-        if (!(/(\[(MVP|MVP\+|MVP\+\+|VIP|VIP\+|ADMIN|PIG|GM|YOUTUBE)\]\s)?(\w{3,16})\sentered\s((MM|The)\s)?Catacombs,\s(Floor\s[IVX]+)!/.test(massage))) return
-        // https://regex101.com/r/qcUGpw/1
 
-        const inventory = Player.getInventory()
-        const potionInInv = inventory.indexOf(373)
+registerWhen(register(`chat`, (event) => {
+    const inventory = Player?.getInventory()
+    const potionInInv = inventory?.indexOf(373)
+
+    if (potionInInv !== -1) return
     
-        if (potionInInv !== -1) return
-        
-        GetPotion.start()
+    GetPotion.start()
     
-    } catch (e) {}
-}), () => Settings().AutoPotion)
+}).setChatCriteria(/(?:\[[^\]]+\] )?(\w{3,16}) entered( MM)? The Catacombs, Floor ([IVX]+)!/), () => Settings().AutoPotion)
 
 
 

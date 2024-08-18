@@ -66,22 +66,9 @@ register("step", () => {
 
 
     new Thread(() => {
-        if (doneCoords.size === 5) {
-            let TermSlot = Player.getPlayer().field_71071_by.field_70461_c
-            Player.getInventory().getItems().forEach((item, index) => {
-                if (index > 8 || !item || !item.getName().removeFormatting().toLowerCase().includes(`rod`)) return
-
-                PlayerUtils.HoldClick(false)
-                PlayerUtils.swapToSlot(index)
-                Thread.sleep(100)
-                PlayerUtils.Click(`right`);
-                Thread.sleep(100)
-                PlayerUtils.swapToSlot(TermSlot)
-            })
-            return
-        }
-
+        if (!shouldPredict) return
         Thread.sleep(350)
+
         if (World.getBlockAt(emeraldLocation.x, emeraldLocation.y, emeraldLocation.z).type.getID() !== 133 || wait) { 
             RightClickKey.func_74510_a(RightClickKey.func_151463_i(), false)
             return
@@ -122,7 +109,10 @@ register(`chat`, () => {
 const TickRegister = register(`packetReceived`, () => {
     TickTimer++
 
-    if (TickTimer == 110) {
+    
+    if (TickTimer == 56) RodSwapAction.start()
+    
+    if (TickTimer == 115) {
         LeapAction.start()
         TickRegister.unregister()
         ChatTrigger.unregister()
@@ -140,7 +130,7 @@ const TickRegister = register(`packetReceived`, () => {
     
     Alerted = true
     ChatLib.say(`/pc ${prefix.removeFormatting()} I4 Done!`)
-    Alert(`I4 Done!`, 3)
+    Alert(`&a&lI4 Done!`, 3)
     PlayerUtils.HoldClick(false)
 
 }).setFilteredClass(Java.type("net.minecraft.network.play.server.S32PacketConfirmTransaction")).unregister()
@@ -171,14 +161,14 @@ const LeapAction = new Thread(() => {
         container.getItems().forEach((_item, _index) => {
             if (!_item) return
             
-            if (!MageSlot.getLore().join().removeFormatting().match(/This player is currently dead!|This player is offline!/)) return container.click(14, false, 'middle')
+            if (MageSlot) return container.click(14, false, 'middle')
 
-            if (!HealerSlot.getLore().join().removeFormatting().match(/This player is currently dead!|This player is offline!/)) return container.click(11, false, 'middle')
+            if (HealerSlot) return container.click(11, false, 'middle')
                      
             // Too lazy to find the Class of those
-            if (!container.getStackInSlot(12).getLore().join().removeFormatting().match(/This player is currently dead!|This player is offline!/)) return container.click(11, false, 'middle')
+            if (container.getStackInSlot(12)) return container.click(11, false, 'middle')
             
-            if (!container.getStackInSlot(15).getLore().join().removeFormatting().match(/This player is currently dead!|This player is offline!/)) return container.click(15, false, 'middle')
+            if (container.getStackInSlot(15)) return container.click(15, false, 'middle')
                 
             /*
             if (playerClass == "Tank" && !isPlayerDead) {
@@ -197,6 +187,28 @@ const LeapAction = new Thread(() => {
 })
 
 
+let shouldPredict = true
+const RodSwapAction = new Thread(() => {
+    if (!IsOnDev()) return
+
+    let TermSlot = Player.getPlayer().field_71071_by.field_70461_c
+    Player.getInventory().getItems().forEach((item, index) => {
+        if (index > 8 || !item || !item.getName().removeFormatting().toLowerCase().includes(`rod`)) return
+        shouldPredict = false
+        PlayerUtils.HoldClick(false)
+        PlayerUtils.swapToSlot(index)
+
+        Thread.sleep(100)
+        PlayerUtils.Click(`right`);
+        Thread.sleep(100)
+        PlayerUtils.swapToSlot(TermSlot)
+        PlayerUtils.HoldClick(true)
+        shouldPredict = true
+    })
+})
+
+
+
 const ChatTrigger = register(`chat`, () => {
     if (Alerted || !IsOnDev()) return
     Alerted = true
@@ -204,95 +216,3 @@ const ChatTrigger = register(`chat`, () => {
     Alert(`&a&lI4 Done!`, 3)
     
 }).setCriteria(/(.+) completed a device! \(...\)/).unregister()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-register(`command`, () => {
-    new Thread(() => {
-        let runned = false
-    
-        Player?.getInventory()?.getItems()?.forEach((item, index) => {
-            if (runned || index > 8 || !item || !item?.getName()?.removeFormatting()?.toLowerCase()?.includes(`leap`)) return
-            runned = true
-            PlayerUtils.HoldClick(false)
-
-            PlayerUtils.swapToSlot(index)
-            Thread.sleep(50)
-            PlayerUtils.Click(`right`);
-            while (!Client.isInGui()) {} // dynamic Cooldown for the Thread
-            Thread.sleep(150) // time for items to load
-            let container = Player.getContainer()
-            const MageSlot = container.getStackInSlot(14)
-            const HealerSlot = container.getStackInSlot(11)
-            
-            container.getItems().forEach((_item, _index) => {
-                if (!_item) return
-                
-                if (!MageSlot.getLore().join().removeFormatting().match(/This player is currently dead!|This player is offline!/)) return container.click(14, false, 'middle')
-
-                if (!HealerSlot.getLore().join().removeFormatting().match(/This player is currently dead!|This player is offline!/)) return container.click(11, false, 'middle')
-                         
-                // Too lazy to find the Class of those
-                if (!container.getStackInSlot(12).getLore().join().removeFormatting().match(/This player is currently dead!|This player is offline!/)) return container.click(11, false, 'middle')
-                
-                if (!container.getStackInSlot(15).getLore().join().removeFormatting().match(/This player is currently dead!|This player is offline!/)) return container.click(15, false, 'middle')
-
-                /*
-                if (playerClass == "Tank" && !isPlayerDead) {
-                    container.click(_index, false, 'middle')
-                    return
-                }
-                if (playerClass == "Berserk" && !isPlayerDead) {
-                    container.click(_index, false, 'middle')
-                    return
-                }*/
-
-
-
-            })
-        })
-    }).start()
-}).setName(`test3`)
-
-
-
-    
-/*
-
-register(`step`, () => {
-    if (Alerted || !(World.getAllEntitiesOfType(EntityArmorStand).filter(entity => entity.getName().removeFormatting().toLowerCase() == "device" || entity.getName().removeFormatting().toLowerCase() == "active").filter(entity => `${Math.ceil(entity.getX()-1)}, ${Math.ceil(entity.getY()+1)}, ${Math.ceil(entity.getZ())}` == "63, 127, 35").length == 2) || !(Player.getY() == 127 && Player.getX() >= 62 && Player.getX() <= 65 && Player.getZ() >= 34 && Player.getZ() <= 37)) return
-    
-    Alerted = true
-    ModMessage(`I4 Done!`)
-    Render.Title(`&aDev Completed!`, 2, 3000, undefined, Renderer.screen.getHeight()/3)
-    ChatLib.say(`/pc ${prefix.removeFormatting()} I4 Done!`)
-    PlayerUtils.HoldClick(false)
-
-})
-
-*/

@@ -84,7 +84,7 @@ let RenderTrigger = TriggerRegister.registerRenderOverlay(() => {
 	InfoText.setY(Renderer.screen.getHeight() / 2 - Renderer.screen.getHeight() / 13)
 	InfoText.draw()
 
-	TypeText.setString(`&d${Type} ${TimeMsgToDisplay}&r`)
+	TypeText.setString(`&d${Type}\n\n ${TimeMsgToDisplay}&r`)
 	TypeText.setX(Renderer.screen.getWidth() / 2 - Renderer.getStringWidth(Type))
 	TypeText.setY(Renderer.screen.getHeight() / 2 - Renderer.screen.getHeight() / 25)
 	TypeText.draw()
@@ -127,6 +127,7 @@ register(`worldLoad`, () => {
     gateBlown = false
     phaseStartTime = 0;
     termsStartTime = 0;
+	TimeMsgToDisplay = " "
 })
 
 
@@ -137,7 +138,7 @@ register(`worldLoad`, () => {
 import { onChatPacket } from "../../BloomCore/utils/Events"
 
 let terminalMessagePattern = /^(.*) completed a device! (.*)$|^(.*) activated a terminal! (.*)|^(.*) activated a lever! (.*)/
-let currentTime, elapsedTimeInTerms, elapsedTimeInTermPhase, gateBlown, TimeMsgToDisplay, lastCompleted, timerRunning
+let currentTime, elapsedTimeInTerms, elapsedTimeInTermPhase, gateBlown, TimeMsgToDisplay = " ", lastCompleted, timerRunning
 let phaseStartTime = 0
 let termsStartTime = 0
 let phase = 1
@@ -151,7 +152,7 @@ register("chat", function (message) {
     	elapsedTimeInTerms = ((currentTime - termsStartTime) / 1000).toFixed(2)
     	elapsedTimeInTermPhase = ((currentTime - phaseStartTime) / 1000).toFixed(2)
 
-        if (phase === 1) TimeMsgToDisplay = " &8(&7" + elapsedTimeInTerms + "s&8)";
+        if (phase === 1) TimeMsgToDisplay = " &8(&b" + elapsedTimeInTerms + "s&8)";
         else TimeMsgToDisplay = " &8(&b" + elapsedTimeInTermPhase + "s &8|&b " + elapsedTimeInTerms + "s&8)"
 
     }
@@ -161,7 +162,7 @@ register("chat", function (message) {
     	elapsedTimeInTerms = ((currentTime - termsStartTime) / 1000).toFixed(2)
     	elapsedTimeInTermPhase = ((currentTime - phaseStartTime) / 1000).toFixed(2)
 
-        if (phase === 1) TimeMsgToDisplay = " &8(&7" + elapsedTimeInTerms + "s&8)"
+        if (phase === 1) TimeMsgToDisplay = " &8(&b" + elapsedTimeInTerms + "s&8)"
         else TimeMsgToDisplay = " &8(&b" + elapsedTimeInTermPhase + "s &8|&b " + elapsedTimeInTerms + "s&8)"
 
     }

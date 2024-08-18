@@ -36,7 +36,6 @@ registerWhen(register(`chat`, (e) => {
     
     UltMessages.forEach(obj => {
         if (obj.classes.includes(PlayerClass) && obj.msg == ChatMsg) {
-            ModMessage(`&cDebug MSG:` + `&6 ` +ChatMsg)
             PlayerUtils.UseDungeonClassAbility(true)
         }
     })

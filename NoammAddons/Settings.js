@@ -8,7 +8,7 @@ const config = new DefaultConfig("NoammAddons", "Config/Settings.json")
 config
 .addButton({
     title: "§9§l§nDiscord Server",
-    description: "\n§fJoin if you want to §cReport a bug§a or want to make a suggestion\n\n§fOr §6DM§f me on §9§l§nDiscord: akatsukiharu\n\n§dTime took making this module:§d 11 months",
+    description: "\n§fJoin if you want to §cReport a bug§a or make a suggestion\n\n§fOr §6DM§f me on §9§l§nDiscord: akatsukiharu\n\n§dTime took making this module:§d 1 year and 2 months",
     category: "General",
     subcategory: "",
     placeHolder: "[ Click me! ]",
@@ -63,12 +63,54 @@ config
     configName: "FPSdisplay",
 })
 .addSwitch({
+    title: "§9§lSpring Boots §6Display",
+    description: "\n§fRenders §dSexy §9§lSpring Boots §eCharge§6 Display",
+    category: "General",
+    subcategory: "HUD",
+    configName: "SpringBootsDisplay",
+})
+.addSwitch({
     title: "§6§lCustom §b§lScoreboard",
     description: "\n§fRenders §dSexy §6§lCustom §8Dark §b§lScoreboard",
     category: "General",
     subcategory: "HUD",
     configName: "CustomScoreboard",
 })
+.addSwitch({
+    title: "§6§lCustom §a§lTablist",
+    description: "\n§fRenders §dSexy §6§lCustom §8Dark §a§lTablist",
+    category: "General",
+    subcategory: "HUD",
+    configName: "CustomTablist",
+})
+
+
+
+
+
+
+.addSwitch({
+    title: "§6§lCustom §b§lPet §c§lMenu",
+    description: "\n§fRenders §dSexy §6§lCustom §b§lPet §c§lMenu",
+    category: "General",
+    subcategory: "Custom Pet Menu",
+    configName: "CustomPetMenu",
+})
+
+.addSwitch({
+    title: "§6§lLight Mode Gui?",
+    description: "\n§fChanges the Color of the Custom Gui to white",
+    category: "General",
+    subcategory: "Custom Pet Menu",
+    configName: "CustomPetMenuLightMode",
+})
+
+
+
+
+
+
+
 
 
 .addSwitch({
@@ -159,14 +201,22 @@ config
 
 .addSwitch({
     title: "§9§lM§a§la§c§li§d§ln §b§lT§6§lo§e§lg§f§lg§0l§4§le",
-    description: "\n§fIf this switch is disabled all features below will be off regardless of their configuration.",
+    description: "\n§fIf this switch is disabled all features below§f will be off regardless of their §fconfiguration.\n\n§dCredits to §d§loCookie§r§d for the original code. §bAll i did was modify it to fit my needs.",
     category: "General",
     subcategory: "Party Commands",
     configName: "pcEnabled",
 })
+.addSwitch({
+    title: "Whitelist",
+    description: "\n§fEnables a whitelist, if this is turned on the only people who can use the party commands \n§fare people in the whitelist. Use /na whitelist",
+    category: "General",
+    subcategory: "Party Commands",
+    configName: "pcWhitelist"
+})
+
 .addMultiCheckbox({
     title: "§d§lP§b§la§d§lr§b§lt§d§ly §b§lC§d§lo§b§lm§d§la§b§ln§d§ld§b§ls",
-    description: "\n§fAllows §9Party members§f to §cexecute §6leader commands§f with §a!§f instead of / in chat \n\n§b§nExsample: \n§6!w §f=> §bwill make you warp the party\n§d!ai §f=> §bwill Toggle the allinvite setting of the party",
+    description: "\n§fAllows §9Party members§f to §cexecute §6leader commands§f in chat \n\n§b§nExsample: \n§6!w §f=> §bwill make you warp the party\n§d!ai §f=> §bwill Toggle the allinvite setting of the party",
     category: `General`,
     subcategory: `Party Commands`,
     placeHolder: "Commands",
@@ -196,7 +246,32 @@ config
             title: "§4!m1-7 (joins Master Dungeon)",
             configName: "pcMasterFloor",
             value: true
-        }
+        },
+        {
+            title: "§c!dt {Reason}",
+            configName: "pcDt",
+            value: true
+        },
+        {
+            title: "§b!coords (sends coords)",
+            configName: "pcCoords",
+            value: true
+        },
+        {
+            title: "§e!tps (sends server tps)",
+            configName: "pcTPS",
+            value: true
+        },
+        {
+            title: "§d!ping (sends ping)",
+            configName: "pcPing",
+            value: true
+        },
+        {
+            title: "§b!gay {name} (gay check)",
+            configName: "pcGay",
+            value: true
+        },
     ]
 })
 
@@ -465,6 +540,22 @@ config
     category: "Dungeons",
     subcategory: "F7",
     configName: "AutoI4",
+})
+
+.addSwitch({
+    title: "§a§lAuto §0Reaper §cArmor §6Swap",
+    description: "\n§f§aAutomatically§f does the §0Reaper §cArmor §6Swap§f before the dragons on §4M7 §cP5§f Spawns\n\n §f[ §b§nNeed to have the Reaper Armor on the first page in your wardrobe&r §r§f] \n\n §6Can also be Triggered with /ras command ",
+    category: "Dungeons",
+    subcategory: "F7",
+    configName: "AutoReaperArmorSwap",
+})
+.addDropDown({
+    title: "§0Reaper §cArmor Slot",
+    description: "\n§f§aThe slot where the §0Reaper §cArmor§f is located\n\n §c§lfrom 0 to 9",
+    category: "Dungeons",
+    subcategory: "F7",
+    configName: "ReaperArmorSlot",
+    options: [0,1,2,3,4,5,6,7,8,9],
 })
 
 .addSwitch({
@@ -879,7 +970,7 @@ config
     configName: "HighlightMinicChest",
 })
 .addSwitch({
-    title: "§aC§bo§cl§do§er§f §8Secrets",
+    title: "§d§lBetter§r §8§lSecrets",
     description: "\n§fReplaces the §8Secrets§f items with a cool box and draws the name of the §8Secret",
     category: "Dungeons",
     subcategory: "Secrets",
@@ -892,7 +983,13 @@ config
     subcategory: "Secrets",
     configName: "AnnounceDraftsReset",
 })
-
+.addSwitch({
+    title: "§a§lAuto §5Architect Draft",
+    description: "\n§fAutomatically runs /gfs architect's first draft 1 when you fail a puzzle in dungeons.",
+    category: "Dungeons",
+    subcategory: "Secrets",
+    configName: "AutoArchitectDraft",
+})
 
 
 
@@ -1056,9 +1153,22 @@ config
     subcategory: "Dungeons",
     configName: "EnergyCrystalAlert",
 })
+.addSwitch({
+    title: "§aRNG §5Meter §aReset Alert",
+    description: "\n§fShows on screen when the §aRNG §5Meter§f Resets\n§b§lAlso Plays Really cool intro music",
+    category: "Alerts",
+    subcategory: "Dungeons",
+    configName: "RNGMeterResetAlert",
+})
 
 
-
+.addSwitch({
+    title: "§6Sold AH Notification",
+    description: "\n§fPlays A sound when an item on your AH sold",
+    category: "Alerts",
+    subcategory: "",
+    configName: "SoldAHNotification",
+})
 .addSwitch({
     title: "§9Bonzo Mask§f Alert",
     description: "\n§fShows on screen when the §9Bonzo Mask §6Ability§f has been used",
@@ -1338,17 +1448,7 @@ config
 
 
 
-
-
-
-
-
-
-
-
-
-
-
+/*
 .addButton({
     title: "apply ColorScheme Changes",
     description: "\nNeed to click this for window to reload with selected changes",
@@ -1399,33 +1499,7 @@ config
             value: false
         }
     ]
-})
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+})*/
 
 
 const categories = [
@@ -1433,7 +1507,7 @@ const categories = [
     "Dungeons", 
     "Alerts", 
     "Cosmetic",
-    "Dev"
+   // "Dev"
     //"Credits" // maybe someday soon
 ]
 
@@ -1441,13 +1515,18 @@ const Settings = new FuckYouIWantToUseThatName("NoammAddons", config, "RandomShi
 
     .onOpenGui(() => {
         Settings
-        .setSize(100, 100)
-        .setPos(-1/9, -1/9)
+        .setSize(101, 101)
+        .setPos(-1, -1)
         .setCategorySort((a, b) => categories.indexOf(a.category) - categories.indexOf(b.category))
        // .sortElements((a, b) => a.title - b.title)
         .apply()
     })
 
+    .onOpenGui(() => {
+        setTimeout(() => Settings.searchBar._focusSearch(), 50)
+        Settings.AmaterasuGui.searchBar.x = 80;
+        Settings.apply()
+    })
 
 export const SettingsGUIHandler = Settings.getHandler()
 

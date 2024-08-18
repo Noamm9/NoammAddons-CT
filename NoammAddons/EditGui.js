@@ -22,11 +22,6 @@ export class GuiElement {
 	Element = new Text(" ").setShadow(true).setFormatted(true)
 	MouseDown = false
 	
-	AddElement() {
-		AddElement(this)
-	}
-
-
 	setText(text) {
 		this.text = text
 	}
@@ -153,7 +148,7 @@ const Dragged = register(`dragged`, (dx,dy, mx,my, button) => {
 
 	if (button == 0) {
 		ElementList.forEach(element => {
-            if (element.MouseDown && element.isHovered(mx, my)) {
+            if (element.MouseDown) {
                 element.setX(element.getX() + dx)
                 element.setY(element.getY() + dy)
             }
@@ -183,7 +178,7 @@ MainGUI.registerClosed(OnClose)
 
 const EditView = TriggerRegister.registerRenderOverlay(() => {
 	ElementList.forEach(element => {
-		if (!element.MouseDown) return
+		if (!element.isHovered(Client.getMouseX(), Client.getMouseY())) return
 		
 		Render.TextBoundingBox(element.DataObj.x, element.DataObj.y, element.getWidth(), element.getHeight(), Renderer.WHITE, element.DataObj.s)
 	})

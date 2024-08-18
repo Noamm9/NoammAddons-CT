@@ -94,19 +94,21 @@ function StartOrStop() {
 
 
 const trigger = register("step", () => {
-    for (let i = 0; i < 37; i++) {
+    try {
+        for (let i = 0; i < 37; i++) {
 
-        GreenArray.forEach(block => {
-            if (World.getBlockAt(block.x, block.y+i, block.z).type.getID() == 1) 
-            GhostBlock(block.add(0, i, 0).toMCBlock(), WhiteGlass); 
-        })
+            GreenArray.forEach(block => {
+                if (World.getBlockAt(block.x, block.y+i, block.z).type.getID() == 1) 
+                GhostBlock(block.add(0, i, 0).toMCBlock(), WhiteGlass);
+            })
 
-        YellowArray.forEach(block => {
-            if (World.getBlockAt(block.x, block.y+i, block.z).type.getID() == 1) 
-            GhostBlock(block.add(0, i, 0).toMCBlock(), WhiteGlass)
-        })
-        
-    }
+            YellowArray.forEach(block => {
+                if (World.getBlockAt(block.x, block.y+i, block.z).type.getID() == 1) 
+                GhostBlock(block.add(0, i, 0).toMCBlock(), WhiteGlass)
+            })
+
+        }
+    } catch (error) {}
 }).setFps(10)
 
 

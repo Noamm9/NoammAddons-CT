@@ -1,46 +1,9 @@
-import { SettingsGUIHandler} from "./Settings"
 import { cc, getModuleVersion } from "./utils"
 
 
 // FOR ASM SHIT
 new BlockType(144).getDefaultState().func_177230_c().func_149676_a(0, 0, 0, 1, 1 ,1)
 new BlockType(397).getDefaultState().func_177230_c().func_149676_a(0, 0, 0, 1, 1 ,1)
-
-
-register("command",(...args) => {
-    try {
-        if (!args) SettingsGUIHandler.ctGui.open()
-        
-        switch (args[0]) {
-            case "edit":
-                ChatLib.command(`naeditmaingui`, true)
-                break
-        
-            case "help":
-                ChatLib.chat("help message")
-                break
-                
-            case "holdrightclick":
-                setTimeout(() => PlayerUtils.HoldClick(true, `right`), 500)
-                break
-        
-            case "holdleftclick":
-                setTimeout(() => PlayerUtils.HoldClick(true, `left`), 500)
-                break   
-        
-            case "update":
-                setTimeout(() => ChatLib.command(`namoduleupdatetestxd`, true), 200)
-                break
-        
-            default:
-                SettingsGUIHandler.ctGui.open()
-                break
-        
-        }
-    } catch (error) {}
-}).setName("noamm").setAliases("noam", "noamaddons", "noammaddons", "na")
-
-
 
 
 import "./Features/BonzoMaskTimer"
@@ -124,24 +87,27 @@ import "./Features/AutoPotion"
 import "./Features/AutoTwilight"
 import "./Features/CustomScoreboard"
 import "./Features/CustomDamageSplash"
-import './Features/AutoM4'
+import "./Features/AutoM4"
 import "./Features/CustomBotHitSound" // todo make it have more sound effects
 import "./Features/PartyFinderOverlay"
+import "./Features/SpringBootsDisplay"
+import "./Features/AutoReaperArmorSwap"
+import "./Features/CustomPetMenu"
+import "./Features/PurplePadTimer"
+import "./Features/CustomTablist"
 
 
-
-import "./AutoUpDater"
-
-import "./EditGui"
-
-import "./Features/PingCommand" // maybe use skytils's
-
-
-
-// make a title when you drop ur selected rng meter drop 
+import "./AutoUpdater"
+import "./Features/Commands"
 
 
 import "./TODO/TestGround"
+
+/* Disabled features
+ import "./Features/NecronDroppingTimer"
+ import "./Features/IHATECARPETS"
+*/
+
 
 
 
@@ -151,3 +117,4 @@ cc("&b&lNoamm&d&lAddons&r &a&lLoaded!")
 cc(`&4&lVersion &6&l${getModuleVersion()}`)
 cc("&a&a&b&c&d&d&e")
 ChatLib.chat(`&6&m${ChatLib.getChatBreak(" ")}`)
+

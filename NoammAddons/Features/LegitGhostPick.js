@@ -4,7 +4,7 @@
 
 import Settings from "../Settings"
 import { BlockPoss, setAir, IsInDungeon, LegitGhostPickGUIdata, registerWhen } from "../utils"
-import { GuiElement, MainGUI } from "../EditGui"
+import { GuiElement } from "../EditGui"
 
 
 const BreakingSounds = JSON.parse(FileLib.read("NoammAddons", "RandomShit/BreakingSounds.json"))
@@ -46,7 +46,7 @@ registerWhen(register('tick', () => {
             lastTriggered = Date.now();
         } 
     }
-}), () => Settings().LegitGhostPickaxe && !Client.isInGui);
+}), () => Settings().LegitGhostPickaxe && !Client.isInGui());
 
 
 registerWhen(register("renderOverlay", () => LegitGhostPickGuiElement.Draw()), () => Settings().LegitGhostPickaxe && Toggle)

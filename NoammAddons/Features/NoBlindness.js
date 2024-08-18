@@ -3,16 +3,8 @@
 
 
 import Settings from "../Settings"
-import { registerWhen, IsInDungeon } from "../utils"
+import { IsInDungeon, registerWhen } from "../utils"
 const RenderFogEvent = net.minecraftforge.client.event.EntityViewRenderEvent.FogDensity
 
 
-const trigger = register(RenderFogEvent, (event) => cancel(event)).unregister()
-
-
-function StartOrEnd() {
-    return Settings().NoBlindness && IsInDungeon()
-}
-
-
-registerWhen(trigger, StartOrEnd)
+registerWhen(register(RenderFogEvent, event => event.setCanceled(true)).unregister(), () => Settings().NoBlindness && World.isLoaded() && IsInDungeon())

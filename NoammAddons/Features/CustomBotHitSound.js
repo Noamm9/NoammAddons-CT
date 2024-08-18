@@ -11,8 +11,5 @@ registerWhen(register("soundPlay", (vec, name, vol, pitch, _3, event) => {
 
     cancel(event);
     World.playSound(`note.harp`, vol, pitch);
-    World.playSound(`note.harp`, vol, pitch);
-    World.playSound(`note.harp`, vol, pitch);
-    World.playSound(`note.harp`, vol, pitch);
     
 }), () => Settings().CustomBowHitSound)

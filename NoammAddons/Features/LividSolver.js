@@ -54,9 +54,12 @@ const TickTrigger = register("tick", () => {
 
 const RenderTrigger = register("renderWorld", () => {
     if (!RainBowColor) return
-
-    Render.FilledOutLineBox(livid.entity.getRenderX(), livid.entity.getRenderY(), livid.entity.getRenderZ(), 0.8, 1.8, RainBowColor[0]/255, RainBowColor[1]/255, RainBowColor[2]/255, 30/100, true)
-    Render.drawTrace(livid.entity.getRenderX(), livid.entity.getRenderY()+1, livid.entity.getRenderZ(), RainBowColor[0]/255, RainBowColor[1]/255, RainBowColor[2]/255)
+    try {
+    
+        Render.FilledOutLineBox(livid.entity.getRenderX(), livid.entity.getRenderY(), livid.entity.getRenderZ(), 0.8, 1.8, RainBowColor[0]/255, RainBowColor[1]/255, RainBowColor[2]/255, 30/100, true)
+        Render.drawTrace(livid.entity.getRenderX(), livid.entity.getRenderY()+1, livid.entity.getRenderZ(), RainBowColor[0]/255, RainBowColor[1]/255, RainBowColor[2]/255)
+    
+    } catch (e) {}
 })
 
 
@@ -73,5 +76,5 @@ registerWhen(register("worldUnload", () => livid = null), () => Settings().Livid
 registerWhen(register('step', elapsed => RainBowColor = intToRGB(Renderer.getRainbow(elapsed, 60))), () => Settings().LividSolver && IsInDungeon() && IsInBossRoom())
 registerWhen(TickTrigger, () => IsInBossRoom() && IsInDungeon() && Settings().LividSolver && Dungeon.floorNumber == 5 )
 registerWhen(RenderTrigger, () => IsInBossRoom() && IsInDungeon() && livid && Settings().LividSolver && Dungeon.floorNumber == 5)
-registerWhen(HideTrigger, () => IsInDungeon() && Settings().HideWrongLivids && livid && Settings().LividSolver)
+registerWhen(HideTrigger, () => IsInDungeon() && Settings().HideWrongLivids && Settings().LividSolver)
 

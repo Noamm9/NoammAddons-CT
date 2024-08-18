@@ -3,8 +3,9 @@
 
 
 import Settings from "../Settings"
-import { CoolSound, ModMessage, registerWhen } from "../utils" 
+import { registerWhen } from "../utils" 
 import { getSkyblockItemID } from "../../BloomCore/utils/Utils"
+import { PotisPOWW } from "../Utilities/SoundUtils"
 
 let tickTimer = 0
 const CooldownTimer = new Text(" ").setShadow(true).setFormatted(true).setScale(2)
@@ -30,15 +31,18 @@ registerWhen(register(`packetSent`, () => {
 
 
 const Timer = register('packetReceived', () => {
+try {
+        
     tickTimer += 50
 
-    if (tickTimer == 5_000 ) CoolSound()
+    if (tickTimer == 5_000 ) PotisPOWW.play()
     
     if (tickTimer == 10_000 ) {
         Timer.unregister()
         DrawOverlay.unregister()
     } 
 
+} catch (e) {}
 }).setFilteredClass(Java.type("net.minecraft.network.play.server.S32PacketConfirmTransaction")).unregister()
 
 

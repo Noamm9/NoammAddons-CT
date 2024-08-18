@@ -5,6 +5,7 @@ import RenderLib from "../RenderLib"
 import { renderBoxFromCorners } from "../BloomCore/RenderUtils"
 import Dungeon from "../BloomCore/dungeons/Dungeon"
 import PogObject from "../PogData"
+import { NotificationSound } from "./Utilities/SoundUtils"
 export const BlockPoss = Java.type("net.minecraft.util.BlockPos")
 export const MouseEvent = Java.type("net.minecraftforge.client.event.MouseEvent")
 export const PreGuiRenderEvent = net.minecraftforge.client.event.GuiScreenEvent.DrawScreenEvent.Pre
@@ -13,12 +14,13 @@ export const C08PacketPlayerBlockPlacement = Java.type("net.minecraft.network.pl
 export const gc = (text) => ChatLib.getCenteredText(text) // getCentered
 export const cc = (text) => ChatLib.chat(gc(text)) // centerChat
 export const prefix = "§6§l[§b§lN§d§lA§6§l]§r"
-export const fullName = `§d§l§nNoamm§b§l§nAddons`
+export const fullName = `§d§l§nNoamm§b§l§nAddons§r`
 export const Color = Java.type("java.awt.Color")
 const dungeonSecrets = JSON.parse(FileLib.read(`Noammaddons`, "RandomShit/DungeonSecretsItems.json"))
 export const DungeonSecretsItems = dungeonSecrets.items
 export const getModuleVersion = () => JSON.parse(FileLib.read("NoammAddons", "metadata.json")).version
 const PatcherConfig = Java.type("club.sk1er.patcher.config.PatcherConfig")
+//const SkytilsPing = Java.type('gg.skytils.skytilsmod.features.impl.misc.Ping');
 const Desktop = Java.type('java.awt.Desktop');
 const JavaRuntime = Java.type("java.lang.Runtime")
 const URI = Java.type('java.net.URI');
@@ -34,7 +36,7 @@ const UGraphics = Java.type("gg.essential.universal.UGraphics")
 const DefaultFonts = Java.type("gg.essential.elementa.font.DefaultFonts")
 const ElementaFonts = Java.type("gg.essential.elementa.font.ElementaFonts")
 const ElementaUIRoundedRectangle = Java.type("gg.essential.elementa.components.UIRoundedRectangle").Companion
-const EssentialAPI =Java.type("gg.essential.api.EssentialAPI")
+const EssentialAPI = Java.type("gg.essential.api.EssentialAPI")
 const ChatComponentText = Java.type("net.minecraft.util.ChatComponentText")
 const regCylinder = new org.lwjgl.util.glu.Cylinder()
 const lineCylinder = new org.lwjgl.util.glu.Cylinder()
@@ -80,13 +82,24 @@ export function RickRoll() {
 
 /**
  * Displays a notification with a custom message and duration.
- * @param {string} string - The message to display in the notification.
- * @param {number} TimeUp - The duration in seconds for which the notification should be displayed.
+ *
+ * @param {string} message - The message to display in the notification.
+ * @param {number} [duration=3] - The duration in seconds for which the notification should be displayed.
+ *                                Defaults to 3 seconds.
+ * @param {function} [clickFunction=()=>{}] - The function to be executed when the notification is clicked.
+ *                                            Defaults to an empty function.
+ * @param {function} [closeFunction=()=>{}] - The function to be executed when the notification is closed.
+ *                                            Defaults to an empty function.
  */
-export function Alert(string, TimeUp) {
+export function Alert(message, duration = 3, clickFunction = () => {}, closeFunction = () => {}) {
   EssentialAPI.getNotifications().push(
-    `${fullName}:`, `\n${string}`, TimeUp
+    `${fullName}:`,
+    message.toString(),
+    duration,
+    clickFunction,
+    closeFunction
   )
+  NotificationSound.play()
 }
 
 
@@ -98,7 +111,7 @@ export function Alert(string, TimeUp) {
  * @property {boolean} Object.match - Indicates whether a match was found.
  * @property {number} Object.slot - The slot number of the matching item in the inventory. If no match is found, this property will be undefined.
  */
-function invContains(str) {
+export function invContains(str) {
   if (str == undefined) throwE("invContains")
   let val = { match: false, slot: undefined }
   Player.getInventory().getItems().forEach((item, slot) => {
@@ -111,24 +124,47 @@ function invContains(str) {
 }
 
 
+
+
+const SkytilsPing = Java.type('gg.skytils.skytilsmod.features.impl.misc.Ping');
 /**
-  Returns true/false if the item in the slot contains lore
-  * @param {int} slot - Slot of item to check lore
-  * @param {String} search - Lore to search for
-*/
-export function loreContains(slot, str) {
-  if (slot == undefined || str == undefined) throw new Error(`Invalid value in one of the parameters`)
-
-  let val = false
-  Player.getInventory().getStackInSlot(slot).getLore().forEach((lore, line) => {
-
-    if (lore?.toLowerCase()?.includes(str?.toLowerCase())) val = true
-    
-  })
-
-  return val
-  
+ * Retrieves the current ping to the server.
+ *
+ * @returns {number} - The ping value, rounded to one decimal place.
+ *
+ */
+export function getPing() {
+  if (!World.isLoaded()) return
+  SkytilsPing.INSTANCE.sendPing()
+  return parseInt(SkytilsPing.INSTANCE.getPingCache().toFixed(1))
 }
+getPing()
+
+
+
+let TPStime = 0
+let serverTicks = 0
+let TPS
+
+export function getTPS(callback) {
+  TPStime = Date.now();
+  TpsCheck.register()
+  ServerTickEvent.register()
+
+  setTimeout(() => callback(TPS) , 5500)
+}
+
+const TpsCheck = register(`renderWorld`, () => {
+  if (Date.now() - TPStime >= 5000) {
+    ServerTickEvent.unregister()
+    TPS = serverTicks / 5
+    serverTicks = 0
+    TPStime = 0
+    TpsCheck.unregister()
+  }
+}).unregister()
+
+const ServerTickEvent = register("packetReceived", () => serverTicks++).setFilteredClass(Java.type("net.minecraft.network.play.server.S32PacketConfirmTransaction")).unregister()
 
 
 /**
@@ -212,6 +248,18 @@ export function CloseCurrentGui() {
 
 
 /**
+ * Splits an array into chunks of a specified size.
+ *
+ * @param {Array} array - The array to be split.
+ * @param {number} size - The size of each chunk.
+ * @return {Array<Array>} An array of chunks.
+ */
+export function splitArray(array, size) {
+  return array.reduce((result, _, i) => (i % size ? result : [...result, array.slice(i, i + size)]), []);
+}
+
+
+/**
  * Function to turn off the PC.
  * @returns {void}
  * @example
@@ -225,19 +273,17 @@ export function TurnOffPC() {
  * Adds random color codes to a given input string.
  *
  * @param {string} inputString - The input string to add color codes to.
+ * @param {Array.<string>} [colorCodes=["§6", "§a", "§b", "§c", "§d", "§e", "§f"]] - The list of color codes to choose from.
  * @returns {string} - The input string with random color codes added.
- * 
- * The color codes are randomly selected from a predefined list of color codes.
  */
-export function addRandomColorCodes(inputString) {
-  const colorCodes = ["§6", "§a", "§b", "§c", "§d", "§e", "§f"]
-  let result = ""
-  
+export function addRandomColorCodes(inputString, colorCodes = ["§6", "§a", "§b", "§c", "§d", "§e", "§f"]) {
+  let result = "";
+
   for (let char of inputString) {
     let randomColor = colorCodes[Math.floor(Math.random() * colorCodes.length)];
     result += randomColor + char + "§r";
   }
-  
+
   return result;
 }
 
@@ -289,6 +335,7 @@ export function clickSlot(slot, btn, windowID = Player.getContainer().getWindowI
  * If the number is an integer and less than 1,000, it is returned as a string without decimals.
  */
 export function formatNumber(num) {
+  num = parseInt(String(num).replace(/,/g, ""))
   if (isNaN(num) || num === 0) return "0";
   
   const sign = Math.sign(num);
@@ -422,7 +469,7 @@ export function registerWhen(trigger, checkFunc) {
   checkingTriggers.push([trigger.unregister(), checkFunc])
 }
 
-register("renderOverlay", () => {
+register("tick", () => {
   for (let i = 0; i < checkingTriggers.length; i++) {
     let [trigger, func] = checkingTriggers[i]
     if (func()) trigger.register()
@@ -497,7 +544,7 @@ export function GetP3Section() {
  * @returns {boolean} True if the player is in a dungeon, false otherwise.
  */
 export function IsInDungeon() {
-  return LocationUtils.IsInDungeon()
+  return Dungeon.inDungeon
 }
 
 
@@ -588,9 +635,6 @@ export function intToRGB(color, Alpha = false) {
 
   else return [r, g, b];
 }
-
-
-
 
 
 
@@ -1095,7 +1139,20 @@ export class Render {
   }
 
 
-
+  /**
+   * Checks if a given point is within the bounds of an element.
+   *
+   * @param {number} mx - The x-coordinate of the point to check.
+   * @param {number} my - The y-coordinate of the point to check.
+   * @param {number} x - The x-coordinate of the top-left corner of the element.
+   * @param {number} y - The y-coordinate of the top-left corner of the element.
+   * @param {number} w - The width of the element.
+   * @param {number} h - The height of the element.
+   * @return {boolean} True if the mouse is within the element, false otherwise.
+   */
+  static isElementHovered(mx, my, x, y, w, h) {
+    return mx >= x && mx <= x + w && my >= y && my <= y + h
+  } 
 }
 
 
@@ -1301,6 +1358,18 @@ export class PlayerUtils {
       MCplayer.func_71040_bB(Ultimate)
   }
 
+
+  /**
+   * Toggles the sneak state of the player.
+   *
+   * @param {boolean} Boolan - A boolean indicating whether to enable or disable sneaking.
+   * If true, sneaking will be enabled. If false, sneaking will be disabled.
+   */
+  static Sneak(Boolan) {
+    const sneakKey = new KeyBind(Client.getMinecraft().field_71474_y.field_74311_E);
+    sneakKey.setState(Boolan);
+  }
+
 }
 
 
@@ -1309,7 +1378,6 @@ export class PlayerUtils {
 
 
 export class LocationUtils {
-
 
   static getTablist() {
     if (!World.isLoaded()) return []
@@ -1350,15 +1418,16 @@ export class LocationUtils {
       return areaName
     }
   }
-      
-
-  static IsInDungeon() {
-    return this.inTab("Catacombs")
-  }
-
 
 }
-    
+
+
+
+
+
+
+
+
     
   
 
@@ -1409,3 +1478,9 @@ export const PhoenixPetGUIdata = guiData.PhoenixPetGUIdata
 export const LegitGhostPickGUIdata = guiData.LegitGhostPickGUIdata
 export const FPSdisplayGUIdata = guiData.FPSdisplayGUIdata
 export const ClockDisplayGUIdata = guiData.ClockDisplayGUIdata
+
+
+export const PartyCommandsData = new PogObject("NoammAddons",{
+  "blacklist": [],
+  "whitelist": []
+}, "Config/PartyCommands.json")

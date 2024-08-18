@@ -5,7 +5,7 @@
 import Dungeon from "../../../BloomCore/dungeons/Dungeon";
 import Settings from "../../Settings"
 import { Render, registerWhen, Color, CoolSound, IsInBossRoom, PreGuiRenderEvent, C0EPacketClickWindow } from "../../utils";
-import { Darkmode, Lightmode, RedGreenTitle } from "./ConstantsVeriables";
+import { Darkmode, Lightmode, RedGreenTitle, GetTermScale } from "./ConstantsVeriables";
 
 
 let inTerminal = false;
@@ -19,7 +19,7 @@ const solution = [];
 
 const clickTrigger = register("guiMouseClick", (x, y, button, _0, event) => {
 	cancel(event);
-	const TermScale = Settings().CustomTerminalMenuScale/100 * 2
+	const TermScale = GetTermScale()
 	const screenWidth = Renderer.screen.getWidth();
 	const screenHeight = Renderer.screen.getHeight();
 
@@ -52,7 +52,7 @@ const clickTrigger = register("guiMouseClick", (x, y, button, _0, event) => {
 
 const renderTrigger = register(PreGuiRenderEvent, event => {
 	cancel(event);
-	const TermScale = Settings().CustomTerminalMenuScale/100 * 2
+	const TermScale = GetTermScale()
 	const screenWidth = Renderer.screen.getWidth() / TermScale;
 	const screenHeight = Renderer.screen.getHeight() / TermScale;
 

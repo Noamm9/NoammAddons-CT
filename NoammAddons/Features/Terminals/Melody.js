@@ -4,8 +4,8 @@
 
 import Dungeon from "../../../BloomCore/dungeons/Dungeon";
 import Settings from "../../Settings"
-import { Render, registerWhen, clickSlot, Color, IsInBossRoom, PreGuiRenderEvent, CoolSound, rgbToColorInt, getPatcherScale } from "../../utils";
-import { Darkmode, Lightmode, MelodyTitle } from "./ConstantsVeriables";
+import { Render, registerWhen, clickSlot, IsInBossRoom, PreGuiRenderEvent, CoolSound, getPatcherScale } from "../../utils";
+import { Darkmode, Lightmode, MelodyTitle, GetTermScale } from "./ConstantsVeriables";
 
 
 let cwid = -1;
@@ -19,7 +19,7 @@ const melody = {
 
 const clickTrigger = register("guiMouseClick", (x, y, button, _0, event) => {
 	cancel(event);
-	const TermScale = ((Settings().CustomTerminalMenuScale/100) * 4) / getPatcherScale()
+	const TermScale = GetTermScale()
 	const screenWidth = Renderer.screen.getWidth();
 	const screenHeight = Renderer.screen.getHeight();
 
@@ -48,7 +48,7 @@ const clickTrigger = register("guiMouseClick", (x, y, button, _0, event) => {
 const renderTrigger = register(PreGuiRenderEvent, event => {
 	cancel(event);
 
-	const TermScale = ((Settings().CustomTerminalMenuScale/100) * 4) / getPatcherScale()
+	const TermScale = GetTermScale()
 	const screenWidth = Renderer.screen.getWidth() / TermScale;
 	const screenHeight = Renderer.screen.getHeight() / TermScale;
 

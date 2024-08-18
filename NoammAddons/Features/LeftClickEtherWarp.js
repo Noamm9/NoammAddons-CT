@@ -1,11 +1,11 @@
-
+/// <reference types="../../CTAutocomplete" />
+/// <reference lib="es2015" />
 
 
 import Settings from "../Settings"
 import { registerWhen, PlayerUtils, MouseEvent } from "../utils"
 import { getSkyblockItemID } from "../../BloomCore/utils/Utils";
 
-const sneakKey = new KeyBind(Client.getMinecraft().field_71474_y.field_74311_E)
 
 
 function StartOrStop() {
@@ -24,16 +24,12 @@ function isHoldingEtherwarpItem() {
 
 
 const Trigger = register(MouseEvent, (event) => {
-
-    const btn = event.button
-    const state = event.buttonstate
-    if (btn !== 0 || !state || !isHoldingEtherwarpItem() || !Client.isTabbedIn()) return
-
-    if (!Player.isSneaking()) return
+    if (event.button !== 0 || !event.buttonstate || !isHoldingEtherwarpItem() || !Client.isTabbedIn() || !Player.isSneaking()) return
 
     PlayerUtils.Click(`right`)
 
 }).unregister()
+
 
 
 registerWhen(Trigger, StartOrStop)

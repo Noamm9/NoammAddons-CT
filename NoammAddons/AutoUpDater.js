@@ -40,5 +40,5 @@ const UpdateThread = new Thread(() => {
 
         ModMessage(`§4[TEMP FILE]§r NoammAddons.zip §cDeleted:§6 ${FileLib.delete("config/ChatTriggers/modules/NoammAddonsAutoUpDate.zip")}`)
 
-    } catch (e) {ModMessage(`§bError Updating ${fullName}\n\n§c${e}`)}
+    } catch (e) {ModMessage(`§bError Updating ${fullName}:\n\n§c${e}`)}
 })

@@ -4,10 +4,12 @@
 
 import Dungeon from "../../BloomCore/dungeons/Dungeon"
 import Settings from "../Settings"
-import { CoolSound, IsInDungeon, registerWhen, getPhase, Render, ModMessage } from "../utils"
+import { MarioLikeSound, NotificationSound, ScoreSound } from "../Utilities/SoundUtils"
+import { CoolSound, IsInDungeon, registerWhen, getPhase, Render, ModMessage, Alert, formatNumber } from "../utils"
 
-register("worldLoad", () => Client.showTitle(` `, ` `, 0, 0, 0))
+
 // This is a hotfix for Titles sometimes not showing 
+register("worldLoad", () => Client.showTitle(` `, ` `, 0, 0, 0))
 
 
 const EnergyCrystalText = new Text("&9[&6&kO&r&9] &e&l⚠ &d&lC&br&dy&bs&dt&ba&dl &e&l⚠ &9[&6&kO&r&9]", Renderer.screen.getWidth() / 2, Renderer.screen.getHeight() / 2 - 25).setAlign("CENTER").setScale(2.5).setShadow(true)
@@ -15,24 +17,9 @@ registerWhen(register("renderOverlay", () => EnergyCrystalText.draw(Renderer.scr
 
 
 
-registerWhen(register(`chat`, (event) => {
-	try {
-		let massage = ChatLib.getChatMessage(event).replace(/-/g, "")
-		massage = massage.replace(new RegExp(`${massage.charAt(0)}`, "g"), "")
-	
-		if (!(/(\[(MVP|MVP\+|MVP\+\+|VIP|VIP\+|ADMIN|PIG|GM|YOUTUBE)\]\s)?(\w{3,16})\sentered\s((MM|The)\s)?Catacombs,\s(Floor\sVII)!/.test(massage))) return
-		// https://regex101.com/r/qcUGpw/1
-
-		Render.Title("&9[&6&kO&r&9] &e&l⚠ &4No Thunder Bottle &e&l⚠ &9[&6&kO&r&9]", 2.5, 3000, -Renderer.screen.getHeight()/6)
-	
-	} catch (e) {}
-}), () => Settings().NoThunderInABottleAlert && !Player.getInventory().getItems().find(a => a?.getName()?.removeFormatting() == "Empty Thunder Bottle"))
-
-
-
-
-
-
+registerWhen(register(`chat`, (event) => Render.Title("&9[&6&kO&r&9] &e&l⚠ &4No Thunder Bottle &e&l⚠ &9[&6&kO&r&9]", 2.5, 3000, -Renderer.screen.getHeight()/6)
+).setChatCriteria("-----------------------------\n${*} entered MM The Catacombs, Floor VII!\n-----------------------------"), 
+() => Settings().NoThunderInABottleAlert && !Player.getInventory().getItems().find(a => a?.getName()?.removeFormatting() == "Empty Thunder Bottle"))
 
 
 
@@ -73,9 +60,7 @@ registerWhen(register("chat", () => {
 
 registerWhen(register("chat", () => Render.Title("&1Bonzo Mask used!", 2, 3000)).setCriteria(/Your (?:. )?Bonzo's Mask saved your life!/), () => Settings().BonzoMaskAlert)
 
-
 registerWhen(register("chat", () => Render.Title("&fSpirit Mask used!", 2, 3000)).setCriteria("Second Wind Activated! Your Spirit Mask saved your life!"), () => Settings().SpiritMaskAlert)
-
 
 registerWhen(register("chat", () => Render.Title("&5Phoenix Pet used!", 2, 3000)).setCriteria("Your Phoenix Pet saved you from certain death!"), () => Settings().PhoenixPetAlert)
 
@@ -95,11 +80,21 @@ registerWhen(register("chat", () => {
 }).setCriteria("> Your bottle of thunder has fully charged!"), () => Settings().FullThunderBottleAlert)
 
 
-register("chat", (name, item, coins) => {
-   // if(!Settings().ahbuyping) return
+register("chat", (_, name, item, coins, event) => {
+   if(!Settings().SoldAHNotification) return
+   
+   	NotificationSound.play()
+	Alert(`&b${name} &ebought: &d${item}&r &efor &6${formatNumber(parseInt(coins.replace(/,/g, "")))} Coins`, 3)
+	event.setCanceled(true)
 
-	for (let i = 0; i< 10; i++) World.playSound(`mob.cat.meow`,1,1)
-	for (let j = 0; j< 10; j++) World.playSound(`mob.cat.purr`,1,1)
+}).setCriteria(/(\[Auction] (.+) bought (.+) for (.+) coins CLICK)/)
 
-}).setCriteria(/(\[Auction] (.+) bought (.+) for (.+) coins CLICK|w)/)
 
+
+register("chat", (item) => {
+	if (!Settings().RNGMeterResetAlert) return
+
+    Render.Title(item, 2.5, 9000)
+    ScoreSound.play()
+
+}).setCriteria(/^&d&lRNG METER! &r&aReselected the (.+?) &afor .+ &e&lCLICK HERE &r&ato select a new drop!&r$/)
