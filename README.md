@@ -25,7 +25,7 @@
 
 3. type `/ct reload` in game chat 
 
-4. **optional**: Restart your game
+4. Restart your game
 
 ## 
 ### <u>Manual Installation:</u>
@@ -37,7 +37,7 @@
 
 4. **Module placement:** Drag the NoammAddons folder into the "modules" folder.
 
-5. **Finishing:** Now just type `/ct load` and your job is done!
+5. **Finishing:** Now just Restart your game
 
 
 </br>
