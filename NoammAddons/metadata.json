@@ -2,13 +2,12 @@
     "$schema": "../CTAutocomplete/schema.json",
     "name": "&bNoamm&dAddons",
     "description": "A cool mod that add the features i like the game to have.",
-    "version": "4.3.3",
+    "version": "4.3.7",
     "author": "Noamm9",
     "entry": "index.js",
     "requires": [
-    "BloomCore",
-    "RenderLib",
-  	"Amaterasu",
-	  "PogData"
+      "Amaterasu",
+      "BloomCore",
+      "RenderLib"
   ]
 }
