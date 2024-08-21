@@ -1,4 +1,4 @@
-import { fullName, ModMessage, cc} from "./utils"
+import { fullName, ModMessage, cc, CloseGame, gc} from "./utils"
 
 const File = Java.type("java.io.File")
 const URL = Java.type("java.net.URL")
@@ -25,20 +25,25 @@ function urlToFile(url, destination, connecttimeout, readtimeout) {
 }
 
 register("command", () => UpdateThread.start()).setName(`namoduleupdatetestxd`)
+register("command", CloseGame).setName(`closegame`)
 
 const UpdateThread = new Thread(() => {
     try {
         urlToFile("https://github.com/Noamm9/NoammAddons/releases/download/Release/NoammAddons.zip", "config/ChatTriggers/modules/NoammAddonsAutoUpDate.zip", 1000, 2000)
-        
         Thread.sleep(5000)
 
-        ModMessage(`${fullName}§r §cDeleted:§6 ${FileLib.deleteDirectory("config/ChatTriggers/modules/NoammAddons")}`)
+        ChatLib.chat(`${fullName}§r §cDeleted:§6 ${FileLib.deleteDirectory("config/ChatTriggers/modules/NoammAddons")}`)
         cc("§a§a§b§c§d§d§e")
-        FileLib.unzip(`config/ChatTriggers/modules/NoammAddonsAutoUpDate.zip`, `config/ChatTriggers/modules`)
 
+        FileLib.unzip(`config/ChatTriggers/modules/NoammAddonsAutoUpDate.zip`, `config/ChatTriggers/modules`)
+        ChatLib.chat(`${fullName}§r §eUnzipping NoammAddonsAutoUpDate.zip`) 
+        cc("§a§a§b§c§d§d§e")
         Thread.sleep(5000)
 
-        ModMessage(`§4[TEMP FILE]§r NoammAddons.zip §cDeleted:§6 ${FileLib.delete("config/ChatTriggers/modules/NoammAddonsAutoUpDate.zip")}`)
-
+        FileLib.delete("config/ChatTriggers/modules/NoammAddonsAutoUpDate.zip")
+        ChatLib.chat(`${fullName}§r §4[TEMP FILE]§r NoammAddons.zip §cDeleted`)
+        cc("§a§a§b§c§d§d§e")
+        new TextComponent(gc(`§aFinished Updating §bClick on this message to §4§lRestart your game.`)).setClickAction("run_command").setClickValue("/closegame").setHover("show_text", `§4§lCloses your game`).chat()
+        
     } catch (e) {ModMessage(`§bError Updating ${fullName}:\n\n§c${e}`)}
 })

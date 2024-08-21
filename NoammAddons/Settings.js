@@ -504,7 +504,13 @@ config
     category: "Dungeons",
     subcategory: "Ghost Pickaxe",
     configName: "PickaxeMode",
-    options: ["Toggleable Ghost Pick","Mimic efficiency 10","Both options 1 & 2"],
+    options: [
+        "Toggleable Ghost Pick",
+        "Mimic efficiency 10",
+        "Both options 1 & 2",
+        "Stonk Delay",
+        "Ghost Bind"
+    ],
     value: 0,
 })
 
@@ -649,7 +655,7 @@ config
 
 .addSwitch({
     title: "§a§lDungeon Mob ESP",
-    description: "\n§Draw a see through wall box around stared dungeon mobs",
+    description: "\n§dDraw a see through wall box around stared dungeon mobs",
     category: "Dungeons",
     subcategory: "ESP",
     configName: "DungeonMobESP",

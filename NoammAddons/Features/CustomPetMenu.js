@@ -4,7 +4,7 @@
 
 import Settings from "../Settings";
 import * as PacketWindowOpen from "../Utilities/Events/PacketWindowOpen";
-import { PreGuiRenderEvent, Render, CloseCurrentGui, Color, splitArray } from "../utils";
+import { PreGuiRenderEvent, Render, CloseCurrentGui, Color, splitArray, calculateScaleFactor } from "../utils";
 
 
 const PetSlots = [10, 11, 12, 13, 14, 15, 16, 19, 20, 21, 22, 23, 24, 25, 28, 29, 30, 31, 32, 33, 34, 37, 38, 39, 40, 41, 42, 43];
@@ -12,7 +12,7 @@ const [PreviousPageSlot, AutoPetRulesSlot, NextPageSlot] = [45, 46, 53];
 const LightMode = new Color(203 / 255, 202 / 255, 205 / 255, 1);
 const DarkMode = new Color(33 / 255, 33 / 255, 33 / 255, 1);
 const itemSize = 48;
-let PetMenu, ScreenWidth, ScreenHeight, x, y, width, height, mouseX, mouseY, HideMenu, ColorMode = DarkMode;
+let PetMenu, ScreenWidth, ScreenHeight, x, y, width, height, mouseX, mouseY, HideMenu, ColorMode = DarkMode, scaleFactor = 1;
 
 const cancelGuiRender = register(PreGuiRenderEvent, (event) => event.setCanceled(true)).unregister();
 const cancelChatRender = register("renderChat", (event) => event.setCanceled(true)).unregister();
@@ -47,14 +47,15 @@ function Reset() {
 
 const RenderNewGui = TriggerRegister.registerRenderOverlay(() => {
     if (HideMenu) {
-        Reset();
-        return;
+        Reset()
+        return
     }
 
     PetMenu = Player.getContainer();
     [ScreenWidth, ScreenHeight] = [Renderer.screen.getWidth(), Renderer.screen.getHeight()];
     [x, y, width, height] = [ScreenWidth / 5, ScreenHeight / 7, ScreenWidth * 0.6, ScreenHeight * 0.57];
-    [mouseX, mouseY] = [Client.getMouseX(), Client.getMouseY()];
+    [mouseX, mouseY] = [Client.getMouseX(), Client.getMouseY()]
+    scaleFactor = calculateScaleFactor(ScreenWidth, ScreenHeight)
 
     renderBackground();
     renderPetItems();
@@ -84,7 +85,7 @@ function renderPetItems() {
 
             const itemX = getX(i);
             const itemY = getY(index);
-            item.draw(itemX, itemY, itemSize / 16);
+            item.draw(itemX, itemY, (itemSize*scaleFactor)/16);
 
             if (item.getLore().join().removeFormatting().includes("Click to despawn!")) {
                 Renderer.drawRect(Renderer.color(0, 114, 255, 255), itemX - 5, itemY - 7, itemSize + 10, itemSize + 10);

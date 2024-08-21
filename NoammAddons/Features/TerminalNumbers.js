@@ -3,7 +3,7 @@
 
 
 import Settings from "../Settings"
-import { GetP3Section, IsInBossRoom, ModMessage, MyMath, Render, registerWhen } from "../utils";
+import { GetP3Section, IsInBossRoom, MyMath, Render, registerWhen } from "../utils";
 
 
 const Terminals = [

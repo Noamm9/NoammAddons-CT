@@ -3,7 +3,8 @@
 
 
 import Settings from "../Settings"
-import { BlockPoss, setAir, IsInDungeon, LegitGhostPickGUIdata, registerWhen } from "../utils"
+import { BlockPoss, setAir, IsInDungeon, LegitGhostPickGUIdata, registerWhen, GhostBlock, raytraceBlock } from "../utils"
+import * as S23PacketBlockChange from "../Utilities/Events/S23PacketBlockChange";
 import { GuiElement } from "../EditGui"
 
 
@@ -71,6 +72,28 @@ register("packetsent", (packet, event) => {
             World.playSound(BreakingSounds[String(block.type.name).toLowerCase()], 100, 1)
             
         } catch (e) {}
+    }
+})
+
+function StonkDelay(blockPos, blockState, event) {
+    if (Settings().PickaxeMode != 3) return
+    if (Player?.getHeldItem()?.getRegistryName()?.toLowerCase()?.includes(`pickaxe`)) {
+        if ([`chest`, `skull`].some(name => blockState.toString().toLowerCase().includes(name))) return
+
+        cancel(event)
+        setTimeout(() => GhostBlock(blockPos, blockState), 1000)
+    }
+}
+
+S23PacketBlockChange.AddListener(StonkDelay)
+
+
+register("tick", () => {
+    if (Settings().PickaxeMode != 4) return
+    if (Keyboard.isKeyDown(Settings().GhostPickaxeKeybind)) {
+        const block = raytraceBlock()
+        if (ignoreList.some(name => name == block.type.getName())) return
+        setAir(new BlockPoss(block.x, block.y, block.z))
     }
 })
 

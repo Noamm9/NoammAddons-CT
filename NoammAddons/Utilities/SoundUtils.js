@@ -18,3 +18,8 @@ export const ScoreSound = new Sound({
     source: "300ScoreSound.ogg",
     priority: true,
 })
+
+export const IHaveNothing = new Sound({
+    source: "IHaveNothing!.ogg",
+    priority: true
+})

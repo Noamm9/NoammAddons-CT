@@ -23,10 +23,17 @@ function isHoldingEtherwarpItem() {
 }
 
 
-const Trigger = register(MouseEvent, (event) => {
-    if (event.button !== 0 || !event.buttonstate || !isHoldingEtherwarpItem() || !Client.isTabbedIn() || !Player.isSneaking()) return
+const Trigger = register(MouseEvent, event => {
+    if (event.button !== 0 || !event.buttonstate || !isHoldingEtherwarpItem() || !Client.isTabbedIn()) return
 
-    PlayerUtils.Click(`right`)
+    if (Settings().AutoSneak && !Player.isSneaking()) { 
+        PlayerUtils.Sneak(true)
+        setTimeout(() => {
+            PlayerUtils.Click(`right`)
+            PlayerUtils.Sneak(false)
+        }, 100)
+    }
+    else if (Player.isSneaking()) PlayerUtils.Click(`right`)
 
 }).unregister()
 

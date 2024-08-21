@@ -1,10 +1,10 @@
 
 
 
-let frame = new javax.swing.JFrame("Minecaft Chat -- NoammAddons")
+const frame = new javax.swing.JFrame("Minecaft Chat -- NoammAddons")
 frame.setDefaultCloseOperation(javax.swing.JFrame.DISPOSE_ON_CLOSE)
 
-let textBox = new javax.swing.JTextArea()
+const textBox = new javax.swing.JTextArea()
 textBox.setFont(new java.awt.Font("Segoe UI", java.awt.Font.PLAIN, 18))
 textBox.setEditable(false)
 textBox.setAutoscrolls(true)
@@ -13,7 +13,7 @@ textBox.setWrapStyleWord(true)
 textBox.setBackground(java.awt.Color.gray)
 let scrollPane = new javax.swing.JScrollPane(textBox)
 
-let textField = new javax.swing.JTextField("")
+const textField = new javax.swing.JTextField("")
 textField.setFont(new java.awt.Font("Segoe UI", java.awt.Font.PLAIN, 19))
 textField.setBorder(javax.swing.BorderFactory.createEmptyBorder())
 textField.addActionListener(new java.awt.event.ActionListener({
@@ -57,7 +57,6 @@ register(`command`, () => {
 }).setName(`getCoords`)
 
 
-*/
 import { ModMessage, MouseEvent } from "../utils"
 let lastShot 
 register(MouseEvent, (event) => {
@@ -71,3 +70,4 @@ register(MouseEvent, (event) => {
         }
     } catch (error) {ModMessage(`Look at a block`)}
 })
+*/

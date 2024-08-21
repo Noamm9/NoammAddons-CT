@@ -3,7 +3,7 @@
 
 
 import Settings from "../Settings"
-import { IsInDungeon } from "../utils"
+import { IsInBossRoom, IsInDungeon, registerWhen } from "../utils"
 
 
 const EntityJoinWorldEvent = net.minecraftforge.event.entity.EntityJoinWorldEvent
@@ -97,6 +97,7 @@ function checkClicked(ctBlock, blockPos) {
 	Client.scheduleTask(1, () => currentBlockClicked = null)
 }
 
+
 const EntityJoinWorldEventTrigger = register(EntityJoinWorldEvent, (event) => {
 	if (!(event.entity instanceof EntityItem)) return
 	  
@@ -106,33 +107,6 @@ const EntityJoinWorldEventTrigger = register(EntityJoinWorldEvent, (event) => {
 	itemEntities.set(EventEntityID, { entity: EventEntity })
 	  
 }).unregister()
-
-register(`step`, () => {
-    if (!Settings().SecretsSound) return
-
-    if (IsInDungeon()) {
-
-        packetReceivedTrigger.register()
-        packetSentTrigger.register()
-        soundPlaytTrigger.register()
-        EntityJoinWorldEventTrigger.register()
-        stepTrigger.register()
-
-    } else {
-        
-        packetReceivedTrigger.unregister()
-        packetSentTrigger.unregister()
-        soundPlaytTrigger.unregister()
-        EntityJoinWorldEventTrigger.unregister()
-        stepTrigger.unregister()
-    }
-
-})
-
-
-
-
-
 
 
 const stepTrigger = register("step", () => checkEntities(EventEntityID)).setFps(5).unregister()
@@ -154,7 +128,7 @@ const packetSentTrigger = register("packetSent", (packet) => {
 
 
 const soundPlaytTrigger = register("soundPlay", (_, name) => { 
-    if (name == "mob.bat.hurt" || name == "mob.bat.death") playSound()
+	if (["mob.bat.hurt", "mob.bat.death"].some(n => n == name)) playSound()
 }).unregister()
 
 
@@ -163,3 +137,13 @@ register("worldUnload", () => {
     currentBlockClicked = null
 })
 
+
+function Checkfunc() {
+	return Settings().SecretsSound && IsInDungeon() && !IsInBossRoom()
+}
+
+registerWhen(packetReceivedTrigger, Checkfunc)
+registerWhen(packetSentTrigger, Checkfunc)
+registerWhen(soundPlaytTrigger, Checkfunc)
+registerWhen(EntityJoinWorldEventTrigger, Checkfunc)
+registerWhen(stepTrigger, Checkfunc)

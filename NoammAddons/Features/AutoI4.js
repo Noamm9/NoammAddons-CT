@@ -8,15 +8,9 @@ import { EntityArmorStand } from "../../BloomCore/utils/Utils"
 
 
 const DevBlocks = [
-    { x: 64, y: 126, z: 50 },
-    { x: 66, y: 126, z: 50 },
-    { x: 68, y: 126, z: 50 },
-    { x: 64, y: 128, z: 50 },
-    { x: 66, y: 128, z: 50 },
-    { x: 68, y: 128, z: 50 },
-    { x: 64, y: 130, z: 50 },
-    { x: 66, y: 130, z: 50 },
-    { x: 68, y: 130, z: 50 }
+    { x: 64, y: 126, z: 50 }, { x: 66, y: 126, z: 50 }, { x: 68, y: 126, z: 50 }, 
+    { x: 64, y: 128, z: 50 }, { x: 66, y: 128, z: 50 }, { x: 68, y: 128, z: 50 },
+    { x: 64, y: 130, z: 50 }, { x: 66, y: 130, z: 50 }, { x: 68, y: 130, z: 50 }
 ]
 
 const RightClickKey = Client.getMinecraft().field_71474_y.field_74313_G
@@ -131,7 +125,7 @@ const TickRegister = register(`packetReceived`, () => {
     Alerted = true
     ChatLib.say(`/pc ${prefix.removeFormatting()} I4 Done!`)
     Alert(`&a&lI4 Done!`, 3)
-    PlayerUtils.HoldClick(false)
+    if (RightClickKey.func_151468_f()) PlayerUtils.HoldClick(false)
 
 }).setFilteredClass(Java.type("net.minecraft.network.play.server.S32PacketConfirmTransaction")).unregister()
 
@@ -214,5 +208,6 @@ const ChatTrigger = register(`chat`, () => {
     Alerted = true
     ChatLib.say(`/pc ${prefix.removeFormatting()} I4 Done!`)
     Alert(`&a&lI4 Done!`, 3)
+    if (RightClickKey.func_151468_f()) PlayerUtils.HoldClick(false)
     
 }).setCriteria(/(.+) completed a device! \(...\)/).unregister()

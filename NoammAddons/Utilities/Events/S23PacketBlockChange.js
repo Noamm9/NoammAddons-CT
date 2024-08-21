@@ -22,7 +22,7 @@ export function AddListener(fn) {
 /**
  * Removes a listener from the list of window open listeners.
  *
- * @param {function} listener - The listener to remove
+ * @param {function} fn - The listener to remove
  */
 export function RemoveListener(fn) {
     Listeners.splice(Listeners.indexOf(fn), 1)
@@ -30,8 +30,11 @@ export function RemoveListener(fn) {
 
 
 register("packetReceived", (packet, event) => {
-    const blockPos = new BlockPos(packet.func_179827_b())
+    const blockPos = packet.func_179827_b()
     const blockState = packet.func_180728_a()
 
     Listeners.forEach(fn => fn(blockPos, blockState, event))
-}).setFilteredClass(Java.type("net.minecraft.network.play.client.C08PacketPlayerBlockPlacement"))
+}).setFilteredClass(Java.type("net.minecraft.network.play.server.S23PacketBlockChange"))
+
+
+

@@ -17,7 +17,10 @@ new Command("update", () => setTimeout(() => ChatLib.command("namoduleupdatetest
 
 new Command("ping", () => ModMessage(`§bYour ping is:§r &d&l${getPing()}&6ms`));
 
-new Command("tps", () => getTPS((tps) => ModMessage(`§bServer TPS is:§r &d&l${tps}`)));
+new Command("tps", () => {
+    ModMessage(`Getting server TPS...`);
+    getTPS((tps) => ModMessage(`§bServer TPS is:§r &d&l${tps}`))
+})
 
 new Command("blacklist", (...args) => {
     if (!args|| !args[0]) {

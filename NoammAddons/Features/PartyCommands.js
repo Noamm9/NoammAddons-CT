@@ -47,6 +47,8 @@ class PartyCommand {
     }
 
     registerCommand() {
+        if (!this.isEnabled()) return
+
         commands[this.CommandName] = (name, args) => {
             this.fn(name, args)
         }
@@ -95,7 +97,7 @@ const getHelpMessage = () => {
     if (Settings().pcFloor) HELP_MSG.push("f(0-7)");
     if (Settings().pcMasterFloor) HELP_MSG.push("m(1-7)");
     if (Settings().pcPtme) HELP_MSG.push("ptme");
-    if (Settings().pcWarp) HELPMSG.push("warp");
+    if (Settings().pcWarp) HELP_MSG.push("warp");
     if (Settings().pcCoords) HELP_MSG.push("coords");
     if (Settings().pcTPS) HELP_MSG.push("tps");
     if (Settings().pcPing) HELP_MSG.push("ping");
@@ -108,11 +110,7 @@ const getHelpMessage = () => {
 register("chat", (name, _, command) => {
     const loweredName = name.toLowerCase()
 
-    if (
-        (!Settings().pcEnabled && loweredName !== "noamm9") ||
-        (PartyCommandsData.blacklist.includes(loweredName) && loweredName !== "noamm9") ||
-        (Settings().pcWhitelist && !PartyCommandsData.whitelist.includes(loweredName) && loweredName !== "noamm9")
-    ) return
+    if (!Settings().pcEnabled || PartyCommandsData.blacklist.includes(loweredName)) return
 
     const args = command.split(" ")
     const commandName = args.shift()
@@ -150,25 +148,28 @@ new PartyCommand(`transfer`, "pcEnabled", (name) => {
 
 new PartyCommand(`warp`, "pcWarp", () => runCommand(`p warp`, true), ["w"])
 
-new PartyCommand(`allinvite`, "pcAllinv", () => runCommand(`p allinvite`, true), ["allinv, ai"])
+
+new PartyCommand(`allinvite`, "pcAllinv", () => runCommand(`p settings allinvite`, true), ["ai"])
 
 new PartyCommand(`coords`, "pcCoords", () => runCommand(`pc x: ${Player.getX().toFixed(0)}, y: ${Player.getY().toFixed(0)}, z: ${Player.getZ().toFixed(0)}`), ["cords"])
 
 
 new PartyCommand(`m`, "pcMasterFloor", (name, floor) => {
-    if (!floor || floor.length !== 2) return
-    const floorNum = parseInt(floor[1])
+    if (!floor) return
+    const floorNum = parseInt(floor[0])
     if (floorNum > 7 || floorNum < 0) return
-    const number = NUMBERS_TO_TEXT.get(floor[1])
+    const number = NUMBERS_TO_TEXT.get(floor[0])
     runCommand(`joininstance MASTER_CATACOMBS_FLOOR_${number}`, true)
 })
+
 new PartyCommand(`f`, "pcFloor", (name, floor) => {
-    if (!floor || floor.length !== 2) return
-    const floorNum = parseInt(floor[1])
+    if (!floor) return
+    const floorNum = parseInt(floor[0])
     if (floorNum > 7 || floorNum < 0) return
-    const number = NUMBERS_TO_TEXT.get(floor[1])
+    const number = NUMBERS_TO_TEXT.get(floor[0])
     runCommand(`joininstance CATACOMBS_FLOOR_${number}`, true)
 })
+
 
 new PartyCommand(`tps`, "pcTPS", () => {
     ModMessage("Getting TPS&a.&e.&c.");

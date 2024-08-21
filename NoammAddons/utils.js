@@ -14,7 +14,7 @@ export const C08PacketPlayerBlockPlacement = Java.type("net.minecraft.network.pl
 export const gc = (text) => ChatLib.getCenteredText(text) // getCentered
 export const cc = (text) => ChatLib.chat(gc(text)) // centerChat
 export const prefix = "§6§l[§b§lN§d§lA§6§l]§r"
-export const fullName = `§d§l§nNoamm§b§l§nAddons§r`
+export const fullName = `§d§l§nNoamm§b§l§nAddons`
 export const Color = Java.type("java.awt.Color")
 const dungeonSecrets = JSON.parse(FileLib.read(`Noammaddons`, "RandomShit/DungeonSecretsItems.json"))
 export const DungeonSecretsItems = dungeonSecrets.items
@@ -79,6 +79,14 @@ export function RickRoll() {
   Desktop.getDesktop().browse(new URI("https://www.youtube.com/watch?v=xvFZjo5PgG0"));
 }
 
+/**
+ * Instently closes the game.
+ */
+export function CloseGame() {
+  Client.getMinecraft().func_71400_g()
+}
+
+
 
 /**
  * Displays a notification with a custom message and duration.
@@ -141,28 +149,14 @@ export function getPing() {
 getPing()
 
 
-
-let TPStime = 0
 let serverTicks = 0
-let TPS
-
 export function getTPS(callback) {
   TPStime = Date.now();
-  TpsCheck.register()
+  serverTicks = 0 
   ServerTickEvent.register()
 
-  setTimeout(() => callback(TPS) , 5500)
+  setTimeout(() => callback(serverTicks/5), 5000)
 }
-
-const TpsCheck = register(`renderWorld`, () => {
-  if (Date.now() - TPStime >= 5000) {
-    ServerTickEvent.unregister()
-    TPS = serverTicks / 5
-    serverTicks = 0
-    TPStime = 0
-    TpsCheck.unregister()
-  }
-}).unregister()
 
 const ServerTickEvent = register("packetReceived", () => serverTicks++).setFilteredClass(Java.type("net.minecraft.network.play.server.S32PacketConfirmTransaction")).unregister()
 
@@ -216,8 +210,9 @@ export function GhostBlock(MCBlockPoss, MCBlockState) {
  * The function returns a value between 0.5 and 2, representing Small, Normal, Large, Auto.
  * If the user's configuration is not recognized, the function returns 1 (normal scaling).
  */
-export function getPatcherScale() {
+export function getPatcherScale(getSettingValue = false) {
   const scale = PatcherConfig?.inventoryScale
+  if (getSettingValue) return scale
 
   if (scale == 0) return 1 // Normal
   if (scale == 1) return 0.5 // Small
@@ -228,6 +223,36 @@ export function getPatcherScale() {
 
   return 1
 }
+
+
+export const raytraceBlock = (distance = 100) => {
+  let rt = Player.getPlayer().func_174822_a(distance, 0)
+  let bp = rt.func_178782_a()
+  if (!bp) return null
+  return World.getBlockAt(new BlockPos(bp))
+}
+
+
+/**
+ * Calculates the scale factor based on the user's screen dimensions and a base resolution.
+ *
+ * @param {number} userWidth - The width of the user's screen.
+ * @param {number} userHeight - The height of the user's screen.
+ * @param {number} baseWidth - The base width used for scaling.
+ * @param {number} baseHeight - The base height used for scaling.
+ * @return {number} The calculated scale factor.
+ */
+export function calculateScaleFactor(userWidth = Renderer.screen.getWidth(), userHeight = Renderer.screen.getHeight(), baseWidth = 1920, baseHeight = 1080) {
+  const widthScale = userWidth / baseWidth;
+  const heightScale = userHeight / baseHeight;
+
+  const scaleFactor = (widthScale + heightScale) / 2;
+
+  return scaleFactor+0.5
+}
+
+
+
 
 
 /**
@@ -517,10 +542,10 @@ export function IsInBossRoom() {
 
 
 const P3Sections = [
-  { corner1: { x: 91, y: 158, z: 123 }, corner2: { x: 110, y: 105, z: 32 } }, // 1
-  { corner1: { x: 16, y: 158, z: 122 }, corner2: { x: 110, y: 105, z: 142 } }, // 2
-  { corner1: { x: 18, y: 158, z: 48 }, corner2: { x: -2, y: 106, z: 142 } }, // 3
-  { corner1: { x: 91, y: 158, z: 50 }, corner2: { x: -2, y: 106, z: 30 } },  // 4
+  { corner1: { x: 90, y: 158, z: 123 }, corner2: { x: 111, y: 105, z: 32 } }, // 1
+  { corner1: { x: 16, y: 158, z: 122 }, corner2: { x: 111, y: 105, z: 143 } }, // 2
+  { corner1: { x: 19, y: 158, z: 48 }, corner2: { x: -3, y: 106, z: 142 } }, // 3
+  { corner1: { x: 91, y: 158, z: 50 }, corner2: { x: -3, y: 106, z: 30 } },  // 4
 ];
 
 export function GetP3Section() {
