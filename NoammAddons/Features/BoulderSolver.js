@@ -2,6 +2,9 @@
 /// <reference lib="es2015" />
 
 
+// slightly Modified code from DocilEllm's CT module (Doc) 
+// https://github.com/DocilElm/Doc/blob/main/Doc/features/dungeons/BoulderSolver.js
+
 import Settings from "../Settings"
 import { IsInBossRoom, IsInDungeon, ModMessage, Render, prefix, registerWhen } from "../utils";
 import { getRoomCenter, getCurrentRoom } from "../../BloomCore/utils/Utils"
