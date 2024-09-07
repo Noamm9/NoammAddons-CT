@@ -16,4 +16,4 @@ register("chat", (player, event) => {
 		  	else ChatLib.command(`gfs ender_pearl ${(16 - PearlAmont)}`)
 		} else if (PearlSlot == -1) ChatLib.command("gfs ender_pearl 16");
 		
-} ).setCriteria("Starting in 1 second.")
+}).setCriteria("Starting in 1 second.")

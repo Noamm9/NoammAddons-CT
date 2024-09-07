@@ -9,7 +9,7 @@ import { PreGuiRenderEvent, CloseCurrentGui, registerWhen, PlayerUtils } from ".
 let text = `&c&l[&0&lSwapping To Reaper...&c&l]`
 let PreviousArmorSlot
 
-
+/*
 const CancelGUIRendering = register(PreGuiRenderEvent, event => {
     cancel(event)
 
@@ -23,7 +23,7 @@ const CancelGUIRendering = register(PreGuiRenderEvent, event => {
 
 const CancelKeys = register(`guiKey`, (char, keyCode, gui, event) => cancel(event)).unregister()
 const CancelMouse = register(`guiMouseClick`, (x, y, button, gui, event) => cancel(event)).unregister()
-
+*/
 register(`command`, () => ReaperArmorSwapAction.start()).setName("ras")
 
 
@@ -32,9 +32,9 @@ registerWhen(register("chat", () => setTimeout(() => ReaperArmorSwapAction.start
 
 
 const ReaperArmorSwapAction = new Thread(() => {
-    CancelGUIRendering.register()
+    /*CancelGUIRendering.register()
     CancelKeys.register()
-    CancelMouse.register()
+    CancelMouse.register()*/
     text = `&c&l[&0&lSwapping To Reaper Armor...&c&l]`
     ChatLib.command("wd")
     
@@ -74,8 +74,8 @@ const ReaperArmorSwapAction = new Thread(() => {
 
     Thread.sleep(200)
     CloseCurrentGui()
-
+/*
     CancelGUIRendering.unregister()
     CancelKeys.unregister()
-    CancelMouse.unregister()
+    CancelMouse.unregister()*/
 })

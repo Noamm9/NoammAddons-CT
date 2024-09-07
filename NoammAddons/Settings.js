@@ -1173,7 +1173,7 @@ config
     description: "\n§fPlays A sound when an item on your AH sold",
     category: "Alerts",
     subcategory: "",
-    configName: "SoldAHNotification",
+    configName: "/",
 })
 .addSwitch({
     title: "§9Bonzo Mask§f Alert",

@@ -10,7 +10,7 @@ register(`chat`, (type) => {
     if (!Settings().AnnounceDraftsReset) return
     
     ChatLib.command(`pc ${prefix.removeFormatting()} Used Draft to Reset ${type}`)
-}).setCriteria(/^You used the Architect's First Draft to reset (Higher Or Lower| Boulder|Three Weirdos|Ice Path|Bomb Defuse)!/)
+}).setCriteria(/^You used the Architect's First Draft to reset (Higher Or Lower|Boulder|Three Weirdos|Ice Path|Bomb Defuse)!/)
 
 
 register("chat", architect).setCriteria(/^PUZZLE FAIL! (\w{1,16}) .+$/)

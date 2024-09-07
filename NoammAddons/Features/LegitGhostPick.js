@@ -52,10 +52,13 @@ registerWhen(register('tick', () => {
 
 registerWhen(register("renderOverlay", () => LegitGhostPickGuiElement.Draw()), () => Settings().LegitGhostPickaxe && Toggle)
 
+
 register("packetsent", (packet, event) => {
     if (packet.class.getSimpleName() == "C07PacketPlayerDigging" && Toggle) {
         if (Player?.getHeldItem()?.getID() !== 261 && Player?.getHeldItem()?.getID() !== 46) cancel(event)
     }
+
+    
 
     if (packet.class.getSimpleName() !== "C0APacketAnimation" || !IsInDungeon()) return
     if (Settings().PickaxeMode == 1 || Settings().PickaxeMode == 2) {

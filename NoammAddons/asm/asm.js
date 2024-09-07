@@ -14,9 +14,7 @@ export default ASM => {
     )
     .methodMaps({func_180654_a: "setBlockBoundsBasedOnState"})
 
-    .instructions($ => {
-        $.methodReturn()
-    }).execute()
+    .instructions($ => $.methodReturn()).execute()
 
     
     // Bigger Button Hitbox
@@ -28,9 +26,7 @@ export default ASM => {
     )
     .methodMaps({func_180654_a: "setBlockBoundsBasedOnState"})
     
-    .instructions($ => {
-        $.methodReturn()
-    }).execute()
+    .instructions($ => $.methodReturn()).execute()
 
 
     // Skull Button Hitbox
@@ -42,9 +38,7 @@ export default ASM => {
     )
     .methodMaps({func_180654_a: "setBlockBoundsBasedOnState"})
     
-    .instructions($ => {
-        $.methodReturn()
-    }).execute()
+    .instructions($ => $.methodReturn()).execute()
 
 }
 

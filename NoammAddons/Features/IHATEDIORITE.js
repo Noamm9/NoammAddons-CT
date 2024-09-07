@@ -9,7 +9,7 @@ const WhiteGlass = new BlockType("stained_glass").getDefaultState()
 const GreenArray = [
     new BlockPos(45, 169, 44),
     new BlockPos(46, 169, 44),
-    new BlockPos(47, 169, 44),
+    new BlockPos(47, 169, 44), 
     new BlockPos(44, 169, 43),
     new BlockPos(45, 169, 43),
     new BlockPos(46, 169, 43),

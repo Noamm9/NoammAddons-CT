@@ -33,9 +33,9 @@ const ScaledResolution = Java.type("net.minecraft.client.gui.ScaledResolution")
 const UMatrixStack = Java.type("gg.essential.universal.UMatrixStack")
 const CompatMatrix = UMatrixStack.Compat.INSTANCE
 const UGraphics = Java.type("gg.essential.universal.UGraphics")
+const ElementaUIRoundedRectangle = Java.type("gg.essential.elementa.components.UIRoundedRectangle").Companion
 const DefaultFonts = Java.type("gg.essential.elementa.font.DefaultFonts")
 const ElementaFonts = Java.type("gg.essential.elementa.font.ElementaFonts")
-const ElementaUIRoundedRectangle = Java.type("gg.essential.elementa.components.UIRoundedRectangle").Companion
 const EssentialAPI = Java.type("gg.essential.api.EssentialAPI")
 const ChatComponentText = Java.type("net.minecraft.util.ChatComponentText")
 const regCylinder = new org.lwjgl.util.glu.Cylinder()
@@ -133,7 +133,7 @@ export function invContains(str) {
 
 
 
-
+// i was lazy
 const SkytilsPing = Java.type('gg.skytils.skytilsmod.features.impl.misc.Ping');
 /**
  * Retrieves the current ping to the server.
@@ -1177,7 +1177,7 @@ export class Render {
    */
   static isElementHovered(mx, my, x, y, w, h) {
     return mx >= x && mx <= x + w && my >= y && my <= y + h
-  } 
+  }
 }
 
 

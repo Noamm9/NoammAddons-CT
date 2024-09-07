@@ -9,7 +9,7 @@ const TileEntityChest = Java.type("net.minecraft.tileentity.TileEntityChest")
 
 
 function getTrappedChests() {
-    return World.getWorld().field_147482_g. filter(e => e instanceof TileEntityChest && e.func_145980_j() == 1).map(entity => 
+    return World.getWorld().field_147482_g.filter(e => e instanceof TileEntityChest && e.func_145980_j() == 1).map(entity => 
         [entity.func_174877_v().func_177958_n(), entity.func_174877_v().func_177956_o(), entity.func_174877_v().func_177952_p()])
 }
 

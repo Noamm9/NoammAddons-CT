@@ -17,7 +17,7 @@ registerWhen(register("renderOverlay", () => EnergyCrystalText.draw(Renderer.scr
 
 
 
-registerWhen(register(`chat`, (event) => Render.Title("&9[&6&kO&r&9] &e&l⚠ &4No Thunder Bottle &e&l⚠ &9[&6&kO&r&9]", 2.5, 3000, -Renderer.screen.getHeight()/6)
+registerWhen(register(`chat`, () => Render.Title("&9[&6&kO&r&9] &e&l⚠ &4No Thunder Bottle &e&l⚠ &9[&6&kO&r&9]", 2.5, 3000, -Renderer.screen.getHeight()/6)
 ).setChatCriteria("-----------------------------\n${*} entered MM The Catacombs, Floor VII!\n-----------------------------"), 
 () => Settings().NoThunderInABottleAlert && !Player.getInventory().getItems().find(a => a?.getName()?.removeFormatting() == "Empty Thunder Bottle"))
 
@@ -87,7 +87,7 @@ register("chat", (_, name, item, coins, event) => {
 	Alert(`&b${name} &ebought: &d${item}&r &efor &6${formatNumber(parseInt(coins.replace(/,/g, "")))} Coins`, 3)
 	event.setCanceled(true)
 
-}).setCriteria(/(\[Auction] (.+) bought (.+) for (.+) coins CLICK)/)
+}).setCriteria(/\[Auction] (.+) bought (.+) for (.+) coins CLICK/)
 
 
 

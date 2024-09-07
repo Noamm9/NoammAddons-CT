@@ -1,7 +1,7 @@
-/// <reference types="../../CTAutocomplete" />
-/// <reference lib="es2015" />
+/// <reference types= "../../CTAutocomplete" />
+/// <reference lib= "es2015" />
 
-import { getPatcherScale } from "../utils";
+import { Color, getPatcherScale, ModMessage, Render } from "../utils";
 import * as PacketOpenWindow from "../Utilities/Events/PacketWindowOpen"
 
 
@@ -17,7 +17,11 @@ function reset() {
 }
 
 
+PacketOpenWindow.AddListener(disablePatcherScaleInStorageGUIForNEU)
+
 register("packetReceived", reset).setFilteredClass(net.minecraft.network.play.server.S2EPacketCloseWindow)
 register("packetSent", reset).setFilteredClass(net.minecraft.network.play.client.C0DPacketCloseWindow)
 
-PacketOpenWindow.AddListener(disablePatcherScaleInStorageGUIForNEU)
+
+
+register(`renderEntity`, () => Tessellator.disableLighting())

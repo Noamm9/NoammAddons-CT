@@ -15,7 +15,7 @@ registerWhen(register(`renderEntity`, (e) => {
     //    EntityList.push(e.getName().removeFormatting())
     if (!REXmatch) return
     
-    let dmg = formatNumber(parseInt(REXmatch[0].replace(/,/g, "").replace(/✧/g, "")))
+    let dmg = formatNumber(parseInt(REXmatch[0].replace(/,/g, "").replace(/✧|✯/g, "")))
     if (!dmg) return
     
     e.getEntity().func_96094_a(addRandomColorCodes(`✧${dmg}✧`))
